@@ -54,7 +54,7 @@ static const CGFloat imgH = 80;
     self.titleLabel.text = @"我是测试数据哈哈哈哈哈哈哈哈哈哈哈啊哈哈哈哈";
     [self.titleLabel sizeToFit];
     __block typeof(self.img)blockImageView = self.img;
-    [self.img sd_setImageWithURL:[NSURL URLWithString:@"http://img0.imgtn.bdimg.com/it/u=4195805644,827754888&fm=23&gp=0.jpg"] placeholderImage:nil];
+    [self.img sd_setImageWithURL:[NSURL URLWithString:@"https://c2.hoopchina.com.cn/uploads/star/event/images/161121/3c021ea8f8e189ce0d61a937929072cf08bdf806.jpg"] placeholderImage:nil];
 //    NSDate *commentDate = [NSDate dateWithTimeIntervalSince1970:sportList.pubDate];
     self.postDate.text = @"2017-3-6";
     

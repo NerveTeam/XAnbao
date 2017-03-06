@@ -20,13 +20,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _currentIndex = 1;
+    self.tableView.mj_header.state = MJRefreshStateRefreshing;
     [self loadData:_currentIndex];
-    [self.tableView.mj_header beginRefreshing];
    self.view.backgroundColor = [UIColor colorWithRed:(int)(arc4random() % (255))/255.0 green:(int)(arc4random() % (255))/255.0 blue:(int)(arc4random() % (255))/255.0 alpha:1];
 }
 - (void)loadData:(NSInteger)page {
-    [self stopRefresh];
-    [self.tableView reloadData];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self stopRefresh];
+        [self.tableView reloadData];
+    });
 }
 
 
@@ -60,7 +62,7 @@
 #pragma mark - lazy
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - TabBarHeight -  2 * TopBarHeight - StatusBarHeight)];
         [_tableView registerClass:[XABResourceListCell class] forCellReuseIdentifier:NSStringFromClass([XABResourceListCell class])];
         _tableView.delegate = self;
         _tableView.dataSource = self;
