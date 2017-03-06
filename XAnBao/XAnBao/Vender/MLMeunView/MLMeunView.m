@@ -85,8 +85,8 @@ static float itemMargin = 25; // item间距
     [self contentMoveToPage:item.page];
     [self scrollItemAnimation:item];
     [UIView animateWithDuration:0.3 animations:^{
-        _line.x = item.x;
-        _line.width = item.width;
+        _line.x = item.x + 2.5;
+        _line.width = item.width - 5;
     }completion:^(BOOL finished) {
         _currentState = InteractiveStateNone;
     }];
@@ -108,8 +108,8 @@ static float itemMargin = 25; // item间距
     self.selectItem.selected = YES;
     [currentItem updateItemStyle:percent];
     [gotoItem updateItemStyle:1 - percent];
-    _line.x = currentItem.x + (currentItem.width + itemMargin) * percent;
-    _line.width = currentItem.width - realLength;
+    _line.x = currentItem.x + (currentItem.width + itemMargin) * percent + 2.5;
+    _line.width = currentItem.width - realLength - 5;
     _currentState = InteractiveStateNone;
 }
 // 使当前选中的item处于中间
@@ -305,8 +305,8 @@ static float itemMargin = 25; // item间距
     }
     [self.meunScrollView setContentSize:CGSizeMake(maxWidth, _meunScrollView.size.height)];
     MLMeunItem *item = self.itemArray.firstObject;
-    _line.x = item.x;
-    _line.width = item.width;
+    _line.x = item.x + 2.5;
+    _line.width = item.width - 5;
 }
 
 
@@ -343,7 +343,7 @@ static float itemMargin = 25; // item间距
 - (UIView *)line {
     if (!_line) {
         _line = [[UIView alloc]init];
-        _line.backgroundColor = [UIColor whiteColor];
+        _line.backgroundColor = ThemeColor;
         MLMeunItem *item = [self.itemArray firstObject];
         _line.y = self.meunScrollView.height - 2;
         _line.height = 2;

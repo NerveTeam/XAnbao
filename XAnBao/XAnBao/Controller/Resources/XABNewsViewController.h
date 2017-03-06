@@ -1,5 +1,5 @@
 //
-//  remodel.h
+//  XABNewsViewController.h
 //  XAnBao
 //
 //  Created by Minlay on 17/3/6.
@@ -8,6 +8,6 @@
 
 #import "YBBaseViewController.h"
 
-@interface remodel : YBBaseViewController
+@interface XABNewsViewController : YBBaseViewController
 
 @end

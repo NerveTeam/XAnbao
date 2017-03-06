@@ -367,7 +367,6 @@
 		8CB02B431E6D58B100A57EBC /* classcell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B421E6D58B100A57EBC /* classcell.m */; };
 		8CB02B461E6D58BD00A57EBC /* homecell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B451E6D58BD00A57EBC /* homecell.m */; };
 		8CB02B491E6D58C700A57EBC /* mycell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B481E6D58C700A57EBC /* mycell.m */; };
-		8CB02B4C1E6D58D100A57EBC /* recell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B4B1E6D58D100A57EBC /* recell.m */; };
 		8CB02B4F1E6D58DB00A57EBC /* schoolcell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B4E1E6D58DB00A57EBC /* schoolcell.m */; };
 		8CB02B521E6D58EF00A57EBC /* classview.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B511E6D58EF00A57EBC /* classview.m */; };
 		8CB02B551E6D58FD00A57EBC /* homeview.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B541E6D58FD00A57EBC /* homeview.m */; };
@@ -377,8 +376,10 @@
 		8CB02B611E6D59F000A57EBC /* classmodel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B601E6D59F000A57EBC /* classmodel.m */; };
 		8CB02B641E6D59FA00A57EBC /* homemodel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B631E6D59FA00A57EBC /* homemodel.m */; };
 		8CB02B671E6D5A0500A57EBC /* mymodel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B661E6D5A0500A57EBC /* mymodel.m */; };
-		8CB02B6A1E6D5A0F00A57EBC /* remodel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B691E6D5A0F00A57EBC /* remodel.m */; };
 		8CB02B6D1E6D5A1900A57EBC /* schoolmodel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B6C1E6D5A1900A57EBC /* schoolmodel.m */; };
+		8CB02B701E6D620100A57EBC /* XABNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B6F1E6D620100A57EBC /* XABNewsViewController.m */; };
+		8CB02B731E6D69B400A57EBC /* XABResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B721E6D69B400A57EBC /* XABResource.m */; };
+		8CB02B761E6D6A8300A57EBC /* XABResourceListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B751E6D6A8300A57EBC /* XABResourceListCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -996,8 +997,6 @@
 		8CB02B451E6D58BD00A57EBC /* homecell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = homecell.m; sourceTree = "<group>"; };
 		8CB02B471E6D58C700A57EBC /* mycell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mycell.h; sourceTree = "<group>"; };
 		8CB02B481E6D58C700A57EBC /* mycell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mycell.m; sourceTree = "<group>"; };
-		8CB02B4A1E6D58D100A57EBC /* recell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = recell.h; sourceTree = "<group>"; };
-		8CB02B4B1E6D58D100A57EBC /* recell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = recell.m; sourceTree = "<group>"; };
 		8CB02B4D1E6D58DB00A57EBC /* schoolcell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = schoolcell.h; sourceTree = "<group>"; };
 		8CB02B4E1E6D58DB00A57EBC /* schoolcell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = schoolcell.m; sourceTree = "<group>"; };
 		8CB02B501E6D58EF00A57EBC /* classview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = classview.h; sourceTree = "<group>"; };
@@ -1016,10 +1015,14 @@
 		8CB02B631E6D59FA00A57EBC /* homemodel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = homemodel.m; sourceTree = "<group>"; };
 		8CB02B651E6D5A0500A57EBC /* mymodel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mymodel.h; sourceTree = "<group>"; };
 		8CB02B661E6D5A0500A57EBC /* mymodel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mymodel.m; sourceTree = "<group>"; };
-		8CB02B681E6D5A0F00A57EBC /* remodel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = remodel.h; sourceTree = "<group>"; };
-		8CB02B691E6D5A0F00A57EBC /* remodel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = remodel.m; sourceTree = "<group>"; };
 		8CB02B6B1E6D5A1900A57EBC /* schoolmodel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = schoolmodel.h; sourceTree = "<group>"; };
 		8CB02B6C1E6D5A1900A57EBC /* schoolmodel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = schoolmodel.m; sourceTree = "<group>"; };
+		8CB02B6E1E6D620100A57EBC /* XABNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABNewsViewController.h; sourceTree = "<group>"; };
+		8CB02B6F1E6D620100A57EBC /* XABNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABNewsViewController.m; sourceTree = "<group>"; };
+		8CB02B711E6D69B400A57EBC /* XABResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABResource.h; sourceTree = "<group>"; };
+		8CB02B721E6D69B400A57EBC /* XABResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABResource.m; sourceTree = "<group>"; };
+		8CB02B741E6D6A8300A57EBC /* XABResourceListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABResourceListCell.h; sourceTree = "<group>"; };
+		8CB02B751E6D6A8300A57EBC /* XABResourceListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABResourceListCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1174,6 +1177,8 @@
 			children = (
 				8CB02B0F1E6D4DB300A57EBC /* XABResourceViewController.h */,
 				8CB02B101E6D4DB300A57EBC /* XABResourceViewController.m */,
+				8CB02B6E1E6D620100A57EBC /* XABNewsViewController.h */,
+				8CB02B6F1E6D620100A57EBC /* XABNewsViewController.m */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1394,8 +1399,8 @@
 		8CB024941E6D497600A57EBC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				8CB02B681E6D5A0F00A57EBC /* remodel.h */,
-				8CB02B691E6D5A0F00A57EBC /* remodel.m */,
+				8CB02B711E6D69B400A57EBC /* XABResource.h */,
+				8CB02B721E6D69B400A57EBC /* XABResource.m */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1460,8 +1465,8 @@
 		8CB0265D1E6D497700A57EBC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				8CB02B4A1E6D58D100A57EBC /* recell.h */,
-				8CB02B4B1E6D58D100A57EBC /* recell.m */,
+				8CB02B741E6D6A8300A57EBC /* XABResourceListCell.h */,
+				8CB02B751E6D6A8300A57EBC /* XABResourceListCell.m */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -2797,7 +2802,6 @@
 			files = (
 				8CB024501E6D497000A57EBC /* YBBaseViewController.m in Sources */,
 				8CB026701E6D497700A57EBC /* UIView+Position.m in Sources */,
-				8CB02B4C1E6D58D100A57EBC /* recell.m in Sources */,
 				8CB02AED1E6D4A3B00A57EBC /* SNArticleBaseViewController+Recommend.m in Sources */,
 				8CB02A321E6D4A3B00A57EBC /* NSString+SNArticle.m in Sources */,
 				8CB024511E6D497000A57EBC /* YBCollectionViewBaseCell.m in Sources */,
@@ -2806,6 +2810,7 @@
 				8CB02AEE1E6D4A3B00A57EBC /* SNArticleBaseViewController+Support.m in Sources */,
 				8CB02B011E6D4A3B00A57EBC /* YTKRequest.m in Sources */,
 				8CB02AF31E6D4A3B00A57EBC /* SNArticleCoverView.m in Sources */,
+				8CB02B731E6D69B400A57EBC /* XABResource.m in Sources */,
 				8CB026771E6D497700A57EBC /* TestMacro.m in Sources */,
 				8CB029EB1E6D4A3A00A57EBC /* MJRefreshBackFooter.m in Sources */,
 				8CB029DE1E6D4A3A00A57EBC /* ViewController+MASAdditions.m in Sources */,
@@ -2964,6 +2969,7 @@
 				8CB029DA1E6D4A3A00A57EBC /* MASViewConstraint.m in Sources */,
 				8CB02A491E6D4A3B00A57EBC /* SNAttitudeInfo.m in Sources */,
 				8CB02A411E6D4A3B00A57EBC /* SNArticlePictureGroup.m in Sources */,
+				8CB02B701E6D620100A57EBC /* XABNewsViewController.m in Sources */,
 				8CB02A4E1E6D4A3B00A57EBC /* SNArticleParser+Image.m in Sources */,
 				8CB029C61E6D4A3A00A57EBC /* AFSecurityPolicy.m in Sources */,
 				8CB02A461E6D4A3B00A57EBC /* SNPoll.m in Sources */,
@@ -3001,6 +3007,7 @@
 				8CB02A0E1E6D4A3B00A57EBC /* MLCustomTransition.m in Sources */,
 				8CB029E21E6D4A3A00A57EBC /* MJProperty.m in Sources */,
 				8CB029FF1E6D4A3A00A57EBC /* MLBorderView.m in Sources */,
+				8CB02B761E6D6A8300A57EBC /* XABResourceListCell.m in Sources */,
 				8CB029F91E6D4A3A00A57EBC /* MJRefreshConst.m in Sources */,
 				8CB02A351E6D4A3B00A57EBC /* UIImage+SNArticle.m in Sources */,
 				8CB02B491E6D58C700A57EBC /* mycell.m in Sources */,
@@ -3010,7 +3017,6 @@
 				8CB024571E6D497000A57EBC /* TestVideo.m in Sources */,
 				8CB029F61E6D4A3A00A57EBC /* MJRefreshNormalHeader.m in Sources */,
 				8CB02B371E6D575600A57EBC /* SDWebImageDownloader.m in Sources */,
-				8CB02B6A1E6D5A0F00A57EBC /* remodel.m in Sources */,
 				8CB02AF01E6D4A3B00A57EBC /* SNArticleBaseViewController.m in Sources */,
 				8CB02AE71E6D4A3B00A57EBC /* SNJSBridge.m in Sources */,
 				8CB02A521E6D4A3B00A57EBC /* SNArticleParser.m in Sources */,
