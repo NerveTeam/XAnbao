@@ -1,0 +1,78 @@
+{"channel" : {
+    "tab" : [
+            {
+            "title" :  "常用",
+             "class" : "XABHomeViewController",
+             "norImg" : "faculty_common",
+             "selectImg" : "faculty_commons"
+            },
+             {
+             "title" :  "我的学校",
+             "class" : "XABSchoolViewController",
+             "norImg" : "faculty_school",
+             "selectImg" : "faculty_schools"
+             },
+             {
+             "title" :  "我的班级",
+             "class" : "XABClassViewController",
+             "norImg" : "faculty_class",
+             "selectImg" : "faculty_classs"
+             },
+             {
+             "title" :  "学习资源",
+             "class" : "XABResourceViewController",
+             "norImg" : "faculty_learning_resource",
+             "selectImg" : "faculty_learning_resources"
+             },
+             {
+             "title" :  "我的",
+             "class" : "XABMineViewController",
+             "norImg" : "faculty_my",
+             "selectImg" : "faculty_mys"
+             }
+    
+    
+    ],
+    
+    "news" : [
+              {
+              "title" : "中超",
+              "channelId" : 1,
+              "channelName" : "中超新闻",
+              "icon" : "zhongchao"
+              },
+              {
+              "title" : "英超",
+              "channelId" : 2,
+              "channelName" : "英超新闻",
+              "icon" : "yingchao"
+              },
+              {
+              "title" : "西甲",
+              "channelId" : 3,
+              "channelName" : "西甲新闻",
+              "icon" : "xijia"
+              },
+              {
+              "title" : "德甲",
+              "channelId" : 4,
+              "channelName" : "德甲新闻",
+              "icon" : "dejia"
+              },
+              {
+              "title" : "意甲",
+              "channelId" : 5,
+              "channelName" : "意甲新闻",
+              "icon" : "yijia"
+              }
+    ],
+    
+    "information" : {
+    
+    },
+    "message" : {
+    
+    }
+
+}
+}

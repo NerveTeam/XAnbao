@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html class=" -webkit-">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta id="viewport" name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+<title>新浪新闻 - 正文组件化</title>
+<link href="css/template.css" rel="stylesheet" type="text/css">
+</head>
+
+<!--大s_large 中s_middle 小s_small-->
+<body id="main_article" class="[FONTSIZE] [THEME_STYLE] ios" style="font-family:[FONT];">
+
+	<!-- 顶部头图-->
+    <!--HEAD_PIC-->
+ 
+	<section id="article-content" class="M_main">
+        
+        <!--顶部banner-->
+        <!--TOPBANNER-->
+        
+        <!--媒体信息-->
+        <!--MEDIA-->
+        
+		<!-- 标题栏 -->
+		<!--CONTENT_TITLE-->
+        
+        <!--正文-->
+        [NEWSCONTENTS]
+        
+        <!--分享-->
+        [SHAREKIT]
+        
+        <div class="separator"></div>
+        
+        <!--应用推荐 可不做替换-->
+        <!--[NEWSAPPEXT]-->
+        
+        <!-- 合作广告 -->
+        [ADBANNER]
+        
+		<!-- 媒体订阅 可不做替换-->
+        <!--[CHANNELINFO]-->
+		
+        <!--文字推广-->
+        <article id="ArticleTextAD" class="M_promote" data-pl="ad_spread" style="display:none"></article>
+        
+        <!--相关新闻-->
+        <article id="ArticleRecommend" class="M_relateNews" data-pl="recommends" style="display:none">[NEWSRECOMMENDED]</article>
+        
+        <!--热点关注-->
+        <article data-pl="keys" class="M_key">[NEWSKEYWORDS]</article>
+        
+        <!--图片推广-->
+        <article id="ArticleImageAD" class="M_promote" data-pl="ad_spread"></article>
+        
+        <!--名人评论-->
+        <article id="people_comments" data-pl="people_comments" class="M_comment"></article>
+        
+        <!--热门评论-->
+        <article id="hot_comments" data-pl="hot_comments" class="M_comment"></article>
+        
+	</section>
+
+	<script type="text/javascript">
+		// 页面配置区域
+		var $CONFIG = {};
+		var JSON_DATA;
+		$CONFIG.timeStart = new Date() - 0;
+		$CONFIG.platform = 'ios';
+		$CONFIG.pageData = [JSON_DATA];
+	</script>
+	<script src="js/conf/static/imgload.js"></script>
+	<script>
+	if(window.imgBox){
+		window.imgBox.init({
+			styleError : 'C_download',
+            styleErrorSmall : 'C_downloadsmall',
+			styleLoading : 'C_loading'
+		});
+	}
+	</script>
+	
+	<script type="text/javascript" src="js/lithe.js" data-config="/config.js"></script>
+	<script type="text/javascript">
+		lithe.use('conf/global', function(){
+			lithe.use('conf/page/compindex');
+		});
+	</script>
+
+</body>
+</html>
