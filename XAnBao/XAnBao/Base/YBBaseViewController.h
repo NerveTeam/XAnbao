@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "UIViewController+Navigation.h"
+#import "UITableView+FDTemplateLayoutCell.h"
+#import "MJRefresh.h"
 
 @interface YBBaseViewController : UIViewController
-
+@property(nonatomic,strong)NSArray *dataList;
 @end
