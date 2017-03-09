@@ -41,6 +41,9 @@ static float itemMargin = 25; // item间距
     self.backgroundColor = [UIColor clearColor];
     return self;
 }
+- (void)changeMenuWidth:(CGFloat)width {
+    self.meunScrollView.width = width;
+}
 - (void)show {
     [self addSubViewcontroller:0];
 }
@@ -266,9 +269,9 @@ static float itemMargin = 25; // item间距
         if (scrollView.contentOffset.x <= 0) {
             
             [scrollView setContentOffset:CGPointMake(0 , 0)];
-        }else if(scrollView.contentOffset.x + self.width >= scrollView.contentSize.width){
+        }else if(scrollView.contentOffset.x + self.meunScrollView.width >= scrollView.contentSize.width){
             
-            [scrollView setContentOffset:CGPointMake(scrollView.contentSize.width - self.width, 0)];
+            [scrollView setContentOffset:CGPointMake(scrollView.contentSize.width - self.meunScrollView.width, 0)];
         }
     }else if(scrollView == _contentScrollView){
         _currentState = InteractiveStateScroll;
