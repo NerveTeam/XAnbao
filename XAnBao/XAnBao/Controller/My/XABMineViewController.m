@@ -8,6 +8,8 @@
 
 #import "XABMineViewController.h"
 
+#import "XABLoginViewController.h"
+#import "AppDelegate.h"
 @interface XABMineViewController ()
 
 @end
@@ -17,6 +19,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+}
+
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    
+    AppDelegate *app =(AppDelegate *) [[UIApplication sharedApplication] delegate ];
+    [app loginVc];
 }
 
 - (void)didReceiveMemoryWarning {

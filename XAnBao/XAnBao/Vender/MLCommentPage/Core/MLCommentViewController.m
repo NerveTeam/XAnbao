@@ -49,7 +49,6 @@
 {
     NSMutableDictionary *param = self.parameter.mutableCopy;
     [param setObject:@(_page) forKey:@"page"];
-    [NewsCommentList requestDataWithDelegate:self parameters:param];
 }
 
 

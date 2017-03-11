@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "YBTabBarController.h"
 
+#import "XABLoginViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -19,12 +20,21 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self globalConfig];
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
-    YBTabBarController *tabBarController = [[YBTabBarController alloc]init];
-    self.window.rootViewController = tabBarController;
-    [self.window makeKeyAndVisible];
+    
+    [self loginVc];
+    
     return YES;
 }
 
+-(void)loginVc{
+    
+    XABLoginViewController *vc =[[XABLoginViewController alloc] init];
+    
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];;
+    self.window.rootViewController = nav;
+    [self.window makeKeyAndVisible];
+
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
