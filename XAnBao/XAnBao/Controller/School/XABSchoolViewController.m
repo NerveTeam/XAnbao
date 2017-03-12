@@ -12,8 +12,10 @@
 #import "UIButton+Extention.h"
 #import "XABSchoolMenu.h"
 #import "XABSchoolMessage.h"
+#import "XABSearchViewController.h"
+//#import "XABTestTableViewController.h"
 
-@interface XABSchoolViewController ()<XABSchoolMessageDelegate>
+@interface XABSchoolViewController ()<XABSchoolMessageDelegate, XABSchoolMenuDelegate>
 // 菜单
 @property(nonatomic, strong)MLMeunView *meunView;
 // 频道数据
@@ -57,7 +59,7 @@
 - (void)clickMessageMail {
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     [window addSubview:self.schoolMenuBgView];
-    self.schoolMessage = [XABSchoolMessage schoolMessageList:@[@"dsf",@"dffs",@"fdgfdg"]];
+    self.schoolMessage = [XABSchoolMessage schoolMessageList:@[@"王园园负CEO",@"韩森工程师",@"吴明磊总监"]];
     self.schoolMessage.delegate = self;
     self.schoolMessage.width = SCREEN_WIDTH - 40;
     self.schoolMessage.height = 200;
@@ -69,7 +71,8 @@
 - (void)clickSchoolMenu {
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     [window addSubview:self.schoolMenuBgView];
-    self.schoolMenu = [XABSchoolMenu schoolMenuList:@[@"dsf",@"dffs",@"fdgfdg"]];
+    self.schoolMenu = [XABSchoolMenu schoolMenuList:@[@"测试学校",@"北京市昌平区回龙观小学",@"北京市东城区实验小学"]];
+    self.schoolMenu.delegate = self;
     [window addSubview:self.schoolMenu];
 }
 - (void)tapClick {
@@ -85,6 +88,10 @@
     }
 }
 
+- (void)searchClick {
+    [self.navigationController pushViewController:[XABSearchViewController new] animated:YES];
+}
+
 
 - (void)messageDidFinish:(NSString *)object content:(NSString *)content {
 
@@ -96,6 +103,26 @@
     self.schoolMessage = nil;
 }
 
+
+- (void)schoolMenuSetDefault:(NSString *)str {
+    [self.currentSelectSchool setTitle:str forState:UIControlStateNormal];
+    [_currentSelectSchool sizeToFit];
+    [_currentSelectSchool layoutButtonWithEdgeInsetsStyle:MKButtonEdgeInsetsStyleRight imageTitleSpace:5];
+    [self.schoolMenu removeFromSuperview];
+    [self.schoolMenuBgView removeFromSuperview];
+}
+
+- (void)schoolMenuCancelFoucs:(NSString *)str {
+
+}
+
+- (void)schoolMenuSelected:(NSString *)str {
+    [self.currentSelectSchool setTitle:str forState:UIControlStateNormal];
+    [_currentSelectSchool sizeToFit];
+    [_currentSelectSchool layoutButtonWithEdgeInsetsStyle:MKButtonEdgeInsetsStyleRight imageTitleSpace:5];
+    [self.schoolMenu removeFromSuperview];
+    [self.schoolMenuBgView removeFromSuperview];
+}
 #pragma mark - lazy
 - (MLMeunView *)meunView {
     if (!_meunView) {
@@ -108,7 +135,7 @@
 }
 - (NSArray *)channelData {
     if (!_channelData) {
-        _channelData = @[@"XABNewsNoticeViewController",@"XABStudentStyleViewController",@"XABSchoolSummaryViewController",@"XABSchoolPictureViewController"];
+        _channelData = @[@"XABSchoolDetailViewController",@"XABSchoolDetailViewController",@"XABSchoolDetailViewController",@"XABSchoolDetailViewController"];
     }
     return _channelData;
 }
@@ -136,6 +163,7 @@
     if (!_searchBtn) {
         _searchBtn = [UIButton buttonWithImageNormal:@"nav_btn_search" imageSelected:@"nav_btn_search"];
         [_searchBtn sizeToFit];
+        [_searchBtn addTarget:self action:@selector(searchClick) forControlEvents:UIControlEventTouchUpInside];
         [self.topBarView addSubview:_searchBtn];
     }
     return _searchBtn;

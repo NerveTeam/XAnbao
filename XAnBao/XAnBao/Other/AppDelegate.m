@@ -60,5 +60,11 @@
     [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
                                                        RGBACOLOR(46, 132, 212, 1), UITextAttributeTextColor,
                                                        nil] forState:UIControlStateSelected];
+    
+    
+    [[UINavigationBar appearance] setBarTintColor:ThemeColor];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
+                                                         forBarMetrics:UIBarMetricsDefault];
 }
 @end

@@ -9,8 +9,9 @@
 #import "XABSchoolMessage.h"
 #import "UILabel+Extention.h"
 #import "UIButton+Extention.h"
+#import "NSArray+Safe.h"
 
-@interface XABSchoolMessage ()<UITextViewDelegate>
+@interface XABSchoolMessage ()<UITextViewDelegate,UITextFieldDelegate,UIActionSheetDelegate>
 @property(nonatomic, strong)NSArray *list;
 @property(nonatomic, strong)UITextField *nameView;
 @property(nonatomic, strong)UITextView *contentView;
@@ -80,6 +81,24 @@
         self.placeholderLabel.hidden = YES;
     }
 }
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"选择对象" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:nil, nil];
+    for (NSString *name in self.list) {
+        [sheet addButtonWithTitle:name];
+    }
+    [sheet showInView:self];
+    return NO;
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (!buttonIndex) {
+        NSLog(@"点击了取消");
+    }
+    else {
+        self.nameView.text = [self.list safeObjectAtIndex:buttonIndex - 1];
+    }
+}
+
 
 - (UITextField *)nameView {
     if (!_nameView) {
@@ -87,6 +106,7 @@
         _nameView.placeholder = @"请选择";
         _nameView.font = [UIFont systemFontOfSize:15];
         _nameView.borderStyle = UITextBorderStyleRoundedRect;
+        _nameView.delegate = self;
         [self addSubview:_nameView];
     }
     return _nameView;

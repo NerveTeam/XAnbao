@@ -23,8 +23,8 @@
     return self;
 }
 
-- (void)setModel {
-self.schoolLabel.text = @"系统测试学校";
+- (void)setModel:(NSString *)str {
+self.schoolLabel.text = str;
 }
 
 - (void)viewLayout {

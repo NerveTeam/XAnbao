@@ -388,6 +388,10 @@
 		8CB02B8F1E714B6300A57EBC /* XABArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B8E1E714B6300A57EBC /* XABArticleViewController.m */; };
 		8CB02B921E71515400A57EBC /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B911E71515400A57EBC /* Reachability.m */; };
 		8CB02B951E71662400A57EBC /* XABSchoolMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B941E71662400A57EBC /* XABSchoolMessage.m */; };
+		8CB02B981E7257E700A57EBC /* XABSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B971E7257E700A57EBC /* XABSearchViewController.m */; };
+		8CB02B9B1E72986000A57EBC /* XABSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B9A1E72986000A57EBC /* XABSearchCell.m */; };
+		8CB02B9D1E72A5A000A57EBC /* XABTestTableViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CB02B9C1E72A5A000A57EBC /* XABTestTableViewController.storyboard */; };
+		8CFBD50A1E75339600EE691B /* XABSchoolDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CFBD5091E75339600EE691B /* XABSchoolDetailViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1047,6 +1051,13 @@
 		8CB02B911E71515400A57EBC /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		8CB02B931E71662400A57EBC /* XABSchoolMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABSchoolMessage.h; sourceTree = "<group>"; };
 		8CB02B941E71662400A57EBC /* XABSchoolMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABSchoolMessage.m; sourceTree = "<group>"; };
+		8CB02B961E7257E700A57EBC /* XABSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABSearchViewController.h; sourceTree = "<group>"; };
+		8CB02B971E7257E700A57EBC /* XABSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABSearchViewController.m; sourceTree = "<group>"; };
+		8CB02B991E72986000A57EBC /* XABSearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABSearchCell.h; sourceTree = "<group>"; };
+		8CB02B9A1E72986000A57EBC /* XABSearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABSearchCell.m; sourceTree = "<group>"; };
+		8CB02B9C1E72A5A000A57EBC /* XABTestTableViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = XABTestTableViewController.storyboard; sourceTree = "<group>"; };
+		8CFBD5081E75339600EE691B /* XABSchoolDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABSchoolDetailViewController.h; sourceTree = "<group>"; };
+		8CFBD5091E75339600EE691B /* XABSchoolDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABSchoolDetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1221,6 +1232,10 @@
 				8CB02B7E1E6EBE3F00A57EBC /* XABSchoolSummaryViewController.m */,
 				8CB02B801E6EBE6500A57EBC /* XABSchoolPictureViewController.h */,
 				8CB02B811E6EBE6500A57EBC /* XABSchoolPictureViewController.m */,
+				8CB02B961E7257E700A57EBC /* XABSearchViewController.h */,
+				8CB02B971E7257E700A57EBC /* XABSearchViewController.m */,
+				8CFBD5081E75339600EE691B /* XABSchoolDetailViewController.h */,
+				8CFBD5091E75339600EE691B /* XABSchoolDetailViewController.m */,
 			);
 			path = School;
 			sourceTree = "<group>";
@@ -1228,6 +1243,7 @@
 		8CB0243F1E6D497000A57EBC /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				8CB02B9C1E72A5A000A57EBC /* XABTestTableViewController.storyboard */,
 				8CB02B901E71515400A57EBC /* Reachability.h */,
 				8CB02B911E71515400A57EBC /* Reachability.m */,
 				8CB02B891E714ADF00A57EBC /* RNCachingURLProtocol.h */,
@@ -1513,6 +1529,8 @@
 			children = (
 				8CB02B861E6FF23300A57EBC /* XABSchoolMenuCell.h */,
 				8CB02B871E6FF23300A57EBC /* XABSchoolMenuCell.m */,
+				8CB02B991E72986000A57EBC /* XABSearchCell.h */,
+				8CB02B9A1E72986000A57EBC /* XABSearchCell.m */,
 			);
 			path = School;
 			sourceTree = "<group>";
@@ -2720,6 +2738,7 @@
 				8CB02AC91E6D4A3B00A57EBC /* up_night.png in Resources */,
 				8CB02AB31E6D4A3B00A57EBC /* red_question.png in Resources */,
 				8CB02ABC1E6D4A3B00A57EBC /* radiocur.png in Resources */,
+				8CB02B9D1E72A5A000A57EBC /* XABTestTableViewController.storyboard in Resources */,
 				8CB02ABA1E6D4A3B00A57EBC /* quote_ico.png in Resources */,
 				8CB02A971E6D4A3B00A57EBC /* n_downdefault2x.png in Resources */,
 				8CB02AB51E6D4A3B00A57EBC /* right_up2x.png in Resources */,
@@ -2868,6 +2887,7 @@
 				8CB02B361E6D575600A57EBC /* SDWebImageDecoder.m in Sources */,
 				8CB02B7C1E6EBDD800A57EBC /* XABStudentStyleViewController.m in Sources */,
 				8CB029EF1E6D4A3A00A57EBC /* MJRefreshAutoGifFooter.m in Sources */,
+				8CFBD50A1E75339600EE691B /* XABSchoolDetailViewController.m in Sources */,
 				8CB0266A1E6D497700A57EBC /* UIButton+Extention.m in Sources */,
 				8CB02B141E6D4DBD00A57EBC /* XABMineViewController.m in Sources */,
 				8CB02A0B1E6D4A3B00A57EBC /* MLMeunView.m in Sources */,
@@ -3009,6 +3029,7 @@
 				8CB02B921E71515400A57EBC /* Reachability.m in Sources */,
 				8CB02AF71E6D4A3B00A57EBC /* UITableView+FDTemplateLayoutCellDebug.m in Sources */,
 				8CB02AEC1E6D4A3B00A57EBC /* SNArticleBaseViewController+JSBridge.m in Sources */,
+				8CB02B9B1E72986000A57EBC /* XABSearchCell.m in Sources */,
 				8CB029D91E6D4A3A00A57EBC /* MASViewAttribute.m in Sources */,
 				8CB029E61E6D4A3A00A57EBC /* NSObject+MJCoding.m in Sources */,
 				8CB029C81E6D4A3A00A57EBC /* AFURLResponseSerialization.m in Sources */,
@@ -3074,6 +3095,7 @@
 				8CB029F61E6D4A3A00A57EBC /* MJRefreshNormalHeader.m in Sources */,
 				8CB02B371E6D575600A57EBC /* SDWebImageDownloader.m in Sources */,
 				8CB02AF01E6D4A3B00A57EBC /* SNArticleBaseViewController.m in Sources */,
+				8CB02B981E7257E700A57EBC /* XABSearchViewController.m in Sources */,
 				8CB02AE71E6D4A3B00A57EBC /* SNJSBridge.m in Sources */,
 				8CB02A521E6D4A3B00A57EBC /* SNArticleParser.m in Sources */,
 				8CB02A471E6D4A3B00A57EBC /* SNSpecalContent.m in Sources */,
@@ -3218,6 +3240,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
 				DEVELOPMENT_TEAM = G5RPGT9NVU;
 				GCC_PREFIX_HEADER = XAnBao/Other/PrefixHeader.pch;
 				INFOPLIST_FILE = XAnBao/Info.plist;
@@ -3231,6 +3254,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
 				DEVELOPMENT_TEAM = G5RPGT9NVU;
 				GCC_PREFIX_HEADER = XAnBao/Other/PrefixHeader.pch;
 				INFOPLIST_FILE = XAnBao/Info.plist;

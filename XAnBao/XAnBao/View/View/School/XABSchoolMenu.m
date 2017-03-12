@@ -8,6 +8,7 @@
 
 #import "XABSchoolMenu.h"
 #import "XABSchoolMenuCell.h"
+#import "NSArray+Safe.h"
 
 @interface XABSchoolMenu ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic, strong)NSArray *menuList;
@@ -49,7 +50,7 @@ static int rowHeight = 40;
     if (!cell) {
         cell = [[XABSchoolMenuCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"XABSchoolMenuCell"];
     }
-    [cell setModel];
+    [cell setModel:[self.menuList safeObjectAtIndex:indexPath.row]];
     return cell;
 }
 
@@ -64,12 +65,16 @@ static int rowHeight = 40;
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     UITableViewRowAction *cancelAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"取消关注" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-        NSLog(@"dd");
+        if ([_delegate respondsToSelector:@selector(schoolMenuCancelFoucs:)]) {
+            [_delegate schoolMenuCancelFoucs:[self.menuList safeObjectAtIndex:indexPath.row]];
+        }
         tableView.editing = NO;
     }];
     cancelAction.backgroundColor = [UIColor redColor];
     UITableViewRowAction *defaultAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"设为默认" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-        NSLog(@"dd");
+        if ([_delegate respondsToSelector:@selector(schoolMenuSetDefault:)]) {
+            [_delegate schoolMenuSetDefault:[self.menuList safeObjectAtIndex:indexPath.row]];
+        }
         tableView.editing = NO;
     }];
     defaultAction.backgroundColor = [UIColor blueColor];
@@ -78,6 +83,12 @@ static int rowHeight = 40;
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     editingStyle = UITableViewCellEditingStyleDelete;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([_delegate respondsToSelector:@selector(schoolMenuSelected:)]) {
+        [_delegate schoolMenuSelected:[self.menuList safeObjectAtIndex:indexPath.row]];
+    }
 }
 
 - (UITableView *)menuListView {

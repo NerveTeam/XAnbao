@@ -10,6 +10,7 @@
 #import "SDCycleScrollView.h"
 #import "XABResource.h"
 #import "XABResourceListCell.h"
+#import "XABArticleViewController.h"
 
 @interface XABStudentStyleViewController ()<SDCycleScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)SDCycleScrollView *cycleView;
@@ -59,9 +60,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     XABResource *sport = self.dataList[indexPath.row];
-    //    YBArticleViewController *article = [[YBArticleViewController alloc]initWithNewsId:[NSString stringWithFormat:@"%ld",sport.newsId]];
+    XABArticleViewController *article = [[XABArticleViewController alloc]initWithUrl:@"https://sports.sina.cn/nba/warriors/2017-03-09/detail-ifychhuq3433755.d.html?vt=4&pos=10&HTTPS=1"];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    //    [self.navigationController pushViewController:article animated:YES];
+    [self.navigationController pushViewController:article animated:YES];
 }
 
 

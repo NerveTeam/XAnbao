@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface XABSchoolMenuCell : UITableViewCell
-- (void)setModel;
+- (void)setModel:(NSString *)str;
 @end
