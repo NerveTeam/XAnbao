@@ -47,5 +47,6 @@ viewcontrollersInfo:(NSArray *)controllersInfo
 - (void)meunMoveToPage:(NSInteger)page;
 - (void)contentMoveToPage:(NSInteger)page;
 - (void)reloadMeunStyle;
-
+// 只针对学校模块
+- (void)changeMenuWidth:(CGFloat)width;
 @end

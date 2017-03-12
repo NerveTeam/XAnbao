@@ -1,22 +1,24 @@
 //
-//  XABNewsViewController.m
+//  XABStudentStyleViewController.m
 //  XAnBao
 //
-//  Created by Minlay on 17/3/6.
+//  Created by Minlay on 17/3/7.
 //  Copyright © 2017年 Minlay. All rights reserved.
 //
 
-#import "XABNewsViewController.h"
+#import "XABStudentStyleViewController.h"
+#import "SDCycleScrollView.h"
 #import "XABResource.h"
 #import "XABResourceListCell.h"
 #import "XABArticleViewController.h"
 
-@interface XABNewsViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface XABStudentStyleViewController ()<SDCycleScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
+@property(nonatomic,strong)SDCycleScrollView *cycleView;
 @property(nonatomic, strong)UITableView *tableView;
 @property(nonatomic, assign)NSInteger currentIndex;
 @end
 
-@implementation XABNewsViewController
+@implementation XABStudentStyleViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -24,10 +26,14 @@
     self.tableView.mj_header.state = MJRefreshStateRefreshing;
     [self loadData:_currentIndex];
 }
+
 - (void)loadData:(NSInteger)page {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self stopRefresh];
-        [self.tableView reloadData];
+    __weak typeof(self)weakSelf = self;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [weakSelf stopRefresh];
+        [weakSelf.tableView reloadData];
+        
+        weakSelf.cycleView.imageURLStringsGroup = @[@"https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3510003795,2153467965&fm=23&gp=0.jpg",@"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1017904219,2460650030&fm=23&gp=0.jpg",@"https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=938946740,2496936570&fm=23&gp=0.jpg",@"https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3448641352,2315059109&fm=23&gp=0.jpg"];
     });
 }
 
@@ -38,7 +44,7 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 30;
-//    return self.dataList.count;
+    //    return self.dataList.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     XABResourceListCell *cell = [XABResourceListCell newsSportListCellWithTableView:tableView];
@@ -59,6 +65,8 @@
     [self.navigationController pushViewController:article animated:YES];
 }
 
+
+
 #pragma mark - lazy
 - (UITableView *)tableView {
     if (!_tableView) {
@@ -66,6 +74,7 @@
         [_tableView registerClass:[XABResourceListCell class] forCellReuseIdentifier:NSStringFromClass([XABResourceListCell class])];
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        _tableView.tableHeaderView = self.cycleView;
         _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
             _currentIndex = 1;
             [self loadData:_currentIndex];
@@ -76,5 +85,12 @@
         [self.view addSubview:_tableView];
     }
     return _tableView;
+}
+- (SDCycleScrollView *)cycleView {
+    if (!_cycleView) {
+        _cycleView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, imgScale(SCREEN_WIDTH)) delegate:self placeholderImage:[UIImage imageNamed:@""]];
+        _cycleView.autoScroll = NO;
+    }
+    return _cycleView;
 }
 @end

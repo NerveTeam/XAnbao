@@ -367,12 +367,10 @@
 		8CB02B431E6D58B100A57EBC /* classcell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B421E6D58B100A57EBC /* classcell.m */; };
 		8CB02B461E6D58BD00A57EBC /* homecell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B451E6D58BD00A57EBC /* homecell.m */; };
 		8CB02B491E6D58C700A57EBC /* mycell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B481E6D58C700A57EBC /* mycell.m */; };
-		8CB02B4F1E6D58DB00A57EBC /* schoolcell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B4E1E6D58DB00A57EBC /* schoolcell.m */; };
 		8CB02B521E6D58EF00A57EBC /* classview.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B511E6D58EF00A57EBC /* classview.m */; };
 		8CB02B551E6D58FD00A57EBC /* homeview.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B541E6D58FD00A57EBC /* homeview.m */; };
 		8CB02B581E6D590600A57EBC /* myview.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B571E6D590600A57EBC /* myview.m */; };
 		8CB02B5B1E6D59D600A57EBC /* review.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B5A1E6D59D600A57EBC /* review.m */; };
-		8CB02B5E1E6D59E500A57EBC /* schoolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B5D1E6D59E500A57EBC /* schoolView.m */; };
 		8CB02B611E6D59F000A57EBC /* classmodel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B601E6D59F000A57EBC /* classmodel.m */; };
 		8CB02B641E6D59FA00A57EBC /* homemodel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B631E6D59FA00A57EBC /* homemodel.m */; };
 		8CB02B671E6D5A0500A57EBC /* mymodel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B661E6D5A0500A57EBC /* mymodel.m */; };
@@ -380,6 +378,20 @@
 		8CB02B701E6D620100A57EBC /* XABNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B6F1E6D620100A57EBC /* XABNewsViewController.m */; };
 		8CB02B731E6D69B400A57EBC /* XABResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B721E6D69B400A57EBC /* XABResource.m */; };
 		8CB02B761E6D6A8300A57EBC /* XABResourceListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B751E6D6A8300A57EBC /* XABResourceListCell.m */; };
+		8CB02B791E6EA65E00A57EBC /* XABNewsNoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B781E6EA65E00A57EBC /* XABNewsNoticeViewController.m */; };
+		8CB02B7C1E6EBDD800A57EBC /* XABStudentStyleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B7B1E6EBDD800A57EBC /* XABStudentStyleViewController.m */; };
+		8CB02B7F1E6EBE3F00A57EBC /* XABSchoolSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B7E1E6EBE3F00A57EBC /* XABSchoolSummaryViewController.m */; };
+		8CB02B821E6EBE6500A57EBC /* XABSchoolPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B811E6EBE6500A57EBC /* XABSchoolPictureViewController.m */; };
+		8CB02B851E6FED2300A57EBC /* XABSchoolMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B841E6FED2300A57EBC /* XABSchoolMenu.m */; };
+		8CB02B881E6FF23300A57EBC /* XABSchoolMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B871E6FF23300A57EBC /* XABSchoolMenuCell.m */; };
+		8CB02B8B1E714ADF00A57EBC /* RNCachingURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B8A1E714ADF00A57EBC /* RNCachingURLProtocol.m */; };
+		8CB02B8F1E714B6300A57EBC /* XABArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B8E1E714B6300A57EBC /* XABArticleViewController.m */; };
+		8CB02B921E71515400A57EBC /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B911E71515400A57EBC /* Reachability.m */; };
+		8CB02B951E71662400A57EBC /* XABSchoolMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B941E71662400A57EBC /* XABSchoolMessage.m */; };
+		8CB02B981E7257E700A57EBC /* XABSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B971E7257E700A57EBC /* XABSearchViewController.m */; };
+		8CB02B9B1E72986000A57EBC /* XABSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B9A1E72986000A57EBC /* XABSearchCell.m */; };
+		8CB02B9D1E72A5A000A57EBC /* XABTestTableViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CB02B9C1E72A5A000A57EBC /* XABTestTableViewController.storyboard */; };
+		8CFBD50A1E75339600EE691B /* XABSchoolDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CFBD5091E75339600EE691B /* XABSchoolDetailViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -997,8 +1009,6 @@
 		8CB02B451E6D58BD00A57EBC /* homecell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = homecell.m; sourceTree = "<group>"; };
 		8CB02B471E6D58C700A57EBC /* mycell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mycell.h; sourceTree = "<group>"; };
 		8CB02B481E6D58C700A57EBC /* mycell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mycell.m; sourceTree = "<group>"; };
-		8CB02B4D1E6D58DB00A57EBC /* schoolcell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = schoolcell.h; sourceTree = "<group>"; };
-		8CB02B4E1E6D58DB00A57EBC /* schoolcell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = schoolcell.m; sourceTree = "<group>"; };
 		8CB02B501E6D58EF00A57EBC /* classview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = classview.h; sourceTree = "<group>"; };
 		8CB02B511E6D58EF00A57EBC /* classview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = classview.m; sourceTree = "<group>"; };
 		8CB02B531E6D58FD00A57EBC /* homeview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = homeview.h; sourceTree = "<group>"; };
@@ -1007,8 +1017,6 @@
 		8CB02B571E6D590600A57EBC /* myview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = myview.m; sourceTree = "<group>"; };
 		8CB02B591E6D59D600A57EBC /* review.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = review.h; sourceTree = "<group>"; };
 		8CB02B5A1E6D59D600A57EBC /* review.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = review.m; sourceTree = "<group>"; };
-		8CB02B5C1E6D59E500A57EBC /* schoolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = schoolView.h; sourceTree = "<group>"; };
-		8CB02B5D1E6D59E500A57EBC /* schoolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = schoolView.m; sourceTree = "<group>"; };
 		8CB02B5F1E6D59F000A57EBC /* classmodel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = classmodel.h; sourceTree = "<group>"; };
 		8CB02B601E6D59F000A57EBC /* classmodel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = classmodel.m; sourceTree = "<group>"; };
 		8CB02B621E6D59FA00A57EBC /* homemodel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = homemodel.h; sourceTree = "<group>"; };
@@ -1023,6 +1031,33 @@
 		8CB02B721E6D69B400A57EBC /* XABResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABResource.m; sourceTree = "<group>"; };
 		8CB02B741E6D6A8300A57EBC /* XABResourceListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABResourceListCell.h; sourceTree = "<group>"; };
 		8CB02B751E6D6A8300A57EBC /* XABResourceListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABResourceListCell.m; sourceTree = "<group>"; };
+		8CB02B771E6EA65E00A57EBC /* XABNewsNoticeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABNewsNoticeViewController.h; sourceTree = "<group>"; };
+		8CB02B781E6EA65E00A57EBC /* XABNewsNoticeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABNewsNoticeViewController.m; sourceTree = "<group>"; };
+		8CB02B7A1E6EBDD800A57EBC /* XABStudentStyleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABStudentStyleViewController.h; sourceTree = "<group>"; };
+		8CB02B7B1E6EBDD800A57EBC /* XABStudentStyleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABStudentStyleViewController.m; sourceTree = "<group>"; };
+		8CB02B7D1E6EBE3F00A57EBC /* XABSchoolSummaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABSchoolSummaryViewController.h; sourceTree = "<group>"; };
+		8CB02B7E1E6EBE3F00A57EBC /* XABSchoolSummaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABSchoolSummaryViewController.m; sourceTree = "<group>"; };
+		8CB02B801E6EBE6500A57EBC /* XABSchoolPictureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABSchoolPictureViewController.h; sourceTree = "<group>"; };
+		8CB02B811E6EBE6500A57EBC /* XABSchoolPictureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABSchoolPictureViewController.m; sourceTree = "<group>"; };
+		8CB02B831E6FED2300A57EBC /* XABSchoolMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABSchoolMenu.h; sourceTree = "<group>"; };
+		8CB02B841E6FED2300A57EBC /* XABSchoolMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABSchoolMenu.m; sourceTree = "<group>"; };
+		8CB02B861E6FF23300A57EBC /* XABSchoolMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABSchoolMenuCell.h; sourceTree = "<group>"; };
+		8CB02B871E6FF23300A57EBC /* XABSchoolMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABSchoolMenuCell.m; sourceTree = "<group>"; };
+		8CB02B891E714ADF00A57EBC /* RNCachingURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNCachingURLProtocol.h; sourceTree = "<group>"; };
+		8CB02B8A1E714ADF00A57EBC /* RNCachingURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNCachingURLProtocol.m; sourceTree = "<group>"; };
+		8CB02B8D1E714B6300A57EBC /* XABArticleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABArticleViewController.h; sourceTree = "<group>"; };
+		8CB02B8E1E714B6300A57EBC /* XABArticleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABArticleViewController.m; sourceTree = "<group>"; };
+		8CB02B901E71515400A57EBC /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		8CB02B911E71515400A57EBC /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		8CB02B931E71662400A57EBC /* XABSchoolMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABSchoolMessage.h; sourceTree = "<group>"; };
+		8CB02B941E71662400A57EBC /* XABSchoolMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABSchoolMessage.m; sourceTree = "<group>"; };
+		8CB02B961E7257E700A57EBC /* XABSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABSearchViewController.h; sourceTree = "<group>"; };
+		8CB02B971E7257E700A57EBC /* XABSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABSearchViewController.m; sourceTree = "<group>"; };
+		8CB02B991E72986000A57EBC /* XABSearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABSearchCell.h; sourceTree = "<group>"; };
+		8CB02B9A1E72986000A57EBC /* XABSearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABSearchCell.m; sourceTree = "<group>"; };
+		8CB02B9C1E72A5A000A57EBC /* XABTestTableViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = XABTestTableViewController.storyboard; sourceTree = "<group>"; };
+		8CFBD5081E75339600EE691B /* XABSchoolDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABSchoolDetailViewController.h; sourceTree = "<group>"; };
+		8CFBD5091E75339600EE691B /* XABSchoolDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABSchoolDetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1141,6 +1176,7 @@
 				8CB0243C1E6D497000A57EBC /* My */,
 				8CB0243D1E6D497000A57EBC /* Resources */,
 				8CB0243E1E6D497000A57EBC /* School */,
+				8CB02B8C1E714AFF00A57EBC /* Other */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1188,6 +1224,18 @@
 			children = (
 				8CB02B091E6D4D9700A57EBC /* XABSchoolViewController.h */,
 				8CB02B0A1E6D4D9700A57EBC /* XABSchoolViewController.m */,
+				8CB02B771E6EA65E00A57EBC /* XABNewsNoticeViewController.h */,
+				8CB02B781E6EA65E00A57EBC /* XABNewsNoticeViewController.m */,
+				8CB02B7A1E6EBDD800A57EBC /* XABStudentStyleViewController.h */,
+				8CB02B7B1E6EBDD800A57EBC /* XABStudentStyleViewController.m */,
+				8CB02B7D1E6EBE3F00A57EBC /* XABSchoolSummaryViewController.h */,
+				8CB02B7E1E6EBE3F00A57EBC /* XABSchoolSummaryViewController.m */,
+				8CB02B801E6EBE6500A57EBC /* XABSchoolPictureViewController.h */,
+				8CB02B811E6EBE6500A57EBC /* XABSchoolPictureViewController.m */,
+				8CB02B961E7257E700A57EBC /* XABSearchViewController.h */,
+				8CB02B971E7257E700A57EBC /* XABSearchViewController.m */,
+				8CFBD5081E75339600EE691B /* XABSchoolDetailViewController.h */,
+				8CFBD5091E75339600EE691B /* XABSchoolDetailViewController.m */,
 			);
 			path = School;
 			sourceTree = "<group>";
@@ -1195,6 +1243,11 @@
 		8CB0243F1E6D497000A57EBC /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				8CB02B9C1E72A5A000A57EBC /* XABTestTableViewController.storyboard */,
+				8CB02B901E71515400A57EBC /* Reachability.h */,
+				8CB02B911E71515400A57EBC /* Reachability.m */,
+				8CB02B891E714ADF00A57EBC /* RNCachingURLProtocol.h */,
+				8CB02B8A1E714ADF00A57EBC /* RNCachingURLProtocol.m */,
 				8CB02B031E6D4BCA00A57EBC /* YBTabBarController.h */,
 				8CB02B041E6D4BCA00A57EBC /* YBTabBarController.m */,
 				8CB024401E6D497000A57EBC /* AppDelegate.h */,
@@ -1474,8 +1527,10 @@
 		8CB0265E1E6D497700A57EBC /* School */ = {
 			isa = PBXGroup;
 			children = (
-				8CB02B4D1E6D58DB00A57EBC /* schoolcell.h */,
-				8CB02B4E1E6D58DB00A57EBC /* schoolcell.m */,
+				8CB02B861E6FF23300A57EBC /* XABSchoolMenuCell.h */,
+				8CB02B871E6FF23300A57EBC /* XABSchoolMenuCell.m */,
+				8CB02B991E72986000A57EBC /* XABSearchCell.h */,
+				8CB02B9A1E72986000A57EBC /* XABSearchCell.m */,
 			);
 			path = School;
 			sourceTree = "<group>";
@@ -1531,8 +1586,10 @@
 		8CB026641E6D497700A57EBC /* School */ = {
 			isa = PBXGroup;
 			children = (
-				8CB02B5C1E6D59E500A57EBC /* schoolView.h */,
-				8CB02B5D1E6D59E500A57EBC /* schoolView.m */,
+				8CB02B831E6FED2300A57EBC /* XABSchoolMenu.h */,
+				8CB02B841E6FED2300A57EBC /* XABSchoolMenu.m */,
+				8CB02B931E71662400A57EBC /* XABSchoolMessage.h */,
+				8CB02B941E71662400A57EBC /* XABSchoolMessage.m */,
 			);
 			path = School;
 			sourceTree = "<group>";
@@ -2519,6 +2576,15 @@
 			path = SDWebImage;
 			sourceTree = "<group>";
 		};
+		8CB02B8C1E714AFF00A57EBC /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				8CB02B8D1E714B6300A57EBC /* XABArticleViewController.h */,
+				8CB02B8E1E714B6300A57EBC /* XABArticleViewController.m */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2672,6 +2738,7 @@
 				8CB02AC91E6D4A3B00A57EBC /* up_night.png in Resources */,
 				8CB02AB31E6D4A3B00A57EBC /* red_question.png in Resources */,
 				8CB02ABC1E6D4A3B00A57EBC /* radiocur.png in Resources */,
+				8CB02B9D1E72A5A000A57EBC /* XABTestTableViewController.storyboard in Resources */,
 				8CB02ABA1E6D4A3B00A57EBC /* quote_ico.png in Resources */,
 				8CB02A971E6D4A3B00A57EBC /* n_downdefault2x.png in Resources */,
 				8CB02AB51E6D4A3B00A57EBC /* right_up2x.png in Resources */,
@@ -2818,7 +2885,9 @@
 				8CB02A431E6D4A3B00A57EBC /* SNArticleVideo.m in Sources */,
 				8CB02A3B1E6D4A3B00A57EBC /* SNArticleDeepRead.m in Sources */,
 				8CB02B361E6D575600A57EBC /* SDWebImageDecoder.m in Sources */,
+				8CB02B7C1E6EBDD800A57EBC /* XABStudentStyleViewController.m in Sources */,
 				8CB029EF1E6D4A3A00A57EBC /* MJRefreshAutoGifFooter.m in Sources */,
+				8CFBD50A1E75339600EE691B /* XABSchoolDetailViewController.m in Sources */,
 				8CB0266A1E6D497700A57EBC /* UIButton+Extention.m in Sources */,
 				8CB02B141E6D4DBD00A57EBC /* XABMineViewController.m in Sources */,
 				8CB02A0B1E6D4A3B00A57EBC /* MLMeunView.m in Sources */,
@@ -2833,6 +2902,7 @@
 				8CB02A3E1E6D4A3B00A57EBC /* SNArticleImage.m in Sources */,
 				8CB029F31E6D4A3A00A57EBC /* MJRefreshBackNormalFooter.m in Sources */,
 				8CB02A2F1E6D4A3B00A57EBC /* NSArray+SNArticle.m in Sources */,
+				8CB02B881E6FF23300A57EBC /* XABSchoolMenuCell.m in Sources */,
 				8CB02A4C1E6D4A3B00A57EBC /* SNUserSupportInfo.m in Sources */,
 				8CB02A551E6D4A3B00A57EBC /* SNParser.m in Sources */,
 				8CB02ADF1E6D4A3B00A57EBC /* SNArticleManager+Tag.m in Sources */,
@@ -2845,6 +2915,7 @@
 				8CB02AE11E6D4A3B00A57EBC /* NSFileManager+Size.m in Sources */,
 				8CB02B6D1E6D5A1900A57EBC /* schoolmodel.m in Sources */,
 				8CB02A171E6D4A3B00A57EBC /* TAPageControl.m in Sources */,
+				8CB02B851E6FED2300A57EBC /* XABSchoolMenu.m in Sources */,
 				8CB029DC1E6D4A3A00A57EBC /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				8CB026761E6D497700A57EBC /* TestHandler.m in Sources */,
 				8CB02AE21E6D4A3B00A57EBC /* SNArticleCacheManager.m in Sources */,
@@ -2861,6 +2932,7 @@
 				8CB02A401E6D4A3B00A57EBC /* SNArticlePicture.m in Sources */,
 				8CB029F21E6D4A3A00A57EBC /* MJRefreshBackGifFooter.m in Sources */,
 				8CB02A3D1E6D4A3B00A57EBC /* SNArticleGroupImage.m in Sources */,
+				8CB02B7F1E6EBE3F00A57EBC /* XABSchoolSummaryViewController.m in Sources */,
 				8CB02B3B1E6D575600A57EBC /* UIButton+WebCache.m in Sources */,
 				8CB02B461E6D58BD00A57EBC /* homecell.m in Sources */,
 				8CB02B331E6D575600A57EBC /* NSData+ImageContentType.m in Sources */,
@@ -2889,17 +2961,18 @@
 				8CB0267A1E6D497700A57EBC /* TestStorage.m in Sources */,
 				8CB029FD1E6D4A3A00A57EBC /* UIView+MJExtension.m in Sources */,
 				8CB029E31E6D4A3A00A57EBC /* MJPropertyKey.m in Sources */,
+				8CB02B951E71662400A57EBC /* XABSchoolMessage.m in Sources */,
 				8CB029CF1E6D4A3A00A57EBC /* UIImageView+AFNetworking.m in Sources */,
 				8CB02AE51E6D4A3B00A57EBC /* SNArticleSetting.m in Sources */,
 				8CB029CA1E6D4A3A00A57EBC /* AFAutoPurgingImageCache.m in Sources */,
 				8CB026781E6D497700A57EBC /* BaseDataRequest.m in Sources */,
-				8CB02B4F1E6D58DB00A57EBC /* schoolcell.m in Sources */,
 				8CB02B341E6D575600A57EBC /* SDImageCache.m in Sources */,
 				8CB02AFE1E6D4A3B00A57EBC /* YTKNetworkAgent.m in Sources */,
 				8CB02A141E6D4A3B00A57EBC /* TAAbstractDotView.m in Sources */,
 				8CB02A151E6D4A3B00A57EBC /* TAAnimatedDotView.m in Sources */,
 				8CB029C41E6D4A3A00A57EBC /* AFHTTPSessionManager.m in Sources */,
 				8CB029D71E6D4A3A00A57EBC /* MASConstraintMaker.m in Sources */,
+				8CB02B821E6EBE6500A57EBC /* XABSchoolPictureViewController.m in Sources */,
 				8CB02B401E6D575600A57EBC /* UIView+WebCacheOperation.m in Sources */,
 				8CB029E71E6D4A3A00A57EBC /* NSObject+MJKeyValue.m in Sources */,
 				8CB029D21E6D4A3A00A57EBC /* UIWebView+AFNetworking.m in Sources */,
@@ -2953,14 +3026,17 @@
 				8CB02A0A1E6D4A3B00A57EBC /* MLMeunItem.m in Sources */,
 				8CB0244F1E6D497000A57EBC /* YBBaseDetailViewController.m in Sources */,
 				8CB029F01E6D4A3A00A57EBC /* MJRefreshAutoNormalFooter.m in Sources */,
+				8CB02B921E71515400A57EBC /* Reachability.m in Sources */,
 				8CB02AF71E6D4A3B00A57EBC /* UITableView+FDTemplateLayoutCellDebug.m in Sources */,
 				8CB02AEC1E6D4A3B00A57EBC /* SNArticleBaseViewController+JSBridge.m in Sources */,
+				8CB02B9B1E72986000A57EBC /* XABSearchCell.m in Sources */,
 				8CB029D91E6D4A3A00A57EBC /* MASViewAttribute.m in Sources */,
 				8CB029E61E6D4A3A00A57EBC /* NSObject+MJCoding.m in Sources */,
 				8CB029C81E6D4A3A00A57EBC /* AFURLResponseSerialization.m in Sources */,
 				8CB029CD1E6D4A3A00A57EBC /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				8CB026711E6D497700A57EBC /* UIView+TopBar.m in Sources */,
 				8CB02A1A1E6D4A3B00A57EBC /* UIView+SDExtension.m in Sources */,
+				8CB02B8F1E714B6300A57EBC /* XABArticleViewController.m in Sources */,
 				8CB02A311E6D4A3B00A57EBC /* NSDictionary+SNArticle.m in Sources */,
 				8CB02ADD1E6D4A3B00A57EBC /* SNArticleManager+Attitude.m in Sources */,
 				8CB02B381E6D575600A57EBC /* SDWebImageDownloaderOperation.m in Sources */,
@@ -2980,6 +3056,7 @@
 				8CB02B0E1E6D4D9E00A57EBC /* XABClassViewController.m in Sources */,
 				8CB0267B1E6D497700A57EBC /* MLTool.m in Sources */,
 				8CB029CE1E6D4A3A00A57EBC /* UIButton+AFNetworking.m in Sources */,
+				8CB02B791E6EA65E00A57EBC /* XABNewsNoticeViewController.m in Sources */,
 				8CB0266E1E6D497700A57EBC /* UIImageView+Animation.m in Sources */,
 				8CB02A0C1E6D4A3B00A57EBC /* MLRefreshView.m in Sources */,
 				8CB029FE1E6D4A3A00A57EBC /* MLCommentInputView.m in Sources */,
@@ -2988,9 +3065,9 @@
 				8CB0266D1E6D497700A57EBC /* UIImage+Stretch.m in Sources */,
 				8CB029F71E6D4A3A00A57EBC /* MJRefreshStateHeader.m in Sources */,
 				8CB02A001E6D4A3B00A57EBC /* MLComment.m in Sources */,
+				8CB02B8B1E714ADF00A57EBC /* RNCachingURLProtocol.m in Sources */,
 				8CB02A4B1E6D4A3B00A57EBC /* SNSupportInfo.m in Sources */,
 				8CB02AE31E6D4A3B00A57EBC /* NSDate+Helper.m in Sources */,
-				8CB02B5E1E6D59E500A57EBC /* schoolView.m in Sources */,
 				8CB02B001E6D4A3B00A57EBC /* YTKNetworkPrivate.m in Sources */,
 				8CB02A101E6D4A3B00A57EBC /* MLPercentInteractiveTransition.m in Sources */,
 				8CB02A501E6D4A3B00A57EBC /* SNArticleParser+Video.m in Sources */,
@@ -3018,6 +3095,7 @@
 				8CB029F61E6D4A3A00A57EBC /* MJRefreshNormalHeader.m in Sources */,
 				8CB02B371E6D575600A57EBC /* SDWebImageDownloader.m in Sources */,
 				8CB02AF01E6D4A3B00A57EBC /* SNArticleBaseViewController.m in Sources */,
+				8CB02B981E7257E700A57EBC /* XABSearchViewController.m in Sources */,
 				8CB02AE71E6D4A3B00A57EBC /* SNJSBridge.m in Sources */,
 				8CB02A521E6D4A3B00A57EBC /* SNArticleParser.m in Sources */,
 				8CB02A471E6D4A3B00A57EBC /* SNSpecalContent.m in Sources */,
@@ -3162,6 +3240,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
 				DEVELOPMENT_TEAM = G5RPGT9NVU;
 				GCC_PREFIX_HEADER = XAnBao/Other/PrefixHeader.pch;
 				INFOPLIST_FILE = XAnBao/Info.plist;
@@ -3175,6 +3254,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
 				DEVELOPMENT_TEAM = G5RPGT9NVU;
 				GCC_PREFIX_HEADER = XAnBao/Other/PrefixHeader.pch;
 				INFOPLIST_FILE = XAnBao/Info.plist;
@@ -3253,6 +3333,7 @@
 				8CB024271E6D470600A57EBC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8CB024281E6D470600A57EBC /* Build configuration list for PBXNativeTarget "XAnBaoTests" */ = {
 			isa = XCConfigurationList;
@@ -3261,6 +3342,7 @@
 				8CB0242A1E6D470600A57EBC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8CB0242B1E6D470600A57EBC /* Build configuration list for PBXNativeTarget "XAnBaoUITests" */ = {
 			isa = XCConfigurationList;
@@ -3269,6 +3351,7 @@
 				8CB0242D1E6D470600A57EBC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
