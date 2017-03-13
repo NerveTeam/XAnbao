@@ -13,7 +13,6 @@
 #import "XABSchoolMenu.h"
 #import "XABSchoolMessage.h"
 #import "XABSearchViewController.h"
-//#import "XABTestTableViewController.h"
 
 @interface XABSchoolViewController ()<XABSchoolMessageDelegate, XABSchoolMenuDelegate>
 // 菜单
