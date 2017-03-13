@@ -1,18 +1,18 @@
 //
-//  homemodel.m
+//  XABdsklfjkdjfsViewController.m
 //  XAnBao
 //
-//  Created by Minlay on 17/3/6.
+//  Created by Minlay on 17/3/13.
 //  Copyright © 2017年 Minlay. All rights reserved.
 //
 
-#import "homemodel.h"
+#import "XABdsklfjkdjfsViewController.h"
 
-@interface homemodel ()
+@interface XABdsklfjkdjfsViewController ()
 
 @end
 
-@implementation homemodel
+@implementation XABdsklfjkdjfsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

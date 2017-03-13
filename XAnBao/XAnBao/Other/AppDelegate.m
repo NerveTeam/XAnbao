@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "YBTabBarController.h"
+#import "WYYViewController.h"
 
 @interface AppDelegate ()
 
@@ -20,7 +21,27 @@
     [self globalConfig];
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     YBTabBarController *tabBarController = [[YBTabBarController alloc]init];
+    
+    NSUserDefaults *userdefault=[NSUserDefaults standardUserDefaults];
+    NSString *appVersion = [userdefault objectForKey:@"appVersion"];
+    [userdefault synchronize];
+    
+    NSString *currentVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+    
+    if (![appVersion isEqualToString:currentVersion]) {
+        
+        [userdefault setObject:currentVersion forKey:@"appVersion"];
+        
+        // 初始化引导页控制器
+        WYYViewController *view = [[WYYViewController alloc]init];
+        // 设置引导页图片
+        view.dataArray = [NSArray arrayWithObjects:@"first.jpg",@"second.jpg",@"third.jpg",@"four.jpg", nil];
+        // 设置跳转界面
+        view.controller = tabBarController;
+        self.window.rootViewController = view;
+    }else {
     self.window.rootViewController = tabBarController;
+    }
     [self.window makeKeyAndVisible];
     return YES;
 }
