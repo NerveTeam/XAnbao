@@ -399,6 +399,11 @@
 		8CFBD5241E764AAF00EE691B /* SchoolNewsAndArticleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CFBD5221E764AAF00EE691B /* SchoolNewsAndArticleModel.m */; };
 		8CFBD5271E764BE000EE691B /* FrameAutoScaleLFL.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CFBD5261E764BE000EE691B /* FrameAutoScaleLFL.m */; };
 		8CFBD52A1E764D0800EE691B /* XABdsklfjkdjfsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CFBD5291E764D0800EE691B /* XABdsklfjkdjfsViewController.m */; };
+		8CFBD52D1E76776200EE691B /* XABSchoolIntranetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CFBD52C1E76776200EE691B /* XABSchoolIntranetViewController.m */; };
+		8CFBD5301E767A9F00EE691B /* XABIntranetNoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CFBD52F1E767A9F00EE691B /* XABIntranetNoticeViewController.m */; };
+		8CFBD5331E767AF600EE691B /* XABIntranetChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CFBD5321E767AF600EE691B /* XABIntranetChatViewController.m */; };
+		8CFBD5361E767B2E00EE691B /* XABIntranetFileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CFBD5351E767B2E00EE691B /* XABIntranetFileViewController.m */; };
+		8CFBD5391E76868F00EE691B /* XABPostNoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CFBD5381E76868F00EE691B /* XABPostNoticeViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1077,6 +1082,16 @@
 		8CFBD5261E764BE000EE691B /* FrameAutoScaleLFL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FrameAutoScaleLFL.m; sourceTree = "<group>"; };
 		8CFBD5281E764D0800EE691B /* XABdsklfjkdjfsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABdsklfjkdjfsViewController.h; sourceTree = "<group>"; };
 		8CFBD5291E764D0800EE691B /* XABdsklfjkdjfsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABdsklfjkdjfsViewController.m; sourceTree = "<group>"; };
+		8CFBD52B1E76776200EE691B /* XABSchoolIntranetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABSchoolIntranetViewController.h; sourceTree = "<group>"; };
+		8CFBD52C1E76776200EE691B /* XABSchoolIntranetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABSchoolIntranetViewController.m; sourceTree = "<group>"; };
+		8CFBD52E1E767A9F00EE691B /* XABIntranetNoticeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABIntranetNoticeViewController.h; sourceTree = "<group>"; };
+		8CFBD52F1E767A9F00EE691B /* XABIntranetNoticeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABIntranetNoticeViewController.m; sourceTree = "<group>"; };
+		8CFBD5311E767AF600EE691B /* XABIntranetChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABIntranetChatViewController.h; sourceTree = "<group>"; };
+		8CFBD5321E767AF600EE691B /* XABIntranetChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABIntranetChatViewController.m; sourceTree = "<group>"; };
+		8CFBD5341E767B2E00EE691B /* XABIntranetFileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABIntranetFileViewController.h; sourceTree = "<group>"; };
+		8CFBD5351E767B2E00EE691B /* XABIntranetFileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABIntranetFileViewController.m; sourceTree = "<group>"; };
+		8CFBD5371E76868F00EE691B /* XABPostNoticeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABPostNoticeViewController.h; sourceTree = "<group>"; };
+		8CFBD5381E76868F00EE691B /* XABPostNoticeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABPostNoticeViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1255,6 +1270,16 @@
 				8CB02B971E7257E700A57EBC /* XABSearchViewController.m */,
 				8CFBD5081E75339600EE691B /* XABSchoolDetailViewController.h */,
 				8CFBD5091E75339600EE691B /* XABSchoolDetailViewController.m */,
+				8CFBD52B1E76776200EE691B /* XABSchoolIntranetViewController.h */,
+				8CFBD52C1E76776200EE691B /* XABSchoolIntranetViewController.m */,
+				8CFBD52E1E767A9F00EE691B /* XABIntranetNoticeViewController.h */,
+				8CFBD52F1E767A9F00EE691B /* XABIntranetNoticeViewController.m */,
+				8CFBD5311E767AF600EE691B /* XABIntranetChatViewController.h */,
+				8CFBD5321E767AF600EE691B /* XABIntranetChatViewController.m */,
+				8CFBD5341E767B2E00EE691B /* XABIntranetFileViewController.h */,
+				8CFBD5351E767B2E00EE691B /* XABIntranetFileViewController.m */,
+				8CFBD5371E76868F00EE691B /* XABPostNoticeViewController.h */,
+				8CFBD5381E76868F00EE691B /* XABPostNoticeViewController.m */,
 			);
 			path = School;
 			sourceTree = "<group>";
@@ -2930,6 +2955,7 @@
 				8CB02A181E6D4A3B00A57EBC /* SDCollectionViewCell.m in Sources */,
 				8CB02B431E6D58B100A57EBC /* classcell.m in Sources */,
 				8CB029E11E6D4A3A00A57EBC /* MJFoundation.m in Sources */,
+				8CFBD52D1E76776200EE691B /* XABSchoolIntranetViewController.m in Sources */,
 				8CB02AF81E6D4A3B00A57EBC /* YBPopupMenu.m in Sources */,
 				8CB02AF51E6D4A3B00A57EBC /* UITableView+FDKeyedHeightCache.m in Sources */,
 				8CB02A3E1E6D4A3B00A57EBC /* SNArticleImage.m in Sources */,
@@ -2960,6 +2986,7 @@
 				8CB029D81E6D4A3A00A57EBC /* MASLayoutConstraint.m in Sources */,
 				8CB02A091E6D4A3B00A57EBC /* NSString+URLEncode.m in Sources */,
 				8CB029EE1E6D4A3A00A57EBC /* MJRefreshHeader.m in Sources */,
+				8CFBD5391E76868F00EE691B /* XABPostNoticeViewController.m in Sources */,
 				8CB026681E6D497700A57EBC /* NSFileManager+Utilities.m in Sources */,
 				8CB02A0D1E6D4A3B00A57EBC /* MLBridgeBlock.m in Sources */,
 				8CB026731E6D497700A57EBC /* UIViewController+Navigation.m in Sources */,
@@ -2968,6 +2995,7 @@
 				8CB02A3D1E6D4A3B00A57EBC /* SNArticleGroupImage.m in Sources */,
 				8CB02B7F1E6EBE3F00A57EBC /* XABSchoolSummaryViewController.m in Sources */,
 				8CB02B3B1E6D575600A57EBC /* UIButton+WebCache.m in Sources */,
+				8CFBD5361E767B2E00EE691B /* XABIntranetFileViewController.m in Sources */,
 				8CB02B331E6D575600A57EBC /* NSData+ImageContentType.m in Sources */,
 				8CB02A031E6D4A3B00A57EBC /* MLCommentViewController.m in Sources */,
 				8CB02A4A1E6D4A3B00A57EBC /* SNComment.m in Sources */,
@@ -3046,6 +3074,7 @@
 				8CB02AFC1E6D4A3B00A57EBC /* YTKChainRequest.m in Sources */,
 				8CB029C91E6D4A3A00A57EBC /* AFURLSessionManager.m in Sources */,
 				8CB02AEA1E6D4A3B00A57EBC /* SNArticleBaseViewController+Gesture.m in Sources */,
+				8CFBD5301E767A9F00EE691B /* XABIntranetNoticeViewController.m in Sources */,
 				8CB029F51E6D4A3A00A57EBC /* MJRefreshGifHeader.m in Sources */,
 				8CB026651E6D497700A57EBC /* NSArray+Safe.m in Sources */,
 				8CB02B3A1E6D575600A57EBC /* SDWebImagePrefetcher.m in Sources */,
@@ -3112,6 +3141,7 @@
 				8CB02A501E6D4A3B00A57EBC /* SNArticleParser+Video.m in Sources */,
 				8CB029E91E6D4A3A00A57EBC /* NSString+MJExtension.m in Sources */,
 				8CB02AFB1E6D4A3B00A57EBC /* YTKBatchRequestAgent.m in Sources */,
+				8CFBD5331E767AF600EE691B /* XABIntranetChatViewController.m in Sources */,
 				8CB02ADE1E6D4A3B00A57EBC /* SNArticleManager+Cache.m in Sources */,
 				8CB029F41E6D4A3A00A57EBC /* MJRefreshBackStateFooter.m in Sources */,
 				8CB02B051E6D4BCA00A57EBC /* YBTabBarController.m in Sources */,

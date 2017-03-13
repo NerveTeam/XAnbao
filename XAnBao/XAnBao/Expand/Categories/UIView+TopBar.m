@@ -53,8 +53,7 @@ static const char *targetKey = "target";
         rightView.translatesAutoresizingMaskIntoConstraints = NO;
         [rightView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self).offset(StatusBarHeight/2);
-            make.right.equalTo(self.mas_right);
-            make.width.offset(44);
+            make.right.equalTo(self.mas_right).offset(-10);
             make.height.offset(44);
         }];
     }

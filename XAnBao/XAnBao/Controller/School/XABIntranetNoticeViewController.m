@@ -1,40 +1,30 @@
 //
-//  XABSchoolDetailViewController.m
+//  XABIntranetNoticeViewController.m
 //  XAnBao
 //
-//  Created by Minlay on 17/3/12.
+//  Created by Minlay on 17/3/13.
 //  Copyright © 2017年 Minlay. All rights reserved.
 //
 
-#import "XABSchoolDetailViewController.h"
+#import "XABIntranetNoticeViewController.h"
 #import "SDCycleScrollView.h"
 #import "XABResource.h"
 #import "XABResourceListCell.h"
 #import "XABArticleViewController.h"
-#import "UIButton+Extention.h"
-#import "XABSchoolIntranetViewController.h"
 
-@interface XABSchoolDetailViewController ()<SDCycleScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface XABIntranetNoticeViewController ()<SDCycleScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)SDCycleScrollView *cycleView;
-@property(nonatomic, strong)UIButton *enterIntranetBtn;
-@property(nonatomic, strong)UIView *tableHeaderView;
 @property(nonatomic, strong)UITableView *tableView;
 @property(nonatomic, assign)NSInteger currentIndex;
-
-
 @end
 
-@implementation XABSchoolDetailViewController
+@implementation XABIntranetNoticeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setup];
-    [self loadData:_currentIndex];
-}
-
-- (void)setup {
     _currentIndex = 1;
     self.tableView.mj_header.state = MJRefreshStateRefreshing;
+    [self loadData:_currentIndex];
 }
 
 - (void)loadData:(NSInteger)page {
@@ -52,11 +42,6 @@
     [self.tableView.mj_header endRefreshing];
     [self.tableView.mj_footer endRefreshing];
 }
-
-- (void)enterIntranet {
-    [self.navigationController pushViewController:[XABSchoolIntranetViewController new] animated:YES];
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 30;
     //    return self.dataList.count;
@@ -89,7 +74,7 @@
         [_tableView registerClass:[XABResourceListCell class] forCellReuseIdentifier:NSStringFromClass([XABResourceListCell class])];
         _tableView.delegate = self;
         _tableView.dataSource = self;
-        _tableView.tableHeaderView = self.tableHeaderView;
+        _tableView.tableHeaderView = self.cycleView;
         _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
             _currentIndex = 1;
             [self loadData:_currentIndex];
@@ -108,24 +93,5 @@
     }
     return _cycleView;
 }
-- (UIButton *)enterIntranetBtn {
-    if (!_enterIntranetBtn) {
-        _enterIntranetBtn = [UIButton buttonWithTitle:@"进入内网" fontSize:14 titleColor:ThemeColor];
-        _enterIntranetBtn.frame = CGRectMake(0, self.cycleView.height, self.view.width, 40);
-        [_enterIntranetBtn addTarget:self action:@selector(enterIntranet) forControlEvents:UIControlEventTouchUpInside];
-        _enterIntranetBtn.layer.borderWidth = 0.5;
-        _enterIntranetBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
-        [_enterIntranetBtn.titleLabel setTextAlignment:NSTextAlignmentCenter];
-    }
-    return _enterIntranetBtn;
-}
-- (UIView *)tableHeaderView {
-    if (!_tableHeaderView) {
-        _tableHeaderView = [UIView new];
-        [_tableHeaderView addSubview:self.cycleView];
-        [_tableHeaderView addSubview:self.enterIntranetBtn];
-        _tableHeaderView.frame = CGRectMake(0, 0, self.view.width, self.cycleView.height + self.enterIntranetBtn.height);
-    }
-    return _tableHeaderView;
-}
+
 @end
