@@ -20,7 +20,9 @@
     [super viewDidLoad];
     [self setup];
 }
-
+- (BOOL)hidesBottomBarWhenPushed {
+    return YES;
+}
 - (void)setup {
     [self.view addSubview:self.topBarView];
 }

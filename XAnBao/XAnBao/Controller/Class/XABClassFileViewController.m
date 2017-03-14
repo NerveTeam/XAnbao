@@ -35,7 +35,9 @@
     [self layoutView];
     [self loadData];
 }
-
+- (BOOL)hidesBottomBarWhenPushed {
+    return YES;
+}
 - (void)setup {
     [self.view addSubview:self.topBarView];
 }

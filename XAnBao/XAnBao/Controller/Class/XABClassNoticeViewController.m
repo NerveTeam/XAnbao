@@ -30,7 +30,9 @@
     [self setup];
     [self loadData:_currentIndex];
 }
-
+- (BOOL)hidesBottomBarWhenPushed {
+    return YES;
+}
 - (void)setup {
     [self.view addSubview:self.topBarView];
     _currentIndex = 1;
@@ -88,7 +90,7 @@
 #pragma mark - lazy
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, self.topBarView.height, self.view.width, self.view.height - TabBarHeight -  self.topBarView.height)];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, self.topBarView.height, self.view.width, self.view.height - self.topBarView.height)];
         [_tableView registerClass:[XABResourceListCell class] forCellReuseIdentifier:NSStringFromClass([XABResourceListCell class])];
         _tableView.delegate = self;
         _tableView.dataSource = self;

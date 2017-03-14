@@ -45,6 +45,9 @@
     [self loadData:_currentIndex];
 }
 
+- (BOOL)hidesBottomBarWhenPushed {
+    return YES;
+}
 - (void)loadData:(NSInteger)page {
     [self stopRefresh];
     [self.tableView reloadData];
