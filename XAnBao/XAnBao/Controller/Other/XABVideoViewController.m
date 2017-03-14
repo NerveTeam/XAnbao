@@ -1,18 +1,18 @@
 //
-//  classview.m
+//  XABVideoViewController.m
 //  XAnBao
 //
-//  Created by Minlay on 17/3/6.
+//  Created by Minlay on 17/3/14.
 //  Copyright © 2017年 Minlay. All rights reserved.
 //
 
-#import "classview.h"
+#import "XABVideoViewController.h"
 
-@interface classview ()
+@interface XABVideoViewController ()
 
 @end
 
-@implementation classview
+@implementation XABVideoViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

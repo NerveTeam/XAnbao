@@ -10,7 +10,11 @@
 #import "UIViewController+Navigation.h"
 #import "UITableView+FDTemplateLayoutCell.h"
 #import "MJRefresh.h"
-
+typedef NS_ENUM(NSUInteger, FilerType) {
+    FilerTypeSchool,
+    FilerTypeClass,
+};
 @interface YBBaseViewController : UIViewController
 @property(nonatomic,strong)NSArray *dataList;
+@property(nonatomic, assign)FilerType filerType;
 @end

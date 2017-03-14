@@ -1,12 +1,14 @@
 //
-//  XABIntranetFileViewController.m
+//  XABClassFileViewController.m
 //  XAnBao
 //
 //  Created by Minlay on 17/3/13.
 //  Copyright © 2017年 Minlay. All rights reserved.
 //
 
-#import "XABIntranetFileViewController.h"
+#import "XABClassFileViewController.h"
+#import "UIView+TopBar.h"
+#import "UIButton+Extention.h"
 #import "SDCycleScrollView.h"
 #import "UIButton+Extention.h"
 #import "UIButton+ImageTitleSpacing.h"
@@ -15,7 +17,9 @@
 #import "XABFileViewController.h"
 #import "XABOtherViewController.h"
 
-@interface XABIntranetFileViewController ()
+@interface XABClassFileViewController ()
+@property(nonatomic, strong)UIView *topBarView;
+@property(nonatomic, strong)UIButton *backBtn;
 @property(nonatomic,strong)SDCycleScrollView *cycleView;
 @property(nonatomic, strong)UIButton *imageBtn;
 @property(nonatomic, strong)UIButton *videoBtn;
@@ -23,12 +27,17 @@
 @property(nonatomic, strong)UIButton *otherBtn;
 @end
 
-@implementation XABIntranetFileViewController
+@implementation XABClassFileViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setup];
     [self layoutView];
     [self loadData];
+}
+
+- (void)setup {
+    [self.view addSubview:self.topBarView];
 }
 
 - (void)loadData{
@@ -41,30 +50,30 @@
 
 - (void)jumpPicture {
     XABPictureViewController *picture = [XABPictureViewController new];
-    picture.filerType = FilerTypeSchool;
+    picture.filerType = FilerTypeClass;
     [self.navigationController pushViewController:picture animated:YES];
 }
 - (void)jumpVideo {
     XABVideoViewController *video = [XABVideoViewController new];
-    video.filerType = FilerTypeSchool;
+    video.filerType = FilerTypeClass;
     [self.navigationController pushViewController:video animated:YES];
 }
 - (void)jumpFile {
     XABFileViewController *file = [XABFileViewController new];
-    file.filerType = FilerTypeSchool;
+    file.filerType = FilerTypeClass;
     [self.navigationController pushViewController:file animated:YES];
 }
 - (void)jumpOther {
     XABOtherViewController *other = [XABOtherViewController new];
-    other.filerType = FilerTypeSchool;
+    other.filerType = FilerTypeClass;
     [self.navigationController pushViewController:other animated:YES];
 }
 
 
-
 - (void)layoutView {
     [self.cycleView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.trailing.leading.equalTo(self.view);
+        make.top.equalTo(self.topBarView.mas_bottom);
+        make.trailing.leading.equalTo(self.view);
         make.height.offset(imgScale(self.view.width));
     }];
     [self.imageBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -138,4 +147,21 @@
         [self.view addSubview:_otherBtn];
     }
     return _otherBtn;
-}@end
+}
+
+- (UIView *)topBarView {
+    if (!_topBarView) {
+        _topBarView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, StatusBarHeight + TopBarHeight)];
+        _topBarView = [_topBarView topBarWithTintColor:ThemeColor title:@"班级文件" titleColor:[UIColor whiteColor] leftView:self.backBtn rightView:nil responseTarget:self];
+        _topBarView.backgroundColor = ThemeColor;
+    }
+    return _topBarView;
+}
+- (UIButton *)backBtn {
+    if (!_backBtn) {
+        _backBtn = [UIButton buttonWithTitle:@"返回" fontSize:15];
+    }
+    return _backBtn;
+}
+
+@end
