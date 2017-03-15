@@ -8,8 +8,10 @@
 
 #import "AppDelegate.h"
 #import "YBTabBarController.h"
-
 #import "XABLoginViewController.h"
+
+#import <SMS_SDK/SMSSDK.h>
+
 @interface AppDelegate ()
 
 @end
@@ -19,6 +21,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self globalConfig];
+    [self configShareSDK];
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     
     [self loginVc];
@@ -60,6 +63,12 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+-(void)configShareSDK{
+    
+    [SMSSDK registerApp:@"1b1b702554e44" withSecret:@"870942be696045d543192122ad220742"];
+
 }
 
 - (void)globalConfig {

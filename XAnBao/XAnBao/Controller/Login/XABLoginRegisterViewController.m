@@ -11,6 +11,7 @@
 #import "UITextField+CHTHealper.h"
 #import "XABLoginMacro.h"
 #import "NSString+Check.h"
+#import "XABUserLogin.h"
 @interface XABLoginRegisterViewController ()<UITextViewDelegate>
 {
     UIButton *_codeBtn;     // 发送验证码按钮
@@ -49,6 +50,8 @@
 -(void)registerClick{
     
     [self loginJump];
+    
+    
 }
 
 
@@ -64,6 +67,27 @@
     //先将未到时间执行前的任务取消。
     [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(tmierCountDown:) object:sender];
     [self performSelector:@selector(tmierCountDown:) withObject:sender afterDelay:0.2f];
+    
+    //先判断是否注册了
+    [[XABUserLogin getInstance] isResister:self.phoneTF.text callBack:^(BOOL success) {
+        
+        if (!success) {
+            
+            //获取验证码
+            [[XABUserLogin getInstance] requestVerifyCode:self.phoneTF.text callBack:^(BOOL success) {
+                
+                if (success) {
+                    // 提示该获取验证码成功
+                }else{
+                    
+                    // 提示该获取验证码失败
+                }
+                
+            }];
+        }else{
+            // 提示该帐号已注册
+        }
+    }];
     
 }
 

@@ -14,6 +14,7 @@
 #import "XABFindPasswordViewController.h"
 #import "YBTabBarController.h"
 #import "AppDelegate.h"
+#import "XABUserLogin.h"
 @interface XABLoginViewController ()
 
 {
@@ -64,10 +65,20 @@
 #pragma mark - 登录
 -(void)loginClick{
     
-    YBTabBarController *tabBarController = [[YBTabBarController alloc]init];
-    
-    AppDelegate *app =(AppDelegate *) [[UIApplication sharedApplication] delegate ];
-    app.window.rootViewController = tabBarController;
+    [[XABUserLogin getInstance] userLogin:self.accountTF.text password:self.passwordTF.text callBack:^(BOOL success, XABUserModel *user) {
+        
+        if (success) {
+            
+            YBTabBarController *tabBarController = [[YBTabBarController alloc]init];
+            
+            AppDelegate *app =(AppDelegate *) [[UIApplication sharedApplication] delegate ];
+            app.window.rootViewController = tabBarController;
+            
+        }else {
+            // 提示用户名密码错误
+            NSLog(@"用户名密码错误");
+        }
+    }];
 
 }
 

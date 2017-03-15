@@ -6,8 +6,8 @@
 //  Copyright © 2017年 Minlay. All rights reserved.
 //
 
-#import "YBBaseViewController.h"
+#import "BaseModel.h"
 
-@interface mymodel : YBBaseViewController
+@interface mymodel : BaseModel
 
 @end
