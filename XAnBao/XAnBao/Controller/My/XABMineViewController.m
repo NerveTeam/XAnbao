@@ -23,8 +23,9 @@
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     
     XABLoginViewController *vc = [[XABLoginViewController alloc] init];
+    UINavigationController *navLogin = [[UINavigationController alloc] initWithRootViewController:vc];
     AppDelegate *app =(AppDelegate *) [[UIApplication sharedApplication] delegate ];
-    app.window.rootViewController = vc;
+    app.window.rootViewController = navLogin;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
