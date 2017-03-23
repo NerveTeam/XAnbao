@@ -74,10 +74,13 @@ static XABUserLogin *_instance;
 - (void)userPostRegister:(NSString *)password callBack:(loginBlock)block{
 
 //    self.loginBlock = block;
+    NSMutableDictionary *parameter = [[NSMutableDictionary alloc] init];
+    [parameter setSafeObject:self.account forKey:@"account"];
+    [parameter setSafeObject:[password md5] forKey:@"password"];
     // 注册
     if (_isVerify) {
         _isVerify = NO;
-        [XABRegisterRequest requestDataWithParameters:@{@"account":self.account,@"password":[password md5]}successBlock:^(YTKRequest *request) {
+        [XABRegisterRequest requestDataWithParameters:parameter successBlock:^(YTKRequest *request) {
             
             NSDictionary *status = [[request.responseObject objectForKeyNotNull:@"result"] objectForKeyNotNull:@"status"];
             NSInteger code = [[status objectForKeyNotNull:@"code"] longValue];
@@ -111,7 +114,7 @@ static XABUserLogin *_instance;
     self.loginBlock = block;
     //    [PlatformLoginRequest requestDataWithDelegate:self parameters:@{@"account":account,@"password":[pwd md5]}];
     
-    NSMutableDictionary *parameter = [NSMutableDictionary alloc];
+    NSMutableDictionary *parameter = [[NSMutableDictionary alloc] init];
     [parameter setSafeObject:account forKey:@"account"];
     [parameter setSafeObject:[pwd md5] forKey:@"password"];
 
@@ -142,7 +145,10 @@ static XABUserLogin *_instance;
  */
 - (void)modifyPassword:(NSString *)password callBack:(verifyCodeBlock)block{
     
-    [XABFindPasswordRequest requestDataWithParameters:@{@"account":self.account,@"password":[password md5]} successBlock:^(YTKRequest *request) {
+    NSMutableDictionary *parameter = [[NSMutableDictionary alloc] init];
+    [parameter setSafeObject:self.account forKey:@"account"];
+    [parameter setSafeObject:[password md5] forKey:@"password"];
+    [XABFindPasswordRequest requestDataWithParameters:parameter successBlock:^(YTKRequest *request) {
         
         NSDictionary *status = [[request.responseObject objectForKeyNotNull:@"result"] objectForKeyNotNull:@"status"];
         NSInteger code = [[status objectForKeyNotNull:@"code"] longValue];
@@ -176,7 +182,9 @@ static XABUserLogin *_instance;
  */
 - (void)isResister:(NSString *)account callBack:(verifyCodeBlock)block{
     
-    [UserRegisterStatusRequest requestDataWithParameters:@{@"account":account} successBlock:^(YTKRequest *request) {
+    NSMutableDictionary *parameter = [[NSMutableDictionary alloc] init];
+    [parameter setSafeObject:account forKey:@"account"];
+    [UserRegisterStatusRequest requestDataWithParameters:parameter successBlock:^(YTKRequest *request) {
         
         NSDictionary *result = [request.responseObject objectForKey:@"result"];
         NSString *status = [result objectForKey:@"status"];
