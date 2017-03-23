@@ -49,8 +49,22 @@
 #pragma mark - 注册
 -(void)registerClick{
     
-    [self loginJump];
+    if (self.rPasswordTF.text != self.passwordTF.text) {
+        
+        DLog(@"两次输入的密码不一致");
+        return;
+    }
+    //先验证 短信验证码是否正确
+    [[XABUserLogin getInstance] verifyCodeResult:self.codeTF.text callBack:^(BOOL success) {
+        
+    }];
     
+    // 进行注册
+    [[XABUserLogin getInstance] userPostRegister:self.rPasswordTF.text callBack:^(BOOL success, XABUserModel *user) {
+        
+    }];
+    
+    [self loginJump];
     
 }
 
@@ -62,28 +76,33 @@
     if (![self.phoneTF.text isMobileNumber]) {
         
         DLog( @"手机号码有误");
+        
+        return;
     }
     
     //先将未到时间执行前的任务取消。
     [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(tmierCountDown:) object:sender];
     [self performSelector:@selector(tmierCountDown:) withObject:sender afterDelay:0.2f];
     
+    
+    //获取验证码
+    [[XABUserLogin getInstance] requestVerifyCode:self.phoneTF.text callBack:^(BOOL success) {
+        
+        if (success) {
+            // 提示该获取验证码成功
+        }else{
+            
+            // 提示该获取验证码失败
+        }
+        
+    }];
+    
     //先判断是否注册了
     [[XABUserLogin getInstance] isResister:self.phoneTF.text callBack:^(BOOL success) {
         
         if (!success) {
             
-            //获取验证码
-            [[XABUserLogin getInstance] requestVerifyCode:self.phoneTF.text callBack:^(BOOL success) {
-                
-                if (success) {
-                    // 提示该获取验证码成功
-                }else{
-                    
-                    // 提示该获取验证码失败
-                }
-                
-            }];
+            
         }else{
             // 提示该帐号已注册
         }
@@ -187,7 +206,7 @@
     
     _codeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_codeBtn setTitle:@"发送验证码" forState:UIControlStateNormal];
-    [_codeBtn addTarget:self action:@selector(codeClick) forControlEvents:UIControlEventTouchUpInside];
+    [_codeBtn addTarget:self action:@selector(codeClick:) forControlEvents:UIControlEventTouchUpInside];
     [_codeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.backScrollView addSubview:_codeBtn];
     _codeBtn.titleLabel.font = [UIFont systemFontOfSize:16];

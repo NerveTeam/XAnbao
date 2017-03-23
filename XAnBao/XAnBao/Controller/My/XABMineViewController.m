@@ -7,7 +7,8 @@
 //
 
 #import "XABMineViewController.h"
-
+#import "XABLoginViewController.h"
+#import "AppDelegate.h"
 @interface XABMineViewController ()
 
 @end
@@ -19,6 +20,12 @@
     // Do any additional setup after loading the view.
 }
 
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    
+    XABLoginViewController *vc = [[XABLoginViewController alloc] init];
+    AppDelegate *app =(AppDelegate *) [[UIApplication sharedApplication] delegate ];
+    app.window.rootViewController = vc;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

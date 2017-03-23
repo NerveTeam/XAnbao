@@ -50,29 +50,34 @@
     
     [super viewWillAppear:animated];
     
-    self.navigationController.navigationBar.hidden = YES;
 }
 
 #pragma mark - 浏览进入
 -(void)goInClick{
     
+    
     YBTabBarController *tabBarController = [[YBTabBarController alloc]init];
     
     AppDelegate *app =(AppDelegate *) [[UIApplication sharedApplication] delegate ];
     app.window.rootViewController = tabBarController;
+    
 }
 
 #pragma mark - 登录
 -(void)loginClick{
     
+    YBTabBarController *tabBarController = [[YBTabBarController alloc]init];
+    
+    AppDelegate *app =(AppDelegate *) [[UIApplication sharedApplication] delegate ];
+    app.window.rootViewController = tabBarController;
+    [app.window makeKeyAndVisible];
+    if (self.accountTF.text.length ==0 && self.passwordTF.text.length == 0) {
+        
+        return;
+    }
     [[XABUserLogin getInstance] userLogin:self.accountTF.text password:self.passwordTF.text callBack:^(BOOL success, XABUserModel *user) {
         
         if (success) {
-            
-            YBTabBarController *tabBarController = [[YBTabBarController alloc]init];
-            
-            AppDelegate *app =(AppDelegate *) [[UIApplication sharedApplication] delegate ];
-            app.window.rootViewController = tabBarController;
             
         }else {
             // 提示用户名密码错误

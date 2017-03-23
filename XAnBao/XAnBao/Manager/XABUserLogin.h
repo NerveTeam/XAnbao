@@ -19,13 +19,16 @@ typedef void(^verifyCodeBlock)(BOOL success);
 - (void)loginFinish:(XABUserModel *)userInfo;
 // 用户登录失败
 - (void)loginError;
+
+
 @end
 
 // 用户登录成功通知
 extern NSString *const UserLoginSuccess;
 // 用户登录失败通知
 extern NSString *const UserLoginError;
-
+// 用户登录浏览进入通知
+extern NSString *const UserLoginBrowseGoIn;
 
 @interface XABUserLogin : NSObject
 
@@ -53,8 +56,10 @@ extern NSString *const UserLoginError;
  *  提交注册
  */
 - (void)userPostRegister:(NSString *)password callBack:(loginBlock)block;
+
+
 /**
- *  本平台用户登录
+ *  用户登录
  */
 - (void)userLogin:(NSString *)account password:(NSString *)pwd callBack:(loginBlock)block;
 /**

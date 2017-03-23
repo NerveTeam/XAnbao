@@ -11,14 +11,16 @@
 #import "NSDictionary+Safe.h"
 #import "NSString+Utilities.h"
 #import <SMS_SDK/SMSSDK.h>
-
+#import "XABLoginRequest.h"
+#import "NSDictionary+Safe.h"
+#import "NSArray+Safe.h"
 NSString *const UserLoginSuccess = @"UserLoginSuccess";
 NSString *const UserLoginError = @"UserLoginError";
 
 @interface XABUserLogin ()<DataRequestDelegate>
 @property(nonatomic, copy)loginBlock loginBlock;
 @property(nonatomic, copy)NSString *account;
-@property(nonatomic, assign)BOOL isVerify;
+@property(nonatomic, assign)BOOL isVerify; // 验证  获取的验证码是否正确
 @end
 
 static  NSString *DiskUserLoginInfo = @"DiskUserLoginInfo";
@@ -70,14 +72,67 @@ static XABUserLogin *_instance;
  *  提交注册
  */
 - (void)userPostRegister:(NSString *)password callBack:(loginBlock)block{
+
+//    self.loginBlock = block;
+    // 注册
+    if (_isVerify) {
+        _isVerify = NO;
+        [XABRegisterRequest requestDataWithParameters:@{@"account":self.account,@"password":[password md5]}successBlock:^(YTKRequest *request) {
+            
+            NSDictionary *status = [[request.responseObject objectForKeyNotNull:@"result"] objectForKeyNotNull:@"status"];
+            NSInteger code = [[status objectForKeyNotNull:@"code"] longValue];
+            if (!code) {
+//                NSDictionary *data = [[request.responseObject objectForKeyNotNull:@"result"] objectForKeyNotNull:@"data"];
+                if (block) {
+                    block(YES,nil);
+                }
+            }
+            
+        } failureBlock:^(YTKRequest *request) {
+            if (block) {
+                block(NO,nil);
+            }
+        }];
+
+    }else {
+        if (_loginBlock) {
+            _loginBlock(NO,nil);
+        }
+        [self postNotification:NO];
+    }
+
     
 }
+
 /**
  *   登录
  */
 - (void)userLogin:(NSString *)account password:(NSString *)pwd callBack:(loginBlock)block {
     self.loginBlock = block;
     //    [PlatformLoginRequest requestDataWithDelegate:self parameters:@{@"account":account,@"password":[pwd md5]}];
+    
+    NSMutableDictionary *parameter = [NSMutableDictionary alloc];
+    [parameter setSafeObject:account forKey:@"account"];
+    [parameter setSafeObject:[pwd md5] forKey:@"password"];
+
+    [XABLoginRequest requestDataWithParameters:parameter successBlock:^(YTKRequest *request) {
+        
+        NSDictionary *status = [[request.responseObject objectForKeyNotNull:@"result"] objectForKeyNotNull:@"status"];
+        NSInteger code = [[status objectForKeyNotNull:@"code"] longValue];
+        if (!code) {
+
+            NSDictionary *data = [[request.responseObject objectForKeyNotNull:@"result"] objectForKeyNotNull:@"data"];
+            if (block) {
+                block(YES,nil);
+            }
+        }
+        
+    } failureBlock:^(YTKRequest *request) {
+        if (block) {
+            block(NO,nil);
+        }
+    }];
+
     
 }
 
@@ -87,6 +142,23 @@ static XABUserLogin *_instance;
  */
 - (void)modifyPassword:(NSString *)password callBack:(verifyCodeBlock)block{
     
+    [XABFindPasswordRequest requestDataWithParameters:@{@"account":self.account,@"password":[password md5]} successBlock:^(YTKRequest *request) {
+        
+        NSDictionary *status = [[request.responseObject objectForKeyNotNull:@"result"] objectForKeyNotNull:@"status"];
+        NSInteger code = [[status objectForKeyNotNull:@"code"] longValue];
+        if (!code) {
+//            NSDictionary *data = [[request.responseObject objectForKeyNotNull:@"result"] objectForKeyNotNull:@"data"];
+            if (block) {
+                block(YES);
+            }
+        }
+        
+    } failureBlock:^(YTKRequest *request) {
+        if (block) {
+            block(NO);
+        }
+    }];
+
 }
 
 /**
@@ -104,6 +176,21 @@ static XABUserLogin *_instance;
  */
 - (void)isResister:(NSString *)account callBack:(verifyCodeBlock)block{
     
+    [UserRegisterStatusRequest requestDataWithParameters:@{@"account":account} successBlock:^(YTKRequest *request) {
+        
+        NSDictionary *result = [request.responseObject objectForKey:@"result"];
+        NSString *status = [result objectForKey:@"status"];
+        if ([status isEqualToString:@"0"] && block) {
+            block(NO);
+        }else {
+            block(YES);
+        }
+        
+    } failureBlock:^(YTKRequest *request) {
+        if (block) {
+            block(NO);
+        }
+    }];
 }
 
 /**
@@ -165,5 +252,7 @@ static XABUserLogin *_instance;
         [[NSNotificationCenter defaultCenter]postNotificationName:UserLoginError object:nil];
     }
 }
+
+
 
 @end

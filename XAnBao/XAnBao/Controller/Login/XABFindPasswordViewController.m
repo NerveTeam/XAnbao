@@ -55,6 +55,9 @@
 
 -(void)loginClick{
     
+//    [[XABUserLogin getInstance] userLogin:self.phoneTF.text password:self.codeTF.text callBack:^(BOOL success, XABUserModel *user) {
+//        
+//    }];
     //[self pushToController:[[XABLoginViewController alloc] init] animated:YES];
     [self popViewControllerAnimated:YES];
 }
@@ -67,12 +70,21 @@
     if (![self.phoneTF.text isMobileNumber]) {
 
         DLog( @"手机号码有误");
+        return;
     }
     
     //先将未到时间执行前的任务取消。
     [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(tmierCountDown:) object:sender];
     [self performSelector:@selector(tmierCountDown:) withObject:sender afterDelay:0.2f];
     
+    [[XABUserLogin getInstance] requestVerifyCode:self.phoneTF.text callBack:^(BOOL success) {
+        
+        if (success) {
+             DLog( @"验证码已发送");
+        }else{
+            
+        }
+    }];
 }
 
 -(void)tmierCountDown:(id)sender{
@@ -106,9 +118,6 @@
         
     }
 }
-
-
-
 
 
 -(void)initSubViews{

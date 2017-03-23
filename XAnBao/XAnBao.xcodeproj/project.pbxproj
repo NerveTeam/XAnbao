@@ -25,6 +25,7 @@
 		60A551871E7D17D90058DD96 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60A551861E7D17D90058DD96 /* SystemConfiguration.framework */; };
 		60A551891E7D17DF0058DD96 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60A551881E7D17DF0058DD96 /* CoreTelephony.framework */; };
 		60A5518B1E7D17ED0058DD96 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 60A5518A1E7D17ED0058DD96 /* libstdc++.tbd */; };
+		60DF37FA1E816F6800A514F3 /* XABLoginRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 60DF37F91E816F6800A514F3 /* XABLoginRequest.m */; };
 		8CB023FD1E6D470600A57EBC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB023FC1E6D470600A57EBC /* main.m */; };
 		8CB024081E6D470600A57EBC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8CB024071E6D470600A57EBC /* Assets.xcassets */; };
 		8CB0240B1E6D470600A57EBC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CB024091E6D470600A57EBC /* LaunchScreen.storyboard */; };
@@ -481,6 +482,8 @@
 		60A551861E7D17D90058DD96 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		60A551881E7D17DF0058DD96 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		60A5518A1E7D17ED0058DD96 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
+		60DF37F81E816F6800A514F3 /* XABLoginRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABLoginRequest.h; sourceTree = "<group>"; };
+		60DF37F91E816F6800A514F3 /* XABLoginRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABLoginRequest.m; sourceTree = "<group>"; };
 		8CB023F81E6D470600A57EBC /* XAnBao.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XAnBao.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CB023FC1E6D470600A57EBC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8CB024071E6D470600A57EBC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -1591,6 +1594,8 @@
 				8CB024841E6D497600A57EBC /* BaseDataRequest.m */,
 				8CB024851E6D497600A57EBC /* DataRequest.h */,
 				8CB024861E6D497600A57EBC /* DataRequest.m */,
+				60DF37F81E816F6800A514F3 /* XABLoginRequest.h */,
+				60DF37F91E816F6800A514F3 /* XABLoginRequest.m */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -3272,6 +3277,7 @@
 				8CB02A0A1E6D4A3B00A57EBC /* MLMeunItem.m in Sources */,
 				8CB0244F1E6D497000A57EBC /* YBBaseDetailViewController.m in Sources */,
 				8CB029F01E6D4A3A00A57EBC /* MJRefreshAutoNormalFooter.m in Sources */,
+				60DF37FA1E816F6800A514F3 /* XABLoginRequest.m in Sources */,
 				8CB02B921E71515400A57EBC /* Reachability.m in Sources */,
 				8CB02AF71E6D4A3B00A57EBC /* UITableView+FDTemplateLayoutCellDebug.m in Sources */,
 				8CB02AEC1E6D4A3B00A57EBC /* SNArticleBaseViewController+JSBridge.m in Sources */,
@@ -3502,6 +3508,7 @@
 				);
 				GCC_PREFIX_HEADER = XAnBao/Other/PrefixHeader.pch;
 				INFOPLIST_FILE = XAnBao/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.com.xiaoanbao.XAnBao;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3520,6 +3527,7 @@
 				);
 				GCC_PREFIX_HEADER = XAnBao/Other/PrefixHeader.pch;
 				INFOPLIST_FILE = XAnBao/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.com.xiaoanbao.XAnBao;
 				PRODUCT_NAME = "$(TARGET_NAME)";

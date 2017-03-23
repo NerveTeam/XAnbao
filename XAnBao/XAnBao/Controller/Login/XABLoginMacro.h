@@ -10,7 +10,8 @@
 #define XABLoginMacro_h
 
 #import "UIViewController+MLSegue.h"
-
+#import "XABLoginRequest.h"
+#import "XABUserLogin.h"
 // RGB 颜色配置
 #define kColorWithRGB(r, g, b,f) [UIColor colorWithRed:(r) / 255.f green:(g) / 255.f blue:(b) / 255.f alpha:f]
 
