@@ -9,7 +9,12 @@
 #import "AppDelegate.h"
 #import "YBTabBarController.h"
 #import "WYYViewController.h"
+#import "XABLoginViewController.h"
+#import "XABUserLogin.h"
+#import <SMS_SDK/SMSSDK.h>
 
+static NSString * const SMSAppKey = @"1b1b702554e44";
+static NSString * const SMSAppSecret = @"870942be696045d543192122ad220742";
 @interface AppDelegate ()
 
 @end
@@ -19,8 +24,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self globalConfig];
+    [self configSMS];
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     YBTabBarController *tabBarController = [[YBTabBarController alloc]init];
+    XABLoginViewController *loginVC = [[XABLoginViewController alloc] init];
+    UINavigationController *navLogin = [[UINavigationController alloc] initWithRootViewController:loginVC];
     
     NSUserDefaults *userdefault=[NSUserDefaults standardUserDefaults];
     NSString *appVersion = [userdefault objectForKey:@"appVersion"];
@@ -37,10 +45,16 @@
         // 设置引导页图片
         view.dataArray = [NSArray arrayWithObjects:@"first.jpg",@"second.jpg",@"third.jpg",@"four.jpg", nil];
         // 设置跳转界面
-        view.controller = tabBarController;
+        view.controller = navLogin;
         self.window.rootViewController = view;
     }else {
-    self.window.rootViewController = tabBarController;
+        
+        if ([XABUserLogin getInstance].userInfo == nil) {
+            self.window.rootViewController = navLogin;
+        }else{
+            self.window.rootViewController = tabBarController;
+        }
+    
     }
     [self.window makeKeyAndVisible];
     return YES;
@@ -73,6 +87,10 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+-(void)configSMS{
+    
+    [SMSSDK registerApp:SMSAppKey withSecret:SMSAppSecret];
+}
 - (void)globalConfig {
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     //    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:

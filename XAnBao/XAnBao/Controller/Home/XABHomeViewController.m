@@ -111,7 +111,11 @@
     //    }else{
     //        isShousu=NO;
     //    }
-    [self.CommonTableView reloadSections:[NSIndexSet indexSetWithIndex:[@"1" integerValue]]withRowAnimation:UITableViewRowAnimationFade];//有动画的刷新}
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+       
+        [self.CommonTableView reloadSections:[NSIndexSet indexSetWithIndex:[@"1" integerValue]]withRowAnimation:UITableViewRowAnimationFade];//有动画的刷新}
+    });
     
 }
 
