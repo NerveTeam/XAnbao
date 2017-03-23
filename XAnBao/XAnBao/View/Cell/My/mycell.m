@@ -7,7 +7,7 @@
 //
 
 #import "mycell.h"
-
+#import "FrameAutoScaleLFL.h"
 @interface mycell ()
 
 @end

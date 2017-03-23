@@ -29,6 +29,7 @@ static const char *targetKey = "target";
     self.target = target;
     self.backgroundColor = tintColor ? tintColor : ThemeColor;
     UILabel *titleLabel = [UILabel labelWithText:title fontSize:19 textColor:titleColor];
+
     [self addSubview:titleLabel];
     titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {

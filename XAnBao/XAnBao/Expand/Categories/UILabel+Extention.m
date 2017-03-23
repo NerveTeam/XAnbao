@@ -21,6 +21,7 @@
 + (instancetype)labelWithText:(NSString *)text fontSize:(CGFloat)fontSize textColor:(UIColor *)color {
     
     UILabel *label = [self labelWithText:text fontSize:fontSize];
+    
     label.textColor = color;
     
     return label;
