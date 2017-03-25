@@ -15,6 +15,7 @@
 #import "YBTabBarController.h"
 #import "AppDelegate.h"
 #import "XABUserLogin.h"
+#import "UIView+TopBar.h"
 @interface XABLoginViewController ()
 
 {
@@ -27,7 +28,7 @@
     UIButton *_forgetBtn;    // 忘记密码
 }
 @property (nonatomic,strong) UIScrollView  *backScrollView;
-@property (nonatomic,strong) UIView        *navgationView;
+@property (nonatomic,strong) UIView *topBarView;
 @property (nonatomic,strong) UIImageView   *imgView;
 @property (nonatomic,strong) UILabel       *signaLabel;
 @property (nonatomic,strong) UITextField   *accountTF;
@@ -43,6 +44,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.navigationController.navigationBar.hidden = YES;
     [self initSubViews];
 }
 
@@ -108,7 +110,8 @@
     imgView.image = [UIImage imageNamed:@"bj"];
     [self.view addSubview:imgView];
     
-    self.navgationView.backgroundColor = kColorWithRGB(47, 132, 213, 1.0f);
+//    self.navgationView.backgroundColor = kColorWithRGB(47, 132, 213, 1.0f);
+    [self topBarView];
     self.backScrollView.backgroundColor = [UIColor clearColor];
 
     [self imgView];
@@ -130,7 +133,7 @@
     [_goInBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.offset(SPACEING*6/7);
-        make.right.equalTo(weakSelf.navgationView.mas_right).offset(-10);
+        make.right.equalTo(weakSelf.topBarView.mas_right).offset(-10);
         make.height.offset(25);
         make.width.offset(120);
     }];
@@ -354,23 +357,34 @@
     return _imgView;
 }
 
--(UIView *)navgationView{
-    if (!_navgationView) {
+//初始化导航按钮
+-(UIView *)topBarView
+{
+    if (!_topBarView) {
         
-        _navgationView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
-        [self.view addSubview:_navgationView];
-        
-        UILabel * registerLabel = [[UILabel alloc] init];
-        registerLabel.center = CGPointMake(_navgationView.center.x, _navgationView.center.y+10);
-        registerLabel.bounds = CGRectMake(0, 0, 100, 40);
-        registerLabel.text =  @"登录";
-        registerLabel.textColor = [UIColor whiteColor];
-        registerLabel.textAlignment = NSTextAlignmentCenter;
-        [_navgationView addSubview:registerLabel];
-        
+        _topBarView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, StatusBarHeight + TopBarHeight)];
+        [self.view addSubview:_topBarView];
+        _topBarView = [_topBarView topBarWithTintColor:ThemeColor title:@"登录" titleColor:[UIColor whiteColor] leftView:nil rightView:nil responseTarget:self];
     }
-    return _navgationView;
+    return _topBarView;
 }
+//-(UIView *)navgationView{
+//    if (!_navgationView) {
+//        
+//        _navgationView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
+//        [self.view addSubview:_navgationView];
+//        
+//        UILabel * registerLabel = [[UILabel alloc] init];
+//        registerLabel.center = CGPointMake(_navgationView.center.x, _navgationView.center.y+10);
+//        registerLabel.bounds = CGRectMake(0, 0, 100, 40);
+//        registerLabel.text =  @"登录";
+//        registerLabel.textColor = [UIColor whiteColor];
+//        registerLabel.textAlignment = NSTextAlignmentCenter;
+//        [_navgationView addSubview:registerLabel];
+//        
+//    }
+//    return _navgationView;
+//}
 
 -(UIScrollView *)backScrollView{
     
