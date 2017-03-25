@@ -98,16 +98,16 @@
     return  3;
 }
 
--(void)shousu{
+-(void)shousu:(UIButton *)shousuoBtn{
+    
     
     if ([dic[@"1"] integerValue] == 0) {//如果是0，就把1赋给字典,打开cell
-        
-        [dic setObject:@"1" forKey:@"1"];
-        
+                [dic setObject:@"1" forKey:@"1"];
+        isShousu=YES;
     }else{//反之关闭cell
-        
+       
         [dic setObject:@"0" forKey:@"1"];
-        
+        isShousu=NO;
     }
     
     //    static int a=0;
@@ -117,7 +117,7 @@
     //    }else{
     //        isShousu=NO;
     //    }
-    [self.CommonTableView reloadSections:[NSIndexSet indexSetWithIndex:[@"1" integerValue]]withRowAnimation:UITableViewRowAnimationFade];//有动画的刷新}
+            [self.CommonTableView reloadSections:[NSIndexSet indexSetWithIndex:[@"1" integerValue]]withRowAnimation:UITableViewRowAnimationFade];//有动画的刷新}
     
 }
 
@@ -152,7 +152,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    if (indexPath.section==0 || indexPath.section==2) {
+    if (indexPath.section==0) {
         ClasstableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
         if (!cell) {
             cell=[[ClasstableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
@@ -163,8 +163,38 @@
         schoolName=schoolnewsmodel.school;
         cell.titlenNamelbl.text=schoolnewsmodel.title;
         cell.datelbl.text=schoolnewsmodel.showtime;
+   
         return cell;
     }
+    
+    if (indexPath.section==2 ) {
+        ClasstableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+        if (!cell) {
+            cell=[[ClasstableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+        }
+        
+        SchoolNewsAndArticleModel *schoolnewsmodel=CommonSource[indexPath.section][indexPath.row];
+        [cell.titleimageView setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString: schoolnewsmodel.thumbnail]];
+        schoolName=schoolnewsmodel.school;
+        cell.titlenNamelbl.text=schoolnewsmodel.title;
+        cell.datelbl.text=schoolnewsmodel.showtime;
+        cell.datelbl.frame=[FrameAutoScaleLFL CGLFLMakeX:168  Y:35 width:150 height:40];
+        
+        cell.titlelbl.frame=[FrameAutoScaleLFL CGLFLMakeX:120  Y:35 width:90 height:40];
+        cell.titlelbl.text=@"今日头条";
+        
+        return cell;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     ClassNameCell *cell2 = [tableView dequeueReusableCellWithIdentifier:@"cell2"];
     if (!cell2) {
         cell2=[[ClassNameCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell2"];
@@ -175,14 +205,24 @@
     ClassModel *classmodel=CommonSource[1][indexPath.row];
     cell2.titlenNamelbl.text=[NSString stringWithFormat:@"%@%@",classmodel.school,classmodel.name];
     
+            if ([classmodel.type isEqualToString:@"1"]) {
+                  cell2.typelbl.text=@"我是家长";
+            }else{
+                 cell2.typelbl.text=@"我是老师";
+            }
+            
+  
+            
+            
+            
         }
     return cell2;
 }
 - (UILabel *)titlelbl{
     if (!_titlelbl) {
-        _titlelbl = [[UILabel alloc]initWithFrame:[FrameAutoScaleLFL CGLFLMakeX:15 Y:5 width:295 height:30] ];
+        _titlelbl = [[UILabel alloc]initWithFrame:[FrameAutoScaleLFL CGLFLMakeX:15 Y:10 width:295 height:30] ];
         _titlelbl.textAlignment=NSTextAlignmentLeft;
-        _titlelbl.font=[UIFont systemFontOfSize:18];
+        _titlelbl.font=[UIFont systemFontOfSize:13];
 //        _titlelbl.text=SchoolDataArr[0][@"school"][@"name"];
     }
     return _titlelbl;
@@ -213,9 +253,22 @@
             [sectionView addSubview: title];
             
             UIButton *shousuoBtn=[UIButton buttonWithType:UIButtonTypeCustom];
-            shousuoBtn.frame=[FrameAutoScaleLFL CGLFLMakeX:200 Y:0 width:80 height:40];
-            [shousuoBtn setTitle:@"展开" forState:UIControlStateNormal];
-            [shousuoBtn addTarget:self action:@selector(shousu) forControlEvents:UIControlEventTouchUpInside];
+            shousuoBtn.frame=[FrameAutoScaleLFL CGLFLMakeX:260 Y:0 width:40 height:25];
+            shousuoBtn.titleLabel.font=[UIFont systemFontOfSize:13];
+         
+            if (isShousu==NO) {
+                [shousuoBtn setTitle:@"展开" forState:UIControlStateNormal];
+                [shousuoBtn setTitleColor:[UIColor colorWithRed:251/255.0 green:157/255.0 blue:40/255.0 alpha:1] forState:UIControlStateNormal];
+                shousuoBtn.layer.borderColor=[UIColor colorWithRed:251/255.0 green:157/255.0 blue:40/255.0 alpha:1].CGColor;
+            }else{
+                [shousuoBtn setTitleColor:[UIColor colorWithRed:35/255.0 green:1 blue:112/255.0 alpha:1] forState:UIControlStateNormal];
+                shousuoBtn.layer.borderColor=[UIColor colorWithRed:35/255.0 green:1 blue:112/255.0 alpha:1].CGColor;
+                [shousuoBtn setTitle:@"收起" forState:UIControlStateNormal];
+            }
+            shousuoBtn.layer.borderWidth=0.5;
+            shousuoBtn.layer.cornerRadius=5;
+            
+            [shousuoBtn addTarget:self action:@selector(shousu:) forControlEvents:UIControlEventTouchUpInside];
             
             [sectionView addSubview:shousuoBtn];
             
@@ -290,7 +343,7 @@
                      ClassModel *classmodel=[[ClassModel alloc]initWithDic:datadic];
                      //                NSLog(@">>>>>>>>>>>%@",classmodel.school);
                      //                NSLog(@">>>>>>>>>>>%@",classmodel.name);
-                     //                NSLog(@">>>>>>>>>>>%@",classmodel.type);
+                                     NSLog(@">>>>>>>>>>>%@",classmodel.type);
                      
                      [ClassSourceArr addObject:classmodel];
                  }

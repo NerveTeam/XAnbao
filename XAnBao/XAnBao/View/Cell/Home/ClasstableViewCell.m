@@ -33,6 +33,12 @@
         self.datelbl.font=[UIFont systemFontOfSize:11];
 
         [self.contentView addSubview:self.datelbl];
+       
+        
+        self.titlelbl=[[UILabel alloc]init];
+         self.titlelbl.font=[UIFont systemFontOfSize:11];
+        [self.contentView addSubview:self.titlelbl];
+
         
     }
     return  self;
