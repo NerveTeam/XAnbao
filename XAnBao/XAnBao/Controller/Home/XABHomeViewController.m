@@ -295,8 +295,10 @@
                  [CommonSource addObject:ArticleSourceArr];
                  
                  //这里要当数据时再创建表
-                 
-                 [self.CommonTableView reloadData];
+                 dispatch_async(dispatch_get_main_queue(), ^{
+                     [self.CommonTableView reloadData];
+                     
+                 });
                  
                  
                  
