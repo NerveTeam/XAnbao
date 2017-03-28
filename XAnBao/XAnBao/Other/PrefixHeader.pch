@@ -8,17 +8,21 @@
 
 #ifndef PrefixHeader_pch
 #define PrefixHeader_pch
+#ifdef __OBJC__
 #import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 #import "UIView+Position.h"
 #import "Masonry.h"
 #import "UIViewController+AnimationHUD.h"
+static const CGFloat StatusBarHeight = 20;
+static const CGFloat TabBarHeight = 49;
+static const CGFloat TopBarHeight = 44;
+#endif
 
 
 #define RGBCOLOR(r, g, b) [UIColor colorWithRed : (r) / 255.0 green : (g) / 255.0 blue : (b) / 255.0 alpha : 1]
 
-static const CGFloat StatusBarHeight = 20;
-static const CGFloat TabBarHeight = 49;
-static const CGFloat TopBarHeight = 44;
+
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 #define RGBACOLOR(r,g,b,a) [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:(a)]
