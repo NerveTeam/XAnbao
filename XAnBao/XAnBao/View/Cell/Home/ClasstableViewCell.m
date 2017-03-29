@@ -29,17 +29,23 @@
         self.titlenNamelbl.numberOfLines=0;
         self.titlenNamelbl.font=[UIFont systemFontOfSize:12];
         [self.contentView addSubview:self.titlenNamelbl];
-        self.datelbl=[[UILabel alloc]initWithFrame:[FrameAutoScaleLFL CGLFLMakeX:120 Y:20 width:90 height:50]];
+        self.datelbl=[[UILabel alloc]initWithFrame:[FrameAutoScaleLFL CGLFLMakeX:120 Y:35 width:120 height:50]];
         self.datelbl.font=[UIFont systemFontOfSize:11];
-
+        
         [self.contentView addSubview:self.datelbl];
+        
+        
+        self.titlelbl=[[UILabel alloc]init];
+        self.titlelbl.font=[UIFont systemFontOfSize:11];
+        [self.contentView addSubview:self.titlelbl];
+        
         
     }
     return  self;
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
 
