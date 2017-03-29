@@ -102,6 +102,8 @@
 		8C0DF5FF1E85106F00A1B2B2 /* vq.c in Sources */ = {isa = PBXBuildFile; fileRef = 8C0DF5C51E85106E00A1B2B2 /* vq.c */; };
 		8C0DF6001E85106F00A1B2B2 /* window.c in Sources */ = {isa = PBXBuildFile; fileRef = 8C0DF5CA1E85106E00A1B2B2 /* window.c */; };
 		8C0DF6031E88F86F00A1B2B2 /* XABRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C0DF6021E88F86F00A1B2B2 /* XABRecordCell.m */; };
+		8CA107AD1E8B658A00417C5A /* XABHomeworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA107AC1E8B658A00417C5A /* XABHomeworkViewController.m */; };
+		8CA107B01E8B659900417C5A /* XABCheckJobViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA107AF1E8B659900417C5A /* XABCheckJobViewController.m */; };
 		8CB023FD1E6D470600A57EBC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB023FC1E6D470600A57EBC /* main.m */; };
 		8CB024081E6D470600A57EBC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8CB024071E6D470600A57EBC /* Assets.xcassets */; };
 		8CB0240B1E6D470600A57EBC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CB024091E6D470600A57EBC /* LaunchScreen.storyboard */; };
@@ -727,6 +729,10 @@
 		8C0DF5CA1E85106E00A1B2B2 /* window.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = window.c; sourceTree = "<group>"; };
 		8C0DF6011E88F86F00A1B2B2 /* XABRecordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABRecordCell.h; sourceTree = "<group>"; };
 		8C0DF6021E88F86F00A1B2B2 /* XABRecordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABRecordCell.m; sourceTree = "<group>"; };
+		8CA107AB1E8B658A00417C5A /* XABHomeworkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABHomeworkViewController.h; sourceTree = "<group>"; };
+		8CA107AC1E8B658A00417C5A /* XABHomeworkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABHomeworkViewController.m; sourceTree = "<group>"; };
+		8CA107AE1E8B659900417C5A /* XABCheckJobViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABCheckJobViewController.h; sourceTree = "<group>"; };
+		8CA107AF1E8B659900417C5A /* XABCheckJobViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABCheckJobViewController.m; sourceTree = "<group>"; };
 		8CB023F81E6D470600A57EBC /* XAnBao.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XAnBao.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CB023FC1E6D470600A57EBC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8CB024071E6D470600A57EBC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -1866,6 +1872,10 @@
 				8CFBD5531E76AC3200EE691B /* XABClassChatViewController.m */,
 				8C0DF2DB1E8504F100A1B2B2 /* XABEnclosureViewController.h */,
 				8C0DF2DC1E8504F100A1B2B2 /* XABEnclosureViewController.m */,
+				8CA107AB1E8B658A00417C5A /* XABHomeworkViewController.h */,
+				8CA107AC1E8B658A00417C5A /* XABHomeworkViewController.m */,
+				8CA107AE1E8B659900417C5A /* XABCheckJobViewController.h */,
+				8CA107AF1E8B659900417C5A /* XABCheckJobViewController.m */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -3797,6 +3807,7 @@
 				8CB02A161E6D4A3B00A57EBC /* TADotView.m in Sources */,
 				8CB029D01E6D4A3A00A57EBC /* UIProgressView+AFNetworking.m in Sources */,
 				8CB026661E6D497700A57EBC /* NSDate+Utilities.m in Sources */,
+				8CA107AD1E8B658A00417C5A /* XABHomeworkViewController.m in Sources */,
 				8C0DF2C81E8501EB00A1B2B2 /* FSCalendar+Deprecated.m in Sources */,
 				8CB029FC1E6D4A3A00A57EBC /* UIScrollView+MJRefresh.m in Sources */,
 				8CB029CC1E6D4A3A00A57EBC /* AFNetworkActivityIndicatorManager.m in Sources */,
@@ -3910,6 +3921,7 @@
 				8CB02A351E6D4A3B00A57EBC /* UIImage+SNArticle.m in Sources */,
 				8CB02B491E6D58C700A57EBC /* mycell.m in Sources */,
 				8CB02AE91E6D4A3B00A57EBC /* SNArticleBaseViewController+Attitude.m in Sources */,
+				8CA107B01E8B659900417C5A /* XABCheckJobViewController.m in Sources */,
 				8CB02A4D1E6D4A3B00A57EBC /* SNArticleAdParser.m in Sources */,
 				8CFBD55A1E77E29000EE691B /* XABPictureViewController.m in Sources */,
 				8CB02A3A1E6D4A3B00A57EBC /* SNArticleAudio.m in Sources */,
