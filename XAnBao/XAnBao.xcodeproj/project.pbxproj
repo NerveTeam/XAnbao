@@ -104,6 +104,14 @@
 		8C0DF6031E88F86F00A1B2B2 /* XABRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C0DF6021E88F86F00A1B2B2 /* XABRecordCell.m */; };
 		8CA107AD1E8B658A00417C5A /* XABHomeworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA107AC1E8B658A00417C5A /* XABHomeworkViewController.m */; };
 		8CA107B01E8B659900417C5A /* XABCheckJobViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA107AF1E8B659900417C5A /* XABCheckJobViewController.m */; };
+		7572A7351E87644500F753BC /* XABMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7572A72E1E87644500F753BC /* XABMineViewController.m */; };
+		7572A7361E87644500F753BC /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7572A7301E87644500F753BC /* SettingViewController.m */; };
+		7572A7371E87644500F753BC /* MySelfInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7572A7321E87644500F753BC /* MySelfInfoViewController.m */; };
+		7572A7381E87644500F753BC /* UpdatePassViewControler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7572A7341E87644500F753BC /* UpdatePassViewControler.m */; };
+		7572A73F1E87646D00F753BC /* MyInfomationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7572A73A1E87646D00F753BC /* MyInfomationCell.m */; };
+		7572A7401E87646D00F753BC /* SettingtavleViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7572A73C1E87646D00F753BC /* SettingtavleViewCell.m */; };
+		7572A7411E87646D00F753BC /* MySelfTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7572A73E1E87646D00F753BC /* MySelfTableCell.m */; };
+		7572A7451E87649B00F753BC /* NSString+Addtion.m in Sources */ = {isa = PBXBuildFile; fileRef = 7572A7441E87649B00F753BC /* NSString+Addtion.m */; };
 		8CB023FD1E6D470600A57EBC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB023FC1E6D470600A57EBC /* main.m */; };
 		8CB024081E6D470600A57EBC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8CB024071E6D470600A57EBC /* Assets.xcassets */; };
 		8CB0240B1E6D470600A57EBC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CB024091E6D470600A57EBC /* LaunchScreen.storyboard */; };
@@ -445,7 +453,6 @@
 		8CB02B0B1E6D4D9700A57EBC /* XABSchoolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B0A1E6D4D9700A57EBC /* XABSchoolViewController.m */; };
 		8CB02B0E1E6D4D9E00A57EBC /* XABClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B0D1E6D4D9E00A57EBC /* XABClassViewController.m */; };
 		8CB02B111E6D4DB300A57EBC /* XABResourceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B101E6D4DB300A57EBC /* XABResourceViewController.m */; };
-		8CB02B141E6D4DBD00A57EBC /* XABMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B131E6D4DBD00A57EBC /* XABMineViewController.m */; };
 		8CB02B331E6D575600A57EBC /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B171E6D575600A57EBC /* NSData+ImageContentType.m */; };
 		8CB02B341E6D575600A57EBC /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B191E6D575600A57EBC /* SDImageCache.m */; };
 		8CB02B351E6D575600A57EBC /* SDWebImageCompat.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B1B1E6D575600A57EBC /* SDWebImageCompat.m */; };
@@ -733,6 +740,22 @@
 		8CA107AC1E8B658A00417C5A /* XABHomeworkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABHomeworkViewController.m; sourceTree = "<group>"; };
 		8CA107AE1E8B659900417C5A /* XABCheckJobViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABCheckJobViewController.h; sourceTree = "<group>"; };
 		8CA107AF1E8B659900417C5A /* XABCheckJobViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABCheckJobViewController.m; sourceTree = "<group>"; };
+		7572A72D1E87644500F753BC /* XABMineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABMineViewController.h; sourceTree = "<group>"; };
+		7572A72E1E87644500F753BC /* XABMineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABMineViewController.m; sourceTree = "<group>"; };
+		7572A72F1E87644500F753BC /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		7572A7301E87644500F753BC /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		7572A7311E87644500F753BC /* MySelfInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MySelfInfoViewController.h; sourceTree = "<group>"; };
+		7572A7321E87644500F753BC /* MySelfInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MySelfInfoViewController.m; sourceTree = "<group>"; };
+		7572A7331E87644500F753BC /* UpdatePassViewControler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdatePassViewControler.h; sourceTree = "<group>"; };
+		7572A7341E87644500F753BC /* UpdatePassViewControler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdatePassViewControler.m; sourceTree = "<group>"; };
+		7572A7391E87646D00F753BC /* MyInfomationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyInfomationCell.h; sourceTree = "<group>"; };
+		7572A73A1E87646D00F753BC /* MyInfomationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyInfomationCell.m; sourceTree = "<group>"; };
+		7572A73B1E87646D00F753BC /* SettingtavleViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingtavleViewCell.h; sourceTree = "<group>"; };
+		7572A73C1E87646D00F753BC /* SettingtavleViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingtavleViewCell.m; sourceTree = "<group>"; };
+		7572A73D1E87646D00F753BC /* MySelfTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MySelfTableCell.h; sourceTree = "<group>"; };
+		7572A73E1E87646D00F753BC /* MySelfTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MySelfTableCell.m; sourceTree = "<group>"; };
+		7572A7431E87649B00F753BC /* NSString+Addtion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Addtion.h"; sourceTree = "<group>"; };
+		7572A7441E87649B00F753BC /* NSString+Addtion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Addtion.m"; sourceTree = "<group>"; };
 		8CB023F81E6D470600A57EBC /* XAnBao.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XAnBao.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CB023FC1E6D470600A57EBC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8CB024071E6D470600A57EBC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -1292,8 +1315,6 @@
 		8CB02B0D1E6D4D9E00A57EBC /* XABClassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABClassViewController.m; sourceTree = "<group>"; };
 		8CB02B0F1E6D4DB300A57EBC /* XABResourceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABResourceViewController.h; sourceTree = "<group>"; };
 		8CB02B101E6D4DB300A57EBC /* XABResourceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABResourceViewController.m; sourceTree = "<group>"; };
-		8CB02B121E6D4DBD00A57EBC /* XABMineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABMineViewController.h; sourceTree = "<group>"; };
-		8CB02B131E6D4DBD00A57EBC /* XABMineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABMineViewController.m; sourceTree = "<group>"; };
 		8CB02B161E6D575600A57EBC /* NSData+ImageContentType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ImageContentType.h"; sourceTree = "<group>"; };
 		8CB02B171E6D575600A57EBC /* NSData+ImageContentType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+ImageContentType.m"; sourceTree = "<group>"; };
 		8CB02B181E6D575600A57EBC /* SDImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDImageCache.h; sourceTree = "<group>"; };
@@ -1751,6 +1772,15 @@
 				8C0DF5BC1E85106E00A1B2B2 /* speex_types.h */,
 			);
 			path = speex;
+            sourceTree = "<group>";
+};
+		7572A7421E87649B00F753BC /* ClearLaJi */ = {
+			isa = PBXGroup;
+			children = (
+				7572A7431E87649B00F753BC /* NSString+Addtion.h */,
+				7572A7441E87649B00F753BC /* NSString+Addtion.m */,
+			);
+			path = ClearLaJi;
 			sourceTree = "<group>";
 		};
 		8CB023EF1E6D470600A57EBC = {
@@ -1892,8 +1922,14 @@
 		8CB0243C1E6D497000A57EBC /* My */ = {
 			isa = PBXGroup;
 			children = (
-				8CB02B121E6D4DBD00A57EBC /* XABMineViewController.h */,
-				8CB02B131E6D4DBD00A57EBC /* XABMineViewController.m */,
+				7572A72D1E87644500F753BC /* XABMineViewController.h */,
+				7572A72E1E87644500F753BC /* XABMineViewController.m */,
+				7572A72F1E87644500F753BC /* SettingViewController.h */,
+				7572A7301E87644500F753BC /* SettingViewController.m */,
+				7572A7311E87644500F753BC /* MySelfInfoViewController.h */,
+				7572A7321E87644500F753BC /* MySelfInfoViewController.m */,
+				7572A7331E87644500F753BC /* UpdatePassViewControler.h */,
+				7572A7341E87644500F753BC /* UpdatePassViewControler.m */,
 			);
 			path = My;
 			sourceTree = "<group>";
@@ -2226,6 +2262,12 @@
 			children = (
 				8CB02B471E6D58C700A57EBC /* mycell.h */,
 				8CB02B481E6D58C700A57EBC /* mycell.m */,
+				7572A7391E87646D00F753BC /* MyInfomationCell.h */,
+				7572A73A1E87646D00F753BC /* MyInfomationCell.m */,
+				7572A73B1E87646D00F753BC /* SettingtavleViewCell.h */,
+				7572A73C1E87646D00F753BC /* SettingtavleViewCell.m */,
+				7572A73D1E87646D00F753BC /* MySelfTableCell.h */,
+				7572A73E1E87646D00F753BC /* MySelfTableCell.m */,
 			);
 			path = My;
 			sourceTree = "<group>";
@@ -2318,6 +2360,7 @@
 			children = (
 				8C0DF5441E85106E00A1B2B2 /* SpeexSDK */,
 				8C0DF2A71E8501EB00A1B2B2 /* FSCalendar */,
+				7572A7421E87649B00F753BC /* ClearLaJi */,
 				60A551631E7D13DC0058DD96 /* SMS_SDK */,
 				8CB02B151E6D575600A57EBC /* SDWebImage */,
 				8CB027851E6D4A3A00A57EBC /* AFNetworking */,
@@ -3626,7 +3669,6 @@
 				8C0DF5D71E85106E00A1B2B2 /* bits.c in Sources */,
 				8C0DF5FC1E85106F00A1B2B2 /* speex_header.c in Sources */,
 				8CB0266A1E6D497700A57EBC /* UIButton+Extention.m in Sources */,
-				8CB02B141E6D4DBD00A57EBC /* XABMineViewController.m in Sources */,
 				8CB02A0B1E6D4A3B00A57EBC /* MLMeunView.m in Sources */,
 				8CB02B5B1E6D59D600A57EBC /* review.m in Sources */,
 				8CB02AFF1E6D4A3B00A57EBC /* YTKNetworkConfig.m in Sources */,
@@ -3638,9 +3680,11 @@
 				8CFBD52D1E76776200EE691B /* XABSchoolIntranetViewController.m in Sources */,
 				8CB02AF81E6D4A3B00A57EBC /* YBPopupMenu.m in Sources */,
 				60A5516E1E7D15F30058DD96 /* NSString+Check.m in Sources */,
+				7572A7451E87649B00F753BC /* NSString+Addtion.m in Sources */,
 				8CB02AF51E6D4A3B00A57EBC /* UITableView+FDKeyedHeightCache.m in Sources */,
 				8CB02A3E1E6D4A3B00A57EBC /* SNArticleImage.m in Sources */,
 				8CB029F31E6D4A3A00A57EBC /* MJRefreshBackNormalFooter.m in Sources */,
+				7572A7351E87644500F753BC /* XABMineViewController.m in Sources */,
 				8CB02A2F1E6D4A3B00A57EBC /* NSArray+SNArticle.m in Sources */,
 				8CB02B881E6FF23300A57EBC /* XABSchoolMenuCell.m in Sources */,
 				8CB02A4C1E6D4A3B00A57EBC /* SNUserSupportInfo.m in Sources */,
@@ -3672,6 +3716,7 @@
 				8CB02AE21E6D4A3B00A57EBC /* SNArticleCacheManager.m in Sources */,
 				8CFBD5541E76AC3200EE691B /* XABClassChatViewController.m in Sources */,
 				8CB02A441E6D4A3B00A57EBC /* SNArticleWeibo.m in Sources */,
+				7572A7401E87646D00F753BC /* SettingtavleViewCell.m in Sources */,
 				60A5516F1E7D15F30058DD96 /* UITextField+CHTHealper.m in Sources */,
 				8CFBD5101E7643FB00EE691B /* WYYViewController.m in Sources */,
 				8C0DF2CD1E8501EB00A1B2B2 /* FSCalendarCollectionView.m in Sources */,
@@ -3688,6 +3733,7 @@
 				8C0DF5ED1E85106E00A1B2B2 /* lsp_tables_nb.c in Sources */,
 				8C0DF5E71E85106E00A1B2B2 /* high_lsp_tables.c in Sources */,
 				8CB026681E6D497700A57EBC /* NSFileManager+Utilities.m in Sources */,
+				7572A7381E87644500F753BC /* UpdatePassViewControler.m in Sources */,
 				8CB02A0D1E6D4A3B00A57EBC /* MLBridgeBlock.m in Sources */,
 				8CB026731E6D497700A57EBC /* UIViewController+Navigation.m in Sources */,
 				8CB02A401E6D4A3B00A57EBC /* SNArticlePicture.m in Sources */,
@@ -3734,6 +3780,7 @@
 				8C0DF5F01E85106F00A1B2B2 /* modes.c in Sources */,
 				8CFBD54E1E76AC1D00EE691B /* XABClassFileViewController.m in Sources */,
 				8C0DF2D31E8501EB00A1B2B2 /* FSCalendarHeaderView.m in Sources */,
+				7572A7371E87644500F753BC /* MySelfInfoViewController.m in Sources */,
 				8CB02AF21E6D4A3B00A57EBC /* SNNewsWebView.m in Sources */,
 				8CB0267C1E6D497700A57EBC /* YBFileHelper.m in Sources */,
 				8C0DF5E81E85106E00A1B2B2 /* jitter.c in Sources */,
@@ -3832,6 +3879,7 @@
 				8CB029E81E6D4A3A00A57EBC /* NSObject+MJProperty.m in Sources */,
 				8CB023FD1E6D470600A57EBC /* main.m in Sources */,
 				8CB029DD1E6D4A3A00A57EBC /* View+MASAdditions.m in Sources */,
+				7572A7361E87644500F753BC /* SettingViewController.m in Sources */,
 				8CB029EA1E6D4A3A00A57EBC /* MJRefreshAutoFooter.m in Sources */,
 				8CB02AE81E6D4A3B00A57EBC /* SNArticleBaseViewController+Ad.m in Sources */,
 				8CB02A0A1E6D4A3B00A57EBC /* MLMeunItem.m in Sources */,
@@ -3889,6 +3937,8 @@
 				8CB0266F1E6D497700A57EBC /* UILabel+Extention.m in Sources */,
 				8CB02A531E6D4A3B00A57EBC /* SNAttitudeParser.m in Sources */,
 				8CB0266D1E6D497700A57EBC /* UIImage+Stretch.m in Sources */,
+				7572A7411E87646D00F753BC /* MySelfTableCell.m in Sources */,
+				7572A73F1E87646D00F753BC /* MyInfomationCell.m in Sources */,
 				8CB029F71E6D4A3A00A57EBC /* MJRefreshStateHeader.m in Sources */,
 				8CB02A001E6D4A3B00A57EBC /* MLComment.m in Sources */,
 				8CB02B8B1E714ADF00A57EBC /* RNCachingURLProtocol.m in Sources */,
