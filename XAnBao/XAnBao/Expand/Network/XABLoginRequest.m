@@ -9,7 +9,7 @@
 #import "XABLoginRequest.h"
 
 // 域名
-static const NSString *domain = @"http://wu.she-cheng.com/thinkphp/";
+static const NSString *domain = @"http://118.190.97.150/interface/api1/";
 
 
 //获取验证码
@@ -17,11 +17,10 @@ static const NSString *domain = @"http://wu.she-cheng.com/thinkphp/";
 
 - (NSString *)requestUrl {
     //    示例，我们的注册接口
-    //    return @"/zhuce.php?";
-    return [domain stringByAppendingString:@"news/feed?"];
+    return [domain stringByAppendingString:@"login"];
 }
 - (YTKRequestMethod)requestMethod {
-    return YTKRequestMethodGET;
+    return YTKRequestMethodPOST;
 }
 - (YTKResponseSerializerType)responseSerializerType {
     return YTKResponseSerializerTypeJSON;
@@ -38,11 +37,10 @@ static const NSString *domain = @"http://wu.she-cheng.com/thinkphp/";
 
 - (NSString *)requestUrl {
     //    示例，我们的注册接口
-    //    return @"/zhuce.php?";
     return [domain stringByAppendingString:@"news/feed?"];
 }
 - (YTKRequestMethod)requestMethod {
-    return YTKRequestMethodGET;
+    return YTKRequestMethodPOST;
 }
 - (YTKResponseSerializerType)responseSerializerType {
     return YTKResponseSerializerTypeJSON;
@@ -55,10 +53,10 @@ static const NSString *domain = @"http://wu.she-cheng.com/thinkphp/";
 //判断是否注册请求
 @implementation UserRegisterStatusRequest
 - (NSString *)requestUrl {
-    return [domain stringByAppendingString:@"login/status"];
+    return [domain stringByAppendingString:@"accountVerify"];
 }
 - (YTKRequestMethod)requestMethod {
-    return YTKRequestMethodGET;
+    return YTKRequestMethodPOST;
 }
 - (YTKResponseSerializerType)responseSerializerType {
     return YTKResponseSerializerTypeJSON;
@@ -74,11 +72,10 @@ static const NSString *domain = @"http://wu.she-cheng.com/thinkphp/";
 
 - (NSString *)requestUrl {
     //    示例，我们的注册接口
-    //    return @"/zhuce.php?";
-    return [domain stringByAppendingString:@"news/feed?"];
+    return [domain stringByAppendingString:@"register"];
 }
 - (YTKRequestMethod)requestMethod {
-    return YTKRequestMethodGET;
+    return YTKRequestMethodPOST;
 }
 - (YTKResponseSerializerType)responseSerializerType {
     return YTKResponseSerializerTypeJSON;
@@ -95,11 +92,10 @@ static const NSString *domain = @"http://wu.she-cheng.com/thinkphp/";
 
 - (NSString *)requestUrl {
     //    示例，我们的注册接口
-    //    return @"/zhuce.php?";
-    return [domain stringByAppendingString:@"news/feed?"];
+    return [domain stringByAppendingString:@"retrieve"];
 }
 - (YTKRequestMethod)requestMethod {
-    return YTKRequestMethodGET;
+    return YTKRequestMethodPOST;
 }
 - (YTKResponseSerializerType)responseSerializerType {
     return YTKResponseSerializerTypeJSON;

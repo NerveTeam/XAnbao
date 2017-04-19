@@ -12,9 +12,10 @@
 #import "XABLoginViewController.h"
 #import "XABUserLogin.h"
 #import <SMS_SDK/SMSSDK.h>
-
+#import "XABShareSDKTool.h"
 static NSString * const SMSAppKey = @"1b1b702554e44";
 static NSString * const SMSAppSecret = @"870942be696045d543192122ad220742";
+
 @interface AppDelegate ()
 
 @end
@@ -25,11 +26,14 @@ static NSString * const SMSAppSecret = @"870942be696045d543192122ad220742";
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self globalConfig];
     [self configSMS];
+    [XABShareSDKTool registerShare];
+    
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     YBTabBarController *tabBarController = [[YBTabBarController alloc]init];
     XABLoginViewController *loginVC = [[XABLoginViewController alloc] init];
     UINavigationController *navLogin = [[UINavigationController alloc] initWithRootViewController:loginVC];
     
+
     NSUserDefaults *userdefault=[NSUserDefaults standardUserDefaults];
     NSString *appVersion = [userdefault objectForKey:@"appVersion"];
     [userdefault synchronize];
@@ -91,6 +95,7 @@ static NSString * const SMSAppSecret = @"870942be696045d543192122ad220742";
     
     [SMSSDK registerApp:SMSAppKey withSecret:SMSAppSecret];
 }
+
 - (void)globalConfig {
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     //    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:

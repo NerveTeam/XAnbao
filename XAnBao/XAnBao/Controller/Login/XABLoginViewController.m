@@ -16,6 +16,7 @@
 #import "AppDelegate.h"
 #import "XABUserLogin.h"
 #import "UIView+TopBar.h"
+#import "XABShareSDKTool.h"
 @interface XABLoginViewController ()
 
 {
@@ -26,6 +27,9 @@
     UIButton *_registerBtn;  // 注册按钮
     
     UIButton *_forgetBtn;    // 忘记密码
+    
+    UIButton *_shareBtn;    // 忘记密码
+
 }
 @property (nonatomic,strong) UIScrollView  *backScrollView;
 @property (nonatomic,strong) UIView *topBarView;
@@ -101,6 +105,20 @@
     [self pushToController:[[XABFindPasswordViewController alloc]init] animated:YES];
 }
 
+-(void)shareClick{
+    
+    NSArray* imageArray = @[@"http://touxiang.qqzhi.com/uploads/2012-11/1111105304979.jpg"];
+    [XABShareSDKTool shareContentWithShareContentType:SSDKContentTypeAuto contentTitle:@"大家好" contentDescription:@"详情描述" contentImage:imageArray contentURL:@"https://sports.sina.cn/nba/warriors/2017-03-09/detail-ifychhuq3433755.d.html?vt=4&pos=10&HTTPS=1" showInView:self.backScrollView success:^{
+        DLog(@"分享成功");
+    } failure:^(NSString *failureInfo) {
+        DLog(@"分享失败=%@",failureInfo);
+
+    } OtherResponseStatus:^(SSDKResponseState state) {
+        DLog(@"分享state=%ld",state);
+
+    }];
+}
+
 #pragma mark - 初始化 加载 视图
 -(void)initSubViews{
     
@@ -118,6 +136,23 @@
     [self signaLabel];
     [self accountTF];
     [self passwordTF];
+    
+    
+    _shareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_shareBtn setTitle:@"分享" forState:UIControlStateNormal];
+    _shareBtn.titleLabel.font = [UIFont systemFontOfSize:14.5];
+    [_shareBtn setTitleColor:kColorWithRGB(47, 132, 213, 1.0f) forState:UIControlStateNormal];
+    [_shareBtn addTarget:self action:@selector(shareClick) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.backScrollView addSubview:_shareBtn];
+    
+    [_shareBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.offset(SPACEING*6/7);
+        make.left.equalTo(self.topBarView.mas_left).offset(10);
+        make.height.offset(25);
+        make.width.offset(120);
+    }];
     
     WS(weakSelf);
 
@@ -214,14 +249,14 @@
         UIImage *im = [UIImage imageNamed:@"content_ic_comments"];
         UIImageView *iv = [[UIImageView alloc] initWithImage:im];
         UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(5, 0, 20+50, 28)];//宽度根据需求进行设置，高度必须大于 textField 的高度
-        iv.center = CGPointMake(leftView.center.x-40, leftView.center.y);
+        iv.center = CGPointMake(leftView.center.x-30, leftView.center.y);
         [leftView addSubview:iv];
         
         UILabel *titleLabel = [[UILabel alloc] init];
         titleLabel.textAlignment = NSTextAlignmentLeft;
         titleLabel.text = @"密码:";
-        titleLabel.font = [UIFont systemFontOfSize:18];
-        titleLabel.bounds = CGRectMake(0, 0, 50, 28);
+        titleLabel.font = [UIFont systemFontOfSize:17];
+        titleLabel.bounds = CGRectMake(0, 0, 40, 28);
         titleLabel.center = CGPointMake(leftView.center.x, leftView.center.y);
         [leftView addSubview:titleLabel];
         
@@ -275,14 +310,14 @@
         UIImage *im = [UIImage imageNamed:@"content_ic_comments"];
         UIImageView *iv = [[UIImageView alloc] initWithImage:im];
         UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(5, 0, 20+50, 28)];//宽度根据需求进行设置，高度必须大于 textField 的高度
-        iv.center = CGPointMake(leftView.center.x-40, leftView.center.y);
+        iv.center = CGPointMake(leftView.center.x-30, leftView.center.y);
         [leftView addSubview:iv];
         
         UILabel *titleLabel = [[UILabel alloc] init];
         titleLabel.textAlignment = NSTextAlignmentLeft;
         titleLabel.text = @"账号:";
-        titleLabel.font = [UIFont systemFontOfSize:18];
-        titleLabel.bounds = CGRectMake(0, 0, 50, 28);
+        titleLabel.font = [UIFont systemFontOfSize:17];
+        titleLabel.bounds = CGRectMake(0, 0, 40, 28);
         titleLabel.center = CGPointMake(leftView.center.x, leftView.center.y);
         [leftView addSubview:titleLabel];
 
