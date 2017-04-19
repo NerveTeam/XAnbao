@@ -72,19 +72,23 @@
 #pragma mark - 登录
 -(void)loginClick{
     
-    YBTabBarController *tabBarController = [[YBTabBarController alloc]init];
-    
-    AppDelegate *app =(AppDelegate *) [[UIApplication sharedApplication] delegate ];
-    app.window.rootViewController = tabBarController;
-    [app.window makeKeyAndVisible];
+   
     if (self.accountTF.text.length ==0 && self.passwordTF.text.length == 0) {
         
+        [self showMessage:@"账号、密码不能为空"];
         return;
     }
     [[XABUserLogin getInstance] userLogin:self.accountTF.text password:self.passwordTF.text callBack:^(BOOL success, XABUserModel *user) {
         
+        
+        YBTabBarController *tabBarController = [[YBTabBarController alloc]init];
+        
+        AppDelegate *app =(AppDelegate *) [[UIApplication sharedApplication] delegate ];
+        app.window.rootViewController = tabBarController;
+        [app.window makeKeyAndVisible];
         if (success) {
-            
+            NSLog(@"登录成功");
+
         }else {
             // 提示用户名密码错误
             NSLog(@"用户名密码错误");
