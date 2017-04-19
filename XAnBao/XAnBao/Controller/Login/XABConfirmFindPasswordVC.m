@@ -42,19 +42,20 @@
     if (self.passwordTF.text.length <1) return;
     if (self.passwordTF.text != self.rPasswordTF.text) {
         
-        DLog(@"两次输入密码不一致");
+        [self showMessage:@"两次输入密码不一致"];
         return;
     }
-//    NSDictionary *dict = @{};
-   
-    [[XABUserLogin getInstance] modifyPassword:self.passwordTF.text callBack:^(BOOL success) {
+    
+    //修改密码
+    [[XABUserLogin getInstance] modifyPassword:self.passwordTF.text callBack:^(BOOL success,NSString *message) {
         
         if (success) {
-            
+            [self pushToController:[[XABLoginViewController alloc] init] animated:YES];
+        }else{
+            [self showMessage:@"修改密码失败"];
         }
     }];
     
-    [self pushToController:[[XABLoginViewController alloc] init] animated:YES];
 }
 
 
