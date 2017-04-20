@@ -1518,13 +1518,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-<<<<<<< HEAD
+
 				6071D7F01E8A8EEB004B94BD /* libsqlite3.tbd in Frameworks */,
-=======
 				8C0DF5431E85100C00A1B2B2 /* AudioToolbox.framework in Frameworks */,
 				8C0DF5411E85100000A1B2B2 /* CoreAudio.framework in Frameworks */,
 				8C0DF53F1E850FF200A1B2B2 /* AVFoundation.framework in Frameworks */,
->>>>>>> master
+
 				60A5518B1E7D17ED0058DD96 /* libstdc++.tbd in Frameworks */,
 				6071D7E41E8A8DF7004B94BD /* WechatConnector.framework in Frameworks */,
 				6071D7E91E8A8DF7004B94BD /* libWeChatSDK.a in Frameworks */,
@@ -1717,13 +1716,12 @@
 		60A5517D1E7D17B60058DD96 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
+
 				6071D7EF1E8A8EEB004B94BD /* libsqlite3.tbd */,
-=======
 				8C0DF5421E85100C00A1B2B2 /* AudioToolbox.framework */,
 				8C0DF5401E85100000A1B2B2 /* CoreAudio.framework */,
 				8C0DF53E1E850FF200A1B2B2 /* AVFoundation.framework */,
->>>>>>> master
+
 				60A5518A1E7D17ED0058DD96 /* libstdc++.tbd */,
 				60A551881E7D17DF0058DD96 /* CoreTelephony.framework */,
 				60A551861E7D17D90058DD96 /* SystemConfiguration.framework */,
@@ -2557,13 +2555,10 @@
 		8CB027841E6D4A3A00A57EBC /* Vender */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
 				6071D7AA1E8A8DF6004B94BD /* ShareSDK */,
-=======
 				8C0DF5441E85106E00A1B2B2 /* SpeexSDK */,
 				8C0DF2A71E8501EB00A1B2B2 /* FSCalendar */,
 				7572A7421E87649B00F753BC /* ClearLaJi */,
->>>>>>> master
 				60A551631E7D13DC0058DD96 /* SMS_SDK */,
 				8CB02B151E6D575600A57EBC /* SDWebImage */,
 				8CB027851E6D4A3A00A57EBC /* AFNetworking */,
