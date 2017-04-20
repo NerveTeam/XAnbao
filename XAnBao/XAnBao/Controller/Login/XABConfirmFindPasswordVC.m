@@ -11,6 +11,8 @@
 #import "UITextField+CHTHealper.h"
 #import "XABLoginMacro.h"
 #import "XABLoginViewController.h"
+#import "UIView+TopBar.h"
+#import "UIButton+Extention.h"
 @interface XABConfirmFindPasswordVC ()
 {
     
@@ -19,7 +21,7 @@
 }
 @property (nonatomic,strong) UIScrollView  *backScrollView;
 @property (nonatomic,strong) UIView        *navgationView;
-
+@property (nonatomic,strong) UIButton      *backBtn;
 @property (nonatomic,strong) UITextField   *passwordTF;
 @property (nonatomic,strong) UITextField   *rPasswordTF;
 @end
@@ -40,19 +42,20 @@
     if (self.passwordTF.text.length <1) return;
     if (self.passwordTF.text != self.rPasswordTF.text) {
         
-        DLog(@"两次输入密码不一致");
+        [self showMessage:@"两次输入密码不一致"];
         return;
     }
-//    NSDictionary *dict = @{};
-   
-    [[XABUserLogin getInstance] modifyPassword:self.passwordTF.text callBack:^(BOOL success) {
+    
+    //修改密码
+    [[XABUserLogin getInstance] modifyPassword:self.passwordTF.text callBack:^(BOOL success,NSString *message) {
         
         if (success) {
-            
+            [self pushToController:[[XABLoginViewController alloc] init] animated:YES];
+        }else{
+            [self showMessage:@"修改密码失败"];
         }
     }];
     
-    [self pushToController:[[XABLoginViewController alloc] init] animated:YES];
 }
 
 
@@ -181,23 +184,24 @@
 }
 
 
--(UIView *)navgationView{
+//初始化导航按钮
+-(UIView *)navgationView
+{
     if (!_navgationView) {
         
-        _navgationView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
+        _navgationView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, StatusBarHeight + TopBarHeight)];
         [self.view addSubview:_navgationView];
-        
-        UILabel * registerLabel = [[UILabel alloc] init];
-        registerLabel.center = CGPointMake(_navgationView.center.x, _navgationView.center.y+10);
-        registerLabel.bounds = CGRectMake(0, 0, 100, 40);
-        registerLabel.text =  @"找回密码";
-        registerLabel.textColor = [UIColor whiteColor];
-        registerLabel.textAlignment = NSTextAlignmentCenter;
-        [_navgationView addSubview:registerLabel];
-        
+        _navgationView = [_navgationView topBarWithTintColor:ThemeColor title:@"找回密码" titleColor:[UIColor whiteColor] leftView:self.backBtn rightView:nil responseTarget:self];
     }
     return _navgationView;
 }
+- (UIButton *)backBtn {
+    if (!_backBtn) {
+        _backBtn = [UIButton buttonWithTitle:@"返回" fontSize:15];
+    }
+    return _backBtn;
+}
+
 
 -(UIScrollView *)backScrollView{
     
