@@ -25,8 +25,8 @@
 @implementation XABResourceListCell
 static const CGFloat marginLeft = 10;
 static const CGFloat marginTop = 15;
-static const CGFloat imgW = 120;
-static const CGFloat imgH = 80;
+static const CGFloat imgW = 105;
+static const CGFloat imgH = imgScale(imgW);
 + (instancetype)newsSportListCellWithTableView:(UITableView *)tableView {
     XABResourceListCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([self class])];
     if (!cell) {
@@ -92,7 +92,7 @@ static const CGFloat imgH = 80;
 }
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
-        _titleLabel = [UILabel labelWithText:nil fontSize:16];
+        _titleLabel = [UILabel labelWithText:nil fontSize:14];
         _titleLabel.numberOfLines = 2;
         _titleLabel.textColor = RGBACOLOR(20, 20, 20, 1);
     }
