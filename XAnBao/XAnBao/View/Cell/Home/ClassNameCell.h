@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+#import <UIKit/UIKit.h>
+
 @interface ClassNameCell : UITableViewCell
 @property(nonatomic,retain)UIButton * titleimageView;
 @property(nonatomic,retain)UILabel *titlenNamelbl;
-@property(nonatomic,retain)UILabel *datelbl;
+@property(nonatomic,retain)UILabel *typelbl;
 @end

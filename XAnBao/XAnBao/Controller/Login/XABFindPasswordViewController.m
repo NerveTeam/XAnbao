@@ -13,6 +13,8 @@
 #import "XABConfirmFindPasswordVC.h"
 #import "XABLoginViewController.h"
 #import "NSString+Check.h"
+#import "UIView+TopBar.h"
+#import "UIButton+Extention.h"
 @interface XABFindPasswordViewController ()
 {
     
@@ -29,7 +31,7 @@
 }
 @property (nonatomic,strong) UIScrollView  *backScrollView;
 @property (nonatomic,strong) UIView        *navgationView;
-
+@property (nonatomic,strong) UIButton      *backBtn;
 @property (nonatomic,strong) UITextField   *phoneTF;
 @property (nonatomic,strong) UITextField   *codeTF;
 @end
@@ -42,18 +44,33 @@
     
     [self initSubViews];
 }
-
+-(void)viewDidDisappear:(BOOL)animated{
+    
+    [super viewDidDisappear:animated];
+    // 开始倒数, 用户暂时不可与按钮交互
+    [_codeBtn setUserInteractionEnabled:YES];
+}
 
 #pragma mark - 下一步
 -(void)nextClick{
- 
-    XABConfirmFindPasswordVC *vc = [[XABConfirmFindPasswordVC alloc] init];
-    [self pushToController:vc animated:YES];
+    
+    //验证码 校验
+    [[XABUserLogin getInstance] verifyCodeResult:self.codeTF.text callBack:^(BOOL success,NSString *message) {
+        
+        if (success) {
+            
+            XABConfirmFindPasswordVC *vc = [[XABConfirmFindPasswordVC alloc] init];
+            [self pushToController:vc animated:YES];
+        }else{
+            [self showMessage:@"验证码输入有误"];
+        }
+    }];
 }
 
 #pragma mark - 立即登录
 
 -(void)loginClick{
+    
     
 //    [[XABUserLogin getInstance] userLogin:self.phoneTF.text password:self.codeTF.text callBack:^(BOOL success, XABUserModel *user) {
 //        
@@ -65,11 +82,12 @@
 
 #pragma mark - 发送验证码
 
--(void)codeClick:(id)sender{
+-(void)fcodeClick:(id)sender{
+    
+    [self.view endEditing:YES];
     
     if (![self.phoneTF.text isMobileNumber]) {
-
-        DLog( @"手机号码有误");
+        [self showMessage:@"手机号码有误"];
         return;
     }
     
@@ -77,12 +95,13 @@
     [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(tmierCountDown:) object:sender];
     [self performSelector:@selector(tmierCountDown:) withObject:sender afterDelay:0.2f];
     
-    [[XABUserLogin getInstance] requestVerifyCode:self.phoneTF.text callBack:^(BOOL success) {
+    [[XABUserLogin getInstance] requestVerifyCode:self.phoneTF.text callBack:^(BOOL success,NSString *message) {
         
         if (success) {
-             DLog( @"验证码已发送");
+            [self showMessage:@"验证码已发送"];
         }else{
-            
+            [self showMessage:@"验证码获取失败"];
+
         }
     }];
 }
@@ -131,10 +150,10 @@
     
     _codeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_codeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
-    [_codeBtn addTarget:self action:@selector(codeClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_codeBtn addTarget:self action:@selector(fcodeClick:) forControlEvents:UIControlEventTouchUpInside];
     [_codeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.backScrollView addSubview:_codeBtn];
-    _codeBtn.titleLabel.font = [UIFont systemFontOfSize:16];
+    _codeBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     _codeBtn.layer.cornerRadius = 3.0f;
     _codeBtn.backgroundColor = kThemeBackGroundColor;
     
@@ -189,10 +208,9 @@
     if (!_codeTF) {
         
         _codeTF =[[UITextField alloc] init];
-        
+        _codeTF.keyboardType = UIKeyboardTypeNumberPad;
         [self.backScrollView addSubview:_codeTF];
         _codeTF.moveView = self.backScrollView;
-        
         
         WS(weakSelf);
         
@@ -201,7 +219,7 @@
             make.top.equalTo(weakSelf.phoneTF.mas_bottom).offset(10);
             make.left.offset(LEFTSPACEING);
             make.height.offset(TFHEIGHT);
-            make.right.equalTo(_codeBtn.mas_right).offset(15);
+            make.right.equalTo(_codeBtn.mas_left).offset(-10);
         }];
         
         UIImageView *imagView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
@@ -235,7 +253,8 @@
     if (!_phoneTF) {
         
         _phoneTF =[[UITextField alloc] init];
-        
+        _phoneTF.keyboardType = UIKeyboardTypeNumberPad;
+
         [self.backScrollView addSubview:_phoneTF];
         _phoneTF.moveView = self.backScrollView;
         
@@ -245,7 +264,7 @@
         [_phoneTF mas_makeConstraints:^(MASConstraintMaker *make) {
             
             make.top.equalTo(weakSelf.navgationView.mas_bottom).offset(SPACEING*2);
-            make.width.offset(TFWIDTH);
+            make.width.offset(TFWIDTH );
             make.left.offset(LEFTSPACEING);
             make.height.offset(TFHEIGHT);
         }];
@@ -275,31 +294,29 @@
     return _phoneTF;
 }
 
-
--(UIView *)navgationView{
+//初始化导航按钮
+-(UIView *)navgationView
+{
     if (!_navgationView) {
         
-        _navgationView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
+        _navgationView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, StatusBarHeight + TopBarHeight)];
         [self.view addSubview:_navgationView];
-        
-        UILabel * registerLabel = [[UILabel alloc] init];
-        registerLabel.center = CGPointMake(_navgationView.center.x, _navgationView.center.y+10);
-        registerLabel.bounds = CGRectMake(0, 0, 100, 40);
-        registerLabel.text =  @"找回密码";
-        registerLabel.textColor = [UIColor whiteColor];
-        registerLabel.textAlignment = NSTextAlignmentCenter;
-        [_navgationView addSubview:registerLabel];
-        
+        _navgationView = [_navgationView topBarWithTintColor:ThemeColor title:@"找回密码" titleColor:[UIColor whiteColor] leftView:self.backBtn rightView:nil responseTarget:self];
     }
     return _navgationView;
 }
-
+- (UIButton *)backBtn {
+    if (!_backBtn) {
+        _backBtn = [UIButton buttonWithTitle:@"返回" fontSize:15];
+    }
+    return _backBtn;
+}
 -(UIScrollView *)backScrollView{
     
     if (!_backScrollView) {
         
         _backScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height-64)];
-        
+        _backScrollView.userInteractionEnabled = YES;
         _backScrollView.alwaysBounceVertical = YES;
         _backScrollView.showsVerticalScrollIndicator = NO;
         _backScrollView.showsHorizontalScrollIndicator = NO;

@@ -14,6 +14,8 @@
 #import "XABLoginRequest.h"
 #import "NSDictionary+Safe.h"
 #import "NSArray+Safe.h"
+
+#import "XABUserModel.h"
 NSString *const UserLoginSuccess = @"UserLoginSuccess";
 NSString *const UserLoginError = @"UserLoginError";
 
@@ -37,6 +39,7 @@ static XABUserLogin *_instance;
 }
 
 
+#pragma mark - 获取验证码
 
 /**
  *  获取验证码
@@ -46,13 +49,15 @@ static XABUserLogin *_instance;
     self.account = iphoneNumber;
     [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS phoneNumber:iphoneNumber zone:@"86" customIdentifier:nil result:^(NSError *error) {
         if (!error && block) {
-            block(YES);
+            block(YES,nil);
         } else if(block){
-            block(NO);
+            block(NO,nil);
         }
     }];
 
 }
+#pragma mark - 验证码验证
+
 /**
  *  验证码验证
  */
@@ -61,37 +66,48 @@ static XABUserLogin *_instance;
     [SMSSDK commitVerificationCode:code phoneNumber:self.account zone:@"86" result:^(SMSSDKUserInfo *userInfo, NSError *error) {
         if (!error && block) {
             self.isVerify = YES;
-            block(YES);
+            block(YES,nil);
         } else if(block){
             self.isVerify = NO;
-            block(NO);
+            block(NO,nil);
         }
     }];
 }
+#pragma mark - 提交注册
 /**
  *  提交注册
  */
-- (void)userPostRegister:(NSString *)password callBack:(loginBlock)block{
+- (void)userPostRegisterName:(NSString *)name password:(NSString *)password callBack:(loginBlock)block{
 
 //    self.loginBlock = block;
     NSMutableDictionary *parameter = [[NSMutableDictionary alloc] init];
-    [parameter setSafeObject:self.account forKey:@"account"];
+    [parameter setSafeObject:name forKey:@"name"];
+    [parameter setSafeObject:self.account forKey:@"username"];
     [parameter setSafeObject:[password md5] forKey:@"password"];
     // 注册
     if (_isVerify) {
         _isVerify = NO;
         [XABRegisterRequest requestDataWithParameters:parameter successBlock:^(YTKRequest *request) {
             
-            NSDictionary *status = [[request.responseObject objectForKeyNotNull:@"result"] objectForKeyNotNull:@"status"];
-            NSInteger code = [[status objectForKeyNotNull:@"code"] longValue];
-            if (!code) {
-//                NSDictionary *data = [[request.responseObject objectForKeyNotNull:@"result"] objectForKeyNotNull:@"data"];
+            DLog(@"注册成功==%@",request.responseObject);
+
+            NSInteger code = [[request.responseObject objectForKeyNotNull:@"code"] longValue];
+            if (code == CODE_SUCCESS) {
+                NSDictionary *dataDict = [request.responseObject objectForKeyNotNull:@"data"];
+
+                //保存用户信息
+                [self saveUserInfoWith:dataDict];
+                
+                [self postNotification:YES];
+
                 if (block) {
                     block(YES,nil);
                 }
             }
             
         } failureBlock:^(YTKRequest *request) {
+            
+            DLog(@"注册失败==%@",request.error);
             if (block) {
                 block(NO,nil);
             }
@@ -106,31 +122,43 @@ static XABUserLogin *_instance;
 
     
 }
-
+#pragma mark - 登录
 /**
  *   登录
  */
 - (void)userLogin:(NSString *)account password:(NSString *)pwd callBack:(loginBlock)block {
     self.loginBlock = block;
-    //    [PlatformLoginRequest requestDataWithDelegate:self parameters:@{@"account":account,@"password":[pwd md5]}];
     
     NSMutableDictionary *parameter = [[NSMutableDictionary alloc] init];
-    [parameter setSafeObject:account forKey:@"account"];
+    [parameter setSafeObject:account forKey:@"username"];
     [parameter setSafeObject:[pwd md5] forKey:@"password"];
 
     [XABLoginRequest requestDataWithParameters:parameter successBlock:^(YTKRequest *request) {
         
-        NSDictionary *status = [[request.responseObject objectForKeyNotNull:@"result"] objectForKeyNotNull:@"status"];
-        NSInteger code = [[status objectForKeyNotNull:@"code"] longValue];
-        if (!code) {
+        DLog(@"登录成功==%@",request.responseObject);
 
-            NSDictionary *data = [[request.responseObject objectForKeyNotNull:@"result"] objectForKeyNotNull:@"data"];
+        NSInteger code = [[request.responseObject objectForKeyNotNull:@"code"] longValue];
+        if (code == CODE_SUCCESS) {
+            
+            NSDictionary *dataDict = [request.responseObject objectForKeyNotNull:@"data"];
+            //保存用户信息
+            [self saveUserInfoWith:dataDict];
+            [self postNotification:YES];
+
             if (block) {
-                block(YES,nil);
+                block(YES,self.userInfo);
+            }
+        }else{
+//            NSString *message = [request.responseObject objectForKeyNotNull:@"message"];
+
+            if (block) {
+                block(NO,nil);
             }
         }
         
     } failureBlock:^(YTKRequest *request) {
+        DLog(@"登录失败==%@",request.error);
+
         if (block) {
             block(NO,nil);
         }
@@ -146,22 +174,33 @@ static XABUserLogin *_instance;
 - (void)modifyPassword:(NSString *)password callBack:(verifyCodeBlock)block{
     
     NSMutableDictionary *parameter = [[NSMutableDictionary alloc] init];
-    [parameter setSafeObject:self.account forKey:@"account"];
+    [parameter setSafeObject:self.account forKey:@"username"];
     [parameter setSafeObject:[password md5] forKey:@"password"];
     [XABFindPasswordRequest requestDataWithParameters:parameter successBlock:^(YTKRequest *request) {
         
-        NSDictionary *status = [[request.responseObject objectForKeyNotNull:@"result"] objectForKeyNotNull:@"status"];
-        NSInteger code = [[status objectForKeyNotNull:@"code"] longValue];
-        if (!code) {
-//            NSDictionary *data = [[request.responseObject objectForKeyNotNull:@"result"] objectForKeyNotNull:@"data"];
+        DLog(@"修改密码 == %@",request.responseObject);
+        NSInteger code = [[request.responseObject objectForKeyNotNull:@"code"] longValue];
+        if (code == CODE_SUCCESS) {
+            
+            NSDictionary *dataDict = [request.responseObject objectForKeyNotNull:@"data"];
+            //保存用户信息
+            [self saveUserInfoWith:dataDict];
+            [self postNotification:YES];
+            
             if (block) {
-                block(YES);
+                block(YES,nil);
+            }
+        }else{
+            if (block) {
+                block(NO,nil);
             }
         }
         
     } failureBlock:^(YTKRequest *request) {
+        DLog(@"修改密码 == %@  \n  dictionary：=%@",request.error,request.responseObject);
+
         if (block) {
-            block(NO);
+            block(NO,nil);
         }
     }];
 
@@ -183,20 +222,22 @@ static XABUserLogin *_instance;
 - (void)isResister:(NSString *)account callBack:(verifyCodeBlock)block{
     
     NSMutableDictionary *parameter = [[NSMutableDictionary alloc] init];
-    [parameter setSafeObject:account forKey:@"account"];
+    [parameter setSafeObject:account forKey:@"username"];
     [UserRegisterStatusRequest requestDataWithParameters:parameter successBlock:^(YTKRequest *request) {
         
-        NSDictionary *result = [request.responseObject objectForKey:@"result"];
-        NSString *status = [result objectForKey:@"status"];
-        if ([status isEqualToString:@"0"] && block) {
-            block(NO);
-        }else {
-            block(YES);
+        DLog(@"是否注册==%@",request.responseObject);
+        NSInteger status = [[request.responseObject objectForKeySafely:@"code"] longValue];
+        NSString *message = [request.responseObject objectForKeySafely:@"message"];
+
+        if ((status  == CODE_SUCCESS) && block) {
+            block(NO,message);//返回 无  注册
+        }else if(status == CODE_PHONE_EXIST){
+            block(YES,message);
         }
         
     } failureBlock:^(YTKRequest *request) {
         if (block) {
-            block(NO);
+            block(YES,nil);
         }
     }];
 }
@@ -206,46 +247,66 @@ static XABUserLogin *_instance;
  */
 - (void)userLogout{
     
+    [self diskRemoveUserInfo];
 };
 
 
 #pragma mark - 磁盘存储用户信息组件
-- (XABUserModel *)diskLoadUserInfo {
-    NSString *homePath  = [NSHomeDirectory() stringByAppendingPathComponent:DiskUserLoginInfo];//添加储存的文件名
-    return  (XABUserModel *)[NSKeyedUnarchiver unarchiveObjectWithFile:homePath];
-}
-
-- (void)diskRemoveUserInfo {
-    NSString *path  = [NSHomeDirectory() stringByAppendingPathComponent:DiskUserLoginInfo];
-    if (![FILEMANAGER isDeletableFileAtPath:path]) {
-        [NSFileManager removeItemAtPath:path];
-    }
-}
-- (void)saveUserInfo {
-    NSString *homeDictionary = NSHomeDirectory();//获取根目录
-    NSString *homePath  = [homeDictionary stringByAppendingPathComponent:DiskUserLoginInfo];//添加储存的文件名
-    [NSKeyedArchiver archiveRootObject:_userInfo toFile:homePath];
-}
-
-
-#pragma mark - 解析组件
-- (void)parseLogin:(NSDictionary *)json {
-    NSDictionary *result = [json objectForKeyNotNull:@"result"];
-    NSDictionary *status = [result objectForKeyNotNull:@"status"];
-    NSInteger code = [[status objectForKeyNotNull:@"code"] longValue];
-    if (code) {
-        if (_loginBlock)  
-        [self postNotification:NO];
-    }
-    NSDictionary *data = [result objectForKeyNotNull:@"data"];
-    _userInfo = [XABUserModel mj_objectWithKeyValues:data];
-    [self saveUserInfo];
+-(void)saveUserInfoWith:(NSDictionary *)dict{
+    
+  
+    _userInfo = [XABUserModel mj_objectWithKeyValues:dict];
+    
+    //存储 信息
+    NSDictionary *dic = _userInfo.mj_keyValues;
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:dic];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:data forKey:@"userModel"];
+    [[NSUserDefaults standardUserDefaults]  synchronize];
+    
     if (_loginBlock) {
         _loginBlock(YES,self.userInfo);
     }
-    [self postNotification:YES];
-    
 }
+
+- (XABUserModel *)diskLoadUserInfo {
+    
+    NSData *outputData = [[NSUserDefaults standardUserDefaults] objectForKey:@"userModel"];
+    NSDictionary *outputDict = [NSKeyedUnarchiver unarchiveObjectWithData:outputData];
+    //    NSLog(@"OA保存的字典 == %@", outputDict);
+    if (outputDict) {
+        XABUserModel * userModel = [XABUserModel mj_objectWithKeyValues:outputDict];
+        
+        return userModel;
+    }
+    return nil;
+}
+
+- (void)diskRemoveUserInfo {
+    
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userModel"];
+}
+
+
+
+#pragma mark - 解析组件
+//- (void)parseLogin:(NSDictionary *)json {
+//    NSDictionary *result = [json objectForKeyNotNull:@"result"];
+//    NSDictionary *status = [result objectForKeyNotNull:@"status"];
+//    NSInteger code = [[status objectForKeyNotNull:@"code"] longValue];
+//    if (code) {
+//        if (_loginBlock)  
+//        [self postNotification:NO];
+//    }
+//    NSDictionary *data = [result objectForKeyNotNull:@"data"];
+//    _userInfo = [XABUserModel mj_objectWithKeyValues:data];
+//    [self saveUserInfo];
+//    if (_loginBlock) {
+//        _loginBlock(YES,self.userInfo);
+//    }
+//    [self postNotification:YES];
+//    
+//}
 #pragma mark - 通知组件
 - (void)postNotification:(BOOL)success {
     if (success) {

@@ -11,7 +11,7 @@
 
 
 typedef void(^loginBlock)(BOOL success, XABUserModel *user);
-typedef void(^verifyCodeBlock)(BOOL success);
+typedef void(^verifyCodeBlock)(BOOL success,NSString *message);
 
 @protocol XABUserLoginDelegate <NSObject>
 @optional
@@ -27,8 +27,7 @@ typedef void(^verifyCodeBlock)(BOOL success);
 extern NSString *const UserLoginSuccess;
 // 用户登录失败通知
 extern NSString *const UserLoginError;
-// 用户登录浏览进入通知
-extern NSString *const UserLoginBrowseGoIn;
+
 
 @interface XABUserLogin : NSObject
 
@@ -55,7 +54,7 @@ extern NSString *const UserLoginBrowseGoIn;
 /**
  *  提交注册
  */
-- (void)userPostRegister:(NSString *)password callBack:(loginBlock)block;
+- (void)userPostRegisterName:(NSString *)name password:(NSString *)password callBack:(loginBlock)block;
 
 
 /**

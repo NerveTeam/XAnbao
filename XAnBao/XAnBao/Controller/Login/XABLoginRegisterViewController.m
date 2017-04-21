@@ -12,6 +12,8 @@
 #import "XABLoginMacro.h"
 #import "NSString+Check.h"
 #import "XABUserLogin.h"
+#import "UIView+TopBar.h"
+#import "UIButton+Extention.h"
 @interface XABLoginRegisterViewController ()<UITextViewDelegate>
 {
     UIButton *_codeBtn;     // 发送验证码按钮
@@ -26,6 +28,7 @@
 }
 @property (nonatomic,strong) UIScrollView  *backScrollView;
 @property (nonatomic,strong) UIView        *navgationView;
+@property (nonatomic,strong) UIButton *backBtn;
 @property (nonatomic,strong) UIImageView   *imgView;
 @property (nonatomic,strong) UILabel       *signaLabel;
 @property (nonatomic,strong) UITextField   *nameTF;
@@ -49,22 +52,35 @@
 #pragma mark - 注册
 -(void)registerClick{
     
-    if (self.rPasswordTF.text != self.passwordTF.text) {
+    NSString *rpassword = [self.rPasswordTF.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSString *password = [self.passwordTF.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+    if (![rpassword isEqualToString:password] ) {
         
         DLog(@"两次输入的密码不一致");
         return;
     }
     //先验证 短信验证码是否正确
-    [[XABUserLogin getInstance] verifyCodeResult:self.codeTF.text callBack:^(BOOL success) {
+    [[XABUserLogin getInstance] verifyCodeResult:self.codeTF.text callBack:^(BOOL success,NSString *message) {
+        
+        if (success) {
+            
+            // 进行注册
+            [[XABUserLogin getInstance] userPostRegisterName:self.nameTF.text password:rpassword callBack:^(BOOL success, XABUserModel *user) {
+                if (success) {
+                    [self loginJump];
+                }
+            }];
+        
+            
+        }else{
+            [self showMessage:@"验证码有误"];
+        }
         
     }];
     
-    // 进行注册
-    [[XABUserLogin getInstance] userPostRegister:self.rPasswordTF.text callBack:^(BOOL success, XABUserModel *user) {
-        
-    }];
+   
     
-    [self loginJump];
+//    [self loginJump];
     
 }
 
@@ -75,8 +91,8 @@
     
     if (![self.phoneTF.text isMobileNumber]) {
         
-        DLog( @"手机号码有误");
-        
+        [self showMessage:@"手机号码有误"];
+
         return;
     }
     
@@ -84,27 +100,35 @@
     [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(tmierCountDown:) object:sender];
     [self performSelector:@selector(tmierCountDown:) withObject:sender afterDelay:0.2f];
     
-    
-    //获取验证码
-    [[XABUserLogin getInstance] requestVerifyCode:self.phoneTF.text callBack:^(BOOL success) {
-        
-        if (success) {
-            // 提示该获取验证码成功
-        }else{
-            
-            // 提示该获取验证码失败
-        }
-        
-    }];
-    
     //先判断是否注册了
-    [[XABUserLogin getInstance] isResister:self.phoneTF.text callBack:^(BOOL success) {
+    [[XABUserLogin getInstance] isResister:self.phoneTF.text callBack:^(BOOL success,NSString*message) {
         
-        if (!success) {
+        if (!success) {//该账户未注册
             
+            //获取验证码
+            [[XABUserLogin getInstance] requestVerifyCode:self.phoneTF.text callBack:^(BOOL success,NSString*message) {
+                
+                if (success) {
+                    // 提示该获取验证码成功
+                    [self showMessage:@"验证码获取成功"];
+
+                }else{
+                    
+                    // 提示该获取验证码失败
+                    [self showMessage:@"验证码获取失败"];
+
+                }
+                
+            }];
             
         }else{
-            // 提示该帐号已注册
+            
+            if (message) {
+                
+                // 提示该帐号已注册
+                [self showMessage:message];
+
+            }
         }
     }];
     
@@ -220,7 +244,7 @@
         make.centerY.equalTo(weakSelf.codeTF);
         make.right.equalTo(weakSelf.codeTF).offset(10);
         make.width.offset(95);
-        make.height.offset(TFHEIGHT/15*13);
+        make.height.offset(TFHEIGHT-2);
     }];
     
     _registerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -572,23 +596,22 @@
     }
     return _imgView;
 }
-
--(UIView *)navgationView{
+//初始化导航按钮
+-(UIView *)navgationView
+{
     if (!_navgationView) {
         
-        _navgationView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
+        _navgationView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, StatusBarHeight + TopBarHeight)];
         [self.view addSubview:_navgationView];
-        
-        UILabel * registerLabel = [[UILabel alloc] init];
-        registerLabel.center = CGPointMake(_navgationView.center.x, _navgationView.center.y+10);
-        registerLabel.bounds = CGRectMake(0, 0, 100, 40);
-        registerLabel.text =  @"注册";
-        registerLabel.textColor = [UIColor whiteColor];
-        registerLabel.textAlignment = NSTextAlignmentCenter;
-        [_navgationView addSubview:registerLabel];
-    
+        _navgationView = [_navgationView topBarWithTintColor:ThemeColor title:@"注册" titleColor:[UIColor whiteColor] leftView:self.backBtn rightView:nil responseTarget:self];
     }
     return _navgationView;
+}
+- (UIButton *)backBtn {
+    if (!_backBtn) {
+        _backBtn = [UIButton buttonWithTitle:@"返回" fontSize:15];
+    }
+    return _backBtn;
 }
 
 -(UIScrollView *)backScrollView{

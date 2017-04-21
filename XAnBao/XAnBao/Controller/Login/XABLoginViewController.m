@@ -15,6 +15,8 @@
 #import "YBTabBarController.h"
 #import "AppDelegate.h"
 #import "XABUserLogin.h"
+#import "UIView+TopBar.h"
+#import "XABShareSDKTool.h"
 @interface XABLoginViewController ()
 
 {
@@ -25,9 +27,12 @@
     UIButton *_registerBtn;  // 注册按钮
     
     UIButton *_forgetBtn;    // 忘记密码
+    
+    UIButton *_shareBtn;    // 忘记密码
+
 }
 @property (nonatomic,strong) UIScrollView  *backScrollView;
-@property (nonatomic,strong) UIView        *navgationView;
+@property (nonatomic,strong) UIView *topBarView;
 @property (nonatomic,strong) UIImageView   *imgView;
 @property (nonatomic,strong) UILabel       *signaLabel;
 @property (nonatomic,strong) UITextField   *accountTF;
@@ -43,6 +48,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.navigationController.navigationBar.hidden = YES;
     [self initSubViews];
 }
 
@@ -66,19 +72,23 @@
 #pragma mark - 登录
 -(void)loginClick{
     
-    YBTabBarController *tabBarController = [[YBTabBarController alloc]init];
-    
-    AppDelegate *app =(AppDelegate *) [[UIApplication sharedApplication] delegate ];
-    app.window.rootViewController = tabBarController;
-    [app.window makeKeyAndVisible];
+   
     if (self.accountTF.text.length ==0 && self.passwordTF.text.length == 0) {
         
+        [self showMessage:@"账号、密码不能为空"];
         return;
     }
     [[XABUserLogin getInstance] userLogin:self.accountTF.text password:self.passwordTF.text callBack:^(BOOL success, XABUserModel *user) {
         
+        
+        YBTabBarController *tabBarController = [[YBTabBarController alloc]init];
+        
+        AppDelegate *app =(AppDelegate *) [[UIApplication sharedApplication] delegate ];
+        app.window.rootViewController = tabBarController;
+        [app.window makeKeyAndVisible];
         if (success) {
-            
+            NSLog(@"登录成功");
+
         }else {
             // 提示用户名密码错误
             NSLog(@"用户名密码错误");
@@ -99,6 +109,20 @@
     [self pushToController:[[XABFindPasswordViewController alloc]init] animated:YES];
 }
 
+-(void)shareClick{
+    
+    NSArray* imageArray = @[@"http://touxiang.qqzhi.com/uploads/2012-11/1111105304979.jpg"];
+    [XABShareSDKTool shareContentWithShareContentType:SSDKContentTypeAuto contentTitle:@"大家好" contentDescription:@"详情描述" contentImage:imageArray contentURL:@"https://sports.sina.cn/nba/warriors/2017-03-09/detail-ifychhuq3433755.d.html?vt=4&pos=10&HTTPS=1" showInView:self.backScrollView success:^{
+        DLog(@"分享成功");
+    } failure:^(NSString *failureInfo) {
+        DLog(@"分享失败=%@",failureInfo);
+
+    } OtherResponseStatus:^(SSDKResponseState state) {
+        DLog(@"分享state=%ld",state);
+
+    }];
+}
+
 #pragma mark - 初始化 加载 视图
 -(void)initSubViews{
     
@@ -108,13 +132,31 @@
     imgView.image = [UIImage imageNamed:@"bj"];
     [self.view addSubview:imgView];
     
-    self.navgationView.backgroundColor = kColorWithRGB(47, 132, 213, 1.0f);
+//    self.navgationView.backgroundColor = kColorWithRGB(47, 132, 213, 1.0f);
+    [self topBarView];
     self.backScrollView.backgroundColor = [UIColor clearColor];
 
     [self imgView];
     [self signaLabel];
     [self accountTF];
     [self passwordTF];
+    
+    
+    _shareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_shareBtn setTitle:@"分享" forState:UIControlStateNormal];
+    _shareBtn.titleLabel.font = [UIFont systemFontOfSize:14.5];
+    [_shareBtn setTitleColor:kColorWithRGB(47, 132, 213, 1.0f) forState:UIControlStateNormal];
+    [_shareBtn addTarget:self action:@selector(shareClick) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.backScrollView addSubview:_shareBtn];
+    
+    [_shareBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.offset(SPACEING*6/7);
+        make.left.equalTo(self.topBarView.mas_left).offset(10);
+        make.height.offset(25);
+        make.width.offset(120);
+    }];
     
     WS(weakSelf);
 
@@ -130,7 +172,7 @@
     [_goInBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.offset(SPACEING*6/7);
-        make.right.equalTo(weakSelf.navgationView.mas_right).offset(-10);
+        make.right.equalTo(weakSelf.topBarView.mas_right).offset(-10);
         make.height.offset(25);
         make.width.offset(120);
     }];
@@ -211,14 +253,14 @@
         UIImage *im = [UIImage imageNamed:@"content_ic_comments"];
         UIImageView *iv = [[UIImageView alloc] initWithImage:im];
         UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(5, 0, 20+50, 28)];//宽度根据需求进行设置，高度必须大于 textField 的高度
-        iv.center = CGPointMake(leftView.center.x-40, leftView.center.y);
+        iv.center = CGPointMake(leftView.center.x-30, leftView.center.y);
         [leftView addSubview:iv];
         
         UILabel *titleLabel = [[UILabel alloc] init];
         titleLabel.textAlignment = NSTextAlignmentLeft;
         titleLabel.text = @"密码:";
-        titleLabel.font = [UIFont systemFontOfSize:18];
-        titleLabel.bounds = CGRectMake(0, 0, 50, 28);
+        titleLabel.font = [UIFont systemFontOfSize:17];
+        titleLabel.bounds = CGRectMake(0, 0, 40, 28);
         titleLabel.center = CGPointMake(leftView.center.x, leftView.center.y);
         [leftView addSubview:titleLabel];
         
@@ -272,14 +314,14 @@
         UIImage *im = [UIImage imageNamed:@"content_ic_comments"];
         UIImageView *iv = [[UIImageView alloc] initWithImage:im];
         UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(5, 0, 20+50, 28)];//宽度根据需求进行设置，高度必须大于 textField 的高度
-        iv.center = CGPointMake(leftView.center.x-40, leftView.center.y);
+        iv.center = CGPointMake(leftView.center.x-30, leftView.center.y);
         [leftView addSubview:iv];
         
         UILabel *titleLabel = [[UILabel alloc] init];
         titleLabel.textAlignment = NSTextAlignmentLeft;
         titleLabel.text = @"账号:";
-        titleLabel.font = [UIFont systemFontOfSize:18];
-        titleLabel.bounds = CGRectMake(0, 0, 50, 28);
+        titleLabel.font = [UIFont systemFontOfSize:17];
+        titleLabel.bounds = CGRectMake(0, 0, 40, 28);
         titleLabel.center = CGPointMake(leftView.center.x, leftView.center.y);
         [leftView addSubview:titleLabel];
 
@@ -354,23 +396,34 @@
     return _imgView;
 }
 
--(UIView *)navgationView{
-    if (!_navgationView) {
+//初始化导航按钮
+-(UIView *)topBarView
+{
+    if (!_topBarView) {
         
-        _navgationView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
-        [self.view addSubview:_navgationView];
-        
-        UILabel * registerLabel = [[UILabel alloc] init];
-        registerLabel.center = CGPointMake(_navgationView.center.x, _navgationView.center.y+10);
-        registerLabel.bounds = CGRectMake(0, 0, 100, 40);
-        registerLabel.text =  @"登录";
-        registerLabel.textColor = [UIColor whiteColor];
-        registerLabel.textAlignment = NSTextAlignmentCenter;
-        [_navgationView addSubview:registerLabel];
-        
+        _topBarView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, StatusBarHeight + TopBarHeight)];
+        [self.view addSubview:_topBarView];
+        _topBarView = [_topBarView topBarWithTintColor:ThemeColor title:@"登录" titleColor:[UIColor whiteColor] leftView:nil rightView:nil responseTarget:self];
     }
-    return _navgationView;
+    return _topBarView;
 }
+//-(UIView *)navgationView{
+//    if (!_navgationView) {
+//        
+//        _navgationView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
+//        [self.view addSubview:_navgationView];
+//        
+//        UILabel * registerLabel = [[UILabel alloc] init];
+//        registerLabel.center = CGPointMake(_navgationView.center.x, _navgationView.center.y+10);
+//        registerLabel.bounds = CGRectMake(0, 0, 100, 40);
+//        registerLabel.text =  @"登录";
+//        registerLabel.textColor = [UIColor whiteColor];
+//        registerLabel.textAlignment = NSTextAlignmentCenter;
+//        [_navgationView addSubview:registerLabel];
+//        
+//    }
+//    return _navgationView;
+//}
 
 -(UIScrollView *)backScrollView{
     

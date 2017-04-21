@@ -19,7 +19,7 @@
 #define kThemeBackGroundColor kColorWithRGB(46, 132, 213, 1.0f)
 
 #define IMAGE_HEIGHT self.view.frame.size.height/19/2*3
-#define TFHEIGHT self.view.frame.size.height/19                                           // TF 的高度
+#define TFHEIGHT self.view.frame.size.height/20                                           // TF 的高度
 
 #define SPACEING self.view.frame.size.height/19
 

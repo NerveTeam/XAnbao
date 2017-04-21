@@ -9,6 +9,7 @@
 #import "XABClassContentView.h"
 #import "XABClassItem.h"
 #import "NSArray+Safe.h"
+#import "XABUserLogin.h"
 
 @interface XABClassContentView ()
 @property(nonatomic,strong)NSArray *data;
@@ -35,15 +36,23 @@ static int number = 3;
     }
 }
 
+- (void)reloadItem {
+    [self removeAllSubviews];
+    [self setup];
+}
+
 
 - (void)setup {
+    
+    [self initData];
+    
     self.backgroundColor = RGBCOLOR(225, 225, 235);
     CGFloat marginW = 10;
     CGFloat marginH = 15;
     CGFloat itemMargin = 5;
     CGFloat itemWidth = (SCREEN_WIDTH - (2*marginW) - (number - 1)*itemMargin)/number;
     CGFloat itemHeight = 80;
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < self.data.count; i++) {
         NSInteger col = i % number;
         NSInteger row = i / number;
         NSString *intro = [[self.data safeObjectAtIndex:i]objectForKey:@"intro"];
@@ -56,16 +65,26 @@ static int number = 3;
     }
 }
 
-- (NSArray *)data {
-    if (!_data) {
-        _data = @[@{@"intro":@"班级成员",@"img":@"myClass_member",@"class":@"XABClassMemberViewController"},
-                  @{@"intro":@"班级通知",@"img":@"myClass_class_notice",@"class":@"XABClassNoticeViewController"},
-                  @{@"intro":@"今日学业",@"img":@"myClass_job",@"class":@"XABClassJobViewController"},
-                  @{@"intro":@"课程表",@"img":@"myClass_schedule",@"class":@"XABClassScheduleViewController"},
-                  @{@"intro":@"班级文件",@"img":@"myClass_class_file",@"class":@"XABClassFileViewController"},
-                  @{@"intro":@"我的好友",@"img":@"myClass_friends",@"class":@"XABClassFriendsViewController"},
-                  @{@"intro":@"班级讨论",@"img":@"myClass_discussion",@"class":@"XABClassChatViewController"}];
+- (void)initData {
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadItem) name:UserLoginSuccess object:nil];
+    
+    
+    BOOL isTeacher = NO;
+    NSMutableArray *items = [NSMutableArray array];
+    [items addObject:@{@"intro":@"班级成员",@"img":@"myClass_member",@"class":@"XABClassMemberViewController"}];
+    [items addObject:@{@"intro":@"班级通知",@"img":@"myClass_class_notice",@"class":@"XABClassNoticeViewController"}];
+    
+    if (isTeacher) {
+        [items addObject:@{@"intro":@"留作业",@"img":@"myClass_job",@"class":@"XABHomeworkViewController"}];
+        [items addObject:@{@"intro":@"检查作业",@"img":@"myClass_job",@"class":@"XABCheckJobViewController"}];
+    }else {
+        [items addObject:@{@"intro":@"今日学业",@"img":@"myClass_job",@"class":@"XABClassJobViewController"}];
     }
-    return _data;
+    [items addObjectsFromArray:@[@{@"intro":@"课程表",@"img":@"myClass_schedule",@"class":@"XABClassScheduleViewController"},
+                                 @{@"intro":@"班级文件",@"img":@"myClass_class_file",@"class":@"XABClassFileViewController"},
+                                 @{@"intro":@"我的好友",@"img":@"myClass_friends",@"class":@"XABClassFriendsViewController"},
+                                 @{@"intro":@"班级讨论",@"img":@"myClass_discussion",@"class":@"XABClassChatViewController"}]];
+    self.data = items.copy;
 }
+
 @end
