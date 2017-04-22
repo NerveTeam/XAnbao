@@ -135,7 +135,8 @@ static XABUserLogin *_instance;
 
     [XABLoginRequest requestDataWithParameters:parameter successBlock:^(YTKRequest *request) {
         
-        DLog(@"登录成功==%@",request.responseObject);
+        NSLog(@"登录成功==%@",request.responseObject);
+        NSLog(@"登录地址==%@",request);
 
         NSInteger code = [[request.responseObject objectForKeyNotNull:@"code"] longValue];
         if (code == CODE_SUCCESS) {
@@ -236,6 +237,10 @@ static XABUserLogin *_instance;
         }
         
     } failureBlock:^(YTKRequest *request) {
+        
+        DLog(@"是否注册request.responseObject==%@",request.responseObject);
+        DLog(@"是否注册request==%@",request);
+
         if (block) {
             block(YES,nil);
         }

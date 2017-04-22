@@ -52,11 +52,13 @@
 #pragma mark - 注册
 -(void)registerClick{
     
+    [self.view endEditing:YES];
+    
     NSString *rpassword = [self.rPasswordTF.text stringByReplacingOccurrencesOfString:@" " withString:@""];
     NSString *password = [self.passwordTF.text stringByReplacingOccurrencesOfString:@" " withString:@""];
     if (![rpassword isEqualToString:password] ) {
-        
-        DLog(@"两次输入的密码不一致");
+                 
+        [self showMessage:@"两次输入的密码不一致"];
         return;
     }
     //先验证 短信验证码是否正确
@@ -127,6 +129,9 @@
                 
                 // 提示该帐号已注册
                 [self showMessage:message];
+
+            }else{
+                [self showMessage:@"请求失败"];
 
             }
         }

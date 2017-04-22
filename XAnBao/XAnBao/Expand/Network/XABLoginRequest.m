@@ -37,7 +37,7 @@ static const NSString *domain = @"http://118.190.97.150/interface/api1/";
 
 - (NSString *)requestUrl {
     //    示例，我们的注册接口
-    return [domain stringByAppendingString:@"news/feed?"];
+    return [domain stringByAppendingString:@"login"];
 }
 - (YTKRequestMethod)requestMethod {
     return YTKRequestMethodPOST;
