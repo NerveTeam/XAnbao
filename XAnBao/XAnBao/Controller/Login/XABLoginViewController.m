@@ -81,17 +81,19 @@
     [[XABUserLogin getInstance] userLogin:self.accountTF.text password:self.passwordTF.text callBack:^(BOOL success, XABUserModel *user) {
         
         
-        YBTabBarController *tabBarController = [[YBTabBarController alloc]init];
-        
-        AppDelegate *app =(AppDelegate *) [[UIApplication sharedApplication] delegate ];
-        app.window.rootViewController = tabBarController;
-        [app.window makeKeyAndVisible];
         if (success) {
             NSLog(@"登录成功");
+//            [self showMessage:@"登录成功"];
+            YBTabBarController *tabBarController = [[YBTabBarController alloc]init];
+            
+            AppDelegate *app =(AppDelegate *) [[UIApplication sharedApplication] delegate ];
+            app.window.rootViewController = tabBarController;
+            [app.window makeKeyAndVisible];
+
 
         }else {
             // 提示用户名密码错误
-            NSLog(@"用户名密码错误");
+            [self showMessage:@"用户名密码错误"];
         }
     }];
 

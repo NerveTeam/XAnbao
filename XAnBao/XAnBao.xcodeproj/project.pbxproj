@@ -51,6 +51,14 @@
 		60A551891E7D17DF0058DD96 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60A551881E7D17DF0058DD96 /* CoreTelephony.framework */; };
 		60A5518B1E7D17ED0058DD96 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 60A5518A1E7D17ED0058DD96 /* libstdc++.tbd */; };
 		60DF37FA1E816F6800A514F3 /* XABLoginRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 60DF37F91E816F6800A514F3 /* XABLoginRequest.m */; };
+		7572A7351E87644500F753BC /* XABMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7572A72E1E87644500F753BC /* XABMineViewController.m */; };
+		7572A7361E87644500F753BC /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7572A7301E87644500F753BC /* SettingViewController.m */; };
+		7572A7371E87644500F753BC /* MySelfInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7572A7321E87644500F753BC /* MySelfInfoViewController.m */; };
+		7572A7381E87644500F753BC /* UpdatePassViewControler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7572A7341E87644500F753BC /* UpdatePassViewControler.m */; };
+		7572A73F1E87646D00F753BC /* MyInfomationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7572A73A1E87646D00F753BC /* MyInfomationCell.m */; };
+		7572A7401E87646D00F753BC /* SettingtavleViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7572A73C1E87646D00F753BC /* SettingtavleViewCell.m */; };
+		7572A7411E87646D00F753BC /* MySelfTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7572A73E1E87646D00F753BC /* MySelfTableCell.m */; };
+		7572A7451E87649B00F753BC /* NSString+Addtion.m in Sources */ = {isa = PBXBuildFile; fileRef = 7572A7441E87649B00F753BC /* NSString+Addtion.m */; };
 		8C0DF2C81E8501EB00A1B2B2 /* FSCalendar+Deprecated.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C0DF2A81E8501EB00A1B2B2 /* FSCalendar+Deprecated.m */; };
 		8C0DF2C91E8501EB00A1B2B2 /* FSCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C0DF2AA1E8501EB00A1B2B2 /* FSCalendar.m */; };
 		8C0DF2CA1E8501EB00A1B2B2 /* FSCalendarAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C0DF2AC1E8501EB00A1B2B2 /* FSCalendarAppearance.m */; };
@@ -129,14 +137,6 @@
 		8C0DF6031E88F86F00A1B2B2 /* XABRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C0DF6021E88F86F00A1B2B2 /* XABRecordCell.m */; };
 		8CA107AD1E8B658A00417C5A /* XABHomeworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA107AC1E8B658A00417C5A /* XABHomeworkViewController.m */; };
 		8CA107B01E8B659900417C5A /* XABCheckJobViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA107AF1E8B659900417C5A /* XABCheckJobViewController.m */; };
-		7572A7351E87644500F753BC /* XABMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7572A72E1E87644500F753BC /* XABMineViewController.m */; };
-		7572A7361E87644500F753BC /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7572A7301E87644500F753BC /* SettingViewController.m */; };
-		7572A7371E87644500F753BC /* MySelfInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7572A7321E87644500F753BC /* MySelfInfoViewController.m */; };
-		7572A7381E87644500F753BC /* UpdatePassViewControler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7572A7341E87644500F753BC /* UpdatePassViewControler.m */; };
-		7572A73F1E87646D00F753BC /* MyInfomationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7572A73A1E87646D00F753BC /* MyInfomationCell.m */; };
-		7572A7401E87646D00F753BC /* SettingtavleViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7572A73C1E87646D00F753BC /* SettingtavleViewCell.m */; };
-		7572A7411E87646D00F753BC /* MySelfTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7572A73E1E87646D00F753BC /* MySelfTableCell.m */; };
-		7572A7451E87649B00F753BC /* NSString+Addtion.m in Sources */ = {isa = PBXBuildFile; fileRef = 7572A7441E87649B00F753BC /* NSString+Addtion.m */; };
 		8CB023FD1E6D470600A57EBC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB023FC1E6D470600A57EBC /* main.m */; };
 		8CB024081E6D470600A57EBC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8CB024071E6D470600A57EBC /* Assets.xcassets */; };
 		8CB0240B1E6D470600A57EBC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CB024091E6D470600A57EBC /* LaunchScreen.storyboard */; };
@@ -634,6 +634,22 @@
 		60A5518A1E7D17ED0058DD96 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		60DF37F81E816F6800A514F3 /* XABLoginRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABLoginRequest.h; sourceTree = "<group>"; };
 		60DF37F91E816F6800A514F3 /* XABLoginRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABLoginRequest.m; sourceTree = "<group>"; };
+		7572A72D1E87644500F753BC /* XABMineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABMineViewController.h; sourceTree = "<group>"; };
+		7572A72E1E87644500F753BC /* XABMineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABMineViewController.m; sourceTree = "<group>"; };
+		7572A72F1E87644500F753BC /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		7572A7301E87644500F753BC /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		7572A7311E87644500F753BC /* MySelfInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MySelfInfoViewController.h; sourceTree = "<group>"; };
+		7572A7321E87644500F753BC /* MySelfInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MySelfInfoViewController.m; sourceTree = "<group>"; };
+		7572A7331E87644500F753BC /* UpdatePassViewControler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdatePassViewControler.h; sourceTree = "<group>"; };
+		7572A7341E87644500F753BC /* UpdatePassViewControler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdatePassViewControler.m; sourceTree = "<group>"; };
+		7572A7391E87646D00F753BC /* MyInfomationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyInfomationCell.h; sourceTree = "<group>"; };
+		7572A73A1E87646D00F753BC /* MyInfomationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyInfomationCell.m; sourceTree = "<group>"; };
+		7572A73B1E87646D00F753BC /* SettingtavleViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingtavleViewCell.h; sourceTree = "<group>"; };
+		7572A73C1E87646D00F753BC /* SettingtavleViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingtavleViewCell.m; sourceTree = "<group>"; };
+		7572A73D1E87646D00F753BC /* MySelfTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MySelfTableCell.h; sourceTree = "<group>"; };
+		7572A73E1E87646D00F753BC /* MySelfTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MySelfTableCell.m; sourceTree = "<group>"; };
+		7572A7431E87649B00F753BC /* NSString+Addtion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Addtion.h"; sourceTree = "<group>"; };
+		7572A7441E87649B00F753BC /* NSString+Addtion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Addtion.m"; sourceTree = "<group>"; };
 		8C0DF2A81E8501EB00A1B2B2 /* FSCalendar+Deprecated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FSCalendar+Deprecated.m"; sourceTree = "<group>"; };
 		8C0DF2A91E8501EB00A1B2B2 /* FSCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendar.h; sourceTree = "<group>"; };
 		8C0DF2AA1E8501EB00A1B2B2 /* FSCalendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendar.m; sourceTree = "<group>"; };
@@ -805,22 +821,6 @@
 		8CA107AC1E8B658A00417C5A /* XABHomeworkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABHomeworkViewController.m; sourceTree = "<group>"; };
 		8CA107AE1E8B659900417C5A /* XABCheckJobViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABCheckJobViewController.h; sourceTree = "<group>"; };
 		8CA107AF1E8B659900417C5A /* XABCheckJobViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABCheckJobViewController.m; sourceTree = "<group>"; };
-		7572A72D1E87644500F753BC /* XABMineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABMineViewController.h; sourceTree = "<group>"; };
-		7572A72E1E87644500F753BC /* XABMineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABMineViewController.m; sourceTree = "<group>"; };
-		7572A72F1E87644500F753BC /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
-		7572A7301E87644500F753BC /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
-		7572A7311E87644500F753BC /* MySelfInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MySelfInfoViewController.h; sourceTree = "<group>"; };
-		7572A7321E87644500F753BC /* MySelfInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MySelfInfoViewController.m; sourceTree = "<group>"; };
-		7572A7331E87644500F753BC /* UpdatePassViewControler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdatePassViewControler.h; sourceTree = "<group>"; };
-		7572A7341E87644500F753BC /* UpdatePassViewControler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdatePassViewControler.m; sourceTree = "<group>"; };
-		7572A7391E87646D00F753BC /* MyInfomationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyInfomationCell.h; sourceTree = "<group>"; };
-		7572A73A1E87646D00F753BC /* MyInfomationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyInfomationCell.m; sourceTree = "<group>"; };
-		7572A73B1E87646D00F753BC /* SettingtavleViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingtavleViewCell.h; sourceTree = "<group>"; };
-		7572A73C1E87646D00F753BC /* SettingtavleViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingtavleViewCell.m; sourceTree = "<group>"; };
-		7572A73D1E87646D00F753BC /* MySelfTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MySelfTableCell.h; sourceTree = "<group>"; };
-		7572A73E1E87646D00F753BC /* MySelfTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MySelfTableCell.m; sourceTree = "<group>"; };
-		7572A7431E87649B00F753BC /* NSString+Addtion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Addtion.h"; sourceTree = "<group>"; };
-		7572A7441E87649B00F753BC /* NSString+Addtion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Addtion.m"; sourceTree = "<group>"; };
 		8CB023F81E6D470600A57EBC /* XAnBao.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XAnBao.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CB023FC1E6D470600A57EBC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8CB024071E6D470600A57EBC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -1729,6 +1729,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		7572A7421E87649B00F753BC /* ClearLaJi */ = {
+			isa = PBXGroup;
+			children = (
+				7572A7431E87649B00F753BC /* NSString+Addtion.h */,
+				7572A7441E87649B00F753BC /* NSString+Addtion.m */,
+			);
+			path = ClearLaJi;
+			sourceTree = "<group>";
+		};
 		8C0DF2A71E8501EB00A1B2B2 /* FSCalendar */ = {
 			isa = PBXGroup;
 			children = (
@@ -1963,15 +1972,6 @@
 				8C0DF5BC1E85106E00A1B2B2 /* speex_types.h */,
 			);
 			path = speex;
-            sourceTree = "<group>";
-};
-		7572A7421E87649B00F753BC /* ClearLaJi */ = {
-			isa = PBXGroup;
-			children = (
-				7572A7431E87649B00F753BC /* NSString+Addtion.h */,
-				7572A7441E87649B00F753BC /* NSString+Addtion.m */,
-			);
-			path = ClearLaJi;
 			sourceTree = "<group>";
 		};
 		8CB023EF1E6D470600A57EBC = {
@@ -3620,7 +3620,7 @@
 				TargetAttributes = {
 					8CB023F71E6D470600A57EBC = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = G5RPGT9NVU;
+						DevelopmentTeam = UX4L63XCE8;
 						ProvisioningStyle = Automatic;
 					};
 					8CB024101E6D470600A57EBC = {
@@ -4331,7 +4331,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
-				DEVELOPMENT_TEAM = G5RPGT9NVU;
+				DEVELOPMENT_TEAM = UX4L63XCE8;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/XAnBao/Vender/SMS_SDK",
@@ -4362,7 +4362,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
-				DEVELOPMENT_TEAM = G5RPGT9NVU;
+				DEVELOPMENT_TEAM = UX4L63XCE8;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/XAnBao/Vender/SMS_SDK",

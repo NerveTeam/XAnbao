@@ -30,8 +30,8 @@ static const CGFloat TopBarHeight = 44;
 #define imgScale(w) (w)*9/16
 #endif
 
-#ifdef DEBUG
+//#ifdef DEBUG
 #define DLog( s, ... ) NSLog( @"<%p %@:(%d)> %@", self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__] )
-#else
-#define DLog( s, ... )
-#endif
+//#else
+//#define DLog( s, ... )
+//#endif
