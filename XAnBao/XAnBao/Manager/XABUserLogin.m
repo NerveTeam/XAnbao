@@ -267,7 +267,7 @@ static XABUserLogin *_instance;
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:dic];
     
     [[NSUserDefaults standardUserDefaults] setObject:data forKey:@"userModel"];
-    [[NSUserDefaults standardUserDefaults]  synchronize];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
     if (_loginBlock) {
         _loginBlock(YES,self.userInfo);

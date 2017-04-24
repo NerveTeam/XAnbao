@@ -32,6 +32,27 @@
 		6071D7ED1E8A8DF7004B94BD /* ShareSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6071D7D61E8A8DF6004B94BD /* ShareSDK.bundle */; };
 		6071D7EE1E8A8DF7004B94BD /* ShareSDKConnector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6071D7D71E8A8DF7004B94BD /* ShareSDKConnector.framework */; };
 		6071D7F01E8A8EEB004B94BD /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6071D7EF1E8A8EEB004B94BD /* libsqlite3.tbd */; };
+		6089A6781EAB8330009AC61B /* Emoji.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6089A66E1EAB8330009AC61B /* Emoji.plist */; };
+		6089A6791EAB8330009AC61B /* RongCloudKit.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6089A66F1EAB8330009AC61B /* RongCloudKit.strings */; };
+		6089A67A1EAB8330009AC61B /* RongCloud.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6089A6711EAB8330009AC61B /* RongCloud.bundle */; };
+		6089A67B1EAB8330009AC61B /* RongIMKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6089A6721EAB8330009AC61B /* RongIMKit.framework */; };
+		6089A67C1EAB8330009AC61B /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6089A6751EAB8330009AC61B /* libopencore-amrnb.a */; };
+		6089A67D1EAB8330009AC61B /* RCConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6089A6761EAB8330009AC61B /* RCConfig.plist */; };
+		6089A67E1EAB8330009AC61B /* RongIMLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6089A6771EAB8330009AC61B /* RongIMLib.framework */; };
+		6089A6811EAB8C69009AC61B /* XABChatTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 6089A6801EAB8C69009AC61B /* XABChatTool.m */; };
+		6089A6831EAC4B3E009AC61B /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6089A6821EAC4B3E009AC61B /* SafariServices.framework */; };
+		6089A6851EAC4B49009AC61B /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6089A6841EAC4B49009AC61B /* Photos.framework */; };
+		6089A6871EAC4BA8009AC61B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6089A6861EAC4BA8009AC61B /* QuartzCore.framework */; };
+		6089A6891EAC4BB1009AC61B /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6089A6881EAC4BB1009AC61B /* OpenGLES.framework */; };
+		6089A68B1EAC4BB9009AC61B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6089A68A1EAC4BB9009AC61B /* MapKit.framework */; };
+		6089A68D1EAC4BD6009AC61B /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6089A68C1EAC4BD6009AC61B /* libxml2.tbd */; };
+		6089A68F1EAC4C1C009AC61B /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6089A68E1EAC4C1C009AC61B /* ImageIO.framework */; };
+		6089A6911EAC4C34009AC61B /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6089A6901EAC4C34009AC61B /* CoreVideo.framework */; };
+		6089A6931EAC4C65009AC61B /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6089A6921EAC4C65009AC61B /* CoreMedia.framework */; };
+		6089A6951EAC4C6D009AC61B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6089A6941EAC4C6D009AC61B /* CoreLocation.framework */; };
+		6089A6971EAC4C8E009AC61B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6089A6961EAC4C8E009AC61B /* CoreGraphics.framework */; };
+		6089A6991EAC4CAE009AC61B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6089A6981EAC4CAE009AC61B /* CFNetwork.framework */; };
+		6089A69B1EAC4CD1009AC61B /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6089A69A1EAC4CD1009AC61B /* AssetsLibrary.framework */; };
 		60A5515F1E7D13BE0058DD96 /* XABConfirmFindPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60A551571E7D13BE0058DD96 /* XABConfirmFindPasswordVC.m */; };
 		60A551601E7D13BE0058DD96 /* XABFindPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60A551591E7D13BE0058DD96 /* XABFindPasswordViewController.m */; };
 		60A551611E7D13BE0058DD96 /* XABLoginRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60A5515C1E7D13BE0058DD96 /* XABLoginRegisterViewController.m */; };
@@ -50,6 +71,7 @@
 		60A551871E7D17D90058DD96 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60A551861E7D17D90058DD96 /* SystemConfiguration.framework */; };
 		60A551891E7D17DF0058DD96 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60A551881E7D17DF0058DD96 /* CoreTelephony.framework */; };
 		60A5518B1E7D17ED0058DD96 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 60A5518A1E7D17ED0058DD96 /* libstdc++.tbd */; };
+		60C25AF51EACFC1100259581 /* XABConversationListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C25AF41EACFC1100259581 /* XABConversationListViewController.m */; };
 		60DF37FA1E816F6800A514F3 /* XABLoginRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 60DF37F91E816F6800A514F3 /* XABLoginRequest.m */; };
 		751A526A1EE01FA400BAB566 /* XABArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 751A52611EE01FA400BAB566 /* XABArticleViewController.m */; };
 		751A526B1EE01FA400BAB566 /* XABPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 751A52621EE01FA400BAB566 /* XABPictureViewController.m */; };
@@ -480,6 +502,29 @@
 		6071D7D61E8A8DF6004B94BD /* ShareSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareSDK.bundle; sourceTree = "<group>"; };
 		6071D7D71E8A8DF7004B94BD /* ShareSDKConnector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKConnector.framework; sourceTree = "<group>"; };
 		6071D7EF1E8A8EEB004B94BD /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		6089A66E1EAB8330009AC61B /* Emoji.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Emoji.plist; sourceTree = "<group>"; };
+		6089A6701EAB8330009AC61B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/RongCloudKit.strings; sourceTree = "<group>"; };
+		6089A6711EAB8330009AC61B /* RongCloud.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = RongCloud.bundle; sourceTree = "<group>"; };
+		6089A6721EAB8330009AC61B /* RongIMKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RongIMKit.framework; sourceTree = "<group>"; };
+		6089A6731EAB8330009AC61B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/RongCloudKit.strings"; sourceTree = "<group>"; };
+		6089A6751EAB8330009AC61B /* libopencore-amrnb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrnb.a"; sourceTree = "<group>"; };
+		6089A6761EAB8330009AC61B /* RCConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = RCConfig.plist; sourceTree = "<group>"; };
+		6089A6771EAB8330009AC61B /* RongIMLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RongIMLib.framework; sourceTree = "<group>"; };
+		6089A67F1EAB8C69009AC61B /* XABChatTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABChatTool.h; sourceTree = "<group>"; };
+		6089A6801EAB8C69009AC61B /* XABChatTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABChatTool.m; sourceTree = "<group>"; };
+		6089A6821EAC4B3E009AC61B /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
+		6089A6841EAC4B49009AC61B /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		6089A6861EAC4BA8009AC61B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		6089A6881EAC4BB1009AC61B /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		6089A68A1EAC4BB9009AC61B /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		6089A68C1EAC4BD6009AC61B /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
+		6089A68E1EAC4C1C009AC61B /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		6089A6901EAC4C34009AC61B /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		6089A6921EAC4C65009AC61B /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		6089A6941EAC4C6D009AC61B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		6089A6961EAC4C8E009AC61B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		6089A6981EAC4CAE009AC61B /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		6089A69A1EAC4CD1009AC61B /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		60A551561E7D13BE0058DD96 /* XABConfirmFindPasswordVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABConfirmFindPasswordVC.h; sourceTree = "<group>"; };
 		60A551571E7D13BE0058DD96 /* XABConfirmFindPasswordVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABConfirmFindPasswordVC.m; sourceTree = "<group>"; };
 		60A551581E7D13BE0058DD96 /* XABFindPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABFindPasswordViewController.h; sourceTree = "<group>"; };
@@ -507,6 +552,8 @@
 		60A551861E7D17D90058DD96 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		60A551881E7D17DF0058DD96 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		60A5518A1E7D17ED0058DD96 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
+		60C25AF31EACFC1100259581 /* XABConversationListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABConversationListViewController.h; sourceTree = "<group>"; };
+		60C25AF41EACFC1100259581 /* XABConversationListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABConversationListViewController.m; sourceTree = "<group>"; };
 		60DF37F81E816F6800A514F3 /* XABLoginRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABLoginRequest.h; sourceTree = "<group>"; };
 		60DF37F91E816F6800A514F3 /* XABLoginRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABLoginRequest.m; sourceTree = "<group>"; };
 		751A52601EE01FA400BAB566 /* XABArticleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABArticleViewController.h; sourceTree = "<group>"; };
@@ -1277,14 +1324,28 @@
 			files = (
 				60A5517F1E7D17B60058DD96 /* libz.tbd in Frameworks */,
 				751A53261EE020D900BAB566 /* libresolv.tbd in Frameworks */,
-				8C0DF5431E85100C00A1B2B2 /* AudioToolbox.framework in Frameworks */,
-				8C0DF5411E85100000A1B2B2 /* CoreAudio.framework in Frameworks */,
+				6089A69B1EAC4CD1009AC61B /* AssetsLibrary.framework in Frameworks */,
 				8C0DF53F1E850FF200A1B2B2 /* AVFoundation.framework in Frameworks */,
+				6089A6991EAC4CAE009AC61B /* CFNetwork.framework in Frameworks */,
+				6089A6971EAC4C8E009AC61B /* CoreGraphics.framework in Frameworks */,
+				6089A6951EAC4C6D009AC61B /* CoreLocation.framework in Frameworks */,
+				6089A6931EAC4C65009AC61B /* CoreMedia.framework in Frameworks */,
+				60A551891E7D17DF0058DD96 /* CoreTelephony.framework in Frameworks */,
+				6089A6911EAC4C34009AC61B /* CoreVideo.framework in Frameworks */,
+				6089A68F1EAC4C1C009AC61B /* ImageIO.framework in Frameworks */,
+				6089A68D1EAC4BD6009AC61B /* libxml2.tbd in Frameworks */,
+				6089A68B1EAC4BB9009AC61B /* MapKit.framework in Frameworks */,
+				6089A6891EAC4BB1009AC61B /* OpenGLES.framework in Frameworks */,
+				6089A6871EAC4BA8009AC61B /* QuartzCore.framework in Frameworks */,
+				6089A6851EAC4B49009AC61B /* Photos.framework in Frameworks */,
+				6089A6831EAC4B3E009AC61B /* SafariServices.framework in Frameworks */,
+				8C0DF5431E85100C00A1B2B2 /* AudioToolbox.framework in Frameworks */,
+				6089A67B1EAB8330009AC61B /* RongIMKit.framework in Frameworks */,
+				8C0DF5411E85100000A1B2B2 /* CoreAudio.framework in Frameworks */,
 				6071D7F01E8A8EEB004B94BD /* libsqlite3.tbd in Frameworks */,
 				60A5518B1E7D17ED0058DD96 /* libstdc++.tbd in Frameworks */,
 				6071D7E41E8A8DF7004B94BD /* WechatConnector.framework in Frameworks */,
 				6071D7E91E8A8DF7004B94BD /* libWeChatSDK.a in Frameworks */,
-				60A551891E7D17DF0058DD96 /* CoreTelephony.framework in Frameworks */,
 				6071D7E01E8A8DF7004B94BD /* MailConnector.framework in Frameworks */,
 				6071D7E71E8A8DF7004B94BD /* libWeiboSDK.a in Frameworks */,
 				60A551871E7D17D90058DD96 /* SystemConfiguration.framework in Frameworks */,
@@ -1293,6 +1354,7 @@
 				60A551831E7D17C70058DD96 /* MessageUI.framework in Frameworks */,
 				6071D7D81E8A8DF7004B94BD /* ShareSDK.framework in Frameworks */,
 				60A551811E7D17BF0058DD96 /* libicucore.tbd in Frameworks */,
+				6089A67C1EAB8330009AC61B /* libopencore-amrnb.a in Frameworks */,
 				6071D7E11E8A8DF7004B94BD /* QQConnector.framework in Frameworks */,
 				6071D7DB1E8A8DF7004B94BD /* ShareSDKExtension.framework in Frameworks */,
 				6071D7DA1E8A8DF7004B94BD /* ShareSDKConfigFile.framework in Frameworks */,
@@ -1302,6 +1364,7 @@
 				6071D7DD1E8A8DF7004B94BD /* ShareSDKUI.framework in Frameworks */,
 				6071D7DF1E8A8DF7004B94BD /* FacebookConnector.framework in Frameworks */,
 				6071D7DE1E8A8DF7004B94BD /* CopyConnector.framework in Frameworks */,
+				6089A67E1EAB8330009AC61B /* RongIMLib.framework in Frameworks */,
 				6071D7E51E8A8DF7004B94BD /* TencentOpenAPI.framework in Frameworks */,
 				60A551671E7D13DC0058DD96 /* MOBFoundation.framework in Frameworks */,
 				60A551681E7D13DC0058DD96 /* MOBFoundationEx.framework in Frameworks */,
@@ -1434,6 +1497,36 @@
 			path = Required;
 			sourceTree = "<group>";
 		};
+		6089A66C1EAB8330009AC61B /* Rong_Cloud */ = {
+			isa = PBXGroup;
+			children = (
+				6089A66D1EAB8330009AC61B /* IMKit */,
+				6089A6741EAB8330009AC61B /* IMLib */,
+			);
+			path = Rong_Cloud;
+			sourceTree = "<group>";
+		};
+		6089A66D1EAB8330009AC61B /* IMKit */ = {
+			isa = PBXGroup;
+			children = (
+				6089A66E1EAB8330009AC61B /* Emoji.plist */,
+				6089A66F1EAB8330009AC61B /* RongCloudKit.strings */,
+				6089A6711EAB8330009AC61B /* RongCloud.bundle */,
+				6089A6721EAB8330009AC61B /* RongIMKit.framework */,
+			);
+			path = IMKit;
+			sourceTree = "<group>";
+		};
+		6089A6741EAB8330009AC61B /* IMLib */ = {
+			isa = PBXGroup;
+			children = (
+				6089A6751EAB8330009AC61B /* libopencore-amrnb.a */,
+				6089A6761EAB8330009AC61B /* RCConfig.plist */,
+				6089A6771EAB8330009AC61B /* RongIMLib.framework */,
+			);
+			path = IMLib;
+			sourceTree = "<group>";
+		};
 		60A551551E7D13BE0058DD96 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -1465,6 +1558,8 @@
 			children = (
 				60A551771E7D16610058DD96 /* XABUserLogin.h */,
 				60A551781E7D16610058DD96 /* XABUserLogin.m */,
+				6089A67F1EAB8C69009AC61B /* XABChatTool.h */,
+				6089A6801EAB8C69009AC61B /* XABChatTool.m */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1473,6 +1568,19 @@
 			isa = PBXGroup;
 			children = (
 				751A53251EE020D900BAB566 /* libresolv.tbd */,
+				6089A69A1EAC4CD1009AC61B /* AssetsLibrary.framework */,
+				6089A6981EAC4CAE009AC61B /* CFNetwork.framework */,
+				6089A6961EAC4C8E009AC61B /* CoreGraphics.framework */,
+				6089A6941EAC4C6D009AC61B /* CoreLocation.framework */,
+				6089A6921EAC4C65009AC61B /* CoreMedia.framework */,
+				6089A6901EAC4C34009AC61B /* CoreVideo.framework */,
+				6089A68E1EAC4C1C009AC61B /* ImageIO.framework */,
+				6089A68C1EAC4BD6009AC61B /* libxml2.tbd */,
+				6089A68A1EAC4BB9009AC61B /* MapKit.framework */,
+				6089A6881EAC4BB1009AC61B /* OpenGLES.framework */,
+				6089A6861EAC4BA8009AC61B /* QuartzCore.framework */,
+				6089A6841EAC4B49009AC61B /* Photos.framework */,
+				6089A6821EAC4B3E009AC61B /* SafariServices.framework */,
 				8C0DF5421E85100C00A1B2B2 /* AudioToolbox.framework */,
 				8C0DF5401E85100000A1B2B2 /* CoreAudio.framework */,
 				8C0DF53E1E850FF200A1B2B2 /* AVFoundation.framework */,
@@ -1805,6 +1913,15 @@
 				752155F41ECBFACA00BAD876 /* UIWebView+AFNetworking.m */,
 			);
 			path = "UIKit+AFNetworking";
+            sourceTree = "<group>";
+        };
+		60C25AF21EACFB1700259581 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				60C25AF31EACFC1100259581 /* XABConversationListViewController.h */,
+				60C25AF41EACFC1100259581 /* XABConversationListViewController.m */,
+			);
+			path = Chat;
 			sourceTree = "<group>";
 		};
 		7572A7421E87649B00F753BC /* ClearLaJi */ = {
@@ -2140,6 +2257,7 @@
 		8CB024391E6D497000A57EBC /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				60C25AF21EACFB1700259581 /* Chat */,
 				60A551551E7D13BE0058DD96 /* Login */,
 				8CB0243A1E6D497000A57EBC /* Class */,
 				8CB0243B1E6D497000A57EBC /* Home */,
@@ -2652,6 +2770,7 @@
 			children = (
 				751A53E01EE0F93A00BAB566 /* photo */,
 				751A532A1EE0F59900BAB566 /* qiniu */,
+				6089A66C1EAB8330009AC61B /* Rong_Cloud */,
 				8C0DF5441E85106E00A1B2B2 /* SpeexSDK */,
 				8C0DF2A71E8501EB00A1B2B2 /* FSCalendar */,
 				7572A7421E87649B00F753BC /* ClearLaJi */,
@@ -3188,6 +3307,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 8CB023EF1E6D470600A57EBC;
 			productRefGroup = 8CB023F91E6D470600A57EBC /* Products */;
@@ -3239,6 +3359,16 @@
 				8CB02AB91E6D4A3B00A57EBC /* play2x.png in Resources */,
 				8CB029DF1E6D4A3A00A57EBC /* Info.plist in Resources */,
 				8CB02A061E6D4A3B00A57EBC /* agreed_icon@2x.png in Resources */,
+				8CB02AD61E6D4A3B00A57EBC /* index.js in Resources */,
+				8CB02AA31E6D4A3B00A57EBC /* n_radiotxt.png in Resources */,
+				6089A6791EAB8330009AC61B /* RongCloudKit.strings in Resources */,
+				8CB02AA81E6D4A3B00A57EBC /* n_theadsmall2x.png in Resources */,
+				8CB02A8B1E6D4A3B00A57EBC /* comments_label_red_ico@2x.png in Resources */,
+				8CB02A751E6D4A3B00A57EBC /* icon_location.png in Resources */,
+				8CB02AAA1E6D4A3B00A57EBC /* n_videoplay.png in Resources */,
+				8CB02A661E6D4A3B00A57EBC /* down.png in Resources */,
+				8CB02ADB1E6D4A3B00A57EBC /* lithe.js in Resources */,
+				8CB02A861E6D4A3B00A57EBC /* arrow_r2x.png in Resources */,
 				8CFBD5151E76473C00EE691B /* first.jpg in Resources */,
 				6071D7ED1E8A8DF7004B94BD /* ShareSDK.bundle in Resources */,
 				6071D7E61E8A8DF7004B94BD /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
@@ -3251,6 +3381,8 @@
 				8CB02AC11E6D4A3B00A57EBC /* result.png in Resources */,
 				751A53E51EE10FF900BAB566 /* 蓝背景.png in Resources */,
 				8CB02A911E6D4A3B00A57EBC /* n_audio.gif in Resources */,
+				6071D7ED1E8A8DF7004B94BD /* ShareSDK.bundle in Resources */,
+				6089A67D1EAB8330009AC61B /* RCConfig.plist in Resources */,
 				8CB02ABD1E6D4A3B00A57EBC /* radiotxt.png in Resources */,
 				8CB02A6F1E6D4A3B00A57EBC /* headsmall2x.png in Resources */,
 				8CB02A6C1E6D4A3B00A57EBC /* gradient@2x.png in Resources */,
@@ -3315,11 +3447,13 @@
 				8CB02AD31E6D4A3B00A57EBC /* global.js in Resources */,
 				8CB02A581E6D4A3B00A57EBC /* template.css in Resources */,
 				751A53EF1EE1144D00BAB566 /* jiantou.png in Resources */,
+				6089A67A1EAB8330009AC61B /* RongCloud.bundle in Resources */,
 				8CB02A781E6D4A3B00A57EBC /* icon_praise_on.png in Resources */,
 				8CB02A891E6D4A3B00A57EBC /* comment_ico_night@2x.png in Resources */,
 				8CB02ABE1E6D4A3B00A57EBC /* red_arrow2x.png in Resources */,
 				8CB02AB11E6D4A3B00A57EBC /* red_arrow2x.png in Resources */,
 				8CB02AC41E6D4A3B00A57EBC /* search_next_ico@2x.png in Resources */,
+				6089A6781EAB8330009AC61B /* Emoji.plist in Resources */,
 				8CB02AD21E6D4A3B00A57EBC /* weibohead.png in Resources */,
 				8CB02AD91E6D4A3B00A57EBC /* render.js in Resources */,
 				8CB02AAB1E6D4A3B00A57EBC /* n_weibohead.png in Resources */,
@@ -3638,6 +3772,7 @@
 				751A53BC1EE0F59A00BAB566 /* QNCrc32.m in Sources */,
 				8CB029DA1E6D4A3A00A57EBC /* MASViewConstraint.m in Sources */,
 				603169D41E8C123C008AA3A7 /* XABShareSDKTool.m in Sources */,
+				60C25AF51EACFC1100259581 /* XABConversationListViewController.m in Sources */,
 				8CB02B701E6D620100A57EBC /* XABNewsViewController.m in Sources */,
 				751A53BD1EE0F59A00BAB566 /* QNEtag.m in Sources */,
 				751A526C1EE01FA400BAB566 /* XABVideoViewController.m in Sources */,
@@ -3701,6 +3836,7 @@
 				8CB029F61E6D4A3A00A57EBC /* MJRefreshNormalHeader.m in Sources */,
 				8C0DF5E21E85106E00A1B2B2 /* filters.c in Sources */,
 				8C0DF5CC1E85106E00A1B2B2 /* SpeexCodec.m in Sources */,
+				6089A6811EAB8C69009AC61B /* XABChatTool.m in Sources */,
 				8CB02B371E6D575600A57EBC /* SDWebImageDownloader.m in Sources */,
 				8C0DF5CD1E85106E00A1B2B2 /* Decapsulator.m in Sources */,
 				8CB02B981E7257E700A57EBC /* XABSearchViewController.m in Sources */,
@@ -3742,6 +3878,15 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		6089A66F1EAB8330009AC61B /* RongCloudKit.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6089A6701EAB8330009AC61B /* en */,
+				6089A6731EAB8330009AC61B /* zh-Hans */,
+			);
+			name = RongCloudKit.strings;
+			sourceTree = "<group>";
+		};
 		8CB024091E6D470600A57EBC /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -3864,6 +4009,8 @@
 					"$(PROJECT_DIR)/XAnBao/Vender/ShareSDK/Support/PlatformConnector",
 					"$(PROJECT_DIR)/XAnBao/Vender/ShareSDK/Support/PlatformSDK/QQSDK",
 					"$(PROJECT_DIR)/XAnBao/Vender/ShareSDK/Support/Required",
+					"$(PROJECT_DIR)/XAnBao/Vender/Rong_Cloud/IMKit",
+					"$(PROJECT_DIR)/XAnBao/Vender/Rong_Cloud/IMLib",
 				);
 				GCC_PREFIX_HEADER = XAnBao/Other/PrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
@@ -3874,6 +4021,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/XAnBao/Vender/ShareSDK/Support/PlatformSDK/SinaWeiboSDK",
 					"$(PROJECT_DIR)/XAnBao/Vender/ShareSDK/Support/PlatformSDK/WeChatSDK",
+					"$(PROJECT_DIR)/XAnBao/Vender/Rong_Cloud/IMLib",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ios2.xiaoanbao;
@@ -3899,6 +4047,8 @@
 					"$(PROJECT_DIR)/XAnBao/Vender/ShareSDK/Support/PlatformConnector",
 					"$(PROJECT_DIR)/XAnBao/Vender/ShareSDK/Support/PlatformSDK/QQSDK",
 					"$(PROJECT_DIR)/XAnBao/Vender/ShareSDK/Support/Required",
+					"$(PROJECT_DIR)/XAnBao/Vender/Rong_Cloud/IMKit",
+					"$(PROJECT_DIR)/XAnBao/Vender/Rong_Cloud/IMLib",
 				);
 				GCC_PREFIX_HEADER = XAnBao/Other/PrefixHeader.pch;
 				INFOPLIST_FILE = XAnBao/Info.plist;
@@ -3908,6 +4058,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/XAnBao/Vender/ShareSDK/Support/PlatformSDK/SinaWeiboSDK",
 					"$(PROJECT_DIR)/XAnBao/Vender/ShareSDK/Support/PlatformSDK/WeChatSDK",
+					"$(PROJECT_DIR)/XAnBao/Vender/Rong_Cloud/IMLib",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ios2.xiaoanbao;
