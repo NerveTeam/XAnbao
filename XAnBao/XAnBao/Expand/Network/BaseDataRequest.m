@@ -10,6 +10,7 @@
 
 @interface BaseDataRequest ()<YTKRequestDelegate>
 @property(nonatomic,strong)NSDictionary *parameters;
+@property(nonatomic,strong)NSDictionary *headers;
 @property(nonatomic,weak)id<DataRequestDelegate> _delegate;
 @end
 @implementation BaseDataRequest
@@ -21,6 +22,9 @@
 }
 - (id)requestArgument {
     return self.parameters;
+}
+- (NSDictionary<NSString *,NSString *> *)requestHeaderFieldValueDictionary {
+    return self.headers;
 }
 - (YTKRequestMethod)requestMethod {
     return YTKRequestMethodGET;
@@ -36,6 +40,7 @@
     baseRequest._delegate = delegate;
     baseRequest.delegate = baseRequest;
     baseRequest.parameters = parameters;
+    baseRequest.headers = headers;
     [baseRequest startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
         baseRequest.json = (NSDictionary *)request.responseJSONObject;
     } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
@@ -56,6 +61,7 @@
 + (instancetype)requestDataWithParameters:(NSDictionary *)parameters headers:(NSDictionary *)headers successBlock:(requestCompletionBlock)success failureBlock:(requestCompletionBlock)failure {
     BaseDataRequest *baseRequest = [[self alloc]init];
     baseRequest.parameters = parameters;
+    baseRequest.headers = headers;
     [baseRequest startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
         baseRequest.json = request.responseJSONObject;
         if (success) {

@@ -14,6 +14,7 @@
 #import "UIView+Position.h"
 #import "Masonry.h"
 #import "UIViewController+AnimationHUD.h"
+#import "XABUserLogin.h"
 static const CGFloat StatusBarHeight = 20;
 static const CGFloat TabBarHeight = 49;
 static const CGFloat TopBarHeight = 44;
@@ -28,6 +29,7 @@ static const CGFloat TopBarHeight = 44;
 #define RGBACOLOR(r,g,b,a) [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:(a)]
 #define ThemeColor  RGBACOLOR(46, 132, 212, 1)
 #define imgScale(w) (w)*9/16
+#define UserInfo [XABUserLogin getInstance].userInfo
 #endif
 
 //#ifdef DEBUG
