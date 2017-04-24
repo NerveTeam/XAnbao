@@ -15,6 +15,7 @@
 #import "Masonry.h"
 #import "UIViewController+AnimationHUD.h"
 #import "XABUserLogin.h"
+#import "NSDictionary+Safe.h"
 static const CGFloat StatusBarHeight = 20;
 static const CGFloat TabBarHeight = 49;
 static const CGFloat TopBarHeight = 44;
@@ -30,6 +31,8 @@ static const CGFloat TopBarHeight = 44;
 #define ThemeColor  RGBACOLOR(46, 132, 212, 1)
 #define imgScale(w) (w)*9/16
 #define UserInfo [XABUserLogin getInstance].userInfo
+#define WeakSelf __weak typeof(self) weakSelf = self
+#define Token @{@"i_token" : UserInfo.token == nil ? @"" : UserInfo.token}
 #endif
 
 //#ifdef DEBUG
