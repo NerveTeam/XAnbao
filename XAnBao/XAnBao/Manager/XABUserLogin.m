@@ -274,7 +274,7 @@ static XABUserLogin *_instance;
     }
 }
 
-- (XABUserModel *)diskLoadUserInfo {
+- (XABUserModel *)userInfo {
     
     NSData *outputData = [[NSUserDefaults standardUserDefaults] objectForKey:@"userModel"];
     NSDictionary *outputDict = [NSKeyedUnarchiver unarchiveObjectWithData:outputData];
