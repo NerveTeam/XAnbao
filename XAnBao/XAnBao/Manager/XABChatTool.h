@@ -16,9 +16,11 @@
 + (instancetype)getInstance;
 
 //初始化融云SDK
-+(void)initWithRCIM;
+-(void)initWithRCIM;
 
 //获取到从服务端获取的 Token，通过 RCIM 的单例 建立与服务器的连接
-+(void)connectRCServer;
+-(void)connectRCServer;
+
+
 
 @end

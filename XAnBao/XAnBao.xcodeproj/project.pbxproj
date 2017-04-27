@@ -71,7 +71,6 @@
 		60A551871E7D17D90058DD96 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60A551861E7D17D90058DD96 /* SystemConfiguration.framework */; };
 		60A551891E7D17DF0058DD96 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60A551881E7D17DF0058DD96 /* CoreTelephony.framework */; };
 		60A5518B1E7D17ED0058DD96 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 60A5518A1E7D17ED0058DD96 /* libstdc++.tbd */; };
-		60C25AF51EACFC1100259581 /* XABConversationListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C25AF41EACFC1100259581 /* XABConversationListViewController.m */; };
 		60DF37FA1E816F6800A514F3 /* XABLoginRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 60DF37F91E816F6800A514F3 /* XABLoginRequest.m */; };
 		751A526A1EE01FA400BAB566 /* XABArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 751A52611EE01FA400BAB566 /* XABArticleViewController.m */; };
 		751A526B1EE01FA400BAB566 /* XABPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 751A52621EE01FA400BAB566 /* XABPictureViewController.m */; };
@@ -3773,7 +3772,6 @@
 				751A53BC1EE0F59A00BAB566 /* QNCrc32.m in Sources */,
 				8CB029DA1E6D4A3A00A57EBC /* MASViewConstraint.m in Sources */,
 				603169D41E8C123C008AA3A7 /* XABShareSDKTool.m in Sources */,
-				60C25AF51EACFC1100259581 /* XABConversationListViewController.m in Sources */,
 				8CB02B701E6D620100A57EBC /* XABNewsViewController.m in Sources */,
 				751A53BD1EE0F59A00BAB566 /* QNEtag.m in Sources */,
 				751A526C1EE01FA400BAB566 /* XABVideoViewController.m in Sources */,
