@@ -32,14 +32,14 @@
     self.parentList = [NSMutableArray array];
     for (NSInteger i = 0; i < 10; i++) {
         XABResource *re = [XABResource new];
-        re.title = @"我是老师某某某";
-        re.img = @[@"http://b.hiphotos.baidu.com/zhidao/wh%3D450%2C600/sign=f0c5c08030d3d539c16807c70fb7c566/8ad4b31c8701a18bbef9f231982f07082838feba.jpg"];
+//        re.title = @"我是老师某某某";
+//        re.img = @[@"http://b.hiphotos.baidu.com/zhidao/wh%3D450%2C600/sign=f0c5c08030d3d539c16807c70fb7c566/8ad4b31c8701a18bbef9f231982f07082838feba.jpg"];
         [self.teacherList addObject:re];
     }
     for (NSInteger i = 0; i < 10; i++) {
         XABResource *re = [XABResource new];
-        re.title = @"我是家长某某某";
-        re.img = @[@"http://b.hiphotos.baidu.com/zhidao/wh%3D450%2C600/sign=f0c5c08030d3d539c16807c70fb7c566/8ad4b31c8701a18bbef9f231982f07082838feba.jpg"];
+//        re.title = @"我是家长某某某";
+//        re.img = @[@"http://b.hiphotos.baidu.com/zhidao/wh%3D450%2C600/sign=f0c5c08030d3d539c16807c70fb7c566/8ad4b31c8701a18bbef9f231982f07082838feba.jpg"];
         [self.parentList addObject:re];
     }
     [self loadData:_currentIndex];

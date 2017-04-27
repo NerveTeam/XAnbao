@@ -37,7 +37,7 @@
 - (void)setSportList:(XABResource *)sportList {
     self.titleLabel.text = sportList.title;
     [self.titleLabel sizeToFit];
-    [self.img sd_setImageWithURL:[NSURL URLWithString:sportList.img.firstObject] placeholderImage:nil];
+//    [self.img sd_setImageWithURL:[NSURL URLWithString:sportList.img.firstObject] placeholderImage:nil];
     
 }
 - (void)viewLayout {

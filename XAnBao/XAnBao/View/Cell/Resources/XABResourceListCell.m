@@ -42,8 +42,6 @@ static const CGFloat imgH = imgScale(imgW);
         [self.contentView addSubview:self.titleLabel];
         [self.contentView addSubview:self.img];
         [self.contentView addSubview:self.postDate];
-//        [self.contentView addSubview:self.commentCount];
-//        [self.contentView addSubview:self.commentIcon];
         [self viewLayout];
     }
     return self;
@@ -54,9 +52,11 @@ static const CGFloat imgH = imgScale(imgW);
     self.titleLabel.text = @"我是测试数据哈哈哈哈哈哈哈哈哈哈哈啊哈哈哈哈";
     [self.titleLabel sizeToFit];
     __block typeof(self.img)blockImageView = self.img;
-    [self.img sd_setImageWithURL:[NSURL URLWithString:@"https://c2.hoopchina.com.cn/uploads/star/event/images/161121/3c021ea8f8e189ce0d61a937929072cf08bdf806.jpg"] placeholderImage:nil];
-//    NSDate *commentDate = [NSDate dateWithTimeIntervalSince1970:sportList.pubDate];
-    self.postDate.text = @"2017-3-6";
+    [self.img sd_setImageWithURL:[NSURL URLWithString:sportList.coverUrl] placeholderImage:[UIImage imageNamed:@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1493274238533&di=afd56661e1e34fd48e0333e222cda78f&imgtype=0&src=http%3A%2F%2Fpic2.16pic.com%2F00%2F20%2F02%2F16pic_2002642_b.jpg"]];
+    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc]init];
+    dateFormatter.dateFormat=@"yyyy-MM-dd HH:mm:ss";
+    NSDate *date = [dateFormatter dateFromString:@"2016-7-16 09:33:22"];
+    self.postDate.text = sportList.publishTime;
     
 }
 - (void)viewLayout {

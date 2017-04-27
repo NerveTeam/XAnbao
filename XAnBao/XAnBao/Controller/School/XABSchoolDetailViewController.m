@@ -13,6 +13,7 @@
 #import "XABArticleViewController.h"
 #import "UIButton+Extention.h"
 #import "XABSchoolIntranetViewController.h"
+#import "XABSchoolRequest.h"
 
 @interface XABSchoolDetailViewController ()<SDCycleScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)SDCycleScrollView *cycleView;
@@ -29,6 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setup];
+    [self loadFoucsMap];
     [self loadData:_currentIndex];
 }
 
@@ -36,9 +38,46 @@
     _currentIndex = 1;
     self.tableView.mj_header.state = MJRefreshStateRefreshing;
 }
+- (void)loadFoucsMap {
+    WeakSelf;
+    NSMutableDictionary *pargam = [NSMutableDictionary new];
+    [pargam setSafeObject:@"1" forKey:@"schoolId"];
+    [SchoolFoucsMap requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
+        NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
+        if (code == 200) {
+            NSArray *data = [request.json objectForKeySafely:@"data"];
+            NSMutableArray *img = [NSMutableArray arrayWithCapacity:data.count];
+            for (NSDictionary *sub in data) {
+                [img addObject:[sub objectForKeySafely:@"url"]];
+            }
+            weakSelf.cycleView.imageURLStringsGroup = img.copy;
+        }
+    } failureBlock:^(BaseDataRequest *request) {
+        [self showMessage:[request.json objectForKeySafely:@"message"]];
+    }];
+}
+
 
 - (void)loadData:(NSInteger)page {
-    __weak typeof(self)weakSelf = self;
+    WeakSelf;
+    NSMutableDictionary *pargam = [NSMutableDictionary new];
+    [pargam setSafeObject:self.schollId forKey:@"schoolId"];
+    [pargam setSafeObject:self.channelId forKey:@"itemId"];
+    [SchoolFeedList requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
+        NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
+        if (code == 200) {
+            NSDictionary *data = [request.json objectForKeySafely:@"data"];
+            NSArray *results = [data objectForKeySafely:@"results"];
+            self.dataList = [XABResource mj_objectArrayWithKeyValuesArray:results];
+        }
+        
+        [weakSelf stopRefresh];
+        [weakSelf.tableView reloadData];
+    } failureBlock:^(BaseDataRequest *request) {
+        [self showMessage:[request.json objectForKeySafely:@"message"]];
+    }];
+    
+    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [weakSelf stopRefresh];
         [weakSelf.tableView reloadData];
@@ -58,8 +97,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 30;
-    //    return self.dataList.count;
+        return self.dataList.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     XABResourceListCell *cell = [XABResourceListCell newsSportListCellWithTableView:tableView];
@@ -75,7 +113,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     XABResource *sport = self.dataList[indexPath.row];
-    XABArticleViewController *article = [[XABArticleViewController alloc]initWithUrl:@"https://sports.sina.cn/nba/warriors/2017-03-09/detail-ifychhuq3433755.d.html?vt=4&pos=10&HTTPS=1"];
+    XABArticleViewController *article = [[XABArticleViewController alloc]initWithUrl:sport.url];
+    article.articleId = sport.id;
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self.navigationController pushViewController:article animated:YES];
 }
