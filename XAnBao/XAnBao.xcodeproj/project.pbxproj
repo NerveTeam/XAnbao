@@ -135,6 +135,7 @@
 		8C0DF5FF1E85106F00A1B2B2 /* vq.c in Sources */ = {isa = PBXBuildFile; fileRef = 8C0DF5C51E85106E00A1B2B2 /* vq.c */; };
 		8C0DF6001E85106F00A1B2B2 /* window.c in Sources */ = {isa = PBXBuildFile; fileRef = 8C0DF5CA1E85106E00A1B2B2 /* window.c */; };
 		8C0DF6031E88F86F00A1B2B2 /* XABRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C0DF6021E88F86F00A1B2B2 /* XABRecordCell.m */; };
+		8C383A471EADAA4F00EC7ED6 /* XABSchoolRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C383A461EADAA4F00EC7ED6 /* XABSchoolRequest.m */; };
 		8CA107AD1E8B658A00417C5A /* XABHomeworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA107AC1E8B658A00417C5A /* XABHomeworkViewController.m */; };
 		8CA107B01E8B659900417C5A /* XABCheckJobViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA107AF1E8B659900417C5A /* XABCheckJobViewController.m */; };
 		8CB023FD1E6D470600A57EBC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB023FC1E6D470600A57EBC /* main.m */; };
@@ -817,6 +818,8 @@
 		8C0DF5CA1E85106E00A1B2B2 /* window.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = window.c; sourceTree = "<group>"; };
 		8C0DF6011E88F86F00A1B2B2 /* XABRecordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABRecordCell.h; sourceTree = "<group>"; };
 		8C0DF6021E88F86F00A1B2B2 /* XABRecordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABRecordCell.m; sourceTree = "<group>"; };
+		8C383A451EADAA4F00EC7ED6 /* XABSchoolRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABSchoolRequest.h; sourceTree = "<group>"; };
+		8C383A461EADAA4F00EC7ED6 /* XABSchoolRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABSchoolRequest.m; sourceTree = "<group>"; };
 		8CA107AB1E8B658A00417C5A /* XABHomeworkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABHomeworkViewController.h; sourceTree = "<group>"; };
 		8CA107AC1E8B658A00417C5A /* XABHomeworkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABHomeworkViewController.m; sourceTree = "<group>"; };
 		8CA107AE1E8B659900417C5A /* XABCheckJobViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABCheckJobViewController.h; sourceTree = "<group>"; };
@@ -2320,6 +2323,8 @@
 				8CB024861E6D497600A57EBC /* DataRequest.m */,
 				60DF37F81E816F6800A514F3 /* XABLoginRequest.h */,
 				60DF37F91E816F6800A514F3 /* XABLoginRequest.m */,
+				8C383A451EADAA4F00EC7ED6 /* XABSchoolRequest.h */,
+				8C383A461EADAA4F00EC7ED6 /* XABSchoolRequest.m */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -3620,8 +3625,8 @@
 				TargetAttributes = {
 					8CB023F71E6D470600A57EBC = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = UX4L63XCE8;
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = F383N668T6;
+						ProvisioningStyle = Manual;
 					};
 					8CB024101E6D470600A57EBC = {
 						CreatedOnToolsVersion = 8.1;
@@ -3971,6 +3976,7 @@
 				8C0DF5D21E85106E00A1B2B2 /* CAXException.cpp in Sources */,
 				8CB02B581E6D590600A57EBC /* myview.m in Sources */,
 				8CFBD51E1E764A8F00EE691B /* ClasstableViewCell.m in Sources */,
+				8C383A471EADAA4F00EC7ED6 /* XABSchoolRequest.m in Sources */,
 				8CB029E01E6D4A3A00A57EBC /* MJExtensionConst.m in Sources */,
 				8C0DF5CE1E85106E00A1B2B2 /* Encapsulator.m in Sources */,
 				8CB0244D1E6D497000A57EBC /* BaseModel.m in Sources */,
@@ -4331,7 +4337,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
-				DEVELOPMENT_TEAM = UX4L63XCE8;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Lukuan Wang (ZAW9FNDQPM)";
+				DEVELOPMENT_TEAM = F383N668T6;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/XAnBao/Vender/SMS_SDK",
@@ -4344,7 +4351,7 @@
 				GCC_PREFIX_HEADER = XAnBao/Other/PrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				INFOPLIST_FILE = XAnBao/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4352,8 +4359,10 @@
 					"$(PROJECT_DIR)/XAnBao/Vender/ShareSDK/Support/PlatformSDK/WeChatSDK",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = cn.com.xiaoanbao.XAnBao;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ios.xiaoanbao;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "9f9abcce-c4a0-4fb3-844a-a208a884968c";
+				PROVISIONING_PROFILE_SPECIFIER = luqiangxab;
 			};
 			name = Debug;
 		};
@@ -4362,7 +4371,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
-				DEVELOPMENT_TEAM = UX4L63XCE8;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/XAnBao/Vender/SMS_SDK",
@@ -4374,7 +4383,7 @@
 				);
 				GCC_PREFIX_HEADER = XAnBao/Other/PrefixHeader.pch;
 				INFOPLIST_FILE = XAnBao/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4382,8 +4391,10 @@
 					"$(PROJECT_DIR)/XAnBao/Vender/ShareSDK/Support/PlatformSDK/WeChatSDK",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = cn.com.xiaoanbao.XAnBao;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ios.xiaoanbao;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};

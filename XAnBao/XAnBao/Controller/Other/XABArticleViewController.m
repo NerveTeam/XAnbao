@@ -8,6 +8,7 @@
 
 #import "XABArticleViewController.h"
 #import "RNCachingURLProtocol.h"
+#import "XABSchoolRequest.h"
 
 @interface XABArticleViewController ()
 @property(nonatomic,strong)UIWebView *webView;
@@ -18,6 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [SchoolVisitLog requestDataWithDelegate:self parameters:@{@"itemId":self.articleId} headers:Token];
     self.navigationController.navigationBar.hidden = NO;
     [NSURLProtocol registerClass:[RNCachingURLProtocol class]];
     [self.view addSubview:self.webView];

@@ -10,4 +10,5 @@
 
 @interface XABArticleViewController : YBBaseViewController
 - (instancetype)initWithUrl:(NSString *)url;
+@property(nonatomic, copy)NSString *articleId;
 @end

@@ -9,7 +9,7 @@
 #import "YTKRequest.h"
 @class BaseDataRequest;
 
-typedef void(^requestCompletionBlock)(YTKRequest *request);
+typedef void(^requestCompletionBlock)(BaseDataRequest *request);
 @protocol DataRequestDelegate <NSObject>
 @optional
 - (void)requestFinished:(BaseDataRequest *)request;

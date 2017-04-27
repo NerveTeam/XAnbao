@@ -13,12 +13,16 @@
 #import "XABSchoolMenu.h"
 #import "XABSchoolMessage.h"
 #import "XABSearchViewController.h"
+#import "XABSchoolRequest.h"
 
-@interface XABSchoolViewController ()<XABSchoolMessageDelegate, XABSchoolMenuDelegate>
+
+@interface XABSchoolViewController ()<XABSchoolMessageDelegate, XABSchoolMenuDelegate,DataRequestDelegate>
 // 菜单
 @property(nonatomic, strong)MLMeunView *meunView;
 // 频道数据
 @property(nonatomic, strong)NSArray *channelData;
+// 频道名称
+@property(nonatomic, strong)NSArray *channelName;
 // 导航背景
 @property(nonatomic, strong)UIView *topBarView;
 @property(nonatomic, strong)UIButton *currentSelectSchool;
@@ -33,8 +37,49 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self initTopBar];
-    [self.meunView changeMenuWidth:self.messageMailBtn.x];
+//    [self loadFollowList];
+    [self loadMenu];
+}
+- (void)loadFollowList {
+ WeakSelf;
+    NSMutableDictionary *pargam = [NSMutableDictionary new];
+    [pargam setSafeObject:UserInfo.id forKey:@"userId"];
+    [pargam setSafeObject:@"1" forKey:@"schoolId"];
+    [SchoolFollowList requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
+        NSLog(@"dd");
+    } failureBlock:^(BaseDataRequest *request) {
+        [self initTopBar];
+        [self.meunView changeMenuWidth:self.messageMailBtn.x];
+    }];
+}
+- (void)loadMenu {
+    WeakSelf;
+//    if (!UserInfo.defaultFocusSchoolId) {
+//        return;
+//    }
+    [SchoolMenuList requestDataWithParameters:@{@"schoolId":@(1)} headers:Token successBlock:^(BaseDataRequest *request) {
+        NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
+        if (code == 200) {
+            NSArray *data = [request.json objectForKeySafely:@"data"];
+            NSMutableArray *channelName = [NSMutableArray arrayWithCapacity:data.count];
+            NSMutableArray *channelData = [NSMutableArray arrayWithCapacity:data.count];
+            for (NSDictionary *sub in data) {
+                [channelName addObject:[sub objectForKeySafely:@"name"]];
+                [channelData addObject:@{@"class":@"XABSchoolDetailViewController",
+                                         @"info":@{
+                                                 @"channelId":[sub objectForKeySafely:@"id"],
+                                                   @"schollId":[sub objectForKeySafely:@"schoolId"]}}];
+            }
+            weakSelf.channelName = channelName.copy;
+            weakSelf.channelData = channelData.copy;
+            [self initTopBar];
+            [self.meunView changeMenuWidth:self.messageMailBtn.x];
+        }
+    } failureBlock:^(BaseDataRequest *request) {
+        [self initTopBar];
+        [self.meunView changeMenuWidth:self.messageMailBtn.x];
+        [self showMessage:[request.json objectForKeySafely:@"message"]];
+    }];
 }
 
 // init菜单
@@ -125,7 +170,7 @@
 #pragma mark - lazy
 - (MLMeunView *)meunView {
     if (!_meunView) {
-        _meunView = [[MLMeunView alloc]initWithFrame:CGRectMake(0, self.topBarView.height, self.topBarView.width - self.messageMailBtn.width, TopBarHeight) titles:@[@"新闻公告",@"学生风采",@"学校简介",@"学校图片"] viewcontrollersInfo:self.channelData isParameter:NO];
+        _meunView = [[MLMeunView alloc]initWithFrame:CGRectMake(0, self.topBarView.height, self.topBarView.width - self.messageMailBtn.width, TopBarHeight) titles:self.channelName viewcontrollersInfo:self.channelData isParameter:YES];
         _meunView.normalColor = [UIColor blackColor];
         _meunView.selectlColor = ThemeColor;
         [_meunView reloadMeunStyle];
@@ -134,7 +179,7 @@
 }
 - (NSArray *)channelData {
     if (!_channelData) {
-        _channelData = @[@"XABSchoolDetailViewController",@"XABSchoolDetailViewController",@"XABSchoolDetailViewController",@"XABSchoolDetailViewController"];
+        _channelData = [NSArray new];
     }
     return _channelData;
 }
@@ -149,7 +194,7 @@
     if (!_currentSelectSchool) {
         _currentSelectSchool = [[UIButton alloc]init];
         [_currentSelectSchool.titleLabel setFont:[UIFont systemFontOfSize:16]];
-        [_currentSelectSchool setTitle:@"北京市朝阳区第二实验小学" forState:UIControlStateNormal];
+        [_currentSelectSchool setTitle:@"系统测试学校" forState:UIControlStateNormal];
         [_currentSelectSchool setImage:[UIImage imageNamed:@"faculty_arrow"] forState:UIControlStateNormal];
         [_currentSelectSchool sizeToFit];
         [_currentSelectSchool layoutButtonWithEdgeInsetsStyle:MKButtonEdgeInsetsStyleRight imageTitleSpace:5];

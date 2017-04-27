@@ -9,5 +9,6 @@
 #import "YBBaseViewController.h"
 
 @interface XABSchoolDetailViewController : YBBaseViewController
-
+@property(nonatomic, copy)NSString *channelId;
+@property(nonatomic, copy)NSString *schollId;
 @end

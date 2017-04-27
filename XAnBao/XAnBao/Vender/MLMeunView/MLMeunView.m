@@ -180,7 +180,10 @@ static float itemMargin = 25; // item间距
     if (!viewcontroller) {
        viewcontroller = [self.viewcontrollerCache objectForKey:@(index)];
     }
+    
     if (!viewcontroller) {
+        return;
+    }
         id object = [self.controllersInfo safeObjectAtIndex:index];
         if (_isOnlyInit && [object isKindOfClass:[NSString class]]) {
             NSString *className = (NSString *)object;
@@ -201,7 +204,6 @@ static float itemMargin = 25; // item间距
             NSCAssert(viewcontroller != nil, @"传入控制器数组格式错误");
             viewcontroller = [[UIViewController alloc]init];
         }
-    }
     
     UIViewController *superController = self.viewController;
     if (superController) {
