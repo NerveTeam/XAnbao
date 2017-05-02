@@ -49,7 +49,13 @@ static NSString * const SMSAppSecret = @"870942be696045d543192122ad220742";
         // 设置引导页图片
         view.dataArray = [NSArray arrayWithObjects:@"first.jpg",@"second.jpg",@"third.jpg",@"four.jpg", nil];
         // 设置跳转界面
-        view.controller = navLogin;
+        
+        if ([XABUserLogin getInstance].userInfo == nil) {
+           view.controller = navLogin;
+        }else{
+            view.controller = tabBarController;
+        }
+//        view.controller = navLogin;
         self.window.rootViewController = view;
     }else {
         
