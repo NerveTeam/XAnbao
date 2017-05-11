@@ -176,22 +176,24 @@ static float itemMargin = 25; // item间距
 }
 
 - (void)addSubViewcontroller:(NSInteger)index {
+    if (!self.controllersInfo && self.controllersInfo.count == 0) {
+        return;
+    }
+    
     UIViewController *viewcontroller = [self.displayController objectForKey:@(index)];
     if (!viewcontroller) {
        viewcontroller = [self.viewcontrollerCache objectForKey:@(index)];
     }
     
     if (!viewcontroller) {
-        return;
-    }
         id object = [self.controllersInfo safeObjectAtIndex:index];
         if (_isOnlyInit && [object isKindOfClass:[NSString class]]) {
             NSString *className = (NSString *)object;
             viewcontroller = [[NSClassFromString(className) alloc]init];
         }else if([object isKindOfClass:[NSDictionary class]]){
             NSDictionary *infoList = (NSDictionary *)object;
-        NSString *className = [infoList objectForKeyNotNull:@"class"];
-        viewcontroller = [[NSClassFromString(className) alloc]init];
+            NSString *className = [infoList objectForKeyNotNull:@"class"];
+            viewcontroller = [[NSClassFromString(className) alloc]init];
             NSDictionary *info = [infoList objectForKeyNotNull:@"info"];
             for (NSString *key in info) {
                 id object = [info objectForKey:key];
@@ -204,6 +206,8 @@ static float itemMargin = 25; // item间距
             NSCAssert(viewcontroller != nil, @"传入控制器数组格式错误");
             viewcontroller = [[UIViewController alloc]init];
         }
+    }
+    
     
     UIViewController *superController = self.viewController;
     if (superController) {

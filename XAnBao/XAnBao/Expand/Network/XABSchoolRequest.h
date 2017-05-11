@@ -31,3 +31,13 @@
 @interface SchoolVisitLog : BaseDataRequest
 
 @end
+
+//获取留言老师
+@interface SchoolMessageTeacher : BaseDataRequest
+
+@end
+
+//留言老师
+@interface SchoolPostMessageTeacher : BaseDataRequest
+
+@end

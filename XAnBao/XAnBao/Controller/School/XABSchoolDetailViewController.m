@@ -14,6 +14,7 @@
 #import "UIButton+Extention.h"
 #import "XABSchoolIntranetViewController.h"
 #import "XABSchoolRequest.h"
+#import "XABSchoolMessage.h"
 
 @interface XABSchoolDetailViewController ()<SDCycleScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)SDCycleScrollView *cycleView;
@@ -112,6 +113,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
     XABResource *sport = self.dataList[indexPath.row];
     XABArticleViewController *article = [[XABArticleViewController alloc]initWithUrl:sport.url];
     article.articleId = sport.id;

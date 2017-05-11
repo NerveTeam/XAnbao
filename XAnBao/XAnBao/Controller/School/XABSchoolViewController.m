@@ -101,15 +101,17 @@
 }
 
 - (void)clickMessageMail {
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    [window addSubview:self.schoolMenuBgView];
-    self.schoolMessage = [XABSchoolMessage schoolMessageList:@[@"王园园负CEO",@"韩森工程师",@"吴明磊总监"]];
-    self.schoolMessage.delegate = self;
-    self.schoolMessage.width = SCREEN_WIDTH - 40;
-    self.schoolMessage.height = 200;
-    self.schoolMessage.centerX = window.centerX;
-    self.schoolMessage.centerY = window.centerY;
-    [window addSubview:self.schoolMessage];
+
+        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        [self.view addSubview:self.schoolMenuBgView];
+        self.schoolMessage = [XABSchoolMessage schoolMessageWithSchollId:@"1"];
+        self.schoolMessage.delegate = self;
+        self.schoolMessage.width = SCREEN_WIDTH - 40;
+        self.schoolMessage.height = 200;
+        self.schoolMessage.centerX = window.centerX;
+        self.schoolMessage.centerY = window.centerY;
+        [self.view addSubview:self.schoolMessage];
+    
 }
 
 - (void)clickSchoolMenu {
@@ -137,8 +139,9 @@
 }
 
 
-- (void)messageDidFinish:(NSString *)object content:(NSString *)content {
-
+- (void)messageDidFinish {
+    [self showMessage:@"留言成功"];
+    [self cancelMessage];
 }
 
 - (void)cancelMessage {
@@ -170,7 +173,7 @@
 #pragma mark - lazy
 - (MLMeunView *)meunView {
     if (!_meunView) {
-        _meunView = [[MLMeunView alloc]initWithFrame:CGRectMake(0, self.topBarView.height, self.topBarView.width - self.messageMailBtn.width, TopBarHeight) titles:self.channelName viewcontrollersInfo:self.channelData isParameter:YES];
+        _meunView = [[MLMeunView alloc]initWithFrame:CGRectMake(0, self.topBarView.height, self.topBarView.width - self.messageMailBtn.width, TopBarHeight) titles:self.channelName viewcontrollersInfo:self.channelData isParameter:NO];
         _meunView.normalColor = [UIColor blackColor];
         _meunView.selectlColor = ThemeColor;
         [_meunView reloadMeunStyle];
