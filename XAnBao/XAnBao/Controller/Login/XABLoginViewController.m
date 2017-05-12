@@ -55,9 +55,13 @@
 -(void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:animated];
-    
 }
+-(void)viewWillDisappear:(BOOL)animated{
+    
+    [super viewWillDisappear:animated];
+    [self.view endEditing:YES];
 
+}
 #pragma mark - 浏览进入
 -(void)goInClick{
     
