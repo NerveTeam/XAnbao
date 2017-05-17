@@ -51,6 +51,11 @@
 		60A551891E7D17DF0058DD96 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60A551881E7D17DF0058DD96 /* CoreTelephony.framework */; };
 		60A5518B1E7D17ED0058DD96 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 60A5518A1E7D17ED0058DD96 /* libstdc++.tbd */; };
 		60DF37FA1E816F6800A514F3 /* XABLoginRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 60DF37F91E816F6800A514F3 /* XABLoginRequest.m */; };
+		7521558A1ECAEAE100BAD876 /* FGGDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 752155851ECAEAE100BAD876 /* FGGDownloader.m */; };
+		7521558B1ECAEAE100BAD876 /* FGGDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 752155871ECAEAE100BAD876 /* FGGDownloadManager.m */; };
+		7521558C1ECAEAE100BAD876 /* PlayVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 752155891ECAEAE100BAD876 /* PlayVideoViewController.m */; };
+		752155901ECAEB1800BAD876 /* TaskCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7521558E1ECAEB1800BAD876 /* TaskCell.m */; };
+		752155941ECAEBBE00BAD876 /* TaskModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 752155931ECAEBBE00BAD876 /* TaskModel.m */; };
 		7572A7351E87644500F753BC /* XABMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7572A72E1E87644500F753BC /* XABMineViewController.m */; };
 		7572A7361E87644500F753BC /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7572A7301E87644500F753BC /* SettingViewController.m */; };
 		7572A7371E87644500F753BC /* MySelfInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7572A7321E87644500F753BC /* MySelfInfoViewController.m */; };
@@ -444,6 +449,16 @@
 		60A5518A1E7D17ED0058DD96 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		60DF37F81E816F6800A514F3 /* XABLoginRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABLoginRequest.h; sourceTree = "<group>"; };
 		60DF37F91E816F6800A514F3 /* XABLoginRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABLoginRequest.m; sourceTree = "<group>"; };
+		752155841ECAEAE100BAD876 /* FGGDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FGGDownloader.h; sourceTree = "<group>"; };
+		752155851ECAEAE100BAD876 /* FGGDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FGGDownloader.m; sourceTree = "<group>"; };
+		752155861ECAEAE100BAD876 /* FGGDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FGGDownloadManager.h; sourceTree = "<group>"; };
+		752155871ECAEAE100BAD876 /* FGGDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FGGDownloadManager.m; sourceTree = "<group>"; };
+		752155881ECAEAE100BAD876 /* PlayVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayVideoViewController.h; sourceTree = "<group>"; };
+		752155891ECAEAE100BAD876 /* PlayVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayVideoViewController.m; sourceTree = "<group>"; };
+		7521558D1ECAEB1800BAD876 /* TaskCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskCell.h; sourceTree = "<group>"; };
+		7521558E1ECAEB1800BAD876 /* TaskCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskCell.m; sourceTree = "<group>"; };
+		752155921ECAEBBE00BAD876 /* TaskModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskModel.h; sourceTree = "<group>"; };
+		752155931ECAEBBE00BAD876 /* TaskModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskModel.m; sourceTree = "<group>"; };
 		7572A72D1E87644500F753BC /* XABMineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABMineViewController.h; sourceTree = "<group>"; };
 		7572A72E1E87644500F753BC /* XABMineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABMineViewController.m; sourceTree = "<group>"; };
 		7572A72F1E87644500F753BC /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
@@ -1284,6 +1299,19 @@
 				60A5517E1E7D17B60058DD96 /* libz.tbd */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		752155831ECAEAE100BAD876 /* FGGDownloader */ = {
+			isa = PBXGroup;
+			children = (
+				752155841ECAEAE100BAD876 /* FGGDownloader.h */,
+				752155851ECAEAE100BAD876 /* FGGDownloader.m */,
+				752155861ECAEAE100BAD876 /* FGGDownloadManager.h */,
+				752155871ECAEAE100BAD876 /* FGGDownloadManager.m */,
+				752155881ECAEAE100BAD876 /* PlayVideoViewController.h */,
+				752155891ECAEAE100BAD876 /* PlayVideoViewController.m */,
+			);
+			path = FGGDownloader;
 			sourceTree = "<group>";
 		};
 		7572A7421E87649B00F753BC /* ClearLaJi */ = {
@@ -2594,6 +2622,11 @@
 		8CB02B8C1E714AFF00A57EBC /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				752155921ECAEBBE00BAD876 /* TaskModel.h */,
+				752155931ECAEBBE00BAD876 /* TaskModel.m */,
+				7521558D1ECAEB1800BAD876 /* TaskCell.h */,
+				7521558E1ECAEB1800BAD876 /* TaskCell.m */,
+				752155831ECAEAE100BAD876 /* FGGDownloader */,
 				8CB02B8D1E714B6300A57EBC /* XABArticleViewController.h */,
 				8CB02B8E1E714B6300A57EBC /* XABArticleViewController.m */,
 				8CFBD5581E77E29000EE691B /* XABPictureViewController.h */,
@@ -2677,7 +2710,7 @@
 					8CB023F71E6D470600A57EBC = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = F383N668T6;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					8CB024101E6D470600A57EBC = {
 						CreatedOnToolsVersion = 8.1;
@@ -2856,6 +2889,8 @@
 				8C0DF5E11E85106E00A1B2B2 /* filterbank.c in Sources */,
 				8CB02AF41E6D4A3B00A57EBC /* UITableView+FDIndexPathHeightCache.m in Sources */,
 				8CB029ED1E6D4A3A00A57EBC /* MJRefreshFooter.m in Sources */,
+				8CB02A331E6D4A3B00A57EBC /* UIApplication+SNUtil.m in Sources */,
+				7521558B1ECAEAE100BAD876 /* FGGDownloadManager.m in Sources */,
 				8CB02B3E1E6D575600A57EBC /* UIImageView+HighlightedWebCache.m in Sources */,
 				8CB02AF91E6D4A3B00A57EBC /* YTKBaseRequest.m in Sources */,
 				8C383A501EB3332600EC7ED6 /* XABEnclosure.m in Sources */,
@@ -2913,6 +2948,7 @@
 				8CFBD53C1E76955300EE691B /* XABClassItem.m in Sources */,
 				8C0DF5D11E85106E00A1B2B2 /* CAStreamBasicDescription.cpp in Sources */,
 				8CB029D21E6D4A3A00A57EBC /* UIWebView+AFNetworking.m in Sources */,
+				752155901ECAEB1800BAD876 /* TaskCell.m in Sources */,
 				8CFBD5511E76AC2800EE691B /* XABClassFriendsViewController.m in Sources */,
 				8CB02AFA1E6D4A3B00A57EBC /* YTKBatchRequest.m in Sources */,
 				8CB02A111E6D4A3B00A57EBC /* MLSphere.m in Sources */,
@@ -2930,6 +2966,7 @@
 				8CB02B0B1E6D4D9700A57EBC /* XABSchoolViewController.m in Sources */,
 				8C0DF5D41E85106E00A1B2B2 /* RecorderManager.mm in Sources */,
 				8CB02B111E6D4DB300A57EBC /* XABResourceViewController.m in Sources */,
+				7521558C1ECAEAE100BAD876 /* PlayVideoViewController.m in Sources */,
 				8C0DF5EB1E85106E00A1B2B2 /* lpc.c in Sources */,
 				8CFBD55D1E77E2A600EE691B /* XABVideoViewController.m in Sources */,
 				8CB029DB1E6D4A3A00A57EBC /* NSArray+MASAdditions.m in Sources */,
@@ -2973,6 +3010,8 @@
 				8CB029DD1E6D4A3A00A57EBC /* View+MASAdditions.m in Sources */,
 				7572A7361E87644500F753BC /* SettingViewController.m in Sources */,
 				8CB029EA1E6D4A3A00A57EBC /* MJRefreshAutoFooter.m in Sources */,
+				752155941ECAEBBE00BAD876 /* TaskModel.m in Sources */,
+				8CB02AE81E6D4A3B00A57EBC /* SNArticleBaseViewController+Ad.m in Sources */,
 				8CB02A0A1E6D4A3B00A57EBC /* MLMeunItem.m in Sources */,
 				8CB0244F1E6D497000A57EBC /* YBBaseDetailViewController.m in Sources */,
 				8C383A561EB33B1700EC7ED6 /* XABImageCollectionView.m in Sources */,
@@ -2986,6 +3025,7 @@
 				8CB029C81E6D4A3A00A57EBC /* AFURLResponseSerialization.m in Sources */,
 				8C0DF5FE1E85106F00A1B2B2 /* vbr.c in Sources */,
 				8CB029CD1E6D4A3A00A57EBC /* UIActivityIndicatorView+AFNetworking.m in Sources */,
+				7521558A1ECAEAE100BAD876 /* FGGDownloader.m in Sources */,
 				8CB026711E6D497700A57EBC /* UIView+TopBar.m in Sources */,
 				8CB02A1A1E6D4A3B00A57EBC /* UIView+SDExtension.m in Sources */,
 				8CB02B8F1E714B6300A57EBC /* XABArticleViewController.m in Sources */,
@@ -3125,9 +3165,12 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Lukuan Wang (ZAW9FNDQPM)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Lukuan Wang (ZAW9FNDQPM)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = EE5HRT973W;
+				ENABLE_NS_ASSERTIONS = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -3172,10 +3215,12 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Lukuan Wang (ZAW9FNDQPM)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Lukuan Wang (ZAW9FNDQPM)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
+				DEVELOPMENT_TEAM = EE5HRT973W;
+				ENABLE_NS_ASSERTIONS = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -3197,8 +3242,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Lukuan Wang (ZAW9FNDQPM)";
-				DEVELOPMENT_TEAM = F383N668T6;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Lukuan Wang (ZAW9FNDQPM)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/XAnBao/Vender/SMS_SDK",
@@ -3221,8 +3267,8 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ios.xiaoanbao;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9f9abcce-c4a0-4fb3-844a-a208a884968c";
-				PROVISIONING_PROFILE_SPECIFIER = luqiangxab;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -3231,6 +3277,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Lukuan Wang (ZAW9FNDQPM)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
