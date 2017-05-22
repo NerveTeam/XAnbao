@@ -89,8 +89,8 @@
     static NSString *cellId=@"TaskCellID";
     TaskCell *cell=[tableView dequeueReusableCellWithIdentifier:cellId];
     if(!cell)
-        //        cell=[[[NSBundle mainBundle] loadNibNamed:@"TaskCell" owner:nil options:nil] lastObject];
-        
+//                cell=[[[NSBundle mainBundle] loadNibNamed:@"TaskCell" owner:nil options:nil] lastObject];
+    
         cell=[[TaskCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TaskCellID"];
     
     
@@ -98,8 +98,8 @@
     [cell cellWithModel:model];
     //点击下载按钮时回调的代码块
     __weak typeof(cell) weakCell=cell;
-    cell.downloadBlock=^(UIButton *sender){
-        if([sender.currentTitle isEqualToString:@"开始"]||[sender.currentTitle isEqualToString:@"恢复"])
+  cell.downloadBlock=^(UIButton *sender){
+        if([sender.titleLabel.text isEqualToString:@"开始"]||[sender.titleLabel.text isEqualToString:@"恢复"])
         {
             [sender setTitle:@"暂停" forState:UIControlStateNormal];
             

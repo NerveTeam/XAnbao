@@ -12,7 +12,9 @@
 
 @property(nonatomic,strong)NSString *name;
 @property(nonatomic,strong)NSString *url;
+@property(nonatomic,strong)NSString *createTime;
 @property(nonatomic,strong)NSString *destinationPath;
+
 
 +(instancetype)model;
 

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #import "TaskModel.h"
-
+#import "WYCircleView.h"
 @interface TaskCell : UITableViewCell
 //@property (weak, nonatomic) IBOutlet UIButton *downloadBtn;
 //@property (weak, nonatomic) IBOutlet UIProgressView *progressView;
@@ -24,11 +24,14 @@
 @property(nonatomic,retain)UILabel *sizeLabel;
 @property(nonatomic,retain)UILabel *speedLabel;
 @property (retain, nonatomic) UIProgressView *progressView;
+@property(nonatomic,retain)WYCircleView *circleView;
+
 @property(nonatomic,retain)UIImageView *headimgView;
+
+
 @property(nonatomic,copy)void (^downloadBlock)(UIButton *sender);
 
 
 -(void)cellWithModel:(TaskModel *)model;
-
 
 @end

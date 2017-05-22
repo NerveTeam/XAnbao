@@ -98,7 +98,7 @@
     [cell cellWithModel:model];
     //点击下载按钮时回调的代码块
     __weak typeof(cell) weakCell=cell;
-    cell.downloadBlock=^(UIButton *sender){
+   /* cell.downloadBlock=^(UIButton *sender){
         if([sender.currentTitle isEqualToString:@"开始"]||[sender.currentTitle isEqualToString:@"恢复"])
         {
             [sender setTitle:@"暂停" forState:UIControlStateNormal];
@@ -145,7 +145,7 @@
             [self playMV];
         }
     };
-    cell.selectionStyle=UITableViewCellSelectionStyleNone;
+    cell.selectionStyle=UITableViewCellSelectionStyleNone;*/
     return cell;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

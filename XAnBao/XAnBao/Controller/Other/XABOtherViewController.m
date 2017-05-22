@@ -7,6 +7,7 @@
 //
 
 #import "XABOtherViewController.h"
+#import "WYCircleView.h"
 #import "UIView+TopBar.h"
 #import "UIButton+Extention.h"
 #import "FGGDownloadManager.h"
@@ -98,10 +99,11 @@
     [cell cellWithModel:model];
     //点击下载按钮时回调的代码块
     __weak typeof(cell) weakCell=cell;
-    cell.downloadBlock=^(UIButton *sender){
-        if([sender.currentTitle isEqualToString:@"开始"]||[sender.currentTitle isEqualToString:@"恢复"])
+ /*   cell.downloadBlock=^(WYCircleView *sender){
+        if([sender.title isEqualToString:@"开始"]||[sender.title isEqualToString:@"恢复"])
         {
-            [sender setTitle:@"暂停" forState:UIControlStateNormal];
+            sender.title=@"暂停";
+//            [sender setTitle:@"暂停" forState:UIControlStateNormal];
             
             //添加下载任务
             [[FGGDownloadManager shredManager] downloadWithUrlString:model.url toPath:model.destinationPath process:^(float progress, NSString *sizeString, NSString *speedString) {
@@ -118,8 +120,8 @@
                 
             } completion:^{
                 //这里要播放的
-                
-                [sender setTitle:@"查看" forState:UIControlStateNormal];
+                sender.title=@"查看";
+//                [sender setTitle:@"查看" forState:UIControlStateNormal];
                 //                sender.enabled=NO;
                 //                weakCell.speedLabel.hidden=YES;
                 UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"%@下载完成✅",model.name] delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
@@ -128,24 +130,29 @@
                 
             } failure:^(NSError *error) {
                 [[FGGDownloadManager shredManager] cancelDownloadTask:model.url];
-                [sender setTitle:@"恢复" forState:UIControlStateNormal];
+//                [sender setTitle:@"恢复" forState:UIControlStateNormal];
+                
+                sender.title=@"恢复";
+                
                 weakCell.speedLabel.hidden=YES;
                 UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                 [alert show];
                 
             }];
         }
-        else if([sender.currentTitle isEqualToString:@"暂停"])
+        else if([sender.title isEqualToString:@"暂停"])
         {
-            [sender setTitle:@"恢复" forState:UIControlStateNormal];
+            sender.title=@"恢复";
+
+//            [sender setTitle:@"恢复" forState:UIControlStateNormal];
             [[FGGDownloadManager shredManager] cancelDownloadTask:model.url];
             TaskCell *cell=(TaskCell *)[tableView cellForRowAtIndexPath:indexPath];
             cell.speedLabel.hidden=YES;
-        }else if([sender.currentTitle isEqualToString:@"查看"]){
+        }else if([sender.title isEqualToString:@"查看"]){
             [self playMV];
         }
     };
-    cell.selectionStyle=UITableViewCellSelectionStyleNone;
+    cell.selectionStyle=UITableViewCellSelectionStyleNone;*/
     return cell;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
