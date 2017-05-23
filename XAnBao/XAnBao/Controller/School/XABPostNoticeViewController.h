@@ -8,6 +8,12 @@
 
 #import "YBBaseViewController.h"
 
+typedef NS_ENUM(NSUInteger, NoticeType) {
+    NoticeTypeClass,
+    NoticeTypeSchool,
+};
 @interface XABPostNoticeViewController : YBBaseViewController
-
+@property(nonatomic, copy)NSString *schoolId;
+@property(nonatomic, copy)NSString *classId;
+@property(nonatomic, assign)NoticeType noticeType;
 @end

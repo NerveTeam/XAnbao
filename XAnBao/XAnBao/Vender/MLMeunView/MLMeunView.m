@@ -33,7 +33,7 @@ static float margin = 20;   // item距边框距离
 static float itemMargin = 25; // item间距
 
 - (instancetype)initWithFrame:(CGRect)frame titles:(NSArray *)titles viewcontrollersInfo:(NSArray *)controllersInfo isParameter:(BOOL)isParameter {
-   self =  [super initWithFrame:CGRectMake(frame.origin.x, frame.origin.y, ScreenSize.width, ScreenSize.height - frame.origin.y - frame.size.height)];
+   self =  [super initWithFrame:CGRectMake(frame.origin.x, frame.origin.y, ScreenSize.width, ScreenSize.height - frame.origin.y)];
     self.isOnlyInit = !isParameter;
     self.meunHeight = frame.size.height;
     self.controllersInfo = controllersInfo;
@@ -57,10 +57,15 @@ static float itemMargin = 25; // item间距
 - (void)resetMeun:(NSArray *)titles viewcontrollersInfo:(NSArray *)controllersInfo isParameter:(BOOL)isParameter {
     [self.meunScrollView removeAllSubviews];
     [self.contentScrollView removeAllSubviews];
+    [self.displayController removeAllObjects];
+    [self.viewcontrollerCache removeAllObjects];
     self.controllersInfo = controllersInfo;
     [self resetTopBar:titles];
+    [self reloadMeunStyle];
+    [self setNeedsLayout];
     self.isOnlyInit = !isParameter;
-    [self addSubViewcontroller:0];
+    [self resetContentView:!isParameter];
+//    [self addSubViewcontroller:0];
 }
 - (void)reloadMeunStyle {
     for (MLMeunItem *item in _itemArray) {
@@ -176,22 +181,27 @@ static float itemMargin = 25; // item间距
 }
 
 - (void)addSubViewcontroller:(NSInteger)index {
+    if (!self.controllersInfo && self.controllersInfo.count == 0) {
+        return;
+    }
+    
     UIViewController *viewcontroller = [self.displayController objectForKey:@(index)];
     if (!viewcontroller) {
        viewcontroller = [self.viewcontrollerCache objectForKey:@(index)];
     }
     
     if (!viewcontroller) {
-        return;
-    }
         id object = [self.controllersInfo safeObjectAtIndex:index];
+        if (!object) {
+            return;
+        }
         if (_isOnlyInit && [object isKindOfClass:[NSString class]]) {
             NSString *className = (NSString *)object;
             viewcontroller = [[NSClassFromString(className) alloc]init];
         }else if([object isKindOfClass:[NSDictionary class]]){
             NSDictionary *infoList = (NSDictionary *)object;
-        NSString *className = [infoList objectForKeyNotNull:@"class"];
-        viewcontroller = [[NSClassFromString(className) alloc]init];
+            NSString *className = [infoList objectForKeyNotNull:@"class"];
+            viewcontroller = [[NSClassFromString(className) alloc]init];
             NSDictionary *info = [infoList objectForKeyNotNull:@"info"];
             for (NSString *key in info) {
                 id object = [info objectForKey:key];
@@ -204,6 +214,8 @@ static float itemMargin = 25; // item间距
             NSCAssert(viewcontroller != nil, @"传入控制器数组格式错误");
             viewcontroller = [[UIViewController alloc]init];
         }
+    }
+    
     
     UIViewController *superController = self.viewController;
     if (superController) {
@@ -257,6 +269,10 @@ static float itemMargin = 25; // item间距
                     [viewcontroller setValue:object forKey:key];
                 }
             }
+        }
+        UIViewController *superController = self.viewController;
+        if (superController) {
+            [superController addChildViewController:viewcontroller];
         }
         [self.contentScrollView addSubview:viewcontroller.view];
         viewcontroller.view.frame = self.contentScrollView.bounds;

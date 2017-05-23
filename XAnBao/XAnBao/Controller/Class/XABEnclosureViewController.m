@@ -8,39 +8,72 @@
 
 #import "XABEnclosureViewController.h"
 #import "UIButton+Extention.h"
-#import "YBBaseCollectionView.h"
 #import "UIView+TopBar.h"
 #import "XABRecordCell.h"
+#import "XABUploadImageCell.h"
+#import "XABEnclosureView.h"
+#import "XABRecordCollectionView.h"
+#import "XABImageCollectionView.h"
+#import "XABEnclosure.h"
 
-@interface XABEnclosureViewController ()<UICollectionViewDataSource,XABRecordCellDelegate>
+@interface XABEnclosureViewController ()<UICollectionViewDataSource,XABRecordCellDelegate,XABUploadImageCellDelegate>
 @property(nonatomic, strong)UIView *topBar;
 @property(nonatomic, strong)UIButton *backBtn;
-@property(nonatomic, strong)YBBaseCollectionView *recordCollectionView;
+@property(nonatomic, strong)XABEnclosureView *recordBgView;
+@property(nonatomic, strong)XABEnclosureView *imgBgView;
+@property(nonatomic, strong)XABRecordCollectionView *recordCollectionView;
+@property(nonatomic, strong)XABImageCollectionView *imgCollectionView;
 @property (nonatomic, assign) BOOL isRecording;
 @property (nonatomic, assign) BOOL isPlaying;
 @property(nonatomic, copy)NSString *playingFileName;
 @property(nonatomic, strong)NSMutableArray *recordFiles;
+@property(nonatomic, strong)NSMutableArray *imageFiles;
 @end
 
 @implementation XABEnclosureViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = RGBCOLOR(242, 242, 242);
     [self setup];
     self.recordFiles = [NSMutableArray arrayWithObject:@"add"];
+    self.imageFiles = [NSMutableArray arrayWithObject:@"add"];
     [self.recordCollectionView reloadData];
+    [self.imgCollectionView reloadData];
 }
 
 - (void)setup {
     [self.view addSubview:self.topBar];
-    [self.view addSubview:self.recordCollectionView];
+    [self.recordBgView addSubview:self.recordCollectionView];
+    [self.imgBgView addSubview:self.imgCollectionView];
     
+    [self.recordBgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.topBar.mas_bottom).offset(10);
+        make.left.equalTo(self.view).offset(10);
+        make.right.equalTo(self.view).offset(-10);
+        make.height.offset(160);
+    }];
     [self.recordCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.topBar.mas_bottom);
-        make.leading.trailing.equalTo(self.view);
-        make.height.offset(200);
+        make.bottom.equalTo(self.recordBgView.mas_bottom).offset(-10);
+        make.leading.equalTo(self.recordBgView);
+        make.trailing.equalTo(self.recordBgView);
+        make.height.offset(120);
+    }];
+    
+    [self.imgBgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.recordBgView.mas_bottom).offset(10);
+        make.left.equalTo(self.view).offset(10);
+        make.right.equalTo(self.view).offset(-10);
+        make.height.offset(160);
     }];
 
+    [self.imgCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.imgBgView.mas_bottom).offset(-10);
+        make.leading.equalTo(self.imgBgView);
+        make.trailing.equalTo(self.imgBgView);
+        make.height.offset(120);
+    }];
+    
 }
 
 
@@ -49,20 +82,49 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
-    return self.recordFiles.count;
+    if ([collectionView isKindOfClass:[XABRecordCollectionView class]]) {
+         return self.recordFiles.count;
+    }else if ([collectionView isKindOfClass:[XABImageCollectionView class]]) {
+        return self.imageFiles.count;
+    }
+    return 0;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    XABRecordCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:self.recordCollectionView.identifier forIndexPath:indexPath];
-    cell.delegate = self;
-    [cell setModel:self.recordFiles[indexPath.item]];
-    return cell;
+    
+    if ([collectionView isKindOfClass:[XABRecordCollectionView class]]) {
+        XABRecordCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:self.recordCollectionView.identifier forIndexPath:indexPath];
+        cell.delegate = self;
+        [cell setModel:self.recordFiles[indexPath.item]];
+        return cell;
+    }else if ([collectionView isKindOfClass:[XABImageCollectionView class]]) {
+        XABUploadImageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:self.imgCollectionView.identifier forIndexPath:indexPath];
+        cell.delegate = self;
+        [cell setModel:self.imageFiles[indexPath.item]];
+        return cell;
+    }
+    
+    return nil;
+  
 }
 
 - (void)recordingDidFinish:(NSString *)filePath {
     if (filePath.length > 0) {
         [self.recordFiles insertObject:filePath atIndex:0];
         [self.recordCollectionView reloadData];
+        [self.recordCollectionView setContentOffset:CGPointMake(0, 0) animated:YES];
+    }
+}
+
+- (void)uploadDidFinish:(NSData *)imageData {
+    if (imageData) {
+        XABEnclosure *enclosure = [XABEnclosure new];
+        enclosure.imageData = imageData;
+        enclosure.isLocal = YES;
+        [self.imageFiles insertObject:enclosure atIndex:0];
+        [self.imgCollectionView reloadData];
+        [self.imgCollectionView setContentOffset:CGPointMake(0, 0) animated:YES];
+        
     }
 }
 
@@ -80,12 +142,35 @@
     }
     return _backBtn;
 }
-- (YBBaseCollectionView *)recordCollectionView {
+- (XABEnclosureView *)recordBgView {
+    if (!_recordBgView) {
+        _recordBgView = [XABEnclosureView enclosureWithTitle:@"上传语音"];
+        _recordBgView.backgroundColor = [UIColor whiteColor];
+        [self.view addSubview:_recordBgView];
+    }
+    return _recordBgView;
+}
+- (XABEnclosureView *)imgBgView {
+    if (!_imgBgView) {
+        _imgBgView = [XABEnclosureView enclosureWithTitle:@"上传图片"];
+        _imgBgView.backgroundColor = [UIColor whiteColor];
+        [self.view addSubview:_imgBgView];
+    }
+    return _imgBgView;
+}
+- (XABRecordCollectionView *)recordCollectionView {
     if (!_recordCollectionView) {
-        _recordCollectionView = [[YBBaseCollectionView alloc]initWithItemSize:CGRectMake(0, 0, 100, 100) identifier:@"XABRecordCell" itemHorizontalSpacing:20 itemVerticalSpacing:0 scrollDirection:UICollectionViewScrollDirectionHorizontal];
+        _recordCollectionView = [[XABRecordCollectionView alloc]initWithItemSize:CGRectMake(0, 0, 100, 100) identifier:@"XABRecordCell" itemHorizontalSpacing:20 itemVerticalSpacing:20 scrollDirection:UICollectionViewScrollDirectionHorizontal];
         _recordCollectionView.dataSource = self;
     }
     return _recordCollectionView;
 }
 
+- (XABImageCollectionView *)imgCollectionView {
+    if (!_imgCollectionView) {
+        _imgCollectionView = [[XABImageCollectionView alloc]initWithItemSize:CGRectMake(0, 0, 100, 100) identifier:@"XABUploadImageCell" itemHorizontalSpacing:20 itemVerticalSpacing:0 scrollDirection:UICollectionViewScrollDirectionHorizontal];
+        _imgCollectionView.dataSource = self;
+    }
+    return _imgCollectionView;
+}
 @end

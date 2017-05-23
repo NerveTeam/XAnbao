@@ -14,6 +14,8 @@
 #import "UIButton+Extention.h"
 #import "XABSchoolIntranetViewController.h"
 #import "XABSchoolRequest.h"
+#import "XABSchoolMessage.h"
+#import "NSArray+Safe.h"
 
 @interface XABSchoolDetailViewController ()<SDCycleScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)SDCycleScrollView *cycleView;
@@ -41,16 +43,18 @@
 - (void)loadFoucsMap {
     WeakSelf;
     NSMutableDictionary *pargam = [NSMutableDictionary new];
-    [pargam setSafeObject:@"1" forKey:@"schoolId"];
+    [pargam setSafeObject:self.schollId forKey:@"schoolId"];
     [SchoolFoucsMap requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
         NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
         if (code == 200) {
             NSArray *data = [request.json objectForKeySafely:@"data"];
             NSMutableArray *img = [NSMutableArray arrayWithCapacity:data.count];
+            NSMutableArray *name = [NSMutableArray arrayWithCapacity:data.count];
             for (NSDictionary *sub in data) {
-                [img addObject:[sub objectForKeySafely:@"url"]];
+                [img safeAddObject:[sub objectForKeySafely:@"url"]];
+                [name safeAddObject:[sub objectForKeySafely:@"title"]];
             }
-            weakSelf.cycleView.imageURLStringsGroup = img.copy;
+            self.cycleView.imageURLStringsGroup = img.copy;
         }
     } failureBlock:^(BaseDataRequest *request) {
         [self showMessage:[request.json objectForKeySafely:@"message"]];
@@ -63,12 +67,19 @@
     NSMutableDictionary *pargam = [NSMutableDictionary new];
     [pargam setSafeObject:self.schollId forKey:@"schoolId"];
     [pargam setSafeObject:self.channelId forKey:@"itemId"];
+    [pargam setSafeObject:@(page) forKey:@"current"];
     [SchoolFeedList requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
         NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
         if (code == 200) {
             NSDictionary *data = [request.json objectForKeySafely:@"data"];
             NSArray *results = [data objectForKeySafely:@"results"];
-            self.dataList = [XABResource mj_objectArrayWithKeyValuesArray:results];
+            if (page > 1) {
+                NSMutableArray *temp = [NSMutableArray arrayWithArray:self.dataList];
+                [temp addObjectsFromArray:[XABResource mj_objectArrayWithKeyValuesArray:results]];
+                self.dataList = temp.copy;
+            }else {
+                self.dataList = [XABResource mj_objectArrayWithKeyValuesArray:results];
+            }
         }
         
         [weakSelf stopRefresh];
@@ -77,13 +88,6 @@
         [self showMessage:[request.json objectForKeySafely:@"message"]];
     }];
     
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [weakSelf stopRefresh];
-        [weakSelf.tableView reloadData];
-        
-        weakSelf.cycleView.imageURLStringsGroup = @[@"https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3510003795,2153467965&fm=23&gp=0.jpg",@"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1017904219,2460650030&fm=23&gp=0.jpg",@"https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=938946740,2496936570&fm=23&gp=0.jpg",@"https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3448641352,2315059109&fm=23&gp=0.jpg"];
-    });
 }
 
 
@@ -93,7 +97,22 @@
 }
 
 - (void)enterIntranet {
-    [self.navigationController pushViewController:[XABSchoolIntranetViewController new] animated:YES];
+    WeakSelf;
+    NSMutableDictionary *pargam = [NSMutableDictionary new];
+    [pargam setSafeObject:self.schollId forKey:@"schoolId"];
+    [pargam setSafeObject:UserInfo.id forKey:@"userId"];
+    [SchoolEnterIntranetJudgeTeacher requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
+         BOOL judge = [request.json objectForKeySafely:@"data"];
+        if (judge) {
+            XABSchoolIntranetViewController *intranet = [XABSchoolIntranetViewController new];
+            intranet.schoolId = self.schollId;
+            [self.navigationController pushViewController:intranet animated:YES];
+        }else {
+            [self showMessage:@"无权进入"];
+        }
+    } failureBlock:^(BaseDataRequest *request) {
+            [self showMessage:@"网络异常"];
+    }];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -112,8 +131,10 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
     XABResource *sport = self.dataList[indexPath.row];
     XABArticleViewController *article = [[XABArticleViewController alloc]initWithUrl:sport.url];
+    article.showType = ArticleTypeNone;
     article.articleId = sport.id;
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self.navigationController pushViewController:article animated:YES];

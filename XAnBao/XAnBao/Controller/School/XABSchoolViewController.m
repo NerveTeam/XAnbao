@@ -14,6 +14,7 @@
 #import "XABSchoolMessage.h"
 #import "XABSearchViewController.h"
 #import "XABSchoolRequest.h"
+#import "NSArray+Safe.h"
 
 
 @interface XABSchoolViewController ()<XABSchoolMessageDelegate, XABSchoolMenuDelegate,DataRequestDelegate>
@@ -23,6 +24,8 @@
 @property(nonatomic, strong)NSArray *channelData;
 // 频道名称
 @property(nonatomic, strong)NSArray *channelName;
+// 关注数据
+@property(nonatomic, strong)NSArray *followData;
 // 导航背景
 @property(nonatomic, strong)UIView *topBarView;
 @property(nonatomic, strong)UIButton *currentSelectSchool;
@@ -31,22 +34,86 @@
 @property(nonatomic, strong)XABSchoolMenu *schoolMenu;
 @property(nonatomic, strong)XABSchoolMessage *schoolMessage;
 @property(nonatomic, strong)UIButton *messageMailBtn;
+@property(nonatomic, copy)NSString *currentSchoolId;
+@property(nonatomic, copy)NSString *currentSchoolName;
 @end
 
 @implementation XABSchoolViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [self loadFollowList];
-    [self loadMenu];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadFollowList) name:KSearchFollowDidFinish object:nil];
+//    [self loadTest];
+    [self loadFollowList];
 }
+- (void)reloadFollowList {
+    WeakSelf;
+    NSMutableDictionary *pargam = [NSMutableDictionary new];
+    [pargam setSafeObject:UserInfo.id forKey:@"userId"];
+    [SchoolFollowList requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
+        NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
+        if (code == 200) {
+            NSArray *data = [request.json objectForKeySafely:@"data"];
+            NSMutableArray *follow = [[NSMutableArray alloc]initWithCapacity:data.count];
+            for (NSDictionary *item in data) {
+                NSString *schoolId = [item objectForKeySafely:@"schoolId"];
+                NSString *schoolName = [item objectForKeySafely:@"schoolName"];
+                NSMutableDictionary *list = [NSMutableDictionary dictionary];
+                [list setSafeObject:schoolId forKey:@"schoolId"];
+                [list setSafeObject:schoolName forKey:@"schoolName"];
+                [follow safeAddObject:list];
+            }
+            self.followData = follow.copy;
+        }
+    } failureBlock:^(BaseDataRequest *request) {
+    }];
+
+}
+- (void)loadTest {
+    NSMutableDictionary *pargam = [NSMutableDictionary new];
+    [pargam setSafeObject:@"klkl" forKey:@"name"];
+    [pargam setSafeObject:@"1" forKey:@"createId"];
+    [pargam setSafeObject:@"10" forKey:@"createAuthor"];
+    [pargam setSafeObject:@"860415707773538304" forKey:@"classId"];
+    [pargam setSafeObject:@"1" forKey:@"className"];
+    [pargam setSafeObject:@"1" forKey:@"type"];
+    [pargam setSafeObject:@"1" forKey:@"url"];
+    [pargam setSafeObject:@(1) forKey:@"share"];
+    [TestRequst requestDataWithParameters:@{@"classResources":@[pargam]} headers:Token successBlock:^(BaseDataRequest *request) {
+        NSLog(@"%@",request.responseObject);
+    } failureBlock:^(BaseDataRequest *request) {
+        NSLog(@"%@",request.responseObject);
+    }];
+}
+
 - (void)loadFollowList {
  WeakSelf;
     NSMutableDictionary *pargam = [NSMutableDictionary new];
     [pargam setSafeObject:UserInfo.id forKey:@"userId"];
-    [pargam setSafeObject:@"1" forKey:@"schoolId"];
     [SchoolFollowList requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
-        NSLog(@"dd");
+        NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
+        if (code == 200) {
+            NSArray *data = [request.json objectForKeySafely:@"data"];
+            NSMutableArray *follow = [[NSMutableArray alloc]initWithCapacity:data.count];
+            for (NSDictionary *item in data) {
+                BOOL defaultSchool = [[item objectForKeySafely:@"defaultSchool"] boolValue];
+                NSString *schoolId = [item objectForKeySafely:@"schoolId"];
+                NSString *schoolName = [item objectForKeySafely:@"schoolName"];
+                NSMutableDictionary *list = [NSMutableDictionary dictionary];
+                [list setSafeObject:schoolId forKey:@"schoolId"];
+                [list setSafeObject:schoolName forKey:@"schoolName"];
+                [follow safeAddObject:list];
+                if (defaultSchool) {
+                    self.currentSchoolName = schoolName;
+                    [XABUserLogin getInstance].defaultSchoolId = schoolId;
+                }
+            }
+            self.followData = follow.copy;
+            if (!self.currentSchoolName) {
+                self.currentSchoolName = [follow.firstObject objectForKeySafely:@"schoolName"];
+            }
+            [weakSelf loadMenu];
+        }
     } failureBlock:^(BaseDataRequest *request) {
         [self initTopBar];
         [self.meunView changeMenuWidth:self.messageMailBtn.x];
@@ -54,24 +121,32 @@
 }
 - (void)loadMenu {
     WeakSelf;
-//    if (!UserInfo.defaultFocusSchoolId) {
-//        return;
-//    }
-    [SchoolMenuList requestDataWithParameters:@{@"schoolId":@(1)} headers:Token successBlock:^(BaseDataRequest *request) {
+    NSString *sid = [XABUserLogin getInstance].defaultSchoolId;
+    if (!sid) {
+        sid = [self.followData.firstObject objectForKeySafely:@"schoolId"];
+    }
+    if (!sid) {
+        [self initTopBar];
+        return;
+    }
+    [SchoolMenuList requestDataWithParameters:@{@"schoolId":sid} headers:Token successBlock:^(BaseDataRequest *request) {
         NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
         if (code == 200) {
             NSArray *data = [request.json objectForKeySafely:@"data"];
             NSMutableArray *channelName = [NSMutableArray arrayWithCapacity:data.count];
             NSMutableArray *channelData = [NSMutableArray arrayWithCapacity:data.count];
             for (NSDictionary *sub in data) {
-                [channelName addObject:[sub objectForKeySafely:@"name"]];
-                [channelData addObject:@{@"class":@"XABSchoolDetailViewController",
+                [channelName safeAddObject:[sub objectForKeySafely:@"name"]];
+                [channelData safeAddObject:@{@"class":@"XABSchoolDetailViewController",
                                          @"info":@{
                                                  @"channelId":[sub objectForKeySafely:@"id"],
                                                    @"schollId":[sub objectForKeySafely:@"schoolId"]}}];
             }
             weakSelf.channelName = channelName.copy;
             weakSelf.channelData = channelData.copy;
+            [self initTopBar];
+            [self.meunView changeMenuWidth:self.messageMailBtn.x];
+        }else {
             [self initTopBar];
             [self.meunView changeMenuWidth:self.messageMailBtn.x];
         }
@@ -101,21 +176,27 @@
 }
 
 - (void)clickMessageMail {
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    [window addSubview:self.schoolMenuBgView];
-    self.schoolMessage = [XABSchoolMessage schoolMessageList:@[@"王园园负CEO",@"韩森工程师",@"吴明磊总监"]];
-    self.schoolMessage.delegate = self;
-    self.schoolMessage.width = SCREEN_WIDTH - 40;
-    self.schoolMessage.height = 200;
-    self.schoolMessage.centerX = window.centerX;
-    self.schoolMessage.centerY = window.centerY;
-    [window addSubview:self.schoolMessage];
+
+        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        [self.view addSubview:self.schoolMenuBgView];
+    self.schoolMessage = [XABSchoolMessage schoolMessageWithSchollId:self.currentSchoolId];
+        self.schoolMessage.delegate = self;
+        self.schoolMessage.width = SCREEN_WIDTH - 40;
+        self.schoolMessage.height = 200;
+        self.schoolMessage.centerX = window.centerX;
+        self.schoolMessage.centerY = window.centerY;
+        [self.view addSubview:self.schoolMessage];
+    
 }
 
 - (void)clickSchoolMenu {
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     [window addSubview:self.schoolMenuBgView];
-    self.schoolMenu = [XABSchoolMenu schoolMenuList:@[@"测试学校",@"北京市昌平区回龙观小学",@"北京市东城区实验小学"]];
+    NSMutableArray *menuList = [NSMutableArray array];
+    for (NSDictionary *item in self.followData) {
+        [menuList safeAddObject:[item objectForKeySafely:@"schoolName"]];
+    }
+    self.schoolMenu = [XABSchoolMenu schoolMenuList:menuList.copy meunType:MeunTypeSchool];
     self.schoolMenu.delegate = self;
     [window addSubview:self.schoolMenu];
 }
@@ -137,8 +218,9 @@
 }
 
 
-- (void)messageDidFinish:(NSString *)object content:(NSString *)content {
-
+- (void)messageDidFinish {
+    [self showMessage:@"留言成功"];
+    [self cancelMessage];
 }
 
 - (void)cancelMessage {
@@ -147,25 +229,92 @@
     self.schoolMessage = nil;
 }
 
+- (void)requestError {
+    [self cancelMessage];
+    [self showMessage:@"网络请求失败"];
+}
 
-- (void)schoolMenuSetDefault:(NSString *)str {
+- (void)schoolMenuSetDefault:(NSInteger)index {
+    self.currentSchoolId = [[self.followData safeObjectAtIndex:index] objectForKeySafely:@"schoolId"];
+//    [self.currentSelectSchool setTitle:str forState:UIControlStateNormal];
+    [_currentSelectSchool sizeToFit];
+    [_currentSelectSchool layoutButtonWithEdgeInsetsStyle:MKButtonEdgeInsetsStyleRight imageTitleSpace:5];
+    [self.schoolMenu removeFromSuperview];
+    [self.schoolMenuBgView removeFromSuperview];
+    
+    WeakSelf;
+    NSMutableDictionary *pargam = [NSMutableDictionary new];
+    [pargam setSafeObject:UserInfo.id forKey:@"userId"];
+    [pargam setSafeObject:self.currentSchoolId forKey:@"schoolId"];
+    [SchoolDefaultFollow requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
+        [weakSelf showMessage:@"设置成功"];
+        
+    } failureBlock:^(BaseDataRequest *request) {
+        [weakSelf showMessage:@"设置失败"];
+    }];
+}
+
+- (void)schoolMenuCancelFoucs:(NSInteger)index{
+    NSString *currentSchoolId = [[self.followData safeObjectAtIndex:index] objectForKeySafely:@"schoolId"];
+    WeakSelf;
+    NSMutableDictionary *pargam = [NSMutableDictionary new];
+    [pargam setSafeObject:UserInfo.id forKey:@"userId"];
+    [pargam setSafeObject:currentSchoolId forKey:@"schoolId"];
+    [SchoolCancelFollow requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
+        NSMutableArray *temp = weakSelf.followData.mutableCopy;
+        [temp removeObjectAtIndex:index];
+        weakSelf.followData = temp.copy;
+        [weakSelf.schoolMenu removeFromSuperview];
+        [weakSelf.schoolMenuBgView removeFromSuperview];
+        if ([weakSelf.currentSchoolId isEqualToString:currentSchoolId]) {
+            weakSelf.currentSchoolId = [[weakSelf.followData safeObjectAtIndex:0] objectForKeySafely:@"schoolId"];
+            [self.currentSelectSchool setTitle:[[weakSelf.followData safeObjectAtIndex:0] objectForKeySafely:@"schoolName"] forState:UIControlStateNormal];
+            [_currentSelectSchool sizeToFit];
+            [_currentSelectSchool layoutButtonWithEdgeInsetsStyle:MKButtonEdgeInsetsStyleRight imageTitleSpace:5];
+        }
+    } failureBlock:^(BaseDataRequest *request) {
+        [weakSelf showMessage:@"取消失败"];
+    }];
+}
+
+- (void)schoolMenuSelected:(NSInteger)index str:(NSString *)str {
     [self.currentSelectSchool setTitle:str forState:UIControlStateNormal];
     [_currentSelectSchool sizeToFit];
     [_currentSelectSchool layoutButtonWithEdgeInsetsStyle:MKButtonEdgeInsetsStyleRight imageTitleSpace:5];
     [self.schoolMenu removeFromSuperview];
     [self.schoolMenuBgView removeFromSuperview];
-}
-
-- (void)schoolMenuCancelFoucs:(NSString *)str {
-
-}
-
-- (void)schoolMenuSelected:(NSString *)str {
-    [self.currentSelectSchool setTitle:str forState:UIControlStateNormal];
-    [_currentSelectSchool sizeToFit];
-    [_currentSelectSchool layoutButtonWithEdgeInsetsStyle:MKButtonEdgeInsetsStyleRight imageTitleSpace:5];
-    [self.schoolMenu removeFromSuperview];
-    [self.schoolMenuBgView removeFromSuperview];
+    
+    self.currentSchoolId = [[self.followData safeObjectAtIndex:index] objectForKeySafely:@"schoolId"];
+    
+    // 重新请求频道信息
+    WeakSelf;
+    [SchoolMenuList requestDataWithParameters:@{@"schoolId":self.currentSchoolId} headers:Token successBlock:^(BaseDataRequest *request) {
+        NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
+        if (code == 200) {
+            NSArray *data = [request.json objectForKeySafely:@"data"];
+            NSMutableArray *channelName = [NSMutableArray arrayWithCapacity:data.count];
+            NSMutableArray *channelData = [NSMutableArray arrayWithCapacity:data.count];
+            for (NSDictionary *sub in data) {
+                [channelName safeAddObject:[sub objectForKeySafely:@"name"]];
+                [channelData safeAddObject:@{@"class":@"XABSchoolDetailViewController",
+                                         @"info":@{
+                                                 @"channelId":[sub objectForKeySafely:@"id"],
+                                                 @"schollId":[sub objectForKeySafely:@"schoolId"]}}];
+            }
+            [weakSelf.meunView removeFromSuperview];
+            weakSelf.meunView = [[MLMeunView alloc]initWithFrame:CGRectMake(0, self.topBarView.height, self.topBarView.width - self.messageMailBtn.width, TopBarHeight) titles:channelName viewcontrollersInfo:channelData isParameter:YES];
+            [self.view addSubview:weakSelf.meunView];
+            [weakSelf.meunView show];
+            _meunView.normalColor = [UIColor blackColor];
+            _meunView.selectlColor = ThemeColor;
+            [_meunView reloadMeunStyle];
+            [weakSelf.meunView changeMenuWidth:self.messageMailBtn.x];
+            [weakSelf.view bringSubviewToFront:weakSelf.messageMailBtn];
+        }
+    } failureBlock:^(BaseDataRequest *request) {
+        [weakSelf.meunView changeMenuWidth:self.messageMailBtn.x];
+        [weakSelf showMessage:[request.json objectForKeySafely:@"message"]];
+    }];
 }
 #pragma mark - lazy
 - (MLMeunView *)meunView {
@@ -194,7 +343,7 @@
     if (!_currentSelectSchool) {
         _currentSelectSchool = [[UIButton alloc]init];
         [_currentSelectSchool.titleLabel setFont:[UIFont systemFontOfSize:16]];
-        [_currentSelectSchool setTitle:@"系统测试学校" forState:UIControlStateNormal];
+        [_currentSelectSchool setTitle:self.currentSchoolName forState:UIControlStateNormal];
         [_currentSelectSchool setImage:[UIImage imageNamed:@"faculty_arrow"] forState:UIControlStateNormal];
         [_currentSelectSchool sizeToFit];
         [_currentSelectSchool layoutButtonWithEdgeInsetsStyle:MKButtonEdgeInsetsStyleRight imageTitleSpace:5];

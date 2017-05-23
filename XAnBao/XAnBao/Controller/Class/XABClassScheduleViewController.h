@@ -9,5 +9,6 @@
 #import "YBBaseViewController.h"
 
 @interface XABClassScheduleViewController : YBBaseViewController
-
+@property(nonatomic, copy)NSString *classId;
+@property(nonatomic, assign)NSInteger type;
 @end

@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @protocol XABSchoolMessageDelegate <NSObject>
-- (void)messageDidFinish:(NSString *)object content:(NSString *)content;
+- (void)messageDidFinish;
 - (void)cancelMessage;
+- (void)requestError;
 @end
 @interface XABSchoolMessage : UIView
-+ (instancetype)schoolMessageList:(NSArray *)list;
++ (instancetype)schoolMessageWithSchollId:(NSString *)schollId;
 @property(nonatomic, weak)id<XABSchoolMessageDelegate> delegate;
 @end

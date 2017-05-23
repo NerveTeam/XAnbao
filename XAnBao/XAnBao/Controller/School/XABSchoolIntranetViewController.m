@@ -41,12 +41,15 @@
 }
 
 - (void)jumpPostNotice {
-    [self.navigationController pushViewController:[XABPostNoticeViewController new] animated:YES];
+    XABPostNoticeViewController *notice = [XABPostNoticeViewController new];
+    notice.schoolId = self.schoolId;
+    notice.noticeType = NoticeTypeSchool;
+    [self.navigationController pushViewController:notice animated:YES];
 }
 #pragma mark - lazy
 - (MLMeunView *)meunView {
     if (!_meunView) {
-        _meunView = [[MLMeunView alloc]initWithFrame:CGRectMake(0, self.topBarView.height, self.view.width, TopBarHeight) titles:@[@"内部公告",@"校群讨论",@"学校文件"] viewcontrollersInfo:self.channelData isParameter:NO];
+        _meunView = [[MLMeunView alloc]initWithFrame:CGRectMake(0, self.topBarView.height, self.view.width, TopBarHeight) titles:@[@"内部公告",@"校群讨论",@"学校文件"] viewcontrollersInfo:self.channelData isParameter:YES];
         _meunView.normalColor = [UIColor blackColor];
         _meunView.selectlColor = ThemeColor;
         [_meunView reloadMeunStyle];
@@ -56,7 +59,16 @@
 
 - (NSArray *)channelData {
     if (!_channelData) {
-        _channelData = @[@"XABIntranetNoticeViewController",@"XABIntranetChatViewController",@"XABIntranetFileViewController"];
+        _channelData =
+        @[@{@"class":@"XABIntranetNoticeViewController",
+            @"info":@{
+                    @"schoolId":self.schoolId}},
+            @{@"class":@"XABIntranetChatViewController",
+              @"info":@{
+                      @"schoolId":self.schoolId}},
+              @{@"class":@"XABIntranetFileViewController",
+                @"info":@{
+                        @"schoolId":self.schoolId}}];
     }
     return _channelData;
 }

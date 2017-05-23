@@ -131,10 +131,10 @@ static int recording = 0;
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"isRecording"]) {
-        [self.recordBtn setTitle:(self.isRecording ? @"停止录音" : @"录音") forState:UIControlStateNormal];
+        [self.recordBtn setTitle:(self.isRecording ? @"停止录音" : @"开始录音") forState:UIControlStateNormal];
     }
     else if ([keyPath isEqualToString:@"isPlaying"]) {
-        [self.recordBtn setTitle:(self.isPlaying ? @"停止播放" : @"播放") forState:UIControlStateNormal];
+        [self.recordBtn setTitle:(self.isPlaying ? @"停止播放" : @"开始播放") forState:UIControlStateNormal];
     }
 }
 
@@ -146,11 +146,11 @@ static int recording = 0;
 - (void)setModel:(id)model {
     if ([model isEqualToString:@"add"]) {
         self.recordBtn.tag = Record;
-        [self.recordBtn setTitle:@"录音" forState:UIControlStateNormal];
+        [self.recordBtn setTitle:@"开始录音" forState:UIControlStateNormal];
     }else {
         self.recordBtn.tag = Play;
         self.recordFilename = model;
-        [self.recordBtn setTitle:@"播放" forState:UIControlStateNormal];
+        [self.recordBtn setTitle:@"开始播放" forState:UIControlStateNormal];
     }
 }
 
@@ -170,8 +170,11 @@ static int recording = 0;
 
 - (UIButton *)recordBtn {
     if (!_recordBtn) {
-        _recordBtn = [UIButton buttonWithTitle:@"录音" fontSize:15 titleColor:[UIColor blackColor]];
-        _recordBtn.backgroundColor = [UIColor grayColor];
+        _recordBtn = [UIButton buttonWithTitle:@"开始录音" fontSize:15 titleColor:ThemeColor];
+        _recordBtn.layer.cornerRadius = 5;
+        _recordBtn.clipsToBounds = YES;
+        _recordBtn.layer.borderWidth = 0.5;
+        _recordBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
         [_recordBtn addTarget:self action:@selector(handelTapEvent) forControlEvents:UIControlEventTouchUpInside];
         [_recordBtn sizeToFit];
     }

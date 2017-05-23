@@ -49,9 +49,8 @@ static const CGFloat imgH = imgScale(imgW);
 
 - (void)setSportList:(XABResource *)sportList {
     _sportList = sportList;
-    self.titleLabel.text = @"我是测试数据哈哈哈哈哈哈哈哈哈哈哈啊哈哈哈哈";
+    self.titleLabel.text = sportList.title;
     [self.titleLabel sizeToFit];
-    __block typeof(self.img)blockImageView = self.img;
     [self.img sd_setImageWithURL:[NSURL URLWithString:sportList.coverUrl] placeholderImage:[UIImage imageNamed:@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1493274238533&di=afd56661e1e34fd48e0333e222cda78f&imgtype=0&src=http%3A%2F%2Fpic2.16pic.com%2F00%2F20%2F02%2F16pic_2002642_b.jpg"]];
     NSDateFormatter *dateFormatter=[[NSDateFormatter alloc]init];
     dateFormatter.dateFormat=@"yyyy-MM-dd HH:mm:ss";

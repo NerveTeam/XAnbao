@@ -8,7 +8,13 @@
 
 #import "YBBaseViewController.h"
 
+typedef NS_ENUM(NSUInteger, ArticleType) {
+    ArticleTypeNone,
+    ArticleTypeClass,
+    ArticleTypeSchool,
+};
 @interface XABArticleViewController : YBBaseViewController
 - (instancetype)initWithUrl:(NSString *)url;
 @property(nonatomic, copy)NSString *articleId;
+@property(nonatomic, assign)ArticleType showType;
 @end

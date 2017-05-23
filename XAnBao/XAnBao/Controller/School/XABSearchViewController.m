@@ -10,6 +10,8 @@
 #import "UIView+TopBar.h"
 #import "UIButton+Extention.h"
 #import "XABSearchCell.h"
+#import "NSArray+Safe.h"
+#import "XABSchoolRequest.h"
 
 @interface XABSearchViewController ()<UISearchDisplayDelegate, UISearchBarDelegate, UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic, strong)UIView *topBar;
@@ -25,6 +27,10 @@
 @property (strong, nonatomic) NSMutableArray *resultList;
 
 @property(nonatomic, strong)UIView *navigationBarBg;
+
+@property(nonatomic, assign)NSInteger page;
+
+@property(nonatomic, assign)BOOL isHandle;
 @end
 
 @implementation XABSearchViewController
@@ -34,6 +40,7 @@ static NSString *identifier = @"XABSearchViewController";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    _page = 1;
     [self initView];
     self.datalist = [NSMutableArray new];
     [self loadData];
@@ -44,25 +51,42 @@ static NSString *identifier = @"XABSearchViewController";
     return YES;
 }
 - (void)loadData {
-    [self.datalist addObject:@"uiuiuiui"];
-    [self.datalist addObject:@"吴明磊"];
-    [self.datalist addObject:@"张瑞丹"];
-    [self.datalist addObject:@"韩森"];
-    [self.datalist addObject:@"王园园"];
-    [self.datalist addObject:@"e"];
-    [self.datalist addObject:@"f"];
-    [self.datalist addObject:@"g"];
-    [self.datalist addObject:@"wuminglei"];
-    [self.datalist addObject:@"wangyuanyuan"];
-    [self.datalist addObject:@"hansen"];
-    [self.tableView reloadData];
-       [self.displayController.searchResultsTableView reloadData];
+    WeakSelf;
+    [SchoolSearchListTeacher requestDataWithParameters:@{@"current":@(_page)} headers:Token successBlock:^(BaseDataRequest *request) {
+        NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
+        if (code == 200) {
+            NSArray *data = [request.json objectForKeySafely:@"data"];
+            NSMutableArray *list = [NSMutableArray array];
+            for (NSDictionary *item in data) {
+                NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+                [dict setSafeObject:[item objectForKeySafely:@"id"] forKey:@"schoolId"];
+                [dict setSafeObject:[item objectForKeySafely:@"name"] forKey:@"schoolName"];
+                [list addObject:dict];
+            }
+            if (_page > 1) {
+                [self.datalist addObjectsFromArray:list];
+            }else {
+                weakSelf.datalist = list;
+            }
+            [self stopRefresh];
+            [self.tableView reloadData];
+            [self.displayController.searchResultsTableView reloadData];
+        }
+        
+    } failureBlock:^(BaseDataRequest *request) {
+        [self stopRefresh];
+        [self showMessage:@"网络异常"];
+    }];
 }
 - (void)initView {
     [self.view addSubview:self.topBar];
     [self.view addSubview:self.tableView];
 }
 
+- (void)stopRefresh {
+    [self.tableView.mj_header endRefreshing];
+    [self.tableView.mj_footer endRefreshing];
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (tableView ==self.tableView) {
@@ -76,7 +100,7 @@ static NSString *identifier = @"XABSearchViewController";
     if (!cell) {
         cell = [[XABSearchCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
-    [cell setTitle: tableView == self.tableView ? self.datalist[indexPath.row] : self.resultList[indexPath.row]];
+    [cell setTitle: tableView == self.tableView ? [self.datalist[indexPath.row] objectForKeySafely:@"schoolName"] : self.resultList[indexPath.row]];
     return cell;
 }
 
@@ -107,14 +131,29 @@ static NSString *identifier = @"XABSearchViewController";
         
         // 发起关注请求
         if (tableView == self.tableView) {
-            [self.datalist removeObjectAtIndex:indexPath.row];
-            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
+            NSMutableDictionary *pargam = [NSMutableDictionary new];
+            [pargam setSafeObject:UserInfo.id forKey:@"userId"];
+            [pargam setSafeObject:[[self.datalist safeObjectAtIndex:indexPath.row] objectForKeySafely:@"schoolId"] forKey:@"schoolId"];
+            [SchoolAddFollow requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
+                [self.datalist removeObjectAtIndex:indexPath.row];
+                [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
+                self.isHandle = YES;
+            } failureBlock:^(BaseDataRequest *request) {
+                [self showMessage:@"网络异常"];
+            }];
+
         }else {
-            NSString *obj = self.resultList[indexPath.row];
-            [self.resultList removeObjectAtIndex:indexPath.row];
-            [self.datalist removeObject:obj];
-            [self.displayController.searchResultsTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
-            [self.tableView reloadData];
+            NSMutableDictionary *pargam = [NSMutableDictionary new];
+            [pargam setSafeObject:UserInfo.id forKey:@"userId"];
+            [pargam setSafeObject:[[self.datalist safeObjectAtIndex:indexPath.row] objectForKeySafely:@"schoolId"] forKey:@"schoolId"];
+            [SchoolAddFollow requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
+                [self.resultList removeObjectAtIndex:indexPath.row];
+                [self.displayController.searchResultsTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
+                [self.tableView reloadData];
+                self.isHandle = YES;
+            } failureBlock:^(BaseDataRequest *request) {
+                [self showMessage:@"网络异常"];
+            }];
 
         }
 
@@ -140,17 +179,27 @@ static NSString *identifier = @"XABSearchViewController";
     }
     
     // 生成查询结果数组
-    self.resultList = [NSMutableArray arrayWithArray:[self.datalist filteredArrayUsingPredicate:preicate]];
+    NSMutableArray *nameArray = [NSMutableArray array];
+    for (NSDictionary *item in self.datalist) {
+        [nameArray addObject:[item objectForKeySafely:@"schoolName"]];
+    }
+    self.resultList = [NSMutableArray arrayWithArray:[nameArray filteredArrayUsingPredicate:preicate]];
     
     // 返回YES，刷新表格
     return YES;
 }
-
+- (void)goBack {
+    if (self.isHandle) {
+        [[NSNotificationCenter defaultCenter]postNotificationName:KSearchFollowDidFinish object:nil];
+    }
+}
 
 - (UIView *)topBar {
     if (!_topBar) {
         _topBar = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, StatusBarHeight + TopBarHeight)];
-        _topBar = [_topBar topBarWithTintColor:ThemeColor title:@"搜索" titleColor:[UIColor whiteColor] leftView:[UIButton buttonWithTitle:@"返回" fontSize:13]rightView:nil responseTarget:self];
+        UIButton *back = [UIButton buttonWithTitle:@"返回" fontSize:13];
+        [back addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+        _topBar = [_topBar topBarWithTintColor:ThemeColor title:@"搜索" titleColor:[UIColor whiteColor] leftView:back rightView:nil responseTarget:self];
     }
     return _topBar;
 }
@@ -172,6 +221,15 @@ static NSString *identifier = @"XABSearchViewController";
         _tableView.dataSource = self;
         _tableView.tableHeaderView = self.searchBar;
         _tableView.rowHeight = 40;
+        _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+            _page = 1;
+            [self loadData];
+        }];
+        _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+            _page++;
+            [self loadData];
+        }];
+
     }
     return _tableView;
 }

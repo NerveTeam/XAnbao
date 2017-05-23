@@ -13,6 +13,7 @@
 #import "SDCycleScrollView.h"
 #import "XABResourceListCell.h"
 #import "XABArticleViewController.h"
+#import "XABClassRequest.h"
 
 @interface XABClassNoticeViewController ()<SDCycleScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)SDCycleScrollView *cycleView;
@@ -40,13 +41,32 @@
 }
 
 - (void)loadData:(NSInteger)page {
-    __weak typeof(self)weakSelf = self;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [weakSelf stopRefresh];
-        [weakSelf.tableView reloadData];
-        
-        weakSelf.cycleView.imageURLStringsGroup = @[@"https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3510003795,2153467965&fm=23&gp=0.jpg",@"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1017904219,2460650030&fm=23&gp=0.jpg",@"https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=938946740,2496936570&fm=23&gp=0.jpg",@"https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3448641352,2315059109&fm=23&gp=0.jpg"];
-    });
+    WeakSelf;
+    NSMutableDictionary *pargam = [NSMutableDictionary new];
+    [pargam setSafeObject:@(self.type) forKey:@"userType"];
+    [pargam setSafeObject:self.classId forKey:@"classId"];
+    [pargam setSafeObject:UserInfo.id forKey:@"userId"];
+    [pargam setSafeObject:@(20) forKey:@"length"];
+    [pargam setSafeObject:@(page) forKey:@"current"];
+     [ClassNoticeList requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
+         NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
+         if (code == 200) {
+             NSDictionary *data = [request.json objectForKeySafely:@"data"];
+             NSArray *results = [data objectForKeySafely:@"results"];
+             if (page > 1) {
+                 NSMutableArray *temp = [NSMutableArray arrayWithArray:self.dataList];
+                 [temp addObjectsFromArray:[XABResource mj_objectArrayWithKeyValuesArray:results]];
+                 self.dataList = temp.copy;
+             }else {
+                 self.dataList = [XABResource mj_objectArrayWithKeyValuesArray:results];
+             }
+         }
+         
+         [weakSelf stopRefresh];
+         [weakSelf.tableView reloadData];
+     } failureBlock:^(BaseDataRequest *request) {
+         [self showMessage:@"网络异常"];
+     }];
 }
 
 
@@ -55,8 +75,7 @@
     [self.tableView.mj_footer endRefreshing];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 30;
-    //    return self.dataList.count;
+        return self.dataList.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     XABResourceListCell *cell = [XABResourceListCell newsSportListCellWithTableView:tableView];
@@ -71,8 +90,10 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    XABResource *sport = self.dataList[indexPath.row];
-    XABArticleViewController *article = [[XABArticleViewController alloc]initWithUrl:@"https://sports.sina.cn/nba/warriors/2017-03-09/detail-ifychhuq3433755.d.html?vt=4&pos=10&HTTPS=1"];
+    XABResource *sport = self.dataList[indexPath.row];
+    XABArticleViewController *article = [[XABArticleViewController alloc]initWithUrl:sport.url];
+    article.articleId = sport.id;
+    article.showType = ArticleTypeClass;
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self.navigationController pushViewController:article animated:YES];
 }
@@ -83,7 +104,10 @@
 
 
 - (void)jumpPostNotice {
-    [self.navigationController pushViewController:[XABPostNoticeViewController new] animated:YES];
+    XABPostNoticeViewController *notice = [XABPostNoticeViewController new];
+    notice.classId = self.classId;
+    notice.noticeType = NoticeTypeClass;
+    [self.navigationController pushViewController:notice animated:YES];
 }
 
 
@@ -133,6 +157,7 @@
         _postNotice = [UIButton buttonWithTitle:@"发布班级通知" fontSize:15];
         [_postNotice addTarget:self action:@selector(jumpPostNotice) forControlEvents:UIControlEventTouchUpInside];
         [_postNotice sizeToFit];
+        _postNotice.hidden = self.type == 1 ? YES : NO;
     }
     return _postNotice;
 }

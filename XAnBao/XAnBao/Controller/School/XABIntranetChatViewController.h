@@ -9,5 +9,5 @@
 #import "YBBaseViewController.h"
 
 @interface XABIntranetChatViewController : YBBaseViewController
-
+@property(nonatomic, copy)NSString *schoolId;
 @end

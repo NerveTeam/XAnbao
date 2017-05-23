@@ -31,3 +31,52 @@
 @interface SchoolVisitLog : BaseDataRequest
 
 @end
+
+//获取留言老师
+@interface SchoolMessageTeacher : BaseDataRequest
+
+@end
+
+//留言老师
+@interface SchoolPostMessageTeacher : BaseDataRequest
+
+@end
+
+//搜索
+@interface SchoolSearchListTeacher : BaseDataRequest
+
+@end
+
+//判断是否可以进入内网
+@interface SchoolEnterIntranetJudgeTeacher : BaseDataRequest
+
+@end
+
+//添加关注
+@interface SchoolAddFollow : BaseDataRequest
+
+@end
+
+//取消关注
+@interface SchoolCancelFollow : BaseDataRequest
+
+@end
+
+//添加关注
+@interface SchoolDefaultFollow : BaseDataRequest
+
+@end
+
+//内网公告
+@interface SchoolIntranetNotice : BaseDataRequest
+
+@end
+
+//发布内网公告
+@interface SchoolPostIntranetNotice : BaseDataRequest
+
+@end
+
+@interface TestRequst : BaseDataRequest
+
+@end
