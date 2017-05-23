@@ -55,9 +55,10 @@ static NSString *identifier = @"XABSearchViewController";
     [SchoolSearchListTeacher requestDataWithParameters:@{@"current":@(_page)} headers:Token successBlock:^(BaseDataRequest *request) {
         NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
         if (code == 200) {
-            NSArray *data = [request.json objectForKeySafely:@"data"];
+            NSDictionary *data = [request.json objectForKeySafely:@"data"];
+            NSArray *result = [data objectForKeyNotNull:@"results"];
             NSMutableArray *list = [NSMutableArray array];
-            for (NSDictionary *item in data) {
+            for (NSDictionary *item in result) {
                 NSMutableDictionary *dict = [NSMutableDictionary dictionary];
                 [dict setSafeObject:[item objectForKeySafely:@"id"] forKey:@"schoolId"];
                 [dict setSafeObject:[item objectForKeySafely:@"name"] forKey:@"schoolName"];

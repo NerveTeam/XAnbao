@@ -24,6 +24,21 @@ static const NSString *domain = @"http://118.190.97.150/interface/api1/class-gra
 }
 @end
 
+@implementation ClassNoticeList
+- (NSString *)requestUrl {
+    return @"http://118.190.97.150/interface/api1/class-message/save";
+}
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodGET;
+}
+- (YTKResponseSerializerType)responseSerializerType {
+    return YTKResponseSerializerTypeJSON;
+}
+- (BOOL)useCDN {
+    return YES;
+}
+@end
+
 @implementation ClassPostNotice
 - (NSString *)requestUrl {
     return @"http://118.190.97.150/interface/api1/class-message/save";
