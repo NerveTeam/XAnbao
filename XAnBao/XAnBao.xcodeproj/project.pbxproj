@@ -163,6 +163,8 @@
 		8C383A531EB33B0400EC7ED6 /* XABRecordCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C383A521EB33B0400EC7ED6 /* XABRecordCollectionView.m */; };
 		8C383A561EB33B1700EC7ED6 /* XABImageCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C383A551EB33B1700EC7ED6 /* XABImageCollectionView.m */; };
 		8C636BC61EC7FB410003E2D1 /* XABClassRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C636BC51EC7FB410003E2D1 /* XABClassRequest.m */; };
+		8C636BCD1ED431260003E2D1 /* MJRefreshBackStateFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB027F81E6D4A3A00A57EBC /* MJRefreshBackStateFooter.m */; };
+		8C636BCE1ED431790003E2D1 /* YBTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B041E6D4BCA00A57EBC /* YBTabBarController.m */; };
 		8CA107AD1E8B658A00417C5A /* XABHomeworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA107AC1E8B658A00417C5A /* XABHomeworkViewController.m */; };
 		8CA107B01E8B659900417C5A /* XABCheckJobViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA107AF1E8B659900417C5A /* XABCheckJobViewController.m */; };
 		8CB023FD1E6D470600A57EBC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB023FC1E6D470600A57EBC /* main.m */; };
@@ -236,7 +238,6 @@
 		8CB029F11E6D4A3A00A57EBC /* MJRefreshAutoStateFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB027F11E6D4A3A00A57EBC /* MJRefreshAutoStateFooter.m */; };
 		8CB029F21E6D4A3A00A57EBC /* MJRefreshBackGifFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB027F41E6D4A3A00A57EBC /* MJRefreshBackGifFooter.m */; };
 		8CB029F31E6D4A3A00A57EBC /* MJRefreshBackNormalFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB027F61E6D4A3A00A57EBC /* MJRefreshBackNormalFooter.m */; };
-		8CB029F41E6D4A3A00A57EBC /* MJRefreshBackStateFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB027F81E6D4A3A00A57EBC /* MJRefreshBackStateFooter.m */; };
 		8CB029F51E6D4A3A00A57EBC /* MJRefreshGifHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB027FB1E6D4A3A00A57EBC /* MJRefreshGifHeader.m */; };
 		8CB029F61E6D4A3A00A57EBC /* MJRefreshNormalHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB027FD1E6D4A3A00A57EBC /* MJRefreshNormalHeader.m */; };
 		8CB029F71E6D4A3A00A57EBC /* MJRefreshStateHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB027FF1E6D4A3A00A57EBC /* MJRefreshStateHeader.m */; };
@@ -289,7 +290,6 @@
 		8CB02AFF1E6D4A3B00A57EBC /* YTKNetworkConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB029BF1E6D4A3A00A57EBC /* YTKNetworkConfig.m */; };
 		8CB02B001E6D4A3B00A57EBC /* YTKNetworkPrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB029C11E6D4A3A00A57EBC /* YTKNetworkPrivate.m */; };
 		8CB02B011E6D4A3B00A57EBC /* YTKRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB029C31E6D4A3A00A57EBC /* YTKRequest.m */; };
-		8CB02B051E6D4BCA00A57EBC /* YBTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B041E6D4BCA00A57EBC /* YBTabBarController.m */; };
 		8CB02B081E6D4D7D00A57EBC /* XABHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B071E6D4D7D00A57EBC /* XABHomeViewController.m */; };
 		8CB02B0B1E6D4D9700A57EBC /* XABSchoolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B0A1E6D4D9700A57EBC /* XABSchoolViewController.m */; };
 		8CB02B0E1E6D4D9E00A57EBC /* XABClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B0D1E6D4D9E00A57EBC /* XABClassViewController.m */; };
@@ -2804,6 +2804,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C636BCE1ED431790003E2D1 /* YBTabBarController.m in Sources */,
+				8C636BCD1ED431260003E2D1 /* MJRefreshBackStateFooter.m in Sources */,
 				8CB024501E6D497000A57EBC /* YBBaseViewController.m in Sources */,
 				8CB026701E6D497700A57EBC /* UIView+Position.m in Sources */,
 				8CB024511E6D497000A57EBC /* YBCollectionViewBaseCell.m in Sources */,
@@ -2841,15 +2843,12 @@
 				8CB029F31E6D4A3A00A57EBC /* MJRefreshBackNormalFooter.m in Sources */,
 				7572A7351E87644500F753BC /* XABMineViewController.m in Sources */,
 				8CB02B881E6FF23300A57EBC /* XABSchoolMenuCell.m in Sources */,
-				8CB02A4C1E6D4A3B00A57EBC /* SNUserSupportInfo.m in Sources */,
 				752155FA1ECBFACA00BAD876 /* AFURLSessionManager.m in Sources */,
-				8CB02A551E6D4A3B00A57EBC /* SNParser.m in Sources */,
 				752155F71ECBFACA00BAD876 /* AFSecurityPolicy.m in Sources */,
 				8C0DF5F71E85106F00A1B2B2 /* scal.c in Sources */,
 				8C0DF5DF1E85106E00A1B2B2 /* exc_8_128_table.c in Sources */,
 				8C0DF2CF1E8501EB00A1B2B2 /* FSCalendarConstants.m in Sources */,
 				8C636BC61EC7FB410003E2D1 /* XABClassRequest.m in Sources */,
-				8CB029CB1E6D4A3A00A57EBC /* AFImageDownloader.m in Sources */,
 				8C0DF5F11E85106F00A1B2B2 /* modes_wb.c in Sources */,
 				8CB02A191E6D4A3B00A57EBC /* SDCycleScrollView.m in Sources */,
 				60A551611E7D13BE0058DD96 /* XABLoginRegisterViewController.m in Sources */,
@@ -2902,7 +2901,6 @@
 				8C0DF5E11E85106E00A1B2B2 /* filterbank.c in Sources */,
 				8CB02AF41E6D4A3B00A57EBC /* UITableView+FDIndexPathHeightCache.m in Sources */,
 				8CB029ED1E6D4A3A00A57EBC /* MJRefreshFooter.m in Sources */,
-				8CB02A331E6D4A3B00A57EBC /* UIApplication+SNUtil.m in Sources */,
 				7521558B1ECAEAE100BAD876 /* FGGDownloadManager.m in Sources */,
 				8CB02B3E1E6D575600A57EBC /* UIImageView+HighlightedWebCache.m in Sources */,
 				8CB02AF91E6D4A3B00A57EBC /* YTKBaseRequest.m in Sources */,
@@ -2940,8 +2938,6 @@
 				8CB029E31E6D4A3A00A57EBC /* MJPropertyKey.m in Sources */,
 				8C0DF5F21E85106F00A1B2B2 /* nb_celp.c in Sources */,
 				8CB02B951E71662400A57EBC /* XABSchoolMessage.m in Sources */,
-				8CB029CF1E6D4A3A00A57EBC /* UIImageView+AFNetworking.m in Sources */,
-				8CB02AE51E6D4A3B00A57EBC /* SNArticleSetting.m in Sources */,
 				60A5517C1E7D174D0058DD96 /* XABUserModel.m in Sources */,
 				8CFBD5481E76ABF300EE691B /* XABClassJobViewController.m in Sources */,
 				8C0DF2DD1E8504F100A1B2B2 /* XABEnclosureViewController.m in Sources */,
@@ -2990,7 +2986,6 @@
 				8C0DF5EF1E85106E00A1B2B2 /* mdf.c in Sources */,
 				8CB02B671E6D5A0500A57EBC /* mymodel.m in Sources */,
 				752156031ECBFACA00BAD876 /* UIWebView+AFNetworking.m in Sources */,
-				8CB02A391E6D4A3B00A57EBC /* SNArticleAppInfo.m in Sources */,
 				8CB0244E1E6D497000A57EBC /* YBBaseCollectionView.m in Sources */,
 				8CB02B3F1E6D575600A57EBC /* UIImageView+WebCache.m in Sources */,
 				8C0DF5E51E85106E00A1B2B2 /* hexc_10_32_table.c in Sources */,
@@ -3005,8 +3000,6 @@
 				8C0DF5D91E85106E00A1B2B2 /* cb_search.c in Sources */,
 				8CB029D61E6D4A3A00A57EBC /* MASConstraint.m in Sources */,
 				8CB02AFC1E6D4A3B00A57EBC /* YTKChainRequest.m in Sources */,
-				8CB029C91E6D4A3A00A57EBC /* AFURLSessionManager.m in Sources */,
-				8CB02AEA1E6D4A3B00A57EBC /* SNArticleBaseViewController+Gesture.m in Sources */,
 				8CFBD5301E767A9F00EE691B /* XABIntranetNoticeViewController.m in Sources */,
 				8CB029F51E6D4A3A00A57EBC /* MJRefreshGifHeader.m in Sources */,
 				8CB026651E6D497700A57EBC /* NSArray+Safe.m in Sources */,
@@ -3025,7 +3018,6 @@
 				7572A7361E87644500F753BC /* SettingViewController.m in Sources */,
 				8CB029EA1E6D4A3A00A57EBC /* MJRefreshAutoFooter.m in Sources */,
 				752155941ECAEBBE00BAD876 /* TaskModel.m in Sources */,
-				8CB02AE81E6D4A3B00A57EBC /* SNArticleBaseViewController+Ad.m in Sources */,
 				8CB02A0A1E6D4A3B00A57EBC /* MLMeunItem.m in Sources */,
 				8CB0244F1E6D497000A57EBC /* YBBaseDetailViewController.m in Sources */,
 				8C383A561EB33B1700EC7ED6 /* XABImageCollectionView.m in Sources */,
@@ -3049,9 +3041,6 @@
 				8CB029DA1E6D4A3A00A57EBC /* MASViewConstraint.m in Sources */,
 				603169D41E8C123C008AA3A7 /* XABShareSDKTool.m in Sources */,
 				8CB02B701E6D620100A57EBC /* XABNewsViewController.m in Sources */,
-				8CB029C61E6D4A3A00A57EBC /* AFSecurityPolicy.m in Sources */,
-				8CB02A4E1E6D4A3B00A57EBC /* SNArticleParser+Image.m in Sources */,
-				8CB02A461E6D4A3B00A57EBC /* SNPoll.m in Sources */,
 				8C0DF5CB1E85106E00A1B2B2 /* AQRecorder.mm in Sources */,
 				8C0DF5E01E85106E00A1B2B2 /* fftwrap.c in Sources */,
 				8CB026721E6D497700A57EBC /* UIViewController+AnimationHUD.m in Sources */,
@@ -3063,7 +3052,6 @@
 				8CB0267B1E6D497700A57EBC /* MLTool.m in Sources */,
 				8CFBD5601E77E2AD00EE691B /* XABFileViewController.m in Sources */,
 				8C383A4D1EB32A5F00EC7ED6 /* XABUploadImageCell.m in Sources */,
-				8CB029CE1E6D4A3A00A57EBC /* UIButton+AFNetworking.m in Sources */,
 				8C0DF5F61E85106F00A1B2B2 /* sb_celp.c in Sources */,
 				8CB02B791E6EA65E00A57EBC /* XABNewsNoticeViewController.m in Sources */,
 				8CB0266E1E6D497700A57EBC /* UIImageView+Animation.m in Sources */,
@@ -3091,16 +3079,8 @@
 				8C0DF6031E88F86F00A1B2B2 /* XABRecordCell.m in Sources */,
 				8CFBD5331E767AF600EE691B /* XABIntranetChatViewController.m in Sources */,
 				8C0DF5DC1E85106E00A1B2B2 /* exc_20_32_table.c in Sources */,
-				8CB029F41E6D4A3A00A57EBC /* MJRefreshBackStateFooter.m in Sources */,
-				8CB02B051E6D4BCA00A57EBC /* YBTabBarController.m in Sources */,
 				752156001ECBFACA00BAD876 /* UIImageView+AFNetworking.m in Sources */,
-				8CB02ADE1E6D4A3B00A57EBC /* SNArticleManager+Cache.m in Sources */,
-				8CB029F41E6D4A3A00A57EBC /* MJRefreshBackStateFooter.m in Sources */,
-				8CB02B051E6D4BCA00A57EBC /* YBTabBarController.m in Sources */,
 				752155F91ECBFACA00BAD876 /* AFURLResponseSerialization.m in Sources */,
-				8CB02A3F1E6D4A3B00A57EBC /* SNArticleLive.m in Sources */,
-				8CB02AF11E6D4A3B00A57EBC /* SNArticleHelper.m in Sources */,
-				8CB02AE01E6D4A3B00A57EBC /* SNArticleManager.m in Sources */,
 				8CB02B3C1E6D575600A57EBC /* UIImage+GIF.m in Sources */,
 				8CB02A0E1E6D4A3B00A57EBC /* MLCustomTransition.m in Sources */,
 				8CB029E21E6D4A3A00A57EBC /* MJProperty.m in Sources */,
