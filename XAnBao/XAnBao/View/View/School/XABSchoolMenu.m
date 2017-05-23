@@ -12,15 +12,17 @@
 
 @interface XABSchoolMenu ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic, strong)NSArray *menuList;
+@property(nonatomic, assign)MeunType *type;
 @property(nonatomic, strong)UITableView *menuListView;
 @end
 @implementation XABSchoolMenu
 
 static int rowHeight = 40;
 
-+ (instancetype)schoolMenuList:(NSArray *)list {
++ (instancetype)schoolMenuList:(NSArray *)list meunType:(MeunType)type{
     XABSchoolMenu *menu = [[XABSchoolMenu alloc]init];
     menu.menuList = list;
+    menu.type = type;
     menu.frame = CGRectMake(0, TopBarHeight + StatusBarHeight, SCREEN_WIDTH, rowHeight * list.count);
     [menu show];
     return menu;
@@ -59,6 +61,9 @@ static int rowHeight = 40;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.type == MeunTypeClass) {
+        return NO;
+    }
     return YES;
 }
 
@@ -66,14 +71,14 @@ static int rowHeight = 40;
     
     UITableViewRowAction *cancelAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"取消关注" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         if ([_delegate respondsToSelector:@selector(schoolMenuCancelFoucs:)]) {
-            [_delegate schoolMenuCancelFoucs:[self.menuList safeObjectAtIndex:indexPath.row]];
+            [_delegate schoolMenuCancelFoucs:indexPath.row];
         }
         tableView.editing = NO;
     }];
     cancelAction.backgroundColor = [UIColor redColor];
     UITableViewRowAction *defaultAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"设为默认" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         if ([_delegate respondsToSelector:@selector(schoolMenuSetDefault:)]) {
-            [_delegate schoolMenuSetDefault:[self.menuList safeObjectAtIndex:indexPath.row]];
+            [_delegate schoolMenuSetDefault:indexPath.row];
         }
         tableView.editing = NO;
     }];
@@ -86,8 +91,8 @@ static int rowHeight = 40;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([_delegate respondsToSelector:@selector(schoolMenuSelected:)]) {
-        [_delegate schoolMenuSelected:[self.menuList safeObjectAtIndex:indexPath.row]];
+    if ([_delegate respondsToSelector:@selector(schoolMenuSelected:str:)]) {
+        [_delegate schoolMenuSelected:indexPath.row str:[self.menuList safeObjectAtIndex:indexPath.row]];
     }
 }
 

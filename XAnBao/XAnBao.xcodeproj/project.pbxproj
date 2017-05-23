@@ -141,6 +141,7 @@
 		8C383A501EB3332600EC7ED6 /* XABEnclosure.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C383A4F1EB3332600EC7ED6 /* XABEnclosure.m */; };
 		8C383A531EB33B0400EC7ED6 /* XABRecordCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C383A521EB33B0400EC7ED6 /* XABRecordCollectionView.m */; };
 		8C383A561EB33B1700EC7ED6 /* XABImageCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C383A551EB33B1700EC7ED6 /* XABImageCollectionView.m */; };
+		8C636BC61EC7FB410003E2D1 /* XABClassRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C636BC51EC7FB410003E2D1 /* XABClassRequest.m */; };
 		8CA107AD1E8B658A00417C5A /* XABHomeworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA107AC1E8B658A00417C5A /* XABHomeworkViewController.m */; };
 		8CA107B01E8B659900417C5A /* XABCheckJobViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA107AF1E8B659900417C5A /* XABCheckJobViewController.m */; };
 		8CB023FD1E6D470600A57EBC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB023FC1E6D470600A57EBC /* main.m */; };
@@ -835,6 +836,8 @@
 		8C383A521EB33B0400EC7ED6 /* XABRecordCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABRecordCollectionView.m; sourceTree = "<group>"; };
 		8C383A541EB33B1700EC7ED6 /* XABImageCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABImageCollectionView.h; sourceTree = "<group>"; };
 		8C383A551EB33B1700EC7ED6 /* XABImageCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABImageCollectionView.m; sourceTree = "<group>"; };
+		8C636BC41EC7FB410003E2D1 /* XABClassRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABClassRequest.h; sourceTree = "<group>"; };
+		8C636BC51EC7FB410003E2D1 /* XABClassRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABClassRequest.m; sourceTree = "<group>"; };
 		8CA107AB1E8B658A00417C5A /* XABHomeworkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABHomeworkViewController.h; sourceTree = "<group>"; };
 		8CA107AC1E8B658A00417C5A /* XABHomeworkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABHomeworkViewController.m; sourceTree = "<group>"; };
 		8CA107AE1E8B659900417C5A /* XABCheckJobViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABCheckJobViewController.h; sourceTree = "<group>"; };
@@ -2340,6 +2343,8 @@
 				60DF37F91E816F6800A514F3 /* XABLoginRequest.m */,
 				8C383A451EADAA4F00EC7ED6 /* XABSchoolRequest.h */,
 				8C383A461EADAA4F00EC7ED6 /* XABSchoolRequest.m */,
+				8C636BC41EC7FB410003E2D1 /* XABClassRequest.h */,
+				8C636BC51EC7FB410003E2D1 /* XABClassRequest.m */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -3925,6 +3930,7 @@
 				8CB02ADF1E6D4A3B00A57EBC /* SNArticleManager+Tag.m in Sources */,
 				8C0DF5DF1E85106E00A1B2B2 /* exc_8_128_table.c in Sources */,
 				8C0DF2CF1E8501EB00A1B2B2 /* FSCalendarConstants.m in Sources */,
+				8C636BC61EC7FB410003E2D1 /* XABClassRequest.m in Sources */,
 				8CB029CB1E6D4A3A00A57EBC /* AFImageDownloader.m in Sources */,
 				8C0DF5F11E85106F00A1B2B2 /* modes_wb.c in Sources */,
 				8CB02A191E6D4A3B00A57EBC /* SDCycleScrollView.m in Sources */,

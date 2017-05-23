@@ -19,16 +19,27 @@
 
 
 - (void)setup:(NSString *)title {
+    self.backgroundColor = [UIColor whiteColor];
+    UIView *leftBg = [UIView new];
+    leftBg.backgroundColor = ThemeColor;
     UILabel *titleLabel = [UILabel labelWithText:title fontSize:14 textColor:[UIColor blackColor]];
     [titleLabel sizeToFit];
     UIView *line = [UIView new];
     line.backgroundColor = [UIColor lightGrayColor];
     
+    [self addSubview:leftBg];
     [self addSubview:titleLabel];
     [self addSubview:line];
     
+    [leftBg mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self);
+        make.width.offset(3);
+        make.top.bottom.equalTo(titleLabel);
+    }];
+    
    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-       make.top.left.equalTo(self).offset(10);
+       make.top.equalTo(self).offset(10);
+       make.left.equalTo(leftBg).offset(10);
    }];
     
     [line mas_makeConstraints:^(MASConstraintMaker *make) {

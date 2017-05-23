@@ -9,5 +9,5 @@
 #import "YBBaseViewController.h"
 
 @interface XABIntranetNoticeViewController : YBBaseViewController
-
+@property(nonatomic, copy)NSString *schoolId;
 @end

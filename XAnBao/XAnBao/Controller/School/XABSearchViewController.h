@@ -8,6 +8,7 @@
 
 #import "YBBaseViewController.h"
 
+#define KSearchFollowDidFinish @"KSearchFollowDidFinish"
 @interface XABSearchViewController : YBBaseViewController
 
 @end

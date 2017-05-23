@@ -114,3 +114,124 @@ static const NSString *domain = @"http://118.190.97.150/interface/api1/school/";
     return YES;
 }
 @end
+
+@implementation SchoolSearchListTeacher
+- (NSString *)requestUrl {
+    return [domain stringByAppendingString:@"searchschool"];
+}
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodGET;
+}
+- (YTKResponseSerializerType)responseSerializerType {
+    return YTKResponseSerializerTypeJSON;
+}
+- (BOOL)useCDN {
+    return YES;
+}
+@end
+
+@implementation SchoolEnterIntranetJudgeTeacher
+- (NSString *)requestUrl {
+    return [domain stringByAppendingString:@"isintranet"];
+}
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodPOST;
+}
+- (YTKResponseSerializerType)responseSerializerType {
+    return YTKResponseSerializerTypeJSON;
+}
+- (BOOL)useCDN {
+    return YES;
+}
+@end
+
+@implementation SchoolAddFollow
+- (NSString *)requestUrl {
+    return [domain stringByAppendingString:@"savefollowschool"];
+}
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodPOST;
+}
+- (YTKResponseSerializerType)responseSerializerType {
+    return YTKResponseSerializerTypeJSON;
+}
+- (BOOL)useCDN {
+    return YES;
+}
+@end
+
+@implementation SchoolCancelFollow
+- (NSString *)requestUrl {
+    return [domain stringByAppendingString:@"removefollowschool"];
+}
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodPOST;
+}
+- (YTKResponseSerializerType)responseSerializerType {
+    return YTKResponseSerializerTypeJSON;
+}
+- (BOOL)useCDN {
+    return YES;
+}
+@end
+
+@implementation SchoolDefaultFollow
+- (NSString *)requestUrl {
+    return [domain stringByAppendingString:@"setfollowschool"];
+}
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodPOST;
+}
+- (YTKResponseSerializerType)responseSerializerType {
+    return YTKResponseSerializerTypeJSON;
+}
+- (BOOL)useCDN {
+    return YES;
+}
+@end
+
+@implementation SchoolIntranetNotice
+- (NSString *)requestUrl {
+    return [domain stringByAppendingString:@"getinsidenotice"];
+}
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodGET;
+}
+- (YTKResponseSerializerType)responseSerializerType {
+    return YTKResponseSerializerTypeJSON;
+}
+- (BOOL)useCDN {
+    return YES;
+}
+@end
+
+@implementation SchoolPostIntranetNotice
+- (NSString *)requestUrl {
+    return [domain stringByAppendingString:@"sendinsidenotice"];
+}
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodPOST;
+}
+- (YTKResponseSerializerType)responseSerializerType {
+    return YTKResponseSerializerTypeJSON;
+}
+- (BOOL)useCDN {
+    return YES;
+}
+@end
+
+@implementation TestRequst
+- (NSString *)requestUrl {
+    return @"http://118.190.97.150/interface/api1/class-grade/uploadimage";
+}
+- (YTKRequestMethod)requestMethod {
+//    return YTKRequestMethodGET;
+    return YTKRequestMethodPOST;
+}
+- (YTKResponseSerializerType)responseSerializerType {
+    return YTKResponseSerializerTypeJSON;
+}
+- (BOOL)useCDN {
+    return YES;
+}
+@end

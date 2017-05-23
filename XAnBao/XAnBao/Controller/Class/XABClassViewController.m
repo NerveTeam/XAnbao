@@ -15,6 +15,9 @@
 #import "XABSearchViewController.h"
 #import "SDCycleScrollView.h"
 #import "XABClassContentView.h"
+#import "XABClassRequest.h"
+#import "NSArray+Safe.h"
+#import <objc/runtime.h>
 
 @interface XABClassViewController ()
 <XABSchoolMessageDelegate, XABSchoolMenuDelegate,XABClassContentViewDelegate>
@@ -26,14 +29,49 @@
 @property(nonatomic, strong)XABSchoolMenu *schoolMenu;
 @property(nonatomic, strong)XABSchoolMessage *schoolMessage;
 @property(nonatomic, strong)XABClassContentView *contentView;
+@property(nonatomic, strong)NSArray *followData;
+@property(nonatomic, assign)NSInteger currentSelectIndex;
 @end
 
 @implementation XABClassViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self initTopBar];
     [self requestFoucs];
+    [self loadFollowList];
+}
+
+- (void)loadFollowList {
+    WeakSelf;
+    NSMutableDictionary *pargam = [NSMutableDictionary new];
+    [pargam setSafeObject:UserInfo.mobile forKey:@"mobilePhone"];
+    
+    [ClassFollowList requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
+        NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
+        if (code == 200) {
+            NSArray *data = [request.json objectForKeySafely:@"data"];
+            NSMutableArray *follow = [[NSMutableArray alloc]initWithCapacity:data.count];
+            for (NSDictionary *item in data) {
+                NSString *classId = [item objectForKeySafely:@"classId"];
+                NSString *className = [item objectForKeySafely:@"className"];
+                NSInteger type = [[item objectForKeySafely:@"type"] longValue];
+                NSString *studentId = [item objectForKeySafely:@"studentId"] ;
+                NSString *studentName = [item objectForKeySafely:@"studentName"];
+                NSMutableDictionary *list = [NSMutableDictionary dictionary];
+                [list setSafeObject:classId forKey:@"classId"];
+                [list setSafeObject:className forKey:@"className"];
+                [list setSafeObject:studentId forKey:@"studentId"];
+                [list setSafeObject:studentName forKey:@"studentName"];
+                [list setSafeObject:@(type) forKey:@"type"];
+                
+                [follow addObject:list];
+            }
+            weakSelf.followData = follow.copy;
+            [weakSelf initTopBar];
+        }
+    } failureBlock:^(BaseDataRequest *request) {
+        [weakSelf initTopBar];
+    }];
 }
 
 - (void)requestFoucs {
@@ -64,7 +102,23 @@
 - (void)clickSchoolMenu {
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     [window addSubview:self.schoolMenuBgView];
-    self.schoolMenu = [XABSchoolMenu schoolMenuList:@[@"我是家长:某某学校",@"我是老师:北京市昌平区回龙观小学",@"我是家长:北京市东城区实验小学"]];
+    NSMutableArray *meunList = [NSMutableArray array];
+    for (NSDictionary *item in self.followData) {
+        NSInteger type = [[item objectForKeySafely:@"type"] longValue];
+        NSString *result = @"";
+        if (type == 1) {
+            result = @"我是家长:";
+        }else if(type == 2){
+            result = @"我是老师:";
+        }
+        result = [result stringByAppendingString:[item objectForKeySafely:@"className"]];
+        NSString *studentName = [item objectForKeySafely:@"studentName"];
+        if (studentName) {
+           result = [result stringByAppendingString:studentName];
+        }
+        [meunList addObject:result];
+    }
+    self.schoolMenu = [XABSchoolMenu schoolMenuList:meunList.copy meunType:MeunTypeClass];
     self.schoolMenu.delegate = self;
     [window addSubview:self.schoolMenu];
 }
@@ -96,20 +150,8 @@
     self.schoolMessage = nil;
 }
 
-
-- (void)schoolMenuSetDefault:(NSString *)str {
-    [self.currentSelectSchool setTitle:str forState:UIControlStateNormal];
-    [_currentSelectSchool sizeToFit];
-    [_currentSelectSchool layoutButtonWithEdgeInsetsStyle:MKButtonEdgeInsetsStyleRight imageTitleSpace:5];
-    [self.schoolMenu removeFromSuperview];
-    [self.schoolMenuBgView removeFromSuperview];
-}
-
-- (void)schoolMenuCancelFoucs:(NSString *)str {
-    
-}
-
-- (void)schoolMenuSelected:(NSString *)str {
+- (void)schoolMenuSelected:(NSInteger)index str:(NSString *)str {
+    self.currentSelectIndex = index;
     [self.currentSelectSchool setTitle:str forState:UIControlStateNormal];
     [_currentSelectSchool sizeToFit];
     [_currentSelectSchool layoutButtonWithEdgeInsetsStyle:MKButtonEdgeInsetsStyleRight imageTitleSpace:5];
@@ -120,6 +162,15 @@
 - (void)clickItemWithClass:(NSString *)className {
     Class class = NSClassFromString(className);
     UIViewController *viewcontroller = [class new];
+    
+    NSDictionary *currentInfo = [self.followData safeObjectAtIndex:self.currentSelectIndex];
+    [currentInfo enumerateKeysAndObjectsUsingBlock:^(NSString   *key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+       objc_property_t property = class_getProperty(NSClassFromString(className), key.UTF8String);
+        if (property) {
+            [viewcontroller setValue:obj forKey:key];
+        }
+    }];
+    
     [self.navigationController pushViewController:viewcontroller animated:YES];
 }
 
@@ -135,7 +186,19 @@
     if (!_currentSelectSchool) {
         _currentSelectSchool = [[UIButton alloc]init];
         [_currentSelectSchool.titleLabel setFont:[UIFont systemFontOfSize:16]];
-        [_currentSelectSchool setTitle:@"北京市朝阳区第二实验小学" forState:UIControlStateNormal];
+        NSInteger type = [[self.followData.firstObject objectForKeySafely:@"type"] longValue];
+        NSString *result = @"";
+        if (type == 1) {
+            result = @"我是家长:";
+        }else if(type == 2){
+            result = @"我是老师:";
+        }
+        result = [result stringByAppendingString:[self.followData.firstObject objectForKeySafely:@"className"]];
+        NSString *studentName = [self.followData.firstObject objectForKeySafely:@"studentName"];
+        if (studentName) {
+            result = [result stringByAppendingString:studentName];
+        }
+        [_currentSelectSchool setTitle:result forState:UIControlStateNormal];
         [_currentSelectSchool setImage:[UIImage imageNamed:@"faculty_arrow"] forState:UIControlStateNormal];
         [_currentSelectSchool sizeToFit];
         [_currentSelectSchool layoutButtonWithEdgeInsetsStyle:MKButtonEdgeInsetsStyleRight imageTitleSpace:5];

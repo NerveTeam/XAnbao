@@ -36,6 +36,7 @@ extern NSString *const UserLoginError;
  */
 @property(nonatomic, strong)XABUserModel *userInfo;
 
+@property(nonatomic, copy)NSString *defaultSchoolId;
 /**
  *  登录代理
  */

@@ -11,6 +11,8 @@
 #import "XABResource.h"
 #import "XABResourceListCell.h"
 #import "XABArticleViewController.h"
+#import "XABSchoolRequest.h"
+#import "NSArray+Safe.h"
 
 @interface XABIntranetNoticeViewController ()<SDCycleScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)SDCycleScrollView *cycleView;
@@ -25,16 +27,55 @@
     _currentIndex = 1;
     self.tableView.mj_header.state = MJRefreshStateRefreshing;
     [self loadData:_currentIndex];
+    [self loadFoucsMap];
+}
+
+- (void)loadFoucsMap {
+    WeakSelf;
+    NSMutableDictionary *pargam = [NSMutableDictionary new];
+    [pargam setSafeObject:self.schoolId forKey:@"schoolId"];
+    [SchoolFoucsMap requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
+        NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
+        if (code == 200) {
+            NSArray *data = [request.json objectForKeySafely:@"data"];
+            NSMutableArray *img = [NSMutableArray arrayWithCapacity:data.count];
+            NSMutableArray *name = [NSMutableArray arrayWithCapacity:data.count];
+            for (NSDictionary *sub in data) {
+                [img safeAddObject:[sub objectForKeySafely:@"url"]];
+                [name safeAddObject:[sub objectForKeySafely:@"title"]];
+            }
+            weakSelf.cycleView.imageURLStringsGroup = img.copy;
+        }
+    } failureBlock:^(BaseDataRequest *request) {
+        [weakSelf showMessage:[request.json objectForKeySafely:@"message"]];
+    }];
 }
 
 - (void)loadData:(NSInteger)page {
-    __weak typeof(self)weakSelf = self;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    WeakSelf;
+    NSMutableDictionary *pargam = [NSMutableDictionary new];
+    [pargam setSafeObject:self.schoolId forKey:@"schoolId"];
+    [pargam setSafeObject:UserInfo.id forKey:@"userId"];
+    [pargam setSafeObject:@(page) forKey:@"current"];
+    [SchoolIntranetNotice requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
+        NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
+        if (code == 200) {
+            NSDictionary *data = [request.json objectForKeySafely:@"data"];
+            NSArray *results = [data objectForKeySafely:@"results"];
+            if (page > 1) {
+                NSMutableArray *temp = [NSMutableArray arrayWithArray:self.dataList];
+                [temp addObjectsFromArray:[XABResource mj_objectArrayWithKeyValuesArray:results]];
+                self.dataList = temp.copy;
+            }else {
+            self.dataList = [XABResource mj_objectArrayWithKeyValuesArray:results];
+            }
+        }
+        
         [weakSelf stopRefresh];
         [weakSelf.tableView reloadData];
-        
-        weakSelf.cycleView.imageURLStringsGroup = @[@"https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3510003795,2153467965&fm=23&gp=0.jpg",@"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1017904219,2460650030&fm=23&gp=0.jpg",@"https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=938946740,2496936570&fm=23&gp=0.jpg",@"https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3448641352,2315059109&fm=23&gp=0.jpg"];
-    });
+    } failureBlock:^(BaseDataRequest *request) {
+        [weakSelf stopRefresh];
+    }];
 }
 
 
@@ -43,8 +84,7 @@
     [self.tableView.mj_footer endRefreshing];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 30;
-    //    return self.dataList.count;
+        return self.dataList.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     XABResourceListCell *cell = [XABResourceListCell newsSportListCellWithTableView:tableView];
@@ -60,7 +100,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     XABResource *sport = self.dataList[indexPath.row];
-    XABArticleViewController *article = [[XABArticleViewController alloc]initWithUrl:@"https://sports.sina.cn/nba/warriors/2017-03-09/detail-ifychhuq3433755.d.html?vt=4&pos=10&HTTPS=1"];
+    XABArticleViewController *article = [[XABArticleViewController alloc]initWithUrl:sport.url];
+    article.articleId = sport.id;
+    article.showType = ArticleTypeSchool;
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self.navigationController pushViewController:article animated:YES];
 }
@@ -70,7 +112,7 @@
 #pragma mark - lazy
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - TabBarHeight -  2 * TopBarHeight - StatusBarHeight)];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height -  2 * TopBarHeight - StatusBarHeight)];
         [_tableView registerClass:[XABResourceListCell class] forCellReuseIdentifier:NSStringFromClass([XABResourceListCell class])];
         _tableView.delegate = self;
         _tableView.dataSource = self;

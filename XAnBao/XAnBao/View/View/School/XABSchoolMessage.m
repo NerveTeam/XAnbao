@@ -49,11 +49,25 @@
         NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
         if (code == 200) {
             NSArray *data = [request.json objectForKeySafely:@"data"];
+            NSMutableArray *list = [[NSMutableArray alloc]initWithCapacity:data.count];
+            for (NSDictionary *item in data) {
+                NSMutableDictionary *element = [NSMutableDictionary dictionary];
+                [element setSafeObject:[item objectForKeySafely:@"id"] forKey:@"teacherId"];
+                [element setSafeObject:[item objectForKeySafely:@"name"] forKey:@"teacherName"];
+                [list safeAddObject:element];
+                
+            }
+            weakSelf.list = list.copy;
+            [weakSelf setup];
+        }else {
+            if ([_delegate respondsToSelector:@selector(requestError)]) {
+                [_delegate requestError];
+            }
         }
-        weakSelf.list = @[@"呵呵",@"哈哈"];
-        [weakSelf setup];
     } failureBlock:^(BaseDataRequest *request) {
-        
+        if ([_delegate respondsToSelector:@selector(requestError)]) {
+            [_delegate requestError];
+        }
     }];
         
       
@@ -98,16 +112,20 @@
     WeakSelf;
     NSMutableDictionary *pargam = [NSMutableDictionary new];
     [pargam setSafeObject:self.schollId forKey:@"schoolId"];
-    [pargam setSafeObject:@"" forKey:@"teacherId"];
-    [pargam setSafeObject:@"" forKey:@"teacherName"];
+    
+    NSDictionary *item = [self.list safeObjectAtIndex:self.selectIndex];
+    [pargam setSafeObject:[item objectForKeySafely:@"teacherId"] forKey:@"teacherId"];
+    [pargam setSafeObject:[item objectForKeySafely:@"teacherName"] forKey:@"teacherName"];
     [pargam setSafeObject:self.contentView.text forKey:@"content"];
-    [pargam setSafeObject:@"" forKey:@"anonymity"];
+    [pargam setSafeObject:@(1) forKey:@"anonymity"];
     [SchoolPostMessageTeacher requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
         if ([_delegate respondsToSelector:@selector(messageDidFinish)]) {
             [_delegate messageDidFinish];
         }
     } failureBlock:^(BaseDataRequest *request) {
-        
+        if ([_delegate respondsToSelector:@selector(requestError)]) {
+            [_delegate requestError];
+        }
     }];
 }
 
@@ -128,8 +146,8 @@
 }
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"选择对象" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:nil, nil];
-    for (NSString *name in self.list) {
-        [sheet addButtonWithTitle:name];
+    for (NSDictionary *item in self.list) {
+        [sheet addButtonWithTitle:[item objectForKeySafely:@"teacherName"]];
     }
     [sheet showInView:self];
     return NO;
@@ -141,7 +159,7 @@
     }
     else {
         self.selectIndex = buttonIndex;
-        self.nameTextField.text = [self.list safeObjectAtIndex:buttonIndex - 1];
+        self.nameTextField.text = [[self.list safeObjectAtIndex:buttonIndex - 1] objectForKeySafely:@"teacherName"];
     }
 }
 
