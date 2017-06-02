@@ -81,13 +81,13 @@
 	<key>NSAppleMusicUsageDescription</key>
 	<string></string>
 	<key>NSCameraUsageDescription</key>
-	<string>cameraDesciption</string>
+	<string>需要访问您的相机</string>
 	<key>NSContactsUsageDescription</key>
 	<string>contactsDesciption</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>microphoneDesciption</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string></string>
+	<string>需要访问您的相册</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

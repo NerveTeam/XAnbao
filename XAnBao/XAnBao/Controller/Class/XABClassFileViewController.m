@@ -54,6 +54,7 @@
     XABPictureViewController *picture = [XABPictureViewController new];
     picture.filerType = FilerTypeClass;
     [self.navigationController pushViewController:picture animated:YES];
+    
 }
 - (void)jumpVideo {
     XABVideoViewController *video = [XABVideoViewController new];
