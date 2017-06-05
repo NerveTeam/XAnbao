@@ -10,6 +10,7 @@
 #import "MJExtension.h"
 
 @implementation XABUserModel
+
 MJCodingImplementation
 
 @end

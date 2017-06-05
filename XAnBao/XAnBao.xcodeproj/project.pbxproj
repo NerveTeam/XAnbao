@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		603169D41E8C123C008AA3A7 /* XABShareSDKTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 603169D31E8C123C008AA3A7 /* XABShareSDKTool.m */; };
+		6050DAB41EADC69700091E2B /* XABConversationListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6050DAB31EADC69700091E2B /* XABConversationListViewController.m */; };
+		605F79871EC698D70098E749 /* XABChatRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 605F79861EC698D70098E749 /* XABChatRequest.m */; };
+		605F798B1EC69AE60098E749 /* XABParamModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 605F798A1EC69AE60098E749 /* XABParamModel.m */; };
+		605F798E1EC702F40098E749 /* XABChatStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 605F798D1EC702F40098E749 /* XABChatStorage.m */; };
 		6071D7D81E8A8DF7004B94BD /* ShareSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6071D7AB1E8A8DF6004B94BD /* ShareSDK.framework */; };
 		6071D7D91E8A8DF7004B94BD /* ShareSDKConfigFile.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6071D7AE1E8A8DF6004B94BD /* ShareSDKConfigFile.bundle */; };
 		6071D7DA1E8A8DF7004B94BD /* ShareSDKConfigFile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6071D7AF1E8A8DF6004B94BD /* ShareSDKConfigFile.framework */; };
@@ -71,6 +75,12 @@
 		60A551871E7D17D90058DD96 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60A551861E7D17D90058DD96 /* SystemConfiguration.framework */; };
 		60A551891E7D17DF0058DD96 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60A551881E7D17DF0058DD96 /* CoreTelephony.framework */; };
 		60A5518B1E7D17ED0058DD96 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 60A5518A1E7D17ED0058DD96 /* libstdc++.tbd */; };
+		60BCCDE91ED5761C0071E1B9 /* XABClassGradeCurriculumsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60BCCDE81ED5761C0071E1B9 /* XABClassGradeCurriculumsVC.m */; };
+		60BCCDEE1ED589910071E1B9 /* XABCurriculusCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60BCCDEC1ED589910071E1B9 /* XABCurriculusCollectionViewCell.m */; };
+		60BCCDEF1ED589910071E1B9 /* XABCurriculusCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60BCCDED1ED589910071E1B9 /* XABCurriculusCollectionViewCell.xib */; };
+		60BCCDF41ED6A3650071E1B9 /* XABCurriculumView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60BCCDF31ED6A3650071E1B9 /* XABCurriculumView.m */; };
+		60BCCDF91ED6A43A0071E1B9 /* UIColor+theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 60BCCDF61ED6A43A0071E1B9 /* UIColor+theme.m */; };
+		60BCCDFA1ED6A43A0071E1B9 /* UIImage+custom.m in Sources */ = {isa = PBXBuildFile; fileRef = 60BCCDF81ED6A43A0071E1B9 /* UIImage+custom.m */; };
 		60DF37FA1E816F6800A514F3 /* XABLoginRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 60DF37F91E816F6800A514F3 /* XABLoginRequest.m */; };
 		751A526A1EE01FA400BAB566 /* XABArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 751A52611EE01FA400BAB566 /* XABArticleViewController.m */; };
 		751A526B1EE01FA400BAB566 /* XABPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 751A52621EE01FA400BAB566 /* XABPictureViewController.m */; };
@@ -463,6 +473,14 @@
 /* Begin PBXFileReference section */
 		603169D21E8C123C008AA3A7 /* XABShareSDKTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABShareSDKTool.h; sourceTree = "<group>"; };
 		603169D31E8C123C008AA3A7 /* XABShareSDKTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABShareSDKTool.m; sourceTree = "<group>"; };
+		6050DAB21EADC69700091E2B /* XABConversationListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABConversationListViewController.h; sourceTree = "<group>"; };
+		6050DAB31EADC69700091E2B /* XABConversationListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABConversationListViewController.m; sourceTree = "<group>"; };
+		605F79851EC698D70098E749 /* XABChatRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABChatRequest.h; sourceTree = "<group>"; };
+		605F79861EC698D70098E749 /* XABChatRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABChatRequest.m; sourceTree = "<group>"; };
+		605F79891EC69AE60098E749 /* XABParamModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABParamModel.h; sourceTree = "<group>"; };
+		605F798A1EC69AE60098E749 /* XABParamModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABParamModel.m; sourceTree = "<group>"; };
+		605F798C1EC702F40098E749 /* XABChatStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABChatStorage.h; sourceTree = "<group>"; };
+		605F798D1EC702F40098E749 /* XABChatStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABChatStorage.m; sourceTree = "<group>"; };
 		6071D7AB1E8A8DF6004B94BD /* ShareSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDK.framework; sourceTree = "<group>"; };
 		6071D7AE1E8A8DF6004B94BD /* ShareSDKConfigFile.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareSDKConfigFile.bundle; sourceTree = "<group>"; };
 		6071D7AF1E8A8DF6004B94BD /* ShareSDKConfigFile.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKConfigFile.framework; sourceTree = "<group>"; };
@@ -553,6 +571,18 @@
 		60A5518A1E7D17ED0058DD96 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		60C25AF31EACFC1100259581 /* XABConversationListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABConversationListViewController.h; sourceTree = "<group>"; };
 		60C25AF41EACFC1100259581 /* XABConversationListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABConversationListViewController.m; sourceTree = "<group>"; };
+		60BCCDE71ED5761C0071E1B9 /* XABClassGradeCurriculumsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABClassGradeCurriculumsVC.h; sourceTree = "<group>"; };
+		60BCCDE81ED5761C0071E1B9 /* XABClassGradeCurriculumsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABClassGradeCurriculumsVC.m; sourceTree = "<group>"; };
+		60BCCDEB1ED589910071E1B9 /* XABCurriculusCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABCurriculusCollectionViewCell.h; sourceTree = "<group>"; };
+		60BCCDEC1ED589910071E1B9 /* XABCurriculusCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABCurriculusCollectionViewCell.m; sourceTree = "<group>"; };
+		60BCCDED1ED589910071E1B9 /* XABCurriculusCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XABCurriculusCollectionViewCell.xib; sourceTree = "<group>"; };
+		60BCCDF21ED6A3650071E1B9 /* XABCurriculumView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABCurriculumView.h; sourceTree = "<group>"; };
+		60BCCDF31ED6A3650071E1B9 /* XABCurriculumView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABCurriculumView.m; sourceTree = "<group>"; };
+		60BCCDF51ED6A43A0071E1B9 /* UIColor+theme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+theme.h"; sourceTree = "<group>"; };
+		60BCCDF61ED6A43A0071E1B9 /* UIColor+theme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+theme.m"; sourceTree = "<group>"; };
+		60BCCDF71ED6A43A0071E1B9 /* UIImage+custom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+custom.h"; sourceTree = "<group>"; };
+		60BCCDF81ED6A43A0071E1B9 /* UIImage+custom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+custom.m"; sourceTree = "<group>"; };
+		60BCCDFB1ED6A44C0071E1B9 /* UITools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITools.h; sourceTree = "<group>"; };
 		60DF37F81E816F6800A514F3 /* XABLoginRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABLoginRequest.h; sourceTree = "<group>"; };
 		60DF37F91E816F6800A514F3 /* XABLoginRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABLoginRequest.m; sourceTree = "<group>"; };
 		751A52601EE01FA400BAB566 /* XABArticleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABArticleViewController.h; sourceTree = "<group>"; };
@@ -1388,6 +1418,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6050DAB11EADC69700091E2B /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				6050DAB21EADC69700091E2B /* XABConversationListViewController.h */,
+				6050DAB31EADC69700091E2B /* XABConversationListViewController.m */,
+				60BCCDE71ED5761C0071E1B9 /* XABClassGradeCurriculumsVC.h */,
+				60BCCDE81ED5761C0071E1B9 /* XABClassGradeCurriculumsVC.m */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		605F79881EC69AC00098E749 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				605F79891EC69AE60098E749 /* XABParamModel.h */,
+				605F798A1EC69AE60098E749 /* XABParamModel.m */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
 		6071D7AA1E8A8DF6004B94BD /* ShareSDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -1919,11 +1969,13 @@
 			children = (
 				60C25AF31EACFC1100259581 /* XABConversationListViewController.h */,
 				60C25AF41EACFC1100259581 /* XABConversationListViewController.m */,
+				60BCCDEB1ED589910071E1B9 /* XABCurriculusCollectionViewCell.h */,
+				60BCCDEC1ED589910071E1B9 /* XABCurriculusCollectionViewCell.m */,
+				60BCCDED1ED589910071E1B9 /* XABCurriculusCollectionViewCell.xib */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
 		};
-
 		7572A7421E87649B00F753BC /* ClearLaJi */ = {
 			isa = PBXGroup;
 			children = (
@@ -2484,6 +2536,10 @@
 				60A5516D1E7D15F30058DD96 /* UITextField+CHTHealper.m */,
 				8CB024761E6D497600A57EBC /* UIViewController+Navigation.h */,
 				8CB024771E6D497600A57EBC /* UIViewController+Navigation.m */,
+				60BCCDF51ED6A43A0071E1B9 /* UIColor+theme.h */,
+				60BCCDF61ED6A43A0071E1B9 /* UIColor+theme.m */,
+				60BCCDF71ED6A43A0071E1B9 /* UIImage+custom.h */,
+				60BCCDF81ED6A43A0071E1B9 /* UIImage+custom.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -2523,6 +2579,8 @@
 				8CB024861E6D497600A57EBC /* DataRequest.m */,
 				60DF37F81E816F6800A514F3 /* XABLoginRequest.h */,
 				60DF37F91E816F6800A514F3 /* XABLoginRequest.m */,
+				605F79851EC698D70098E749 /* XABChatRequest.h */,
+				605F79861EC698D70098E749 /* XABChatRequest.m */,
 				8C383A451EADAA4F00EC7ED6 /* XABSchoolRequest.h */,
 				8C383A461EADAA4F00EC7ED6 /* XABSchoolRequest.m */,
 				8C636BC41EC7FB410003E2D1 /* XABClassRequest.h */,
@@ -2536,6 +2594,8 @@
 			children = (
 				8CB024881E6D497600A57EBC /* TestStorage.h */,
 				8CB024891E6D497600A57EBC /* TestStorage.m */,
+				605F798C1EC702F40098E749 /* XABChatStorage.h */,
+				605F798D1EC702F40098E749 /* XABChatStorage.m */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -2549,6 +2609,7 @@
 				8CB0248E1E6D497600A57EBC /* YBFileHelper.m */,
 				603169D21E8C123C008AA3A7 /* XABShareSDKTool.h */,
 				603169D31E8C123C008AA3A7 /* XABShareSDKTool.m */,
+				60BCCDFB1ED6A44C0071E1B9 /* UITools.h */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -2556,6 +2617,7 @@
 		8CB024901E6D497600A57EBC /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				605F79881EC69AC00098E749 /* Chat */,
 				8CB024911E6D497600A57EBC /* Class */,
 				8CB024921E6D497600A57EBC /* Home */,
 				8CB024931E6D497600A57EBC /* My */,
@@ -2628,6 +2690,7 @@
 		8CB026591E6D497700A57EBC /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				60BCCDEA1ED587DB0071E1B9 /* Chat */,
 				8CB0265A1E6D497700A57EBC /* Class */,
 				8CB0265B1E6D497700A57EBC /* Home */,
 				8CB0265C1E6D497700A57EBC /* My */,
@@ -2723,6 +2786,8 @@
 				8C383A521EB33B0400EC7ED6 /* XABRecordCollectionView.m */,
 				8C383A541EB33B1700EC7ED6 /* XABImageCollectionView.h */,
 				8C383A551EB33B1700EC7ED6 /* XABImageCollectionView.m */,
+				60BCCDF21ED6A3650071E1B9 /* XABCurriculumView.h */,
+				60BCCDF31ED6A3650071E1B9 /* XABCurriculumView.m */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -3356,6 +3421,7 @@
 				8CB02AC61E6D4A3B00A57EBC /* smalldowndefault2x.png in Resources */,
 				8CB02A841E6D4A3B00A57EBC /* news_content_pic_play.png in Resources */,
 				8CB02A5F1E6D4A3B00A57EBC /* c_logo_ico_normal@2x.png in Resources */,
+				60BCCDEF1ED589910071E1B9 /* XABCurriculusCollectionViewCell.xib in Resources */,
 				8CB02AB91E6D4A3B00A57EBC /* play2x.png in Resources */,
 				8CB029DF1E6D4A3A00A57EBC /* Info.plist in Resources */,
 				8CB02A061E6D4A3B00A57EBC /* agreed_icon@2x.png in Resources */,
@@ -3497,6 +3563,9 @@
 				8C636BCD1ED431260003E2D1 /* MJRefreshBackStateFooter.m in Sources */,
 				8CB024501E6D497000A57EBC /* YBBaseViewController.m in Sources */,
 				8CB026701E6D497700A57EBC /* UIView+Position.m in Sources */,
+				8CB02AED1E6D4A3B00A57EBC /* SNArticleBaseViewController+Recommend.m in Sources */,
+				8CB02A321E6D4A3B00A57EBC /* NSString+SNArticle.m in Sources */,
+				60BCCDF41ED6A3650071E1B9 /* XABCurriculumView.m in Sources */,
 				8CB024511E6D497000A57EBC /* YBCollectionViewBaseCell.m in Sources */,
 				8CB02A011E6D4A3B00A57EBC /* MLCommentContentCell.m in Sources */,
 				8CB02B011E6D4A3B00A57EBC /* YTKRequest.m in Sources */,
@@ -3513,6 +3582,7 @@
 				60A5515F1E7D13BE0058DD96 /* XABConfirmFindPasswordVC.m in Sources */,
 				8CB029EF1E6D4A3A00A57EBC /* MJRefreshAutoGifFooter.m in Sources */,
 				751A53B11EE0F59A00BAB566 /* UIImage+CRBoost.m in Sources */,
+				60BCCDF91ED6A43A0071E1B9 /* UIColor+theme.m in Sources */,
 				8CFBD50A1E75339600EE691B /* XABSchoolDetailViewController.m in Sources */,
 				8C0DF5D71E85106E00A1B2B2 /* bits.c in Sources */,
 				8C0DF5FC1E85106F00A1B2B2 /* speex_header.c in Sources */,
@@ -3567,6 +3637,8 @@
 				8C0DF2CC1E8501EB00A1B2B2 /* FSCalendarCell.m in Sources */,
 				751A526A1EE01FA400BAB566 /* XABArticleViewController.m in Sources */,
 				8C0DF2CB1E8501EB00A1B2B2 /* FSCalendarCalculator.m in Sources */,
+				605F798B1EC69AE60098E749 /* XABParamModel.m in Sources */,
+				8CB02AE21E6D4A3B00A57EBC /* SNArticleCacheManager.m in Sources */,
 				8CFBD5541E76AC3200EE691B /* XABClassChatViewController.m in Sources */,
 				7572A7401E87646D00F753BC /* SettingtavleViewCell.m in Sources */,
 				60A5516F1E7D15F30058DD96 /* UITextField+CHTHealper.m in Sources */,
@@ -3633,8 +3705,10 @@
 				8CFBD5271E764BE000EE691B /* FrameAutoScaleLFL.m in Sources */,
 				8C0DF2C91E8501EB00A1B2B2 /* FSCalendar.m in Sources */,
 				8C0DF5F01E85106F00A1B2B2 /* modes.c in Sources */,
+				60BCCDFA1ED6A43A0071E1B9 /* UIImage+custom.m in Sources */,
 				8CFBD54E1E76AC1D00EE691B /* XABClassFileViewController.m in Sources */,
 				8C0DF2D31E8501EB00A1B2B2 /* FSCalendarHeaderView.m in Sources */,
+				605F798E1EC702F40098E749 /* XABChatStorage.m in Sources */,
 				7572A7371E87644500F753BC /* MySelfInfoViewController.m in Sources */,
 				8CB0267C1E6D497700A57EBC /* YBFileHelper.m in Sources */,
 				8C0DF5E81E85106E00A1B2B2 /* jitter.c in Sources */,
@@ -3713,6 +3787,7 @@
 				8CB02B3F1E6D575600A57EBC /* UIImageView+WebCache.m in Sources */,
 				8C0DF5E51E85106E00A1B2B2 /* hexc_10_32_table.c in Sources */,
 				751A53C11EE0F59A00BAB566 /* QNSystem.m in Sources */,
+				605F79871EC698D70098E749 /* XABChatRequest.m in Sources */,
 				8CB02A0F1E6D4A3B00A57EBC /* MLTransitionAnimation.m in Sources */,
 				8CB02A161E6D4A3B00A57EBC /* TADotView.m in Sources */,
 				751A53B31EE0F59A00BAB566 /* UIView+CRBoost.m in Sources */,
@@ -3796,6 +3871,8 @@
 				8C0DF5DA1E85106E00A1B2B2 /* exc_10_16_table.c in Sources */,
 				8CB029FE1E6D4A3A00A57EBC /* MLCommentInputView.m in Sources */,
 				8CB0266F1E6D497700A57EBC /* UILabel+Extention.m in Sources */,
+				60BCCDEE1ED589910071E1B9 /* XABCurriculusCollectionViewCell.m in Sources */,
+				8CB02A531E6D4A3B00A57EBC /* SNAttitudeParser.m in Sources */,
 				8CB0266D1E6D497700A57EBC /* UIImage+Stretch.m in Sources */,
 				7572A7411E87646D00F753BC /* MySelfTableCell.m in Sources */,
 				752155F51ECBFACA00BAD876 /* AFHTTPSessionManager.m in Sources */,
@@ -3803,6 +3880,7 @@
 				8CB029F71E6D4A3A00A57EBC /* MJRefreshStateHeader.m in Sources */,
 				8CB02A001E6D4A3B00A57EBC /* MLComment.m in Sources */,
 				8C383A4A1EB323D500EC7ED6 /* XABEnclosureView.m in Sources */,
+				60BCCDE91ED5761C0071E1B9 /* XABClassGradeCurriculumsVC.m in Sources */,
 				8CB02B8B1E714ADF00A57EBC /* RNCachingURLProtocol.m in Sources */,
 				751A53D11EE0F59A00BAB566 /* QNRefresher.m in Sources */,
 				8C0DF5E31E85106E00A1B2B2 /* gain_table.c in Sources */,
@@ -4000,6 +4078,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Lukuan Wang (ZAW9FNDQPM)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = N4SGXFLMRW;
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/XAnBao/Vender/SMS_SDK",
@@ -4038,6 +4117,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Lukuan Wang (ZAW9FNDQPM)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = N4SGXFLMRW;
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/XAnBao/Vender/SMS_SDK",
@@ -4062,8 +4142,8 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ios2.xiaoanbao;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "9f9abcce-c4a0-4fb3-844a-a208a884968c";
+				PROVISIONING_PROFILE_SPECIFIER = luqiangxab;
 			};
 			name = Release;
 		};
