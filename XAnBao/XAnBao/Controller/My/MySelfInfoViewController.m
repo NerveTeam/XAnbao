@@ -28,14 +28,38 @@
     [self initNavItem];
 }
 //初始化导航按钮
--(void)initNavItem
+- (void)initNavItem
 {
-    UIView *topBarView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, StatusBarHeight + TopBarHeight)];
-    [self.view addSubview:topBarView];
-    topBarView = [topBarView topBarWithTintColor:ThemeColor title:@"个人信息" titleColor:[UIColor whiteColor] leftView:nil rightView:nil responseTarget:self];
+    UIImageView *BlueView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 65)];
+    BlueView.image = [UIImage imageNamed:@"blue.png"];
+    //    BlueView.backgroundColor=[UIColor redColor];
+    BlueView.userInteractionEnabled=YES;
+    [self.view addSubview:BlueView];
+    
+    UIButton *backBt = [[UIButton alloc] initWithFrame:CGRectMake(15, 30, 40, 25)];
+    backBt.contentMode = UIViewContentModeScaleAspectFit;
+    [backBt setTitle:@"返回" forState:UIControlStateNormal];
+    backBt.titleLabel.font=[UIFont systemFontOfSize:15];
+    [BlueView addSubview:backBt];
+    
+    UIView *leftView = [[UIView alloc]initWithFrame:CGRectMake(10, 20, 40, 40)];
+    leftView.backgroundColor = [UIColor clearColor];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(backToBeforeController)];
+    [leftView addGestureRecognizer:tap];
+    [BlueView addSubview:leftView];
+    
+    UILabel *titlelab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 100)*0.5, 30, 100, 25)];
+    titlelab.text = @"个人信息";
+    titlelab.textColor = [UIColor whiteColor];
+    titlelab.font = [UIFont systemFontOfSize:15];
+    titlelab.textAlignment = NSTextAlignmentCenter;
+    [BlueView addSubview:titlelab];
+    
     
 }
-
+-(void)backToBeforeController{
+    [self.navigationController popViewControllerAnimated:1];
+}
 - (UITableView *)MySelfimfoTableView{
     if (!_MySelfimfoTableView) {
         _MySelfimfoTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, StatusBarHeight , self.view.width, self.view.height - TopBarHeight - StatusBarHeight - TabBarHeight) style:UITableViewStyleGrouped];

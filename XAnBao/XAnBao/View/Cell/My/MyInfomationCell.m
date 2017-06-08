@@ -25,11 +25,10 @@
         [self.contentView addSubview:self.Settingtitlelbl];
         
         self.iconView=[[UIImageView alloc]initWithFrame:[FrameAutoScaleLFL CGLFLMakeX:15 Y:10 width:25 height:25]];
-        self.iconView.backgroundColor=[UIColor redColor];
-        [self.contentView addSubview:self.iconView];
+              [self.contentView addSubview:self.iconView];
         
         
-        self.ArrowiconView=[[UIImageView alloc]initWithFrame:[FrameAutoScaleLFL CGLFLMakeX:280 Y:0 width:30 height:25]];
+        self.ArrowiconView=[[UIImageView alloc]initWithFrame:[FrameAutoScaleLFL CGLFLMakeX:280 Y:15 width:15 height:20]];
         
         [self.contentView addSubview:self.ArrowiconView];
         
