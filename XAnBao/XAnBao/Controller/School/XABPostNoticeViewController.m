@@ -10,7 +10,9 @@
 #import "UIView+TopBar.h"
 #import "UIButton+Extention.h"
 #import "XABSchoolRequest.h"
+#import "UILabel+Extention.h"
 #import "XABEnclosureView.h"
+#import "XABSelectPeopleGroupViewController.h"
 
 @interface XABPostNoticeViewController ()
 @property(nonatomic, strong)UIView *topBarView;
@@ -24,6 +26,12 @@
 @property(nonatomic, strong)XABEnclosureView *imageEnclosure;
 @property(nonatomic, strong)XABEnclosureView *statisEnclosure;
 @property(nonatomic, strong)XABEnclosureView *selectObjectEnclosure;
+@property(nonatomic, strong)UIButton *selectReceivePeople;
+@property(nonatomic, strong)NSDictionary *selectGroupList;
+@property(nonatomic, strong)UILabel *statisLabel;
+@property(nonatomic, strong)UILabel *noStatisLabel;
+@property(nonatomic, strong)UIButton *statisBtn;
+@property(nonatomic, strong)UIButton *noStatisBtn;
 @end
 
 @implementation XABPostNoticeViewController
@@ -31,12 +39,69 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setup];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(saveSelectObject:) name:KSelectGroupListDidFinish object:nil];
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self.contentScrollView setContentSize: CGSizeMake(self.view.width, CGRectGetMaxY(self.imageEnclosure.frame))];
 }
 
+- (void)saveSelectObject:(NSNotification *)noti {
+    self.selectGroupList =  noti.userInfo;
+}
+
+
+- (void)statisClick:(UIButton *)sender {
+    if (self.statisBtn.isSelected && !self.noStatisBtn.isSelected) {
+        [self.statisBtn setSelected:NO];
+        [self.noStatisBtn setSelected:YES];
+    }else if (!self.statisBtn.isSelected && self.noStatisBtn.isSelected) {
+        [self.statisBtn setSelected:YES];
+        [self.noStatisBtn setSelected:NO];
+    }
+}
+
+
+
+- (void)selectReceiveGroup {
+    XABSelectPeopleGroupViewController *select = [XABSelectPeopleGroupViewController new];
+    select.isScholl = _noticeType == NoticeTypeSchool ? YES : NO;
+    select.classId = _classId;
+    select.schoolId = _schoolId;
+    [self pushToController:select animated:YES];
+}
+
+
+- (void)postNotice {
+    WeakSelf;
+    
+    if (self.noticeType == NoticeTypeSchool) {
+        NSMutableDictionary *pargam = [NSMutableDictionary new];
+        [pargam setSafeObject:self.schoolId forKey:@"schoolId"];
+        [pargam setSafeObject:UserInfo.id forKey:@"createId"];
+        [pargam setSafeObject:@"" forKey:@"img"];
+        [pargam setSafeObject:self.titleInputView.text forKey:@"title"];
+        [pargam setSafeObject:self.contentInputView.text forKey:@"content"];
+        [pargam setSafeObject:[self.selectGroupList objectForKeySafely:@"groupList"] forKey:@"groups"];
+        [pargam setSafeObject:[self.selectGroupList objectForKeySafely:@"teacherList"]forKey:@"ids"];
+        
+        
+        [SchoolPostIntranetNotice requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
+            NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
+            if (code == 200) {
+                NSDictionary *data = [request.json objectForKeySafely:@"data"];
+                NSArray *results = [data objectForKeySafely:@"results"];
+                [self showMessage:@"发布成功"];
+            }
+        } failureBlock:^(BaseDataRequest *request) {
+            [self showMessage:@"发布失败"];
+        }];
+    }else if (self.noticeType == NoticeTypeClass) {
+        
+        
+    }
+    
+}
 
 - (void)setup {
     self.view.backgroundColor = RGBCOLOR(242, 242, 242);
@@ -50,6 +115,11 @@
     [self.contentScrollView addSubview:self.statisEnclosure];
     [self.contentScrollView addSubview:self.selectObjectEnclosure];
     [self.contentScrollView addSubview:self.imageEnclosure];
+    [self.selectObjectEnclosure addSubview:self.selectReceivePeople];
+    [self.statisEnclosure addSubview:self.statisLabel];
+    [self.statisEnclosure addSubview:self.noStatisLabel];
+    [self.statisEnclosure addSubview:self.statisBtn];
+    [self.statisEnclosure addSubview:self.noStatisBtn];
     
     [self.contentScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.topBarView.mas_bottom);
@@ -87,7 +157,11 @@
         make.top.equalTo(self.statisEnclosure.mas_bottom).offset(10);
         make.left.equalTo(self.titleEnclosure);
         make.right.equalTo(self.titleEnclosure);
-        make.height.offset(150);
+        make.height.offset(40);
+    }];
+    [self.selectReceivePeople mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.selectObjectEnclosure);
+        make.right.equalTo(self.selectObjectEnclosure).offset(-10);
     }];
     [self.imageEnclosure mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.selectObjectEnclosure.mas_bottom).offset(10);
@@ -103,37 +177,26 @@
         make.height.offset(40);
     }];
     
+    [self.statisLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.statisEnclosure).offset(50);
+        make.left.equalTo(self.statisEnclosure).offset(10);
+    }];
+    [self.statisBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.statisLabel);
+        make.right.equalTo(self.statisEnclosure).offset(-10);
+    }];
+    [self.noStatisLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.statisLabel.mas_bottom).offset(10);
+        make.left.equalTo(self.statisEnclosure).offset(10);
+    }];
+    [self.noStatisBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.noStatisLabel);
+        make.right.equalTo(self.statisEnclosure).offset(-10);
+    }];
+    
 }
 
-- (void)postNotice {
-    WeakSelf;
-    
-    if (self.noticeType == NoticeTypeSchool) {
-        NSMutableDictionary *pargam = [NSMutableDictionary new];
-        [pargam setSafeObject:self.schoolId forKey:@"schoolId"];
-        [pargam setSafeObject:UserInfo.id forKey:@"createId"];
-        [pargam setSafeObject:self.titleInputView.text forKey:@"title"];
-        [pargam setSafeObject:self.contentInputView.text forKey:@"content"];
-        //    [pargam setSafeObject:UserInfo.id forKey:@"ids"];
-        //    [pargam setSafeObject:UserInfo.id forKey:@"groups"];
-        
-        
-        [SchoolPostIntranetNotice requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
-            NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
-            if (code == 200) {
-                NSDictionary *data = [request.json objectForKeySafely:@"data"];
-                NSArray *results = [data objectForKeySafely:@"results"];
-                [self showMessage:@"发布成功"];
-            }
-        } failureBlock:^(BaseDataRequest *request) {
-            [self showMessage:@"发布失败"];
-        }];
-    }else if (self.noticeType == NoticeTypeClass) {
-    
-    
-    }
-   
-}
+
 
 - (UIView *)topBarView {
     if (!_topBarView) {
@@ -212,5 +275,45 @@
     }
     return _imageEnclosure;
 
+}
+- (UIButton *)selectReceivePeople {
+    if (!_selectReceivePeople) {
+        _selectReceivePeople = [UIButton buttonWithImageNormal:@"class_job_rightArrow" imageSelected:@"class_job_rightArrow"];
+        [_selectReceivePeople sizeToFit];
+        [_selectReceivePeople addTarget:self action:@selector(selectReceiveGroup) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _selectReceivePeople;
+}
+- (UILabel *)statisLabel {
+    if (!_statisLabel) {
+        _statisLabel = [UILabel labelWithText:@"统计" fontSize:15 textColor:[UIColor blackColor]];
+    }
+    return _statisLabel;
+}
+
+- (UILabel *)noStatisLabel {
+    if (!_noStatisLabel) {
+        _noStatisLabel = [UILabel labelWithText:@"不统计" fontSize:15 textColor:[UIColor blackColor]];
+    }
+    return _noStatisLabel;
+}
+- (UIButton *)noStatisBtn {
+    if (!_noStatisBtn) {
+        _noStatisBtn = [UIButton new];
+        [_noStatisBtn setBackgroundImage:[UIImage imageNamed:@"pub_class_inform_noselect"] forState:UIControlStateNormal];
+    [_noStatisBtn setBackgroundImage:[UIImage imageNamed:@"pub_class_inform_selected"] forState:UIControlStateSelected];
+        [_noStatisBtn addTarget:self action:@selector(statisClick:) forControlEvents:UIControlEventTouchUpInside];
+        [_noStatisBtn setSelected:YES];
+    }
+    return _noStatisBtn;
+}
+- (UIButton *)statisBtn {
+    if (!_statisBtn) {
+        _statisBtn = [UIButton new];
+        [_statisBtn setBackgroundImage:[UIImage imageNamed:@"pub_class_inform_noselect"] forState:UIControlStateNormal];
+        [_statisBtn setBackgroundImage:[UIImage imageNamed:@"pub_class_inform_selected"] forState:UIControlStateSelected];
+        [_statisBtn addTarget:self action:@selector(statisClick:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _statisBtn;
 }
 @end

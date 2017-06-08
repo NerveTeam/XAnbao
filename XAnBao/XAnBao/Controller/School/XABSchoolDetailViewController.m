@@ -102,16 +102,16 @@
     [pargam setSafeObject:self.schollId forKey:@"schoolId"];
     [pargam setSafeObject:UserInfo.id forKey:@"userId"];
     [SchoolEnterIntranetJudgeTeacher requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
-         BOOL judge = [request.json objectForKeySafely:@"data"];
+         BOOL judge = [[request.json objectForKeySafely:@"data"]boolValue];
         if (judge) {
             XABSchoolIntranetViewController *intranet = [XABSchoolIntranetViewController new];
             intranet.schoolId = self.schollId;
             [self.navigationController pushViewController:intranet animated:YES];
         }else {
-            [self showMessage:@"无权进入"];
+            [weakSelf showMessage:@"无权进入"];
         }
     } failureBlock:^(BaseDataRequest *request) {
-            [self showMessage:@"网络异常"];
+            [weakSelf showMessage:@"网络异常"];
     }];
 }
 

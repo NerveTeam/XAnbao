@@ -23,7 +23,7 @@ static int rowHeight = 40;
     XABSchoolMenu *menu = [[XABSchoolMenu alloc]init];
     menu.menuList = list;
     menu.type = type;
-    menu.frame = CGRectMake(0, TopBarHeight + StatusBarHeight, SCREEN_WIDTH, rowHeight * list.count);
+    menu.frame = CGRectMake(0, TopBarHeight + StatusBarHeight, SCREEN_WIDTH, rowHeight * list.count < (SCREEN_HEIGHT - 64) ? rowHeight * list.count :SCREEN_HEIGHT - 64);
     [menu show];
     return menu;
 }

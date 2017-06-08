@@ -43,7 +43,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadFollowList) name:KSearchFollowDidFinish object:nil];
-//    [self loadTest];
     [self loadFollowList];
 }
 - (void)reloadFollowList {
@@ -69,22 +68,7 @@
     }];
 
 }
-- (void)loadTest {
-    NSMutableDictionary *pargam = [NSMutableDictionary new];
-    [pargam setSafeObject:@"klkl" forKey:@"name"];
-    [pargam setSafeObject:@"1" forKey:@"createId"];
-    [pargam setSafeObject:@"10" forKey:@"createAuthor"];
-    [pargam setSafeObject:@"860415707773538304" forKey:@"classId"];
-    [pargam setSafeObject:@"1" forKey:@"className"];
-    [pargam setSafeObject:@"1" forKey:@"type"];
-    [pargam setSafeObject:@"1" forKey:@"url"];
-    [pargam setSafeObject:@(1) forKey:@"share"];
-    [TestRequst requestDataWithParameters:@{@"classResources":@[pargam]} headers:Token successBlock:^(BaseDataRequest *request) {
-        NSLog(@"%@",request.responseObject);
-    } failureBlock:^(BaseDataRequest *request) {
-        NSLog(@"%@",request.responseObject);
-    }];
-}
+
 
 - (void)loadFollowList {
  WeakSelf;
@@ -113,6 +97,8 @@
                 self.currentSchoolName = [follow.firstObject objectForKeySafely:@"schoolName"];
             }
             [weakSelf loadMenu];
+        }else {
+            [self initTopBar];
         }
     } failureBlock:^(BaseDataRequest *request) {
         [self initTopBar];

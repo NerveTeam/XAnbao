@@ -281,6 +281,12 @@
 		8C7BB5531EF3DED600A887A8 /* XABConversationListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C7BB54B1EF3DED600A887A8 /* XABConversationListViewController.m */; };
 		8C7BB5541EF3DED600A887A8 /* XABSchoolGroupChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C7BB54D1EF3DED600A887A8 /* XABSchoolGroupChatViewController.m */; };
 		8C7BB5551EF3DED600A887A8 /* XABSchoolGroupMembersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C7BB54F1EF3DED600A887A8 /* XABSchoolGroupMembersViewController.m */; };
+		8C636BD11ED569690003E2D1 /* XABSelectPeopleGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C636BD01ED569690003E2D1 /* XABSelectPeopleGroupViewController.m */; };
+		8C636BD41ED6B9310003E2D1 /* XABNewGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C636BD31ED6B9310003E2D1 /* XABNewGroupViewController.m */; };
+		8C636BD71ED6C1960003E2D1 /* XABMemberListSelectorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C636BD61ED6C1960003E2D1 /* XABMemberListSelectorView.m */; };
+		8C636BDA1ED6C3980003E2D1 /* XABMemberListSelectorItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C636BD91ED6C3980003E2D1 /* XABMemberListSelectorItem.m */; };
+		8C636BDD1EE7B43F0003E2D1 /* XABSelectGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C636BDC1EE7B43F0003E2D1 /* XABSelectGroupCell.m */; };
+		8C636BE01EE7B5AC0003E2D1 /* RadioButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C636BDF1EE7B5AC0003E2D1 /* RadioButton.m */; };
 		8CA107AD1E8B658A00417C5A /* XABHomeworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA107AC1E8B658A00417C5A /* XABHomeworkViewController.m */; };
 		8CA107B01E8B659900417C5A /* XABCheckJobViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA107AF1E8B659900417C5A /* XABCheckJobViewController.m */; };
 		8CB023FD1E6D470600A57EBC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB023FC1E6D470600A57EBC /* main.m */; };
@@ -1009,6 +1015,18 @@
 		8C7BB54D1EF3DED600A887A8 /* XABSchoolGroupChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABSchoolGroupChatViewController.m; sourceTree = "<group>"; };
 		8C7BB54E1EF3DED600A887A8 /* XABSchoolGroupMembersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABSchoolGroupMembersViewController.h; sourceTree = "<group>"; };
 		8C7BB54F1EF3DED600A887A8 /* XABSchoolGroupMembersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABSchoolGroupMembersViewController.m; sourceTree = "<group>"; };
+		8C636BCF1ED569690003E2D1 /* XABSelectPeopleGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABSelectPeopleGroupViewController.h; sourceTree = "<group>"; };
+		8C636BD01ED569690003E2D1 /* XABSelectPeopleGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABSelectPeopleGroupViewController.m; sourceTree = "<group>"; };
+		8C636BD21ED6B9310003E2D1 /* XABNewGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABNewGroupViewController.h; sourceTree = "<group>"; };
+		8C636BD31ED6B9310003E2D1 /* XABNewGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABNewGroupViewController.m; sourceTree = "<group>"; };
+		8C636BD51ED6C1960003E2D1 /* XABMemberListSelectorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABMemberListSelectorView.h; sourceTree = "<group>"; };
+		8C636BD61ED6C1960003E2D1 /* XABMemberListSelectorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABMemberListSelectorView.m; sourceTree = "<group>"; };
+		8C636BD81ED6C3980003E2D1 /* XABMemberListSelectorItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABMemberListSelectorItem.h; sourceTree = "<group>"; };
+		8C636BD91ED6C3980003E2D1 /* XABMemberListSelectorItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABMemberListSelectorItem.m; sourceTree = "<group>"; };
+		8C636BDB1EE7B43F0003E2D1 /* XABSelectGroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABSelectGroupCell.h; sourceTree = "<group>"; };
+		8C636BDC1EE7B43F0003E2D1 /* XABSelectGroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABSelectGroupCell.m; sourceTree = "<group>"; };
+		8C636BDE1EE7B5AC0003E2D1 /* RadioButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadioButton.h; sourceTree = "<group>"; };
+		8C636BDF1EE7B5AC0003E2D1 /* RadioButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadioButton.m; sourceTree = "<group>"; };
 		8CA107AB1E8B658A00417C5A /* XABHomeworkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABHomeworkViewController.h; sourceTree = "<group>"; };
 		8CA107AC1E8B658A00417C5A /* XABHomeworkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABHomeworkViewController.m; sourceTree = "<group>"; };
 		8CA107AE1E8B659900417C5A /* XABCheckJobViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABCheckJobViewController.h; sourceTree = "<group>"; };
@@ -2857,6 +2875,8 @@
 				8CB02B871E6FF23300A57EBC /* XABSchoolMenuCell.m */,
 				8CB02B991E72986000A57EBC /* XABSearchCell.h */,
 				8CB02B9A1E72986000A57EBC /* XABSearchCell.m */,
+				8C636BDB1EE7B43F0003E2D1 /* XABSelectGroupCell.h */,
+				8C636BDC1EE7B43F0003E2D1 /* XABSelectGroupCell.m */,
 			);
 			path = School;
 			sourceTree = "<group>";
@@ -2926,10 +2946,16 @@
 		8CB026641E6D497700A57EBC /* School */ = {
 			isa = PBXGroup;
 			children = (
+				8C636BDE1EE7B5AC0003E2D1 /* RadioButton.h */,
+				8C636BDF1EE7B5AC0003E2D1 /* RadioButton.m */,
 				8CB02B831E6FED2300A57EBC /* XABSchoolMenu.h */,
 				8CB02B841E6FED2300A57EBC /* XABSchoolMenu.m */,
 				8CB02B931E71662400A57EBC /* XABSchoolMessage.h */,
 				8CB02B941E71662400A57EBC /* XABSchoolMessage.m */,
+				8C636BD51ED6C1960003E2D1 /* XABMemberListSelectorView.h */,
+				8C636BD61ED6C1960003E2D1 /* XABMemberListSelectorView.m */,
+				8C636BD81ED6C3980003E2D1 /* XABMemberListSelectorItem.h */,
+				8C636BD91ED6C3980003E2D1 /* XABMemberListSelectorItem.m */,
 			);
 			path = School;
 			sourceTree = "<group>";
@@ -3381,6 +3407,20 @@
 				751A52681EE01FA400BAB566 /* XABOtherViewController.h */,
 				751A52691EE01FA400BAB566 /* XABOtherViewController.m */,
 				752155831ECAEAE100BAD876 /* FGGDownloader */,
+				8CB02B8D1E714B6300A57EBC /* XABArticleViewController.h */,
+				8CB02B8E1E714B6300A57EBC /* XABArticleViewController.m */,
+				8CFBD5581E77E29000EE691B /* XABPictureViewController.h */,
+				8CFBD5591E77E29000EE691B /* XABPictureViewController.m */,
+				8CFBD55B1E77E2A600EE691B /* XABVideoViewController.h */,
+				8CFBD55C1E77E2A600EE691B /* XABVideoViewController.m */,
+				8CFBD55E1E77E2AD00EE691B /* XABFileViewController.h */,
+				8CFBD55F1E77E2AD00EE691B /* XABFileViewController.m */,
+				8CFBD5611E77E2B500EE691B /* XABOtherViewController.h */,
+				8C636BCF1ED569690003E2D1 /* XABSelectPeopleGroupViewController.h */,
+				8C636BD01ED569690003E2D1 /* XABSelectPeopleGroupViewController.m */,
+				8C636BD21ED6B9310003E2D1 /* XABNewGroupViewController.h */,
+				8C636BD31ED6B9310003E2D1 /* XABNewGroupViewController.m */,
+				8CFBD5621E77E2B500EE691B /* XABOtherViewController.m */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -3589,6 +3629,7 @@
 				751A53B11EE0F59A00BAB566 /* UIImage+CRBoost.m in Sources */,
 				60BCCDF91ED6A43A0071E1B9 /* UIColor+theme.m in Sources */,
 				8CFBD50A1E75339600EE691B /* XABSchoolDetailViewController.m in Sources */,
+				8C636BDD1EE7B43F0003E2D1 /* XABSelectGroupCell.m in Sources */,
 				8C0DF5D71E85106E00A1B2B2 /* bits.c in Sources */,
 				8C0DF5FC1E85106F00A1B2B2 /* speex_header.c in Sources */,
 				8CB0266A1E6D497700A57EBC /* UIButton+Extention.m in Sources */,
@@ -3617,6 +3658,7 @@
 				8C0DF5F71E85106F00A1B2B2 /* scal.c in Sources */,
 				751A53D71EE0F59A00BAB566 /* QNSessionManager.m in Sources */,
 				8C0DF5DF1E85106E00A1B2B2 /* exc_8_128_table.c in Sources */,
+				8C636BE01EE7B5AC0003E2D1 /* RadioButton.m in Sources */,
 				8C0DF2CF1E8501EB00A1B2B2 /* FSCalendarConstants.m in Sources */,
 				75CAE8261EE8FBD600012F48 /* AppDelegate.m in Sources */,
 				8C636BC61EC7FB410003E2D1 /* XABClassRequest.m in Sources */,
@@ -3777,6 +3819,7 @@
 				8CB02B0B1E6D4D9700A57EBC /* XABSchoolViewController.m in Sources */,
 				751A53C51EE0F59A00BAB566 /* QNDnsManager.m in Sources */,
 				8C0DF5D41E85106E00A1B2B2 /* RecorderManager.mm in Sources */,
+				8C636BD41ED6B9310003E2D1 /* XABNewGroupViewController.m in Sources */,
 				8CB02B111E6D4DB300A57EBC /* XABResourceViewController.m in Sources */,
 				751A53C21EE0F59A00BAB566 /* QNUrlSafeBase64.m in Sources */,
 				7521558C1ECAEAE100BAD876 /* PlayVideoViewController.m in Sources */,
@@ -3785,6 +3828,7 @@
 				8CB02B081E6D4D7D00A57EBC /* XABHomeViewController.m in Sources */,
 				8CB0266C1E6D497700A57EBC /* UIImage+Crop.m in Sources */,
 				8CB02B3D1E6D575600A57EBC /* UIImage+MultiFormat.m in Sources */,
+				8C636BD11ED569690003E2D1 /* XABSelectPeopleGroupViewController.m in Sources */,
 				8C0DF5E41E85106E00A1B2B2 /* gain_table_lbr.c in Sources */,
 				8CB0266B1E6D497700A57EBC /* UIButton+ImageTitleSpacing.m in Sources */,
 				751A53CA1EE0F59A00BAB566 /* QNDnspodEnterprise.m in Sources */,
@@ -3836,6 +3880,7 @@
 				8C383A561EB33B1700EC7ED6 /* XABImageCollectionView.m in Sources */,
 				8CB029F01E6D4A3A00A57EBC /* MJRefreshAutoNormalFooter.m in Sources */,
 				751A53CD1EE0F59A00BAB566 /* QNHosts.m in Sources */,
+				8C636BDA1ED6C3980003E2D1 /* XABMemberListSelectorItem.m in Sources */,
 				60DF37FA1E816F6800A514F3 /* XABLoginRequest.m in Sources */,
 				8CB02B921E71515400A57EBC /* Reachability.m in Sources */,
 				8CB02AF71E6D4A3B00A57EBC /* UITableView+FDTemplateLayoutCellDebug.m in Sources */,
@@ -3873,6 +3918,7 @@
 				8CB0267B1E6D497700A57EBC /* MLTool.m in Sources */,
 				8C383A4D1EB32A5F00EC7ED6 /* XABUploadImageCell.m in Sources */,
 				8C0DF5F61E85106F00A1B2B2 /* sb_celp.c in Sources */,
+				8C636BD71ED6C1960003E2D1 /* XABMemberListSelectorView.m in Sources */,
 				8CB02B791E6EA65E00A57EBC /* XABNewsNoticeViewController.m in Sources */,
 				8CB0266E1E6D497700A57EBC /* UIImageView+Animation.m in Sources */,
 				8CFBD52A1E764D0800EE691B /* XABdsklfjkdjfsViewController.m in Sources */,
