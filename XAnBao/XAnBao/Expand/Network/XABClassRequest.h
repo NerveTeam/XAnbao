@@ -20,3 +20,18 @@
 @interface ClassPostNotice : BaseDataRequest
 
 @end
+
+// 获取班级组
+@interface ClassGetStudentGroup : BaseDataRequest
+
+@end
+
+//获取班级学生列表
+@interface ClassGetStudentList : BaseDataRequest
+
+@end
+
+//新建学生组
+@interface ClassNewGroupRequest : BaseDataRequest
+
+@end

@@ -13,8 +13,9 @@
 #import "UILabel+Extention.h"
 #import "XABEnclosureView.h"
 #import "XABSelectPeopleGroupViewController.h"
+#import "XABClassRequest.h"
 
-@interface XABPostNoticeViewController ()
+@interface XABPostNoticeViewController ()<UIScrollViewDelegate>
 @property(nonatomic, strong)UIView *topBarView;
 @property(nonatomic, strong)UIButton *backBtn;
 @property(nonatomic, strong)UIButton *postBtn;
@@ -80,27 +81,47 @@
         [pargam setSafeObject:self.schoolId forKey:@"schoolId"];
         [pargam setSafeObject:UserInfo.id forKey:@"createId"];
         [pargam setSafeObject:@"" forKey:@"img"];
+        [pargam setSafeObject:@(self.statisBtn.isSelected) forKey:@"confirm"];
         [pargam setSafeObject:self.titleInputView.text forKey:@"title"];
         [pargam setSafeObject:self.contentInputView.text forKey:@"content"];
-        [pargam setSafeObject:[self.selectGroupList objectForKeySafely:@"groupList"] forKey:@"groups"];
-        [pargam setSafeObject:[self.selectGroupList objectForKeySafely:@"teacherList"]forKey:@"ids"];
+        [pargam setSafeObject:[[self.selectGroupList objectForKeySafely:@"groupList"] componentsJoinedByString:@","] forKey:@"groups"];
+        [pargam setSafeObject:[[self.selectGroupList objectForKeySafely:@"teacherList"] componentsJoinedByString:@","]forKey:@"ids"];
         
         
         [SchoolPostIntranetNotice requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
             NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
             if (code == 200) {
-                NSDictionary *data = [request.json objectForKeySafely:@"data"];
-                NSArray *results = [data objectForKeySafely:@"results"];
                 [self showMessage:@"发布成功"];
             }
         } failureBlock:^(BaseDataRequest *request) {
             [self showMessage:@"发布失败"];
         }];
     }else if (self.noticeType == NoticeTypeClass) {
+        NSMutableDictionary *pargam = [NSMutableDictionary new];
+        [pargam setSafeObject:@"sss" forKey:@"img"];
+        [pargam setSafeObject:@(self.statisBtn.isSelected) forKey:@"reply"];
+        [pargam setSafeObject:self.titleInputView.text forKey:@"title"];
+        [pargam setSafeObject:self.contentInputView.text forKey:@"content"];
+        [pargam setSafeObject:[[self.selectGroupList objectForKeySafely:@"groupList"] componentsJoinedByString:@","] forKey:@"groups"];
+        [pargam setSafeObject:[[self.selectGroupList objectForKeySafely:@"teacherList"] componentsJoinedByString:@","]forKey:@"students"];
         
+        
+        [ClassPostNotice requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
+            NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
+            if (code == 200) {
+                [self showMessage:@"发布成功"];
+            }
+        } failureBlock:^(BaseDataRequest *request) {
+            [self showMessage:@"发布失败"];
+        }];
         
     }
     
+}
+
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self.view endEditing:YES];
 }
 
 - (void)setup {
@@ -226,6 +247,7 @@
     if (!_contentScrollView) {
         _contentScrollView = [UIScrollView new];
         _contentScrollView.backgroundColor = RGBCOLOR(242, 242, 242);
+        _contentScrollView.delegate = self;
     }
     return _contentScrollView;
 }

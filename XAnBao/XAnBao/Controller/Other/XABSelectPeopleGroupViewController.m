@@ -11,6 +11,7 @@
 #import "UIView+TopBar.h"
 #import "UIButton+Extention.h"
 #import "XABSchoolRequest.h"
+#import "XABClassRequest.h"
 #import "XABNewGroupViewController.h"
 #import "XABMemberListSelectorView.h"
 #import "XABSelectGroupCell.h"
@@ -83,39 +84,77 @@
 
 
 - (void)requestTeacherGroup {
-    NSMutableDictionary *pargam = [NSMutableDictionary dictionary];
-    [pargam setSafeObject:UserInfo.id forKey:@"userId"];
-    [SchoolGetTeacherGroup requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
-        NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
-        if (code == 200) {
-            NSArray *data = [request.json objectForKeySafely:@"data"];
-            NSMutableArray *group = [NSMutableArray array];
-            for (NSDictionary *item in data) {
-                NSInteger type = [[item objectForKeySafely:@"type"]longValue];
-                if (type == 1) {
-                    [group addObject:item];
+    if (self.isScholl) {
+        NSMutableDictionary *pargam = [NSMutableDictionary dictionary];
+        [pargam setSafeObject:UserInfo.id forKey:@"userId"];
+        [SchoolGetTeacherGroup requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
+            NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
+            if (code == 200) {
+                NSArray *data = [request.json objectForKeySafely:@"data"];
+                NSMutableArray *group = [NSMutableArray array];
+                for (NSDictionary *item in data) {
+                    NSInteger type = [[item objectForKeySafely:@"type"]longValue];
+                    if (type == 1) {
+                        [group addObject:item];
+                    }
+                    
                 }
-                
+                self.groupList = group.copy;
+                [self.existTableview reloadData];
             }
-            self.groupList = group.copy;
-            [self.existTableview reloadData];
-        }
-    } failureBlock:^(BaseDataRequest *request) {
-        
-    }];
+        } failureBlock:^(BaseDataRequest *request) {
+            
+        }];
+    }else {
+        NSMutableDictionary *pargam = [NSMutableDictionary dictionary];
+        [pargam setSafeObject:UserInfo.mobile forKey:@"mobilePhone"];
+        [ClassGetStudentGroup requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
+            NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
+            if (code == 200) {
+                NSArray *data = [request.json objectForKeySafely:@"data"];
+                NSMutableArray *group = [NSMutableArray array];
+                for (NSDictionary *item in data) {
+                    NSString *parentId = [item objectForKeySafely:@"parentId"];
+                    if ([parentId isEqualToString:@"0"]) {
+                        [group addObject:item];
+                    }
+                    
+                }
+                self.groupList = group.copy;
+                [self.existTableview reloadData];
+            }
+        } failureBlock:^(BaseDataRequest *request) {
+            
+        }];
+    }
+   
 }
 
 - (void)requestTeacherList {
-    NSMutableDictionary *pargam = [NSMutableDictionary dictionary];
-    [pargam setSafeObject:self.schoolId forKey:@"schoolId"];
-    [SchoolGetTeacherList requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
-        NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
-        if (code == 200) {
-            NSArray *data = [request.json objectForKeySafely:@"data"];
-            [self parseTeachAndSchoolData:data];
-        }
-    } failureBlock:^(BaseDataRequest *request) {
-    }];
+    if (self.isScholl) {
+        NSMutableDictionary *pargam = [NSMutableDictionary dictionary];
+        [pargam setSafeObject:self.schoolId forKey:@"schoolId"];
+        [SchoolGetTeacherList requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
+            NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
+            if (code == 200) {
+                NSArray *data = [request.json objectForKeySafely:@"data"];
+                [self parseTeachAndSchoolData:data];
+            }
+        } failureBlock:^(BaseDataRequest *request) {
+        }];
+    }else {
+        NSMutableDictionary *pargam = [NSMutableDictionary dictionary];
+        [pargam setSafeObject:UserInfo.mobile forKey:@"mobilePhone"];
+        [ClassGetStudentList requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
+            NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
+            if (code == 200) {
+                NSArray *data = [request.json objectForKeySafely:@"data"];
+                [self parseTeachAndSchoolData:data];
+            }
+        } failureBlock:^(BaseDataRequest *request) {
+            
+        }];
+    }
 }
 
 - (void)parseTeachAndSchoolData:(NSArray *)dataList {
@@ -157,13 +196,7 @@
         make.top.equalTo(self.existTableview.mas_bottom).offset(20);
         make.left.right.bottom.equalTo(self.view);
     }];
-    [self.view addSubview:self.postBtn];
-    [self.postBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.view).offset(-20);
-        make.left.equalTo(self.view).offset(10);
-        make.right.equalTo(self.view).offset(-10);
-        make.height.offset(40);
-    }];
+    [self.view bringSubviewToFront:self.postBtn];
 }
 
 - (void)setup {
@@ -175,7 +208,13 @@
         make.right.equalTo(self.existGroupView).offset(-10);
     }];
     
-
+    [self.view addSubview:self.postBtn];
+    [self.postBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.view).offset(-20);
+        make.left.equalTo(self.view).offset(10);
+        make.right.equalTo(self.view).offset(-10);
+        make.height.offset(40);
+    }];
 }
 
 

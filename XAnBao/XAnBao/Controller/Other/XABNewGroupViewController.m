@@ -12,6 +12,7 @@
 #import "UIButton+Extention.h"
 #import "XABMemberListSelectorView.h"
 #import "XABSchoolRequest.h"
+#import "XABClassRequest.h"
 
 @interface XABNewGroupViewController ()
 @property(nonatomic,strong)UIView *topBar;
@@ -54,7 +55,21 @@
             
         }];
     }else {
-    
+        [pargam setSafeObject:[self.selectorView.selectList.copy componentsJoinedByString:@","] forKey:@"students"];
+        [pargam setSafeObject:self.groupName.text forKey:@"name"];
+        [ClassNewGroupRequest requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
+            NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
+            if (code == 200) {
+                [self showMessage:@"创建成功"];
+                [[NSNotificationCenter defaultCenter]postNotificationName:NewGroupDidFinish object:nil];
+                [self popViewControllerAnimated:YES];
+            }else {
+                [self showMessage:@"创建失败"];
+            }
+        } failureBlock:^(BaseDataRequest *request) {
+            
+        }];
+
     }
     
 }
