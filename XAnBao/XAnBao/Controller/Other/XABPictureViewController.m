@@ -19,14 +19,29 @@
 #import "UIButton+AFNetworking.h"
 #import "WYCircleView.h"
 #import "AFNetworking.h"
-
+#import "ZXCameraManager.h"
+#import "QiniuSDK.h"
+#import "UIImageView+AFNetworking.h"
+#import "HKNetEngine.h"
+#import "QNResolver.h"
+#import "QNDnsManager.h"
+#import "QNNetworkInfo.h"
+#import "FrameAutoScaleLFL.h"
+#define KQNHttp @"http://7y6y23.com2.z1.glb.clouddn.com/"
 UIDocumentInteractionController *documentController;
 
 
-@interface XABPictureViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,UIDocumentInteractionControllerDelegate>
+@interface XABPictureViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,UIDocumentInteractionControllerDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 {
      UIViewController *_controller;
     NSMutableArray  *_dataArray;
+    NSMutableArray *postImageArr;
+
+//    UIImageView * _imageView;
+    
+    NSString     *headerImgUrl;
+    NSString *token_qn;
+    UIAlertView *alt;
 }
 @property(nonatomic,strong)UITableView  *tbView;
 
@@ -43,11 +58,14 @@ UIDocumentInteractionController *documentController;
     self.view.backgroundColor=[UIColor redColor];
    
     _dataArray=[[NSMutableArray alloc]init];
-    
-    [self.view addSubview:self.topBarView];
-//    [self prepareData];
-    [self createTableView];
+    [self  initNavItem];
+     [self createTableView];
     [self VersionRequest];
+    [self posttoken];
+    
+//    _imageView =[[UIImageView alloc]initWithFrame:CGRectMake(10, 50, 375-20, 200)];
+//    
+//    [self.view addSubview:_imageView];
 }
 
 
@@ -263,20 +281,163 @@ UIDocumentInteractionController *documentController;
 
 
 
-- (UIView *)topBarView {
-    if (!_topBarView) {
-        _topBarView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, StatusBarHeight + TopBarHeight)];
-        _topBarView = [_topBarView topBarWithTintColor:ThemeColor title:@"图片" titleColor:[UIColor whiteColor] leftView:self.backBtn rightView:nil responseTarget:self];
-        _topBarView.backgroundColor = ThemeColor;
-    }
-    return _topBarView;
+//初始化导航按钮
+- (void)initNavItem
+{
+    UIImageView *BlueView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 65)];
+    BlueView.backgroundColor = [UIColor colorWithRed:34/255.0 green:113/255.0 blue:202/255.0 alpha:1];
+    BlueView.userInteractionEnabled=YES;
+    //    BlueView.backgroundColor=[UIColor redColor];
+    [self.view addSubview:BlueView];
+    
+    UIButton *backBt = [[UIButton alloc] initWithFrame:CGRectMake(15, 32, 40, 25)];
+    backBt.contentMode = UIViewContentModeScaleAspectFit;
+    [backBt setTitle:@"返回" forState:UIControlStateNormal];
+    backBt.titleLabel.font=[UIFont systemFontOfSize:15];
+//    [backBt setImage:[UIImage imageNamed:@"fanhui.png"] forState:UIControlStateNormal];
+    //    [backBt addTarget:self action:@selector(backToBeforeController) forControlEvents:UIControlEventTouchUpInside];
+    [BlueView addSubview:backBt];
+    
+  
+    UIButton *upBt = [[UIButton alloc] initWithFrame:[FrameAutoScaleLFL CGLFLMakeX:280 Y:32 width:40 height:25]];
+    upBt.contentMode = UIViewContentModeScaleAspectFit;
+    [upBt setTitle:@"上传" forState:UIControlStateNormal];
+    upBt.titleLabel.font=[UIFont systemFontOfSize:15];
+    //    [backBt setImage:[UIImage imageNamed:@"fanhui.png"] forState:UIControlStateNormal];
+    [upBt addTarget:self action:@selector(upimg) forControlEvents:UIControlEventTouchUpInside];
+    [BlueView addSubview:upBt];
+    
+    
+    
+    
+    
+    
+    
+    UIView *leftView = [[UIView alloc]initWithFrame:CGRectMake(10, 20, 40, 40)];
+    leftView.backgroundColor = [UIColor clearColor];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(backToBeforeController)];
+    [leftView addGestureRecognizer:tap];
+    [BlueView addSubview:leftView];
+    
+    UILabel *titlelab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 100)*0.5, 30, 100, 25)];
+    titlelab.text = @"图片";
+    titlelab.textColor = [UIColor whiteColor];
+    titlelab.font = [UIFont systemFontOfSize:15];
+    
+    
+  
+        titlelab.font=[UIFont systemFontOfSize:16];
+   
+    titlelab.textAlignment = NSTextAlignmentCenter;
+    [BlueView addSubview:titlelab];
+    [self.view addSubview:BlueView];
+    
 }
-- (UIButton *)backBtn {
-    if (!_backBtn) {
-        _backBtn = [UIButton buttonWithTitle:@"返回" fontSize:15];
-    }
-    return _backBtn;
+-(void)upimg{
+    [self headImageClick];
 }
+
+#pragma mark --调用系统相册
+-(void)headImageClick{
+    [[ZXCameraManager getInstance]
+     
+     pickAlbumPhotoFromCurrentController:self imageBlock:^(UIImage *image) {
+ 
+//         _imageView.image=image;
+         [self dismissViewControllerAnimated:YES completion:nil];
+         [self upLoadImageFile:image];
+         
+         
+     }];
+    
+
+}
+
+
+- (void)upLoadImageFile:(UIImage *)img {
+    
+    NSData *data = UIImageJPEGRepresentation(img, 0.4f);
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"yyyyMMddHHmmss";
+    NSString *str = [formatter stringFromDate:[NSDate date]];
+    NSString *fileName = [NSString stringWithFormat:@"xab_tp_wj%@.png", str];
+    
+    
+    
+    
+    [[HKNetEngine shareInstance] uploadImageToQNFilePath:data name:fileName qnToken:token_qn Block:^(id dic, HKNetReachabilityType reachabilityType) {
+        
+        if (dic[@"hash"]) {
+            
+            alt=[[UIAlertView alloc]initWithTitle:@"提示" message:@"图片上传成功" delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
+            [alt show];
+            [self performSelector:@selector(dismissalertView) withObject:nil afterDelay:1.5];
+
+            
+            NSString *urlString = [NSString stringWithFormat:@"%@%@",KQNHttp, dic[@"key"]];
+            
+            NSLog(@">>>>>>>>>>%@",urlString);
+        }
+        
+    }];
+    
+    
+    
+    
+    
+}
+
+-(void)dismissalertView
+{
+ 
+    [ alt dismissWithClickedButtonIndex:0 animated:YES];
+}
+
+- (void)posttoken {
+    
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //申明返回的结果是json类型
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    [manager GET:@"http://139.129.221.253:8080/campus/api/v1/today_duty/token" parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"请求成功---%@",responseObject);
+        
+        token_qn=responseObject[@"upToken"];
+        
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"请求ssss---%@",error);
+        
+        
+    }];
+    
+}
+
+-(void)backToBeforeController{
+    [self.navigationController popViewControllerAnimated:1];
+}
+
+//- (UIView *)topBarView {
+//    if (!_topBarView) {
+//        _topBarView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, StatusBarHeight + TopBarHeight)];
+//        _topBarView = [_topBarView topBarWithTintColor:ThemeColor title:@"图片" titleColor:[UIColor whiteColor] leftView:self.backBtn rightView:nil responseTarget:self];
+//        _topBarView.backgroundColor = ThemeColor;
+//    }
+//    return _topBarView;
+//}
+//- (UIButton *)backBtn {
+//    if (!_backBtn) {
+//        _backBtn = [UIButton buttonWithTitle:@"返回" fontSize:15];
+//    }
+//    return _backBtn;
+//}
+
+-(void)viewWillAppear:(BOOL)animated{
+    self.navigationController.navigationBarHidden=NO;
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

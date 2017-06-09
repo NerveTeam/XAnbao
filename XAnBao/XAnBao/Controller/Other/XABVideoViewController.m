@@ -13,11 +13,13 @@
 #import "PlayVideoViewController.h"
 #import "TaskCell.h"
 #import <MediaPlayer/MediaPlayer.h>
+
+#import "AFNetworking.h"
 #define kWidth [UIScreen mainScreen].bounds.size.width
 #define kHeight [UIScreen mainScreen].bounds.size.height
 #define kCachePath (NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0])
-@interface XABVideoViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
-{
+UIDocumentInteractionController *documentController2;
+@interface XABVideoViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,UIDocumentInteractionControllerDelegate>{
     NSMutableArray  *_dataArray;
 }
 @property(nonatomic,strong)UITableView  *tbView;
@@ -34,43 +36,68 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor=[UIColor redColor];
     NSLog(@">>>>>>>>>>>>>>%@",@"视频");
+    _dataArray=[[NSMutableArray alloc]init];
+
     [self.view addSubview:self.topBarView];
-    [self prepareData];
+    [self VersionRequest];
     [self createTableView];
     
 }
 
-//添加3个任务模型
--(void)prepareData
+-(void)VersionRequest
 {
-    _dataArray=[NSMutableArray array];
-    TaskModel *model=[TaskModel model];
-    model.name=@"GDTSDK.zip";
-    model.url=@"http://imgcache.qq.com/qzone/biz/gdt/dev/sdk/ios/release/GDT_iOS_SDK.zip";
-    model.destinationPath=[kCachePath stringByAppendingPathComponent:model.name];
-    [_dataArray addObject:model];
-    
-    TaskModel *anotherModel=[TaskModel model];
     
     
-    //字符串转变为数组1
-    NSMutableString * str=[[NSMutableString alloc]initWithFormat:@"http://static.tripbe.com/videofiles/20121214/9533522808.f4v.mp4"];
-    //字符串转变为数组2
-    NSMutableArray * array=[NSMutableArray arrayWithArray:[str   componentsSeparatedByString:@"/"]];
-    NSLog(@"******************%@",array[array.count-1]);
+    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+    AFHTTPRequestSerializer *requestSerializer =  [AFJSONRequestSerializer serializer];
     
-    anotherModel.name=array[array.count-1];
-    anotherModel.url=@"http://static.tripbe.com/videofiles/20121214/9533522808.f4v.mp4";
-    anotherModel.destinationPath=[kCachePath stringByAppendingPathComponent:anotherModel.name];
-    [_dataArray addObject:anotherModel];
+    NSDictionary *headerFieldValueDictionary =Token;
     
+    NSLog(@">>>>>>>>>>>>>>>>>>%@",Token);
     
-    TaskModel *third=[TaskModel model];
-    third.name=@"Dota2";
-    third.url=@"http://dota2.dl.wanmei.com/dota2/client/DOTA2Setup20160329.zip";
-    third.destinationPath=[kCachePath stringByAppendingString:third.name];
-    [_dataArray addObject:third];
+    if (headerFieldValueDictionary != nil) {
+        for (NSString *httpHeaderField in headerFieldValueDictionary.allKeys) {
+            NSString *value = headerFieldValueDictionary[httpHeaderField];
+            [requestSerializer setValue:value forHTTPHeaderField:httpHeaderField];
+        }
+    }
+    manger.requestSerializer = requestSerializer;
+    
+    NSDictionary *dict = @{
+                           @"schoolId":@"858692674700578816",
+                           @"type":@"1",
+                           @"current":@"0",
+                           };
+    [manger GET:@"http://118.190.97.150/interface/api1/school/getresource" parameters:dict progress:nil success:
+     ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+         
+         NSDictionary *dic=responseObject[@"data"];
+         NSArray *urldicArr=dic[@"results"];
+         
+         for (NSDictionary *dic in urldicArr) {
+             
+             //             [_dataArray addObject:dic[@"url"]];
+             
+             TaskModel *model=[TaskModel model];
+             model.name=dic[@"name"];
+             model.url=dic[@"url"];
+             model.createTime=dic[@"createTime"];
+             model.destinationPath=[kCachePath stringByAppendingPathComponent:model.name];
+             
+             [_dataArray addObject:model];
+             
+         }
+         [_tbView reloadData];
+                  NSLog(@">>>>>>>>>>>>>>>>><<<<<<<<%@",_dataArray);
+         
+         
+     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+         
+     }];
+    
 }
+
+
 //创建表视图
 -(void)createTableView
 {
@@ -89,26 +116,25 @@
     static NSString *cellId=@"TaskCellID";
     TaskCell *cell=[tableView dequeueReusableCellWithIdentifier:cellId];
     if(!cell)
-//                cell=[[[NSBundle mainBundle] loadNibNamed:@"TaskCell" owner:nil options:nil] lastObject];
-    
+        //        cell=[[[NSBundle mainBundle] loadNibNamed:@"TaskCell" owner:nil options:nil] lastObject];
+        
         cell=[[TaskCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TaskCellID"];
     
     
     TaskModel *model=_dataArray[indexPath.row];
     [cell cellWithModel:model];
+    cell.progressLabel.text=model.createTime;
     //点击下载按钮时回调的代码块
     __weak typeof(cell) weakCell=cell;
-  cell.downloadBlock=^(UIButton *sender){
+    cell.downloadBlock=^(UIButton *sender){
         if([sender.titleLabel.text isEqualToString:@"开始"]||[sender.titleLabel.text isEqualToString:@"恢复"])
         {
             [sender setTitle:@"暂停" forState:UIControlStateNormal];
-            
             //添加下载任务
             [[FGGDownloadManager shredManager] downloadWithUrlString:model.url toPath:model.destinationPath process:^(float progress, NSString *sizeString, NSString *speedString) {
                 //更新进度条的进度值
                 weakCell.progressView.progress=progress;
-                //更新进度值文字
-                weakCell.progressLabel.text=[NSString stringWithFormat:@"%.2f%%",progress*100];
+                
                 //更新文件已下载的大小
                 weakCell.sizeLabel.text=sizeString;
                 //显示网速
@@ -118,8 +144,12 @@
                 
             } completion:^{
                 //这里要播放的
-                
                 [sender setTitle:@"查看" forState:UIControlStateNormal];
+                
+                [sender setTitleColor:[UIColor colorWithRed:251/255.0 green:157/255.0 blue:40/255.0 alpha:1] forState:UIControlStateNormal];
+                sender.layer.borderColor=[UIColor colorWithRed:251/255.0 green:157/255.0 blue:40/255.0 alpha:1].CGColor;
+                
+                
                 //                sender.enabled=NO;
                 //                weakCell.speedLabel.hidden=YES;
                 UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"%@下载完成✅",model.name] delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
@@ -135,14 +165,14 @@
                 
             }];
         }
-        else if([sender.currentTitle isEqualToString:@"暂停"])
+        else if([sender.titleLabel.text isEqualToString:@"暂停"])
         {
             [sender setTitle:@"恢复" forState:UIControlStateNormal];
             [[FGGDownloadManager shredManager] cancelDownloadTask:model.url];
             TaskCell *cell=(TaskCell *)[tableView cellForRowAtIndexPath:indexPath];
             cell.speedLabel.hidden=YES;
-        }else if([sender.currentTitle isEqualToString:@"查看"]){
-            [self playMV];
+        }else if([sender.titleLabel.text isEqualToString:@"查看"]){
+            [self playMV :model.name];
         }
     };
     cell.selectionStyle=UITableViewCellSelectionStyleNone;
@@ -173,15 +203,15 @@
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     
     NSLog(@"************%ld",buttonIndex);
-    if (buttonIndex ==0) {
-        [self playMV];
-    }
+    //    if (buttonIndex ==0) {
+    //        [self playMV];
+    //    }
     
     
     
     
 }
--(void)playMV{
+-(void)playMV:(NSString *)filename{
     NSString *cachePath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches"];
     
     NSLog(@"**********>>>>%@",cachePath);
@@ -192,15 +222,28 @@
     {
         [fileManager createDirectoryAtPath:cachePath withIntermediateDirectories:YES attributes:nil error:nil];
     }
-    if ([fileManager fileExistsAtPath:[cachePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@", @"9533522808.f4v.mp4"]]]) {
-        MPMoviePlayerViewController *playerViewController = [[MPMoviePlayerViewController alloc]initWithContentURL:[NSURL fileURLWithPath:[cachePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@", @"9533522808.f4v.mp4"]]]];
+    if ([fileManager fileExistsAtPath:[cachePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@", filename]]]) {
+        MPMoviePlayerViewController *playerViewController = [[MPMoviePlayerViewController alloc]initWithContentURL:[NSURL fileURLWithPath:[cachePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",filename]]]];
         [self presentMoviePlayerViewControllerAnimated:playerViewController];
         
     }
     
-    
 }
 
+- (UIViewController *)documentInteractionControllerViewControllerForPreview:(UIDocumentInteractionController *)controller
+{
+    return self;
+}
+
+- (UIView *)documentInteractionControllerViewForPreview:(UIDocumentInteractionController *)controller
+{
+    return self.view;
+}
+
+- (CGRect)documentInteractionControllerRectForPreview:(UIDocumentInteractionController *)controller
+{
+    return self.view.bounds;
+}
 
 
 
@@ -220,6 +263,7 @@
     }
     return _backBtn;
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

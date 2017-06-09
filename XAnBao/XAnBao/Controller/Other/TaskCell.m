@@ -67,7 +67,7 @@
         
         self.progressLabel=[[UILabel alloc]initWithFrame:[FrameAutoScaleLFL CGLFLMakeX:50 Y:25 width:200 height:25]];
         self.progressLabel.font=[UIFont systemFontOfSize:12];
-        self.progressLabel.backgroundColor=[UIColor redColor];
+//        self.progressLabel.backgroundColor=[UIColor redColor];
         [self.contentView addSubview:self.progressLabel];
         
         self.progressView=[[UIProgressView alloc]initWithFrame:CGRectMake(10, 10, 10, 10)];
