@@ -87,6 +87,8 @@ static NSString * const SMSAppSecret = @"870942be696045d543192122ad220742";
                  apsForProduction:isProduction
             advertisingIdentifier:advertisingId];
     
+    
+    
     //2.1.9版本新增获取registration id block接口。
     [JPUSHService registrationIDCompletionHandler:^(int resCode, NSString *registrationID) {
         if(resCode == 0){
@@ -96,6 +98,33 @@ static NSString * const SMSAppSecret = @"870942be696045d543192122ad220742";
             NSLog(@"registrationID获取失败，code：%d",resCode);
         }
     }];
+    
+    
+    
+
+//    // 退出登录
+//#pragma mark - 推送,用户退出,别名去掉
+//    
+////    [JPUSHService setAlias:@"" callbackSelector:nil object:self];
+    
+    
+    
+#pragma mark - 推送别名设置
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [JPUSHService setTags:nil alias:userID fetchCompletionHandle:^(int iResCode, NSSet *iTags, NSString *iAlias) {
+//            XHLog(@"%d-------------%@,-------------%@",iResCode,iTags,iAlias);
+//        }];
+        
+        [JPUSHService setTags:nil alias:@"13200902002" callbackSelector:@selector(tagsAliasCallback:tags:alias:) object:self];
+
+        
+    });
+    
+
+    
+//    //退出登录
+//    [JPUSHService setTags:nil alias:@"" callbackSelector:@selector(tagsAliasCallback:tags:alias:) object:self];
+    
     
 
     [self globalConfig];
@@ -141,6 +170,16 @@ static NSString * const SMSAppSecret = @"870942be696045d543192122ad220742";
     
     return YES;
 }
+
+
+- (void)tagsAliasCallback:(int)iResCode tags:(NSSet*)tags alias:(NSString*)alias {
+    NSLog(@">>>>>>>>>>>>>>>>rescode: %d, \ntags: %@, \nalias: %@\n", iResCode, tags , alias);
+}
+
+
+
+
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
@@ -195,6 +234,10 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
                     alpha:1];
     NSLog(@"%@", [NSString stringWithFormat:@"Device Token: %@", deviceToken]);
     [JPUSHService registerDeviceToken:deviceToken];
+    
+    
+    
+    
 }
 
 - (void)application:(UIApplication *)application
@@ -318,6 +361,17 @@ didReceiveLocalNotification:(UILocalNotification *)notification {
     }
     completionHandler(UNNotificationPresentationOptionBadge|UNNotificationPresentationOptionSound|UNNotificationPresentationOptionAlert); // 需要执行这个方法，选择是否提醒用户，有Badge、Sound、Alert三种类型可以设置
 }
+
+
+
+
+
+
+
+
+
+
+
 
 - (void)jpushNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
     
