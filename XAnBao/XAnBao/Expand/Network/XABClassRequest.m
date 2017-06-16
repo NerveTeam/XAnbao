@@ -99,4 +99,138 @@ static const NSString *domain = @"http://118.190.97.150/interface/api1/class-gra
 }
 @end
 
+@implementation GetQiNiuTokenAndDomin
+- (NSString *)requestUrl {
+    return @"http://118.190.97.150/interface/api1/main/upload-token";
+}
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodGET;
+}
+- (YTKResponseSerializerType)responseSerializerType {
+    return YTKResponseSerializerTypeJSON;
+}
+- (BOOL)useCDN {
+    return YES;
+}
+@end
 
+
+@implementation ClassSearchTeacher
+- (NSString *)requestUrl {
+    return [domain stringByAppendingString:@"search-teacher"];
+}
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodGET;
+}
+- (YTKResponseSerializerType)responseSerializerType {
+    return YTKResponseSerializerTypeJSON;
+}
+- (BOOL)useCDN {
+    return YES;
+}
+@end
+
+@implementation ClassSearchStudent
+- (NSString *)requestUrl {
+    return [domain stringByAppendingString:@"search-student"];
+}
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodGET;
+}
+- (YTKResponseSerializerType)responseSerializerType {
+    return YTKResponseSerializerTypeJSON;
+}
+- (BOOL)useCDN {
+    return YES;
+}
+@end
+
+@implementation ClassStudentDetail
+- (NSString *)requestUrl {
+    return [domain stringByAppendingString:@"student-detail"];
+}
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodGET;
+}
+- (YTKResponseSerializerType)responseSerializerType {
+    return YTKResponseSerializerTypeJSON;
+}
+- (BOOL)useCDN {
+    return YES;
+}
+@end
+
+@implementation ClassFollowStudent
+- (NSString *)requestUrl {
+    return [domain stringByAppendingString:@"save-attention"];
+}
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodPOST;
+}
+- (YTKResponseSerializerType)responseSerializerType {
+    return YTKResponseSerializerTypeJSON;
+}
+- (BOOL)useCDN {
+    return YES;
+}
+@end
+
+@implementation ClassCancelFollowStudent
+- (NSString *)requestUrl {
+    return [domain stringByAppendingString:@"cancel-attention"];
+}
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodPOST;
+}
+- (YTKResponseSerializerType)responseSerializerType {
+    return YTKResponseSerializerTypeJSON;
+}
+- (BOOL)useCDN {
+    return YES;
+}
+@end
+
+@implementation ClassGetSubjectRequest
+- (NSString *)requestUrl {
+    return @"http://118.190.97.150/interface/api1/homework/subjects";
+}
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodGET;
+}
+- (YTKResponseSerializerType)responseSerializerType {
+    return YTKResponseSerializerTypeJSON;
+}
+- (BOOL)useCDN {
+    return YES;
+}
+@end
+
+@implementation ClassPostHomeworkRequest
+- (NSString *)requestUrl {
+    return @"http://118.190.97.150/interface/api1/homework/save";
+}
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodPOST;
+}
+- (YTKResponseSerializerType)responseSerializerType {
+    return YTKResponseSerializerTypeJSON;
+}
+- (BOOL)useCDN {
+    return YES;
+}
+@end
+
+@implementation ClassReceivedNoticeRequest
+- (NSString *)requestUrl {
+    return @"http://118.190.97.150/interface/api1/class-message/reply";
+}
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodPOST;
+}
+- (YTKResponseSerializerType)responseSerializerType {
+    return YTKResponseSerializerTypeJSON;
+}
+- (BOOL)useCDN {
+    return YES;
+}
+@end

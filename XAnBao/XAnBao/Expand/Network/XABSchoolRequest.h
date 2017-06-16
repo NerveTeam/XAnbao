@@ -91,3 +91,13 @@
 @interface SchoolNewGroupRequest : BaseDataRequest
 
 @end
+
+//确认收到通知
+@interface SchoolReceivedNoticeRequest : BaseDataRequest
+
+@end
+
+//查询是否确认通知
+@interface SchoolQueryReceivedNoticeRequest : BaseDataRequest
+
+@end

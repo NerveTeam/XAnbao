@@ -18,6 +18,7 @@
 #import "XABClassRequest.h"
 #import "NSArray+Safe.h"
 #import <objc/runtime.h>
+#import "XABClassSearchViewController.h"
 
 @interface XABClassViewController ()
 <XABSchoolMessageDelegate, XABSchoolMenuDelegate,XABClassContentViewDelegate>
@@ -98,7 +99,6 @@
     }];
 }
 
-
 - (void)clickSchoolMenu {
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     [window addSubview:self.schoolMenuBgView];
@@ -136,7 +136,7 @@
 }
 
 - (void)searchClick {
-    [self.navigationController pushViewController:[XABSearchViewController new] animated:YES];
+    [self.navigationController pushViewController:[XABClassSearchViewController new] animated:YES];
 }
 
 
@@ -151,6 +151,8 @@
 }
 
 - (void)schoolMenuSelected:(NSInteger)index str:(NSString *)str {
+   NSInteger type = [[[self.followData safeObjectAtIndex:index]objectForKeySafely:@"type"] longValue];
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"ClassChangeRole" object:nil userInfo:@{@"isTeacher":type == 2? @(YES) : @(NO)}];
     self.currentSelectIndex = index;
     [self.currentSelectSchool setTitle:str forState:UIControlStateNormal];
     [_currentSelectSchool sizeToFit];
@@ -158,6 +160,20 @@
     [self.schoolMenu removeFromSuperview];
     [self.schoolMenuBgView removeFromSuperview];
 }
+
+
+- (void)schoolMenuCancelFoucs:(NSInteger)index {
+    NSDictionary *dic = [self.followData safeObjectAtIndex:index];
+    NSMutableDictionary *pargam = [NSMutableDictionary dictionary];
+        [pargam setSafeObject:[dic objectForKeySafely:@"studentId"] forKey:@"studentId"];
+        [pargam setSafeObject:UserInfo.mobile forKey:@"mobilePhone"];
+    [ClassCancelFollowStudent requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
+        
+    } failureBlock:^(BaseDataRequest *request) {
+        
+    }];
+}
+
 
 - (void)clickItemWithClass:(NSString *)className {
     Class class = NSClassFromString(className);

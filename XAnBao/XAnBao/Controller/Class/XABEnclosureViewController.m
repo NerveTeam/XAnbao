@@ -15,6 +15,8 @@
 #import "XABRecordCollectionView.h"
 #import "XABImageCollectionView.h"
 #import "XABEnclosure.h"
+#import "HKNetEngine.h"
+#import "XABClassRequest.h"
 
 @interface XABEnclosureViewController ()<UICollectionViewDataSource,XABRecordCellDelegate,XABUploadImageCellDelegate>
 @property(nonatomic, strong)UIView *topBar;
@@ -28,14 +30,22 @@
 @property(nonatomic, copy)NSString *playingFileName;
 @property(nonatomic, strong)NSMutableArray *recordFiles;
 @property(nonatomic, strong)NSMutableArray *imageFiles;
+@property(nonatomic, strong)NSMutableArray *recordFileName;
+@property(nonatomic, strong)NSMutableArray *imageFileName;
+@property(nonatomic, strong)UIButton *postBtn;
 @end
 
 @implementation XABEnclosureViewController
-
+{
+    NSString *qn_token;
+    NSString *qn_domain;
+    
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = RGBCOLOR(242, 242, 242);
     [self setup];
+    [self getQNToken];
     self.recordFiles = [NSMutableArray arrayWithObject:@"add"];
     self.imageFiles = [NSMutableArray arrayWithObject:@"add"];
     [self.recordCollectionView reloadData];
@@ -46,7 +56,7 @@
     [self.view addSubview:self.topBar];
     [self.recordBgView addSubview:self.recordCollectionView];
     [self.imgBgView addSubview:self.imgCollectionView];
-    
+    [self.view addSubview:self.postBtn];
     [self.recordBgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.topBar.mas_bottom).offset(10);
         make.left.equalTo(self.view).offset(10);
@@ -74,10 +84,21 @@
         make.height.offset(120);
     }];
     
+    [self.postBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.view).offset(-20);
+        make.left.equalTo(self.view).offset(10);
+        make.right.equalTo(self.view).offset(-10);
+        make.height.offset(40);
+    }];
+    
 }
-
-
-
+- (void)postEnclosure {
+    NSMutableDictionary *parma = [NSMutableDictionary dictionary];
+    [parma setSafeObject:self.recordFileName forKey:@"recordUrl"];
+    [parma setSafeObject:self.imageFileName forKey:@"imageUrl"];
+    [[NSNotificationCenter defaultCenter]postNotificationName:AddEnclosureDidFinish object:nil userInfo:parma.copy];
+    [self popViewControllerAnimated:YES];
+}
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -110,6 +131,7 @@
 
 - (void)recordingDidFinish:(NSString *)filePath {
     if (filePath.length > 0) {
+        [self uploadVioceWithFilePath:filePath];
         [self.recordFiles insertObject:filePath atIndex:0];
         [self.recordCollectionView reloadData];
         [self.recordCollectionView setContentOffset:CGPointMake(0, 0) animated:YES];
@@ -118,6 +140,7 @@
 
 - (void)uploadDidFinish:(NSData *)imageData {
     if (imageData) {
+        [self upLoadImageFile:imageData];
         XABEnclosure *enclosure = [XABEnclosure new];
         enclosure.imageData = imageData;
         enclosure.isLocal = YES;
@@ -139,6 +162,7 @@
 - (UIButton *)backBtn {
     if (!_backBtn) {
         _backBtn = [UIButton buttonWithTitle:@"返回" fontSize:15];
+        [_backBtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
     }
     return _backBtn;
 }
@@ -172,5 +196,80 @@
         _imgCollectionView.dataSource = self;
     }
     return _imgCollectionView;
+}
+
+- (NSMutableArray *)recordFileName {
+    if (!_recordFileName) {
+        _recordFileName = [NSMutableArray array];
+    }
+    return _recordFileName;
+}
+
+- (NSMutableArray *)imageFileName {
+    if (!_imageFileName) {
+        _imageFileName = [NSMutableArray array];
+    }
+    return _imageFileName;
+}
+
+- (UIButton *)postBtn {
+    if (!_postBtn) {
+        _postBtn = [UIButton buttonWithTitle:@"提交" fontSize:15 titleColor:[UIColor whiteColor]];
+        _postBtn.backgroundColor = ThemeColor;
+        _postBtn.layer.cornerRadius = 5;
+        _postBtn.clipsToBounds = YES;
+        [_postBtn addTarget:self action:@selector(postEnclosure) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _postBtn;
+}
+#pragma mark - 上传工作
+
+- (void)getQNToken {
+    [GetQiNiuTokenAndDomin requestDataWithParameters:nil headers:Token successBlock:^(BaseDataRequest *request) {
+        qn_token = [[request.responseObject objectForKey:@"data"] objectForKey:@"token"];
+        qn_domain = [[request.responseObject objectForKey:@"data"] objectForKey:@"domain"];
+    } failureBlock:^(BaseDataRequest *request) {
+        
+    }];
+}
+- (void)uploadVioceWithFilePath:(NSString *)filePath {
+    WeakSelf;
+    NSError *errer;
+    NSData *data = [NSData dataWithContentsOfFile:filePath options:NSDataReadingMappedAlways error:&errer];
+    if (errer) {
+        return;
+    }
+    // 录音后缀字符串
+    NSString *strSpxName = [[filePath componentsSeparatedByString:@"/"] lastObject];
+    
+    [[HKNetEngine shareInstance] uploadImageToQNFilePath:data name:strSpxName qnToken:qn_token Block:^(id dic, HKNetReachabilityType reachabilityType) {
+        if (dic[@"hash"]) {
+            
+            NSString *urlString = [NSString stringWithFormat:@"%@%@",KQNHttp, dic[@"key"]];
+            [weakSelf.recordFileName addObject:urlString];
+        }
+    }];
+}
+
+
+- (void)upLoadImageFile:(NSData *)img {
+    WeakSelf;
+    NSData *data = img;
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"yyyyMMddHHmmss";
+    NSString *str = [formatter stringFromDate:[NSDate date]];
+    NSString *fileName = [NSString stringWithFormat:@"xab_tp_wj%@.png", str];
+    
+    [[HKNetEngine shareInstance] uploadImageToQNFilePath:data name:fileName qnToken:qn_token Block:^(id dic, HKNetReachabilityType reachabilityType) {
+        
+        if (dic[@"hash"]) {
+            NSString *urlString = [NSString stringWithFormat:@"%@%@",qn_domain, dic[@"key"]];
+            [weakSelf.imageFileName addObject:urlString];
+            
+        }
+        
+    }];
+    
 }
 @end

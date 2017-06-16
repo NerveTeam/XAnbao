@@ -61,7 +61,8 @@ static int rowHeight = 40;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.type == MeunTypeClass) {
+    NSString *tls = [self.menuList safeObjectAtIndex:indexPath.row];
+    if ([tls containsString:@"我是老师"]) {
         return NO;
     }
     return YES;
@@ -75,6 +76,9 @@ static int rowHeight = 40;
         }
         tableView.editing = NO;
     }];
+    if (self.type == MeunTypeClass) {
+        return @[cancelAction];
+    }
     cancelAction.backgroundColor = [UIColor redColor];
     UITableViewRowAction *defaultAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"设为默认" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         if ([_delegate respondsToSelector:@selector(schoolMenuSetDefault:)]) {

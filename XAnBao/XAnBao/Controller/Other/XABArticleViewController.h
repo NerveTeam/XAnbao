@@ -17,4 +17,7 @@ typedef NS_ENUM(NSUInteger, ArticleType) {
 - (instancetype)initWithUrl:(NSString *)url;
 @property(nonatomic, copy)NSString *articleId;
 @property(nonatomic, assign)ArticleType showType;
+@property(nonatomic, assign)BOOL isReturn;
+@property(nonatomic, assign)BOOL isCatStatis;
+@property(nonatomic, assign)BOOL isReceived;
 @end

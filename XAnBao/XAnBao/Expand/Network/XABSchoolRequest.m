@@ -265,3 +265,33 @@ static const NSString *domain = @"http://118.190.97.150/interface/api1/school/";
     return YES;
 }
 @end
+
+@implementation SchoolReceivedNoticeRequest
+- (NSString *)requestUrl {
+    return [domain stringByAppendingString:@"confiminsidenotice"];
+}
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodPOST;
+}
+- (YTKResponseSerializerType)responseSerializerType {
+    return YTKResponseSerializerTypeJSON;
+}
+- (BOOL)useCDN {
+    return YES;
+}
+@end
+
+@implementation SchoolQueryReceivedNoticeRequest
+- (NSString *)requestUrl {
+    return [domain stringByAppendingString:@"isconfim"];
+}
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodPOST;
+}
+- (YTKResponseSerializerType)responseSerializerType {
+    return YTKResponseSerializerTypeJSON;
+}
+- (BOOL)useCDN {
+    return YES;
+}
+@end
