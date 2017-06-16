@@ -10,4 +10,6 @@
 
 @interface XABMineViewController : YBBaseViewController
 
+@property(nonatomic,copy)NSString * alert;
+@property(nonatomic,copy)NSURL *url;
 @end

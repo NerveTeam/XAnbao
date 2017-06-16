@@ -16,8 +16,8 @@
 
 #import "PushManager.h"
 
-
-
+#import "XABArticleViewController.h"
+#import "YBTabBarController.h"
 
 #import "YBTabBarController.h"
 #import "WYYViewController.h"
@@ -25,6 +25,8 @@
 #import "XABUserLogin.h"
 #import <SMS_SDK/SMSSDK.h>
 #import "XABShareSDKTool.h"
+
+#import "SettingViewController.h"
 static NSString * const SMSAppKey = @"1b1b702554e44";
 static NSString * const SMSAppSecret = @"870942be696045d543192122ad220742";
 
@@ -44,14 +46,6 @@ static NSString * const SMSAppSecret = @"870942be696045d543192122ad220742";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     
@@ -364,15 +358,6 @@ didReceiveLocalNotification:(UILocalNotification *)notification {
 
 
 
-
-
-
-
-
-
-
-
-
 - (void)jpushNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
     
     NSDictionary * userInfo = response.notification.request.content.userInfo;
@@ -389,7 +374,43 @@ didReceiveLocalNotification:(UILocalNotification *)notification {
         [JPUSHService handleRemoteNotification:userInfo];
         NSLog(@"iOS10 收到远程通知:%@", [self logDic:userInfo]);
         NSDictionary *dic = userInfo[@"aps"];
-        NSDictionary *dic1 = dic[@"alert"];
+
+        
+        NSString * Alertstr=dic[@"alert"];
+        NSString * urlStr=userInfo[@"url"];
+        NSString * typeStr=userInfo[@"type"];
+        NSString * jiazhangid=userInfo[@"patriarchId"];
+        
+        
+        if ([typeStr isEqualToString:@"notice"]) {
+            SettingViewController *settingvc=[[SettingViewController alloc]init];
+            settingvc.alert=Alertstr;
+            settingvc.url=urlStr;
+           
+            self.window.rootViewController = settingvc;
+        }
+        
+        if ([typeStr isEqualToString:@"classNotice"]) {
+            XABArticleViewController *article = [[XABArticleViewController alloc]initWithUrl:urlStr];
+            self.window.rootViewController = article;
+        }
+        
+        if ([typeStr isEqualToString:@"attention"]) {
+            SettingViewController *settingvc=[[SettingViewController alloc]init];
+            settingvc.alert=Alertstr;
+            settingvc.url=urlStr;
+            settingvc.jianzhangid=jiazhangid;
+            
+            
+            
+            
+            self.window.rootViewController = settingvc;
+
+        }
+        
+
+
+        
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:1];
         
  

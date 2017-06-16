@@ -10,7 +10,8 @@
 #import "UIView+TopBar.h"
 #import "SettingtavleViewCell.h"
 #import "NSString+Addtion.h"
-@interface SettingViewController ()<UITableViewDelegate,UITableViewDataSource>
+#import "AFNetworking.h"
+@interface SettingViewController ()<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate>
 {
     NSArray *SettinArr;
 }
@@ -27,7 +28,51 @@
     self.SettingTableView.backgroundColor=[UIColor clearColor];
     SettinArr=@[@"是否静音",@"版本更新",@"清理缓存"];
     
+    NSLog(@">>>>>>>>>>>>%@",self.alert);
+   
+    NSLog(@">>>>>>>>>>>>%@",self.jianzhangid);
+
+    [self    VersionRequest];
 }
+
+
+
+-(void)creataler{
+    
+    UIAlertView *alertview=[[UIAlertView alloc]initWithTitle:self.alert message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    alertview.delegate=self;
+    [alertview show];
+}
+
+
+-(void)VersionRequest
+{
+    
+    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+    AFHTTPRequestSerializer *requestSerializer =  [AFJSONRequestSerializer serializer];
+    NSDictionary *headerFieldValueDictionary =Token;
+    NSLog(@">>>>>>>>>>>>>>>>>>%@",Token);
+    if (headerFieldValueDictionary != nil) {
+        for (NSString *httpHeaderField in headerFieldValueDictionary.allKeys) {
+            NSString *value = headerFieldValueDictionary[httpHeaderField];
+            [requestSerializer setValue:value forHTTPHeaderField:httpHeaderField];
+        }
+    }
+    manger.requestSerializer = requestSerializer;
+    NSDictionary *dict = @{
+                           @"id":self.jianzhangid,
+                           @"pass":@"true",
+                           };
+    [manger POST:@"http://118.190.97.150/interface/api1/class-grade/pass-attention" parameters:dict progress:^(NSProgress * _Nonnull uploadProgress) {
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *dic=responseObject;
+        NSLog(@">>>>>=========%@",dic[@"message"]);
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+    }];
+}
+
+
 //初始化导航按钮
 -(void)initNavItem
 {
@@ -93,10 +138,19 @@
     if (buttonIndex==0) {
         
         return;
-    }else if (buttonIndex==1 && alertView.tag==2 )
+    }
+    else if (buttonIndex==1  )
+
+//    else if (buttonIndex==1 && alertView.tag==2 )
     {
+        
+        
+        
+          [self VersionRequest];
+    }
+        
         //清楚缓存
-        UIAlertView* alertViewc = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:[NSString stringWithFormat:@"清理成功，共清理(%.2fM)垃圾",[NSString getFileSizeWithPath:[NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches"]]]] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    /*    UIAlertView* alertViewc = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:[NSString stringWithFormat:@"清理成功，共清理(%.2fM)垃圾",[NSString getFileSizeWithPath:[NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches"]]]] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alertViewc show];
         NSString *cachPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
         
@@ -114,7 +168,7 @@
         return;
     }
     
-    [self.SettingTableView reloadData];
+    [self.SettingTableView reloadData];*/
 }
 
 //- (void)viewWillDisappear:(BOOL)animated {

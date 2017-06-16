@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface SettingViewController : UIViewController
-
+@property(nonatomic,copy)NSString * alert;
+@property(nonatomic,copy)NSString *url;
+@property(nonatomic,copy)NSString *jianzhangid;
 @end
