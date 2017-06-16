@@ -68,7 +68,7 @@
 }
 - (UITableView *)MyInfoTableView{
     if (!_MyInfoTableView) {
-        _MyInfoTableView = [[UITableView alloc]initWithFrame:[FrameAutoScaleLFL CGLFLMakeX:0 Y:-120 width:320 height:503] style:UITableViewStyleGrouped];
+        _MyInfoTableView = [[UITableView alloc]initWithFrame:[FrameAutoScaleLFL CGLFLMakeX:0 Y:-90 width:320 height:503] style:UITableViewStyleGrouped];
         _MyInfoTableView.delegate=self;
         _MyInfoTableView.dataSource=self;
         [self.view addSubview:_MyInfoTableView];
@@ -135,13 +135,13 @@
 //    view.backgroundColor=[UIColor redColor];
     
     
-    UIImageView *headImgView=[[UIImageView alloc]initWithFrame:[FrameAutoScaleLFL CGLFLMakeX:240 Y:100 width:80 height:80]];
+    UIImageView *headImgView=[[UIImageView alloc]initWithFrame:[FrameAutoScaleLFL CGLFLMakeX:140 Y:140 width:60 height:60]];
     
-    headImgView.layer.cornerRadius=40;
+    headImgView.layer.cornerRadius=35;
 
+    headImgView.backgroundColor=[UIColor orangeColor];
     
-    
-    
+    [view addSubview:headImgView];
     
     return view;
     

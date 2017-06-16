@@ -10,7 +10,8 @@
 #import "UpdatePassViewControler.h"
 #import "UIView+TopBar.h"
 #import "MySelfTableCell.h"
-@interface MySelfInfoViewController ()<UITableViewDataSource,UITableViewDelegate>
+#import "FrameAutoScaleLFL.h"
+@interface MySelfInfoViewController ()
 {
     NSArray *titleArr;
 }
@@ -22,10 +23,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor=[UIColor whiteColor];
-    self.MySelfimfoTableView.backgroundColor=[UIColor clearColor];
+    self.view.backgroundColor=[UIColor colorWithRed:244/255.0 green:244/255.0 blue:244/255.0 alpha:1];
     titleArr=@[@"编辑头像",@"姓名",@"账号",@"性别",@"修改密码"];
     [self initNavItem];
+    [self createView];
 }
 //初始化导航按钮
 - (void)initNavItem
@@ -57,66 +58,40 @@
     
     
 }
+
+-(void)createView{
+    
+    UIView *headview=[[UIView alloc]initWithFrame:[FrameAutoScaleLFL CGLFLMakeX:0 Y:65 width:320 height:80]];
+    headview.backgroundColor=[UIColor whiteColor];
+    [self.view addSubview:headview];
+    
+    UILabel *headlab=[[UILabel alloc]initWithFrame:[FrameAutoScaleLFL CGLFLMakeX:15 Y:15 width:40 height:50]];
+    headlab.text=@"头像";
+    [headview addSubview:headlab];
+    
+    UIImageView *headImgView=[[UIImageView alloc]initWithFrame:[FrameAutoScaleLFL CGLFLMakeX:220 Y:10 width:60 height:60]];
+    
+    headImgView.layer.cornerRadius=35;
+    
+    headImgView.backgroundColor=[UIColor orangeColor];
+    
+    [headview addSubview:headImgView];
+
+    UIImageView *jiantouImgView=[[UIImageView alloc]initWithFrame:[FrameAutoScaleLFL CGLFLMakeX:290  Y:30 width:18 height:20]];
+    
+    jiantouImgView.image=[UIImage imageNamed:@"jiantou.png"];
+    
+    [headview addSubview:jiantouImgView];
+}
+
+
 -(void)backToBeforeController{
     [self.navigationController popViewControllerAnimated:1];
-}
-- (UITableView *)MySelfimfoTableView{
-    if (!_MySelfimfoTableView) {
-        _MySelfimfoTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, StatusBarHeight , self.view.width, self.view.height - TopBarHeight - StatusBarHeight - TabBarHeight) style:UITableViewStyleGrouped];
-        _MySelfimfoTableView.delegate=self;
-        _MySelfimfoTableView.dataSource=self;
-        [self.view addSubview:_MySelfimfoTableView];
-    }
-    return _MySelfimfoTableView;
-}
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return titleArr.count;
-}
-
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    MySelfTableCell *MySelfCell=[tableView dequeueReusableCellWithIdentifier:@"cell"];
-    if (!MySelfCell) {
-        
-        MySelfCell=[[MySelfTableCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:
-                    @"cell"];
-        MySelfCell.namelbl.text=titleArr[indexPath.row];
-    }
-    MySelfCell.iconView.image=   [UIImage imageNamed:[NSString stringWithFormat:@"%@.png", titleArr[indexPath.row]]];
-    MySelfCell.ArrowiconView.backgroundColor=[UIColor redColor];
-    
-    return MySelfCell;
+    UpdatePassViewControler *updatepassvc=[[UpdatePassViewControler alloc]init];
+    [self.navigationController pushViewController:updatepassvc animated:1];
 }
 
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    switch (indexPath.row) {
-        case 0:
-            
-            break;
-        case 1:
-            
-            break;
-        case 2:
-            
-            break;
-        case 3:
-       
-            break;
-        case 4:{
-            UpdatePassViewControler *updatepassvc=[[UpdatePassViewControler alloc]init];
-            [self.navigationController pushViewController:updatepassvc animated:1];
-
-        }
-                       break;
-        default:
-            break;
-    }
-    
-    
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
