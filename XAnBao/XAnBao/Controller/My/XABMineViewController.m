@@ -13,6 +13,8 @@
 #import "FrameAutoScaleLFL.h"
 #import "XABLoginViewController.h"
 #import "AppDelegate.h"
+
+#import "XABConversationListViewController.h"
 @interface XABMineViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     NSArray *titleArr;
@@ -101,6 +103,14 @@
     switch (indexPath.row) {
         case 0:
             
+        {
+            XABConversationListViewController *conversationList = [[XABConversationListViewController alloc]init];
+            conversationList.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:conversationList animated:YES];
+            
+//            [self pushToController:tabBarController animated:YES];
+
+        }
             break;
         case 1:
         {

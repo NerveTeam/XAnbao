@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface UILabel (Extention)
+
+
+@property (nonatomic) NSString *verticalText;
+
 + (instancetype)labelWithText:(NSString *)text fontSize:(CGFloat)fontSize textColor:(UIColor *)color;
 + (instancetype)labelWithText:(NSString *)text fontSize:(CGFloat)fontSize;
 @end

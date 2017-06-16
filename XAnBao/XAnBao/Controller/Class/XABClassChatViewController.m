@@ -9,6 +9,8 @@
 #import "XABClassChatViewController.h"
 #import "UIView+TopBar.h"
 #import "UIButton+Extention.h"
+#import "XABChatTool.h"
+#import "XABParamModel.h"
 @interface XABClassChatViewController ()
 @property(nonatomic, strong)UIView *topBarView;
 @property(nonatomic, strong)UIButton *backBtn;
@@ -19,6 +21,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setup];
+    
+    //获取 校内
+    XABParamModel *model = [XABParamModel paramWithUserId:[XABUserLogin getInstance].userInfo.id];
+    [[XABChatTool getInstance] getChatSchoolGroupWithRequestModel:model resultBlock:^(NSArray *sourceArray, NSError *error) {
+        
+        NSLog(@"输出 讨论组的group == %@",sourceArray);
+    }];
+    
 }
 - (BOOL)hidesBottomBarWhenPushed {
     return YES;

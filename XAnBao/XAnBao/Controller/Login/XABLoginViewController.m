@@ -17,6 +17,7 @@
 #import "XABUserLogin.h"
 #import "UIView+TopBar.h"
 #import "XABShareSDKTool.h"
+#import "XABChatTool.h"
 @interface XABLoginViewController ()
 
 {
@@ -84,6 +85,8 @@
         if (success) {
             NSLog(@"登录成功");
 //            [self showMessage:@"登录成功"];
+            [[XABChatTool getInstance] connectRCServer];
+
             YBTabBarController *tabBarController = [[YBTabBarController alloc]init];
             
             AppDelegate *app =(AppDelegate *) [[UIApplication sharedApplication] delegate ];

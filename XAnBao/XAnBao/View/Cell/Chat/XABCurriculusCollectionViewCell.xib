@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="XABCurriculusCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="177" height="154"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="177" height="154"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="toc-NH-Tex">
+                        <rect key="frame" x="0.0" y="0.0" width="177" height="154"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v4d-6r-Nnh">
+                                <rect key="frame" x="10" y="10" width="157" height="134"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="v4d-6r-Nnh" firstAttribute="centerX" secondItem="toc-NH-Tex" secondAttribute="centerX" id="NNc-Pr-ZhA"/>
+                            <constraint firstItem="v4d-6r-Nnh" firstAttribute="leading" secondItem="toc-NH-Tex" secondAttribute="leading" constant="10" id="Nul-Wc-wog"/>
+                            <constraint firstItem="v4d-6r-Nnh" firstAttribute="top" secondItem="toc-NH-Tex" secondAttribute="top" constant="10" id="S3k-qO-ZDK"/>
+                            <constraint firstAttribute="bottom" secondItem="v4d-6r-Nnh" secondAttribute="bottom" constant="10" id="ihP-oQ-Pxw"/>
+                            <constraint firstAttribute="trailing" secondItem="v4d-6r-Nnh" secondAttribute="trailing" constant="10" id="xqb-DB-h74"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="toc-NH-Tex" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="0.20000000000000001" id="JHE-vJ-jya"/>
+                <constraint firstItem="toc-NH-Tex" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="0.20000000000000001" id="Raa-u4-XSA"/>
+                <constraint firstAttribute="trailing" secondItem="toc-NH-Tex" secondAttribute="trailing" constant="0.20000000000000001" id="SlE-kL-1YC"/>
+                <constraint firstAttribute="bottom" secondItem="toc-NH-Tex" secondAttribute="bottom" constant="0.20000000000000001" id="nZo-Ox-T33"/>
+            </constraints>
+            <size key="customSize" width="177" height="154"/>
+            <point key="canvasLocation" x="-29.5" y="212"/>
+        </collectionViewCell>
+    </objects>
+</document>

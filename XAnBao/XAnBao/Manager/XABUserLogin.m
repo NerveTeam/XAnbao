@@ -84,6 +84,9 @@ static XABUserLogin *_instance;
     [parameter setSafeObject:name forKey:@"name"];
     [parameter setSafeObject:self.account forKey:@"username"];
     [parameter setSafeObject:[password md5] forKey:@"password"];
+    
+    DLog(@"提交注册的输入参数 =%@",parameter);
+
     // 注册
     if (_isVerify) {
         _isVerify = NO;
@@ -133,6 +136,8 @@ static XABUserLogin *_instance;
     [parameter setSafeObject:account forKey:@"username"];
     [parameter setSafeObject:[pwd md5] forKey:@"password"];
 
+    DLog(@"登录的输入参数 =%@",parameter);
+
     [XABLoginRequest requestDataWithParameters:parameter successBlock:^(YTKRequest *request) {
         
         NSLog(@"登录成功==%@",request.responseObject);
@@ -177,6 +182,7 @@ static XABUserLogin *_instance;
     NSMutableDictionary *parameter = [[NSMutableDictionary alloc] init];
     [parameter setSafeObject:self.account forKey:@"username"];
     [parameter setSafeObject:[password md5] forKey:@"password"];
+    DLog(@"修改密码的输入参数 =%@",parameter);
     [XABFindPasswordRequest requestDataWithParameters:parameter successBlock:^(YTKRequest *request) {
         
         DLog(@"修改密码 == %@",request.responseObject);
@@ -267,7 +273,7 @@ static XABUserLogin *_instance;
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:dic];
     
     [[NSUserDefaults standardUserDefaults] setObject:data forKey:@"userModel"];
-    [[NSUserDefaults standardUserDefaults]  synchronize];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
     if (_loginBlock) {
         _loginBlock(YES,self.userInfo);
