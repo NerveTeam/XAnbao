@@ -39,6 +39,29 @@
     return param;
 }
 
+#pragma mark -班级成员-班级教师 的请求 参数
++ (instancetype)paramClassGradeTeachersWithClassId:(NSString *)classId{
+    
+    XABParamModel *param = [[XABParamModel alloc] init];
+    param.classId = classId;
+    return param;
+}
+
+#pragma mark -班级成员-班级学生 的请求 参数
+//+ (instancetype)paramClassGradeStudentsWithClassId:(NSString *)classId mobilePhone:(NSString *)mobilePhone{
+//    
+//    XABParamModel *param = [[XABParamModel alloc] init];
+//    param.studentId = classId;
+//    param.mobilePhone = mobilePhone;
+//    return param;
+//}
+#pragma mark -班级成员-班级家长 的请求 参数
++ (instancetype)paramClassGradePatriarchWithStudentId:(NSString *)studentId{
+    
+    XABParamModel *param = [[XABParamModel alloc] init];
+    param.studentId = studentId;
+    return param;
+}
 #pragma mark -班级群组 的请求 参数
 + (instancetype)paramClassGroupWithClassId:(NSString *)classId{
     
@@ -57,6 +80,13 @@
     return param;
 }
 
++ (instancetype)paramChatSchoolGroupMembersWithId:(NSString *)id pass:(NSString *)pass{
+    
+    XABParamModel *param = [[XABParamModel alloc] init];
+    param.id = id;
+    param.pass = pass;
+    return param;
+}
 @end
 
 
@@ -100,6 +130,25 @@ MJCodingImplementation
 
 @end
 
+@implementation XABChatSchoolGroupMembersModel
+
+
+@end
+
+//班级 - 成员列表
+
+@implementation XABChatClassGradeTeachersModel
+
+
+@end
+
+@implementation XABChatClassGradeStudentsModel
+
+
+@end
+
+
+//班级群
 @implementation XABChatClassGroupModel
 
 //MJCodingImplementation

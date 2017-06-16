@@ -19,6 +19,10 @@
 @property (copy, nonatomic) NSString *userId;  //用户ID
 @property (copy, nonatomic) NSString *groupId; //班级ID
 @property (copy, nonatomic) NSString *classId; //班级ID
+@property (copy, nonatomic) NSString *mobilePhone;//用户手机号
+@property (copy, nonatomic) NSString *studentId; // 学生ID
+@property (copy, nonatomic) NSString *id;  //用户ID
+@property (copy, nonatomic) NSString *pass;  //用户ID
 
 
 - (NSDictionary *)toJSON;
@@ -29,11 +33,19 @@
 #pragma mark - 校内群 的融云组用户 参数
 + (instancetype)paramChatSchoolGroupMembersWithGroupId:(NSString *)groupId;
 
+#pragma mark -班级成员-班级教师 的请求 参数
++ (instancetype)paramClassGradeTeachersWithClassId:(NSString *)classId;
+#pragma mark -班级成员-班级学生 的请求 参数
+//+ (instancetype)paramClassGradeStudentsWithClassId:(NSString *)classId mobilePhone:(NSString *)mobilePhone;
+#pragma mark -班级成员-班级家长 的请求 参数
++ (instancetype)paramClassGradePatriarchWithStudentId:(NSString *)studentId;
+
 #pragma mark -班级群组 的请求 参数
 + (instancetype)paramClassGroupWithClassId:(NSString *)classId;
 #pragma mark - 课程表 的请求 参数
 + (instancetype)paramClassGradeCurriculumWithClassId:(NSString *)classId;
 
++ (instancetype)paramChatSchoolGroupMembersWithId:(NSString *)id pass:(NSString *)pass;
 @end
 
 #pragma mark - 输出参数
@@ -64,9 +76,43 @@
 @interface XABChatSchoolGroupModel : NSObject
 
 @property (copy, nonatomic) NSString *groupId; //融云组ID
-@property (nonatomic,strong) NSString *name;   //名称
+@property (nonatomic,copy) NSString *name;     //名称
 @end
 
+#pragma mark 校内群讨论组 - 成员- 模型
+@interface XABChatSchoolGroupMembersModel : NSObject
+
+@property (copy, nonatomic) NSString *portrit;    //头像地址
+@property (nonatomic,copy) NSString *name;        //名字
+@property (nonatomic,copy) NSString *sex;         //性别
+@property (nonatomic,copy) NSString *available;   //
+@property (nonatomic,copy) NSString *mobilePhone; //电话
+
+@end
+
+#pragma mark - 成员列表
+
+#pragma mark 班级教师 模型
+
+@interface XABChatClassGradeTeachersModel : NSObject
+
+@property (copy, nonatomic) NSString *id;         //老师id
+@property (nonatomic,copy) NSString *name;        //姓名
+@property (nonatomic,copy) NSString *subjectId;   //老师科目Id
+@property (nonatomic,copy) NSString *subject;     //科目
+
+
+@end
+
+
+@interface XABChatClassGradeStudentsModel : NSObject
+
+@property (copy, nonatomic) NSString *id;         //学生id
+@property (nonatomic,copy) NSString *name;        //姓名
+
+
+
+@end
 #pragma mark 班级群 模型
 
 @interface XABChatClassGroupModel : NSObject
