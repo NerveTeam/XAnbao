@@ -10,12 +10,13 @@
 #import "SettingViewController.h"
 #import "MySelfInfoViewController.h"
 #import "MyInfomationCell.h"
-
+#import "FrameAutoScaleLFL.h"
 #import "XABLoginViewController.h"
 #import "AppDelegate.h"
 @interface XABMineViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     NSArray *titleArr;
+    NSArray *imgArr;
 }
 @property(nonatomic,retain)UITableView *MyInfoTableView;
 
@@ -27,22 +28,47 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.MyInfoTableView.backgroundColor=[UIColor clearColor];
-    titleArr=@[@"我的消息",@"个人信息",@"系统通知",@"设置"];
+    titleArr=@[@"我的常用管理",@"个人信息设置",@"系统设置",];
+    imgArr=@[@"系统通知.png",@"个人信息.png",@"设置.png"];
     [self initNavItem];
 }
 //初始化导航按钮
--(void)initNavItem
+
+- (void)initNavItem
 {
-    UIView *topBarView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, StatusBarHeight + TopBarHeight)];
-    [self.view addSubview:topBarView];
-    topBarView = [topBarView topBarWithTintColor:ThemeColor title:@"我的信息" titleColor:[UIColor whiteColor] leftView:nil rightView:nil responseTarget:self];
+    UIImageView *BlueView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 65)];
+    BlueView.image = [UIImage imageNamed:@"blue.png"];
+//    BlueView.backgroundColor=[UIColor redColor];
+    BlueView.userInteractionEnabled=YES;
+     [self.view addSubview:BlueView];
+    
+    UIButton *backBt = [[UIButton alloc] initWithFrame:CGRectMake(15, 30, 40, 25)];
+    backBt.contentMode = UIViewContentModeScaleAspectFit;
+    [backBt setTitle:@"返回" forState:UIControlStateNormal];
+    backBt.titleLabel.font=[UIFont systemFontOfSize:15];
+    [BlueView addSubview:backBt];
+    
+    UIView *leftView = [[UIView alloc]initWithFrame:CGRectMake(10, 20, 40, 40)];
+    leftView.backgroundColor = [UIColor clearColor];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(backToBeforeController)];
+    [leftView addGestureRecognizer:tap];
+    [BlueView addSubview:leftView];
+    
+    UILabel *titlelab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 100)*0.5, 30, 100, 25)];
+    titlelab.text = @"我的信息";
+    titlelab.textColor = [UIColor whiteColor];
+    titlelab.font = [UIFont systemFontOfSize:15];
+    titlelab.textAlignment = NSTextAlignmentCenter;
+    [BlueView addSubview:titlelab];
+   
     
 }
-
-
+-(void)backToBeforeController{
+    [self.navigationController popViewControllerAnimated:1];
+}
 - (UITableView *)MyInfoTableView{
     if (!_MyInfoTableView) {
-        _MyInfoTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, StatusBarHeight , self.view.width, self.view.height - TopBarHeight - StatusBarHeight - TabBarHeight) style:UITableViewStyleGrouped];
+        _MyInfoTableView = [[UITableView alloc]initWithFrame:[FrameAutoScaleLFL CGLFLMakeX:0 Y:-90 width:320 height:503] style:UITableViewStyleGrouped];
         _MyInfoTableView.delegate=self;
         _MyInfoTableView.dataSource=self;
         [self.view addSubview:_MyInfoTableView];
@@ -63,8 +89,8 @@
                      @"cell"];
         MyinfoCell.Settingtitlelbl.text=titleArr[indexPath.row];
     }
-   MyinfoCell.iconView.image=   [UIImage imageNamed:[NSString stringWithFormat:@"%@.png", titleArr[indexPath.row]]];
-   MyinfoCell.ArrowiconView.backgroundColor=[UIColor redColor];
+   MyinfoCell.iconView.image=   [UIImage imageNamed:[NSString stringWithFormat:@"%@", imgArr[indexPath.row]]];
+   MyinfoCell.ArrowiconView.image=[UIImage imageNamed:@"jiantou.png"];
     
     return MyinfoCell;
 }
@@ -96,9 +122,40 @@
     
     
 }
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
+
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    
+    UIImageView *view=[[UIImageView alloc]initWithFrame:[FrameAutoScaleLFL CGLFLMakeX:0 Y:0 width:320 height:200]];
+    view.image=[UIImage imageNamed:@"蓝背景.png"];
+//    view.backgroundColor=[UIColor redColor];
+    
+    
+    UIImageView *headImgView=[[UIImageView alloc]initWithFrame:[FrameAutoScaleLFL CGLFLMakeX:140 Y:140 width:60 height:60]];
+    
+    headImgView.layer.cornerRadius=35;
+
+    headImgView.backgroundColor=[UIColor orangeColor];
+    
+    [view addSubview:headImgView];
+    
+    return view;
+    
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 300;
+}
+
+
+
+
 -(void)viewWillAppear:(BOOL)animated{
     
-    self.navigationController.navigationBar.hidden=NO;
+    self.navigationController.navigationBar.hidden=YES;
 }
 
 
