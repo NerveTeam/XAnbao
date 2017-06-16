@@ -207,7 +207,7 @@ static const NSString *domain = @"http://118.190.97.150/interface/api1/class-gra
 
 @implementation ClassPostHomeworkRequest
 - (NSString *)requestUrl {
-    return @"http://118.190.97.150/interface/api1/homework/save";
+    return @"http://118.190.97.150/interface/api1/homework/saveJSON";
 }
 - (YTKRequestMethod)requestMethod {
     return YTKRequestMethodPOST;

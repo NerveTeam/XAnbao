@@ -109,7 +109,6 @@
         _returnBtn = [UIButton buttonWithImageNormal:@"btn_nochecked" imageSelected:@"btn_checked"];
         [_returnBtn sizeToFit];
         [_returnBtn addTarget:self action:@selector(returnClick) forControlEvents:UIControlEventTouchUpInside];
-        [_returnBtn setSelected:NO];
     }
     return _returnBtn;
 }

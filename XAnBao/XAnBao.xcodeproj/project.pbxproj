@@ -282,6 +282,7 @@
 		8C3F9FD31EEE964900D09F66 /* ZZSingleCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C3F9FCB1EEE964900D09F66 /* ZZSingleCheckBox.m */; };
 		8C3F9FD61EF0DC1D00D09F66 /* XABSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C3F9FD51EF0DC1D00D09F66 /* XABSelectView.m */; };
 		8C3F9FD91EF122AB00D09F66 /* XABHomeworkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C3F9FD81EF122AB00D09F66 /* XABHomeworkCell.m */; };
+		8C3F9FDC1EF3C06600D09F66 /* XABHomework.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C3F9FDB1EF3C06600D09F66 /* XABHomework.m */; };
 		8C636BC61EC7FB410003E2D1 /* XABClassRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C636BC51EC7FB410003E2D1 /* XABClassRequest.m */; };
 		8C636BCD1ED431260003E2D1 /* MJRefreshBackStateFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB027F81E6D4A3A00A57EBC /* MJRefreshBackStateFooter.m */; };
 		8C636BCE1ED431790003E2D1 /* YBTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB02B041E6D4BCA00A57EBC /* YBTabBarController.m */; };
@@ -1035,6 +1036,8 @@
 		8C3F9FD51EF0DC1D00D09F66 /* XABSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABSelectView.m; sourceTree = "<group>"; };
 		8C3F9FD71EF122AB00D09F66 /* XABHomeworkCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABHomeworkCell.h; sourceTree = "<group>"; };
 		8C3F9FD81EF122AB00D09F66 /* XABHomeworkCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABHomeworkCell.m; sourceTree = "<group>"; };
+		8C3F9FDA1EF3C06600D09F66 /* XABHomework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABHomework.h; sourceTree = "<group>"; };
+		8C3F9FDB1EF3C06600D09F66 /* XABHomework.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABHomework.m; sourceTree = "<group>"; };
 		8C636BC41EC7FB410003E2D1 /* XABClassRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABClassRequest.h; sourceTree = "<group>"; };
 		8C636BC51EC7FB410003E2D1 /* XABClassRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABClassRequest.m; sourceTree = "<group>"; };
 		8C7BB53A1EF3DE8E00A887A8 /* XABCurriculusCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABCurriculusCollectionViewCell.h; sourceTree = "<group>"; };
@@ -2821,6 +2824,8 @@
 				8CFBD5291E764D0800EE691B /* XABdsklfjkdjfsViewController.m */,
 				8C383A4E1EB3332600EC7ED6 /* XABEnclosure.h */,
 				8C383A4F1EB3332600EC7ED6 /* XABEnclosure.m */,
+				8C3F9FDA1EF3C06600D09F66 /* XABHomework.h */,
+				8C3F9FDB1EF3C06600D09F66 /* XABHomework.m */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -3906,6 +3911,7 @@
 				8C636BD11ED569690003E2D1 /* XABSelectPeopleGroupViewController.m in Sources */,
 				8C0DF5E41E85106E00A1B2B2 /* gain_table_lbr.c in Sources */,
 				8CB0266B1E6D497700A57EBC /* UIButton+ImageTitleSpacing.m in Sources */,
+				8C3F9FDC1EF3C06600D09F66 /* XABHomework.m in Sources */,
 				751A53CA1EE0F59A00BAB566 /* QNDnspodEnterprise.m in Sources */,
 				8CB02AF61E6D4A3B00A57EBC /* UITableView+FDTemplateLayoutCell.m in Sources */,
 				8C0DF5EF1E85106E00A1B2B2 /* mdf.c in Sources */,

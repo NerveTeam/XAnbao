@@ -18,6 +18,8 @@
 #import "UILabel+Extention.h"
 #import "XABHomeworkCell.h"
 #import "NSArray+Safe.h"
+#import "NSString+URLEncode.h"
+#import "XABHomework.h"
 
 @interface XABHomeworkViewController ()<XABCalendarDelegate,UIActionSheetDelegate,UITableViewDelegate,UITableViewDataSource,XABHomeworkCellDelegate>
 @property(nonatomic, strong)UIView *topBarView;
@@ -133,7 +135,7 @@
 - (void)addHomeworkClick {
     NSMutableDictionary *pargam = [NSMutableDictionary dictionary];
     [pargam setSafeObject:@"" forKey:@"contents"];
-    [pargam setSafeObject:@(NO) forKey:@"reply"];
+    [pargam setSafeObject:@"0" forKey:@"reply"];
     NSMutableArray *attachments = [NSMutableArray array];
     [pargam setSafeObject:attachments forKey:@"attachments"];
     [self.homeworkData addObject:pargam];
@@ -142,19 +144,31 @@
 
 - (void)postHomework {
     NSMutableDictionary *parma = [NSMutableDictionary dictionary];
-    [parma setSafeObject:self.selectDate forKey:@"assignDate"];
+//    [parma setSafeObject:self.selectDate forKey:@"assignDate"];
     [parma setSafeObject:[self.selectSubjectData objectForKeySafely:@"id"] forKey:@"subjectId"];
     [parma setSafeObject:[self.selectSubjectData objectForKeySafely:@"name"]forKey:@"subjectName"];
-    [parma setSafeObject:[[self.selectGroupData objectForKeySafely:@"groupList"] componentsJoinedByString:@","]forKey:@"groups"];
-    [parma setSafeObject:[[self.selectGroupData objectForKeySafely:@"teacherList"] componentsJoinedByString:@","]forKey:@"students"];
+    [parma setSafeObject:[self.selectGroupData objectForKeySafely:@"groupList"]forKey:@"groups"];
+    [parma setSafeObject:[self.selectGroupData objectForKeySafely:@"teacherList"]forKey:@"students"];
     [parma setSafeObject:self.homeworkData.copy forKey:@"contents"];
-    [ClassPostHomeworkRequest requestDataWithParameters:parma headers:Token successBlock:^(BaseDataRequest *request) {
-        NSLog(@"ss");
+    
+    [ClassPostHomeworkRequest requestDataWithParameters:@{@"json":[[self dictionaryToJson:parma] URLEncodedString]} headers:Token successBlock:^(BaseDataRequest *request) {
+        NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
+        if (code == 200) {
+            [self showMessage:@"留作业成功"];
+        }
+        else {
+        [self showMessage:@"留作业失败"];
+        }
     } failureBlock:^(BaseDataRequest *request) {
-        NSLog(@"ss");
     }];
 }
 
+- (NSString *)dictionaryToJson:(NSObject *)obj
+{
+    NSError *parseError = nil;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:obj options:NSJSONWritingPrettyPrinted error:&parseError];
+    return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+}
 
 #pragma maek - delegate
 - (void)calendarSelectDate:(NSDate *)date {
@@ -194,7 +208,7 @@
 - (void)returnClick:(BOOL)isReturn cell:(XABHomeworkCell *)cell {
     NSIndexPath *path = [self.homeworkTableview indexPathForCell:cell];
     NSMutableDictionary *dic = [self.homeworkData safeObjectAtIndex:path.row];
-    [dic setSafeObject:@(isReturn) forKey:@"reply"];
+    [dic setSafeObject:[NSString stringWithFormat:@"%d",isReturn] forKey:@"reply"];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
