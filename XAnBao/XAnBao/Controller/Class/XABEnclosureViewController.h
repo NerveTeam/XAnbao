@@ -7,7 +7,7 @@
 //
 
 #import "YBBaseViewController.h"
-
+#define AddEnclosureDidFinish @"AddEnclosureDidFinish"
 @interface XABEnclosureViewController : YBBaseViewController
 @property(nonatomic, copy)NSString *classId;
 @property(nonatomic, assign)NSInteger type;

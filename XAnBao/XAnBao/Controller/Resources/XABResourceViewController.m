@@ -9,6 +9,8 @@
 #import "XABResourceViewController.h"
 #import "MLMeunView.h"
 #import "UIView+TopBar.h"
+#import "XABResourceRequest.h"
+#import "NSArray+Safe.h"
 
 @interface XABResourceViewController ()
 // 菜单
@@ -17,14 +19,42 @@
 @property(nonatomic, strong)NSArray *channelData;
 // 导航背景
 @property(nonatomic, strong)UIView *topBarView;
+// 频道名称
+@property(nonatomic, strong)NSArray *channelName;
 @end
 
 @implementation XABResourceViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self initTopBar];
+    [self loadMenu];
+}
 
+
+- (void)loadMenu {
+    WeakSelf;
+    [XABResourceMenuListRequest requestDataWithParameters:nil headers:Token successBlock:^(BaseDataRequest *request) {
+        NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
+        if (code == 200) {
+            NSArray *data = [request.json objectForKeySafely:@"data"];
+            NSMutableArray *channelName = [NSMutableArray arrayWithCapacity:data.count];
+            NSMutableArray *channelData = [NSMutableArray arrayWithCapacity:data.count];
+            for (NSDictionary *sub in data) {
+                [channelName safeAddObject:[sub objectForKeySafely:@"name"]];
+                [channelData safeAddObject:@{@"class":@"XABNewsViewController",
+                                             @"info":@{
+                                                     @"channelId":[sub objectForKeySafely:@"id"]}}];
+            }
+            weakSelf.channelName = channelName.copy;
+            weakSelf.channelData = channelData.copy;
+            [self initTopBar];
+        }else {
+            [self initTopBar];
+        }
+    } failureBlock:^(BaseDataRequest *request) {
+        [self initTopBar];
+        [self showMessage:[request.json objectForKeySafely:@"message"]];
+    }];
 }
 
 // init菜单
@@ -38,18 +68,12 @@
 #pragma mark - lazy
 - (MLMeunView *)meunView {
     if (!_meunView) {
-        _meunView = [[MLMeunView alloc]initWithFrame:CGRectMake(0, self.topBarView.height, self.topBarView.width, TopBarHeight) titles:@[@"推荐",@"交通安全",@"火灾消防",@"儿童安全",@"校园安全",@"自救互救",@"居家安全",@"其他",@"测试",@"哈哈"] viewcontrollersInfo:self.channelData isParameter:NO];
+        _meunView = [[MLMeunView alloc]initWithFrame:CGRectMake(0, self.topBarView.height, self.topBarView.width, TopBarHeight) titles:self.channelName viewcontrollersInfo:self.channelData isParameter:YES];
         _meunView.normalColor = [UIColor blackColor];
         _meunView.selectlColor = ThemeColor;
         [_meunView reloadMeunStyle];
     }
     return _meunView;
-}
-- (NSArray *)channelData {
-    if (!_channelData) {
-        _channelData = @[@"XABNewsViewController",@"XABNewsViewController",@"XABNewsViewController",@"XABNewsViewController",@"XABNewsViewController",@"XABNewsViewController",@"XABNewsViewController",@"XABNewsViewController",@"XABNewsViewController",@"XABNewsViewController"];
-    }
-    return _channelData;
 }
 - (UIView *)topBarView {
     if (!_topBarView) {

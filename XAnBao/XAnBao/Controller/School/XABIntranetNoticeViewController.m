@@ -102,7 +102,9 @@
     XABResource *sport = self.dataList[indexPath.row];
     XABArticleViewController *article = [[XABArticleViewController alloc]initWithUrl:sport.url];
     article.articleId = sport.id;
+    article.isReturn = sport.confirm;
     article.showType = ArticleTypeSchool;
+    article.isCatStatis = [UserInfo.id isEqualToString:sport.createId];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self.navigationController pushViewController:article animated:YES];
 }

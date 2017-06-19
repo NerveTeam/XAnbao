@@ -18,6 +18,7 @@
 #import "XABClassRequest.h"
 #import "NSArray+Safe.h"
 #import <objc/runtime.h>
+#import "XABClassSearchViewController.h"
 
 @interface XABClassViewController ()
 <XABSchoolMessageDelegate, XABSchoolMenuDelegate,XABClassContentViewDelegate>
@@ -37,7 +38,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self requestFoucs];
     [self loadFollowList];
 }
 
@@ -68,6 +68,7 @@
             }
             weakSelf.followData = follow.copy;
             [weakSelf initTopBar];
+            [weakSelf requestFoucs];
         }
     } failureBlock:^(BaseDataRequest *request) {
         [weakSelf initTopBar];
@@ -75,11 +76,22 @@
 }
 
 - (void)requestFoucs {
-    __weak typeof(self)weakSelf = self;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    WeakSelf;
+    NSMutableDictionary *pargam = [NSMutableDictionary new];
+    [pargam setSafeObject:[[self.followData safeObjectAtIndex:self.currentSelectIndex] objectForKeySafely:@"classId"] forKey:@"classId"];
+    [ClassFoucsMapRequest requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
+        NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
+        if (code == 200) {
+            NSArray *data = [request.json objectForKeySafely:@"data"];
+            NSMutableArray *follow = [[NSMutableArray alloc]initWithCapacity:data.count];
+            for (NSDictionary *item in data) {
+                [follow safeAddObject:[item objectForKeySafely:@"url"]];
+            }
+            weakSelf.cycleView.imageURLStringsGroup = follow.copy;
+        }
+    } failureBlock:^(BaseDataRequest *request) {
         
-        weakSelf.cycleView.imageURLStringsGroup = @[@"https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3510003795,2153467965&fm=23&gp=0.jpg",@"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1017904219,2460650030&fm=23&gp=0.jpg",@"https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=938946740,2496936570&fm=23&gp=0.jpg",@"https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3448641352,2315059109&fm=23&gp=0.jpg"];
-    });
+    }];
 }
 
 // init菜单
@@ -97,7 +109,6 @@
         make.trailing.equalTo(self.topBarView).offset(-10);
     }];
 }
-
 
 - (void)clickSchoolMenu {
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
@@ -136,7 +147,7 @@
 }
 
 - (void)searchClick {
-    [self.navigationController pushViewController:[XABSearchViewController new] animated:YES];
+    [self.navigationController pushViewController:[XABClassSearchViewController new] animated:YES];
 }
 
 
@@ -151,13 +162,30 @@
 }
 
 - (void)schoolMenuSelected:(NSInteger)index str:(NSString *)str {
+   NSInteger type = [[[self.followData safeObjectAtIndex:index]objectForKeySafely:@"type"] longValue];
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"ClassChangeRole" object:nil userInfo:@{@"isTeacher":type == 2? @(YES) : @(NO)}];
     self.currentSelectIndex = index;
     [self.currentSelectSchool setTitle:str forState:UIControlStateNormal];
     [_currentSelectSchool sizeToFit];
     [_currentSelectSchool layoutButtonWithEdgeInsetsStyle:MKButtonEdgeInsetsStyleRight imageTitleSpace:5];
     [self.schoolMenu removeFromSuperview];
     [self.schoolMenuBgView removeFromSuperview];
+    [self requestFoucs];
 }
+
+
+- (void)schoolMenuCancelFoucs:(NSInteger)index {
+    NSDictionary *dic = [self.followData safeObjectAtIndex:index];
+    NSMutableDictionary *pargam = [NSMutableDictionary dictionary];
+        [pargam setSafeObject:[dic objectForKeySafely:@"studentId"] forKey:@"studentId"];
+        [pargam setSafeObject:UserInfo.mobile forKey:@"mobilePhone"];
+    [ClassCancelFollowStudent requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
+        
+    } failureBlock:^(BaseDataRequest *request) {
+        
+    }];
+}
+
 
 - (void)clickItemWithClass:(NSString *)className {
     Class class = NSClassFromString(className);

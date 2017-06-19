@@ -220,12 +220,72 @@ static const NSString *domain = @"http://118.190.97.150/interface/api1/school/";
 }
 @end
 
-@implementation TestRequst
+@implementation SchoolGetTeacherGroup
 - (NSString *)requestUrl {
-    return @"http://118.190.97.150/interface/api1/class-grade/uploadimage";
+    return [domain stringByAppendingString:@"grouptree"];
 }
 - (YTKRequestMethod)requestMethod {
-//    return YTKRequestMethodGET;
+    return YTKRequestMethodGET;
+}
+- (YTKResponseSerializerType)responseSerializerType {
+    return YTKResponseSerializerTypeJSON;
+}
+- (BOOL)useCDN {
+    return YES;
+}
+@end
+
+
+@implementation SchoolGetTeacherList
+- (NSString *)requestUrl {
+    return [domain stringByAppendingString:@"teachertree"];
+}
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodPOST;
+}
+- (YTKResponseSerializerType)responseSerializerType {
+    return YTKResponseSerializerTypeJSON;
+}
+- (BOOL)useCDN {
+    return YES;
+}
+@end
+
+@implementation SchoolNewGroupRequest
+- (NSString *)requestUrl {
+    return [domain stringByAppendingString:@"creategroup"];
+}
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodPOST;
+}
+- (YTKResponseSerializerType)responseSerializerType {
+    return YTKResponseSerializerTypeJSON;
+}
+- (BOOL)useCDN {
+    return YES;
+}
+@end
+
+@implementation SchoolReceivedNoticeRequest
+- (NSString *)requestUrl {
+    return [domain stringByAppendingString:@"confiminsidenotice"];
+}
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodPOST;
+}
+- (YTKResponseSerializerType)responseSerializerType {
+    return YTKResponseSerializerTypeJSON;
+}
+- (BOOL)useCDN {
+    return YES;
+}
+@end
+
+@implementation SchoolQueryReceivedNoticeRequest
+- (NSString *)requestUrl {
+    return [domain stringByAppendingString:@"isconfim"];
+}
+- (YTKRequestMethod)requestMethod {
     return YTKRequestMethodPOST;
 }
 - (YTKResponseSerializerType)responseSerializerType {

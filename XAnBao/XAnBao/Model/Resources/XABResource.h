@@ -19,4 +19,8 @@
 @property(nonatomic, copy)NSString *publishTime;
 @property(nonatomic, assign)NSInteger commentCount; // 评论数
 @property(nonatomic, strong)NSArray *imgUrl; // img集合
+@property(nonatomic, copy)NSString *createId;
+@property(nonatomic, assign)BOOL confirm;
+@property(nonatomic, assign)BOOL reply;
+@property(nonatomic, assign)BOOL replied;
 @end

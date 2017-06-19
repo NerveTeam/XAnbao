@@ -10,9 +10,14 @@
 #import "UIView+TopBar.h"
 #import "UIButton+Extention.h"
 #import "XABSchoolRequest.h"
+#import "UILabel+Extention.h"
 #import "XABEnclosureView.h"
+#import "XABSelectPeopleGroupViewController.h"
+#import "XABClassRequest.h"
+#import "HKNetEngine.h"
+#import "ZXCameraManager.h"
 
-@interface XABPostNoticeViewController ()
+@interface XABPostNoticeViewController ()<UIScrollViewDelegate,UIImagePickerControllerDelegate>
 @property(nonatomic, strong)UIView *topBarView;
 @property(nonatomic, strong)UIButton *backBtn;
 @property(nonatomic, strong)UIButton *postBtn;
@@ -24,19 +29,194 @@
 @property(nonatomic, strong)XABEnclosureView *imageEnclosure;
 @property(nonatomic, strong)XABEnclosureView *statisEnclosure;
 @property(nonatomic, strong)XABEnclosureView *selectObjectEnclosure;
+@property(nonatomic, strong)UIButton *selectReceivePeople;
+@property(nonatomic, strong)NSDictionary *selectGroupList;
+@property(nonatomic, strong)UILabel *statisLabel;
+@property(nonatomic, strong)UILabel *noStatisLabel;
+@property(nonatomic, strong)UIButton *statisBtn;
+@property(nonatomic, strong)UIButton *noStatisBtn;
+@property(nonatomic, strong)UIButton *uploadImage;
+@property(nonatomic, strong)NSMutableArray *uploadImageList;
 @end
 
 @implementation XABPostNoticeViewController
+{
+    NSString *qn_token;
+    NSString *qn_domain;
 
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setup];
+    [self getQNToken];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(saveSelectObject:) name:KSelectGroupListDidFinish object:nil];
+}
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self.view endEditing:YES];
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self.contentScrollView setContentSize: CGSizeMake(self.view.width, CGRectGetMaxY(self.imageEnclosure.frame))];
 }
 
+- (void)getQNToken {
+    [GetQiNiuTokenAndDomin requestDataWithParameters:nil headers:Token successBlock:^(BaseDataRequest *request) {
+        qn_token = [[request.responseObject objectForKey:@"data"] objectForKey:@"token"];
+        qn_domain = [[request.responseObject objectForKey:@"data"] objectForKey:@"domain"];
+    } failureBlock:^(BaseDataRequest *request) {
+        
+    }];
+}
+
+- (void)saveSelectObject:(NSNotification *)noti {
+    self.selectGroupList =  noti.userInfo;
+}
+
+
+- (void)statisClick:(UIButton *)sender {
+    if (self.statisBtn.isSelected && !self.noStatisBtn.isSelected) {
+        [self.statisBtn setSelected:NO];
+        [self.noStatisBtn setSelected:YES];
+    }else if (!self.statisBtn.isSelected && self.noStatisBtn.isSelected) {
+        [self.statisBtn setSelected:YES];
+        [self.noStatisBtn setSelected:NO];
+    }
+}
+
+
+
+- (void)selectReceiveGroup {
+    XABSelectPeopleGroupViewController *select = [XABSelectPeopleGroupViewController new];
+    select.isScholl = _noticeType == NoticeTypeSchool ? YES : NO;
+    select.classId = _classId;
+    select.schoolId = _schoolId;
+    [self pushToController:select animated:YES];
+}
+
+
+- (void)postNotice {
+    WeakSelf;
+    
+    if (self.noticeType == NoticeTypeSchool) {
+        NSMutableDictionary *pargam = [NSMutableDictionary new];
+        [pargam setSafeObject:self.schoolId forKey:@"schoolId"];
+        [pargam setSafeObject:UserInfo.id forKey:@"createId"];
+        [pargam setSafeObject:[self.uploadImageList componentsJoinedByString:@","] forKey:@"images"];
+        [pargam setSafeObject:@(self.statisBtn.isSelected) forKey:@"confirm"];
+        [pargam setSafeObject:self.titleInputView.text forKey:@"title"];
+        [pargam setSafeObject:self.contentInputView.text forKey:@"content"];
+        [pargam setSafeObject:[[self.selectGroupList objectForKeySafely:@"groupList"] componentsJoinedByString:@","] forKey:@"groups"];
+        [pargam setSafeObject:[[self.selectGroupList objectForKeySafely:@"teacherList"] componentsJoinedByString:@","]forKey:@"ids"];
+        
+        
+        [SchoolPostIntranetNotice requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
+            NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
+            if (code == 200) {
+                [self showMessage:@"发布成功"];
+            }
+        } failureBlock:^(BaseDataRequest *request) {
+            [self showMessage:@"发布失败"];
+        }];
+    }else if (self.noticeType == NoticeTypeClass) {
+        NSMutableDictionary *pargam = [NSMutableDictionary new];
+        [pargam setSafeObject:[self.uploadImageList componentsJoinedByString:@","]forKey:@"images"];
+        [pargam setSafeObject:@(self.statisBtn.isSelected) forKey:@"reply"];
+        [pargam setSafeObject:self.titleInputView.text forKey:@"title"];
+        [pargam setSafeObject:self.contentInputView.text forKey:@"content"];
+        [pargam setSafeObject:[[self.selectGroupList objectForKeySafely:@"groupList"] componentsJoinedByString:@","] forKey:@"groups"];
+        [pargam setSafeObject:[[self.selectGroupList objectForKeySafely:@"teacherList"] componentsJoinedByString:@","]forKey:@"students"];
+        
+        
+        [ClassPostNotice requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
+            NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
+            if (code == 200) {
+                [self showMessage:@"发布成功"];
+            }
+        } failureBlock:^(BaseDataRequest *request) {
+            [self showMessage:@"发布失败"];
+        }];
+        
+    }
+    
+}
+
+
+-(void)openPhotoLibrary
+
+{
+    
+    [[ZXCameraManager getInstance]
+     
+     pickAlbumPhotoFromCurrentController:self imageBlock:^(UIImage *image) {
+         
+         [self dismissViewControllerAnimated:YES completion:nil];
+         [self upLoadImageFile:image];
+         
+     }];
+    // 进入相册
+    
+//    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary])
+//        
+//    {
+//        
+//        UIImagePickerController *imagePicker = [[UIImagePickerController alloc]init];
+//        
+//        imagePicker.allowsEditing = YES;
+//        
+//        imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+//        
+//        imagePicker.delegate = self;
+//        
+//        [self.navigationController presentViewController:imagePicker animated:YES completion:^{
+//            
+//            NSLog(@"打开相册");
+//            
+//        }];
+//        
+//    }
+//    
+//    else
+//        
+//    {
+//        
+//        NSLog(@"不能打开相册");
+//        
+//    }
+    
+}
+
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)upLoadImageFile:(UIImage *)img {
+    WeakSelf;
+    NSData *data = UIImageJPEGRepresentation(img, 0.4f);
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"yyyyMMddHHmmss";
+    NSString *str = [formatter stringFromDate:[NSDate date]];
+    NSString *fileName = [NSString stringWithFormat:@"xab_tp_wj%@.png", str];
+    
+    [[HKNetEngine shareInstance] uploadImageToQNFilePath:data name:fileName qnToken:qn_token Block:^(id dic, HKNetReachabilityType reachabilityType) {
+        
+        if (dic[@"hash"]) {
+            NSString *urlString = [NSString stringWithFormat:@"%@%@",qn_domain, dic[@"key"]];
+            [weakSelf.uploadImageList addObject:urlString];
+            
+        }
+        
+    }];
+    
+}
+
+
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self.view endEditing:YES];
+}
 
 - (void)setup {
     self.view.backgroundColor = RGBCOLOR(242, 242, 242);
@@ -50,7 +230,12 @@
     [self.contentScrollView addSubview:self.statisEnclosure];
     [self.contentScrollView addSubview:self.selectObjectEnclosure];
     [self.contentScrollView addSubview:self.imageEnclosure];
-    
+    [self.selectObjectEnclosure addSubview:self.selectReceivePeople];
+    [self.statisEnclosure addSubview:self.statisLabel];
+    [self.statisEnclosure addSubview:self.noStatisLabel];
+    [self.statisEnclosure addSubview:self.statisBtn];
+    [self.statisEnclosure addSubview:self.noStatisBtn];
+    [self.imageEnclosure addSubview:self.uploadImage];
     [self.contentScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.topBarView.mas_bottom);
         make.left.right.equalTo(self.view);
@@ -87,13 +272,22 @@
         make.top.equalTo(self.statisEnclosure.mas_bottom).offset(10);
         make.left.equalTo(self.titleEnclosure);
         make.right.equalTo(self.titleEnclosure);
-        make.height.offset(150);
+        make.height.offset(40);
+    }];
+    [self.selectReceivePeople mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.selectObjectEnclosure);
+        make.right.equalTo(self.selectObjectEnclosure).offset(-10);
     }];
     [self.imageEnclosure mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.selectObjectEnclosure.mas_bottom).offset(10);
         make.left.equalTo(self.titleEnclosure);
         make.right.equalTo(self.titleEnclosure);
-        make.height.offset(150);
+        make.height.offset(40);
+    }];
+    
+    [self.uploadImage mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.imageEnclosure);
+        make.right.equalTo(self.imageEnclosure).offset(-10);
     }];
     
     [self.postBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -103,37 +297,26 @@
         make.height.offset(40);
     }];
     
+    [self.statisLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.statisEnclosure).offset(50);
+        make.left.equalTo(self.statisEnclosure).offset(10);
+    }];
+    [self.statisBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.statisLabel);
+        make.right.equalTo(self.statisEnclosure).offset(-10);
+    }];
+    [self.noStatisLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.statisLabel.mas_bottom).offset(10);
+        make.left.equalTo(self.statisEnclosure).offset(10);
+    }];
+    [self.noStatisBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.noStatisLabel);
+        make.right.equalTo(self.statisEnclosure).offset(-10);
+    }];
+    
 }
 
-- (void)postNotice {
-    WeakSelf;
-    
-    if (self.noticeType == NoticeTypeSchool) {
-        NSMutableDictionary *pargam = [NSMutableDictionary new];
-        [pargam setSafeObject:self.schoolId forKey:@"schoolId"];
-        [pargam setSafeObject:UserInfo.id forKey:@"createId"];
-        [pargam setSafeObject:self.titleInputView.text forKey:@"title"];
-        [pargam setSafeObject:self.contentInputView.text forKey:@"content"];
-        //    [pargam setSafeObject:UserInfo.id forKey:@"ids"];
-        //    [pargam setSafeObject:UserInfo.id forKey:@"groups"];
-        
-        
-        [SchoolPostIntranetNotice requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
-            NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
-            if (code == 200) {
-                NSDictionary *data = [request.json objectForKeySafely:@"data"];
-                NSArray *results = [data objectForKeySafely:@"results"];
-                [self showMessage:@"发布成功"];
-            }
-        } failureBlock:^(BaseDataRequest *request) {
-            [self showMessage:@"发布失败"];
-        }];
-    }else if (self.noticeType == NoticeTypeClass) {
-    
-    
-    }
-   
-}
+
 
 - (UIView *)topBarView {
     if (!_topBarView) {
@@ -163,6 +346,7 @@
     if (!_contentScrollView) {
         _contentScrollView = [UIScrollView new];
         _contentScrollView.backgroundColor = RGBCOLOR(242, 242, 242);
+        _contentScrollView.delegate = self;
     }
     return _contentScrollView;
 }
@@ -212,5 +396,59 @@
     }
     return _imageEnclosure;
 
+}
+- (UIButton *)selectReceivePeople {
+    if (!_selectReceivePeople) {
+        _selectReceivePeople = [UIButton buttonWithImageNormal:@"class_job_rightArrow" imageSelected:@"class_job_rightArrow"];
+        [_selectReceivePeople sizeToFit];
+        [_selectReceivePeople addTarget:self action:@selector(selectReceiveGroup) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _selectReceivePeople;
+}
+- (UILabel *)statisLabel {
+    if (!_statisLabel) {
+        _statisLabel = [UILabel labelWithText:@"统计" fontSize:15 textColor:[UIColor blackColor]];
+    }
+    return _statisLabel;
+}
+
+- (UILabel *)noStatisLabel {
+    if (!_noStatisLabel) {
+        _noStatisLabel = [UILabel labelWithText:@"不统计" fontSize:15 textColor:[UIColor blackColor]];
+    }
+    return _noStatisLabel;
+}
+- (UIButton *)noStatisBtn {
+    if (!_noStatisBtn) {
+        _noStatisBtn = [UIButton new];
+        [_noStatisBtn setBackgroundImage:[UIImage imageNamed:@"pub_class_inform_noselect"] forState:UIControlStateNormal];
+    [_noStatisBtn setBackgroundImage:[UIImage imageNamed:@"pub_class_inform_selected"] forState:UIControlStateSelected];
+        [_noStatisBtn addTarget:self action:@selector(statisClick:) forControlEvents:UIControlEventTouchUpInside];
+        [_noStatisBtn setSelected:YES];
+    }
+    return _noStatisBtn;
+}
+- (UIButton *)statisBtn {
+    if (!_statisBtn) {
+        _statisBtn = [UIButton new];
+        [_statisBtn setBackgroundImage:[UIImage imageNamed:@"pub_class_inform_noselect"] forState:UIControlStateNormal];
+        [_statisBtn setBackgroundImage:[UIImage imageNamed:@"pub_class_inform_selected"] forState:UIControlStateSelected];
+        [_statisBtn addTarget:self action:@selector(statisClick:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _statisBtn;
+}
+- (UIButton *)uploadImage {
+    if (!_uploadImage) {
+        _uploadImage = [UIButton buttonWithImageNormal:@"class_job_rightArrow" imageSelected:@"class_job_rightArrow"];
+        [_uploadImage sizeToFit];
+        [_uploadImage addTarget:self action:@selector(openPhotoLibrary) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _uploadImage;
+}
+- (NSMutableArray *)uploadImageList {
+    if (!_uploadImageList) {
+        _uploadImageList = [NSMutableArray array];
+    }
+    return _uploadImageList;
 }
 @end

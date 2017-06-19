@@ -77,6 +77,27 @@
 
 @end
 
-@interface TestRequst : BaseDataRequest
+//获取学校教师组
+@interface SchoolGetTeacherGroup : BaseDataRequest
+
+@end
+
+//获取学校教师列表
+@interface SchoolGetTeacherList : BaseDataRequest
+
+@end
+
+//新建老师组
+@interface SchoolNewGroupRequest : BaseDataRequest
+
+@end
+
+//确认收到通知
+@interface SchoolReceivedNoticeRequest : BaseDataRequest
+
+@end
+
+//查询是否确认通知
+@interface SchoolQueryReceivedNoticeRequest : BaseDataRequest
 
 @end

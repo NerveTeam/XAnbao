@@ -13,6 +13,7 @@
 
 @interface XABClassContentView ()
 @property(nonatomic,strong)NSArray *data;
+@property(nonatomic, assign)BOOL isTeacher;
 @end
 @implementation XABClassContentView
 static int number = 3;
@@ -36,14 +37,16 @@ static int number = 3;
     }
 }
 
-- (void)reloadItem {
+- (void)reloadItem:(NSNotification *)noti {
+    self.isTeacher = [[noti.userInfo objectForKeySafely:@"isTeacher"] boolValue];
     [self removeAllSubviews];
     [self setup];
 }
 
 
 - (void)setup {
-    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadItem:) name:@"ClassChangeRole" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadItem:) name:UserLoginSuccess object:nil];
     [self initData];
     
     self.backgroundColor = RGBCOLOR(225, 225, 235);
@@ -66,15 +69,12 @@ static int number = 3;
 }
 
 - (void)initData {
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadItem) name:UserLoginSuccess object:nil];
     
-    
-    BOOL isTeacher = NO;
     NSMutableArray *items = [NSMutableArray array];
     [items addObject:@{@"intro":@"班级成员",@"img":@"myClass_member",@"class":@"XABClassMemberViewController"}];
     [items addObject:@{@"intro":@"班级通知",@"img":@"myClass_class_notice",@"class":@"XABClassNoticeViewController"}];
     
-    if (isTeacher) {
+    if (self.isTeacher) {
         [items addObject:@{@"intro":@"留作业",@"img":@"myClass_job",@"class":@"XABHomeworkViewController"}];
         [items addObject:@{@"intro":@"检查作业",@"img":@"myClass_job",@"class":@"XABCheckJobViewController"}];
     }else {
@@ -82,7 +82,7 @@ static int number = 3;
     }
     [items addObjectsFromArray:@[@{@"intro":@"课程表",@"img":@"myClass_schedule",@"class":@"XABClassScheduleViewController"},
                                  @{@"intro":@"班级文件",@"img":@"myClass_class_file",@"class":@"XABClassFileViewController"},
-                                 @{@"intro":@"我的好友",@"img":@"myClass_friends",@"class":@"XABClassFriendsViewController"},
+//                                 @{@"intro":@"我的好友",@"img":@"myClass_friends",@"class":@"XABClassFriendsViewController"},
                                  @{@"intro":@"班级讨论",@"img":@"myClass_discussion",@"class":@"XABClassChatViewController"}]];
     self.data = items.copy;
 }

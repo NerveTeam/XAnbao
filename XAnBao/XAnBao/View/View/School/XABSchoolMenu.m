@@ -23,7 +23,7 @@ static int rowHeight = 40;
     XABSchoolMenu *menu = [[XABSchoolMenu alloc]init];
     menu.menuList = list;
     menu.type = type;
-    menu.frame = CGRectMake(0, TopBarHeight + StatusBarHeight, SCREEN_WIDTH, rowHeight * list.count);
+    menu.frame = CGRectMake(0, TopBarHeight + StatusBarHeight, SCREEN_WIDTH, rowHeight * list.count < (SCREEN_HEIGHT - 64) ? rowHeight * list.count :SCREEN_HEIGHT - 64);
     [menu show];
     return menu;
 }
@@ -61,7 +61,8 @@ static int rowHeight = 40;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.type == MeunTypeClass) {
+    NSString *tls = [self.menuList safeObjectAtIndex:indexPath.row];
+    if ([tls containsString:@"我是老师"]) {
         return NO;
     }
     return YES;
@@ -75,6 +76,9 @@ static int rowHeight = 40;
         }
         tableView.editing = NO;
     }];
+    if (self.type == MeunTypeClass) {
+        return @[cancelAction];
+    }
     cancelAction.backgroundColor = [UIColor redColor];
     UITableViewRowAction *defaultAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"设为默认" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         if ([_delegate respondsToSelector:@selector(schoolMenuSetDefault:)]) {
