@@ -205,7 +205,7 @@ static XABChatTool *_instance;
         
         if (response.code == CODE_SUCCESS) {
             
-            sourceArray = [XABChatSchoolGroupModel mj_objectArrayWithKeyValuesArray:response.data];
+            sourceArray = [XABChatSchoolGroupMembersModel mj_objectArrayWithKeyValuesArray:response.data];
             
         } else {
             if (response.message.length == 0) { response.message = @"服务器未成功返回数据!"; }
@@ -252,6 +252,104 @@ static XABChatTool *_instance;
     }];
 }
 
+#pragma mark - 班级 - 班级老师
+/*
+ mobilePhone	是	string	用户手机
+ classId	    是	string	班级id
+ */
+-(void)getClassGradeTeachersWithRequestModel:(XABParamModel *)model resultBlock:(void (^)(NSArray *sourceArray,NSError *error))resultBlock{
+    
+    NSDictionary *dict = [model toJSON];
+    NSLog(@"班级老师接口传入参数==%@",dict);
+    
+    __block NSArray *sourceArray = nil;
+    __block NSError *error = nil;
+    [XABChatClassGradeTeachersRequest requestDataWithParameters:dict headers:Token successBlock:^(BaseDataRequest *request) {
+        
+        NSLog(@"班级老师接口==%@",request.responseObject);
+        XABResponseModel *response = [XABResponseModel responseFromKeyValues:request.responseObject];
+        
+        if (response.code == CODE_SUCCESS) {
+            
+            sourceArray = [XABChatClassGradeTeachersModel mj_objectArrayWithKeyValuesArray:response.data];
+            
+        } else {
+            if (response.message.length == 0) { response.message = @"服务器未成功返回数据!"; }
+            error = [NSError errorWithDomain:@"error" code:-100 userInfo:[NSDictionary dictionaryWithObject:response.message forKey:@"error"]];
+        }
+        
+        if (resultBlock) resultBlock(sourceArray, error);
+        
+    } failureBlock:^(BaseDataRequest *request) {
+        NSLog(@"班级老师接口列表接口-ERROR==%@",request.error);
+        if (resultBlock) resultBlock(nil, request.error);
+        
+    }];
+    
+};
+
+#pragma mark - 班级 - 班级学生
+-(void)getClassGradeStudentsWithRequestModel:(XABParamModel *)model resultBlock:(void (^)(NSArray *sourceArray,NSError *error))resultBlock{
+    NSDictionary *dict = [model toJSON];
+    
+    __block NSArray *sourceArray = nil;
+    __block NSError *error = nil;
+    [XABChatClassGradeStudentsRequest requestDataWithParameters:dict headers:Token successBlock:^(BaseDataRequest *request) {
+        
+        NSLog(@"班级学生列表接口==%@",request.responseObject);
+        XABResponseModel *response = [XABResponseModel responseFromKeyValues:request.responseObject];
+        
+        if (response.code == CODE_SUCCESS) {
+            
+            sourceArray = [XABChatClassGradeStudentsModel mj_objectArrayWithKeyValuesArray:response.data];
+            
+        } else {
+            if (response.message.length == 0) { response.message = @"服务器未成功返回数据!"; }
+            error = [NSError errorWithDomain:@"error" code:-100 userInfo:[NSDictionary dictionaryWithObject:response.message forKey:@"error"]];
+        }
+        
+        if (resultBlock) resultBlock(sourceArray, error);
+        
+    } failureBlock:^(BaseDataRequest *request) {
+        NSLog(@"班级学生列表接口-ERROR==%@",request.error);
+        if (resultBlock) resultBlock(nil, request.error);
+        
+    }];
+    
+};
+#pragma mark - 班级 - 班级家长
+-(void)getClassGradePatriarchWithRequestModel:(XABParamModel *)model resultBlock:(void (^)(NSArray *sourceArray,NSError *error))resultBlock{
+    
+    NSDictionary *dict = [model toJSON];
+    
+    NSLog(@"班级家长列表接口==%@",dict);
+    
+    __block NSArray *sourceArray = nil;
+    __block NSError *error = nil;
+    [XABChatClassGradeParentsRequest requestDataWithParameters:dict headers:Token successBlock:^(BaseDataRequest *request) {
+        NSLog(@"班级家长列表接口==%@",request);
+        
+        NSLog(@"班级家长列表接口==%@",request.responseObject);
+        XABResponseModel *response = [XABResponseModel responseFromKeyValues:request.responseObject];
+        
+        if (response.code == CODE_SUCCESS) {
+            
+            sourceArray = [XABChatClassGroupModel mj_objectArrayWithKeyValuesArray:response.data];
+            
+        } else {
+            if (response.message.length == 0) { response.message = @"服务器未成功返回数据!"; }
+            error = [NSError errorWithDomain:@"error" code:-100 userInfo:[NSDictionary dictionaryWithObject:response.message forKey:@"error"]];
+        }
+        
+        if (resultBlock) resultBlock(sourceArray, error);
+        
+    } failureBlock:^(BaseDataRequest *request) {
+        NSLog(@"班级群列表接口列表接口-ERROR==%@",request.error);
+        if (resultBlock) resultBlock(nil, request.error);
+        
+    }];
+    
+};
 
 
 
