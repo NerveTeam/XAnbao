@@ -3453,8 +3453,8 @@
 				TargetAttributes = {
 					8CB023F71E6D470600A57EBC = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = N4SGXFLMRW;
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = F383N668T6;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -4087,7 +4087,7 @@
 				CODE_SIGN_ENTITLEMENTS = XAnBao/XAnBao.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Lukuan Wang (ZAW9FNDQPM)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = N4SGXFLMRW;
+				DEVELOPMENT_TEAM = F383N668T6;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4114,10 +4114,10 @@
 					"$(PROJECT_DIR)/XAnBao/Vender/jipush/Lib",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ios2.xiaoanbao;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ios.xiaoanbao;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "9f9abcce-c4a0-4fb3-844a-a208a884968c";
+				PROVISIONING_PROFILE_SPECIFIER = luqiangxab;
 			};
 			name = Debug;
 		};
@@ -4129,7 +4129,7 @@
 				CODE_SIGN_ENTITLEMENTS = XAnBao/XAnBao.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Lukuan Wang (ZAW9FNDQPM)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = N4SGXFLMRW;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4155,10 +4155,10 @@
 					"$(PROJECT_DIR)/XAnBao/Vender/jipush/Lib",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ios2.xiaoanbao;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ios.xiaoanbao;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9f9abcce-c4a0-4fb3-844a-a208a884968c";
-				PROVISIONING_PROFILE_SPECIFIER = luqiangxab;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};
