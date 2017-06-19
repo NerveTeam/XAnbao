@@ -35,6 +35,14 @@
 #pragma mark - 校内群讨论群 融云组用户接口
 -(void)getChatSchoolGroupMembersWithRequestModel:(XABParamModel *)model resultBlock:(void (^)(NSArray *sourceArray,NSError *error))resultBlock;
 
+#pragma mark - 班级 - 班级老师
+-(void)getClassGradeTeachersWithRequestModel:(XABParamModel *)model resultBlock:(void (^)(NSArray *sourceArray,NSError *error))resultBlock;
+
+#pragma mark - 班级 - 班级学生
+-(void)getClassGradeStudentsWithRequestModel:(XABParamModel *)model resultBlock:(void (^)(NSArray *sourceArray,NSError *error))resultBlock;
+#pragma mark - 班级 - 班级学生
+-(void)getClassGradePatriarchWithRequestModel:(XABParamModel *)model resultBlock:(void (^)(NSArray *sourceArray,NSError *error))resultBlock;
+
 #pragma mark - 班级群-列表接口
 -(void)getChatClassGroupWithRequestModel:(XABParamModel *)model resultBlock:(void (^)(NSArray *sourceArray,NSError *error))resultBlock;
 

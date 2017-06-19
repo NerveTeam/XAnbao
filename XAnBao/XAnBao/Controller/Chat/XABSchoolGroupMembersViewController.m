@@ -61,7 +61,7 @@
     static NSString * identity = @"XABSchoolGroupMembersCell";
     XABSchoolGroupMembersCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:identity forIndexPath:indexPath];
     
-    if (self.sourceArray.count>0) {
+    if (self.sourceArray.count>indexPath.row) {
         
         XABChatSchoolGroupMembersModel *model = self.sourceArray[indexPath.row];
         [cell.imageView sd_setImageWithURL:[NSURL URLWithString:model.portrit] placeholderImage:[UIImage imageNamed:@"a_zwxtx"]];
@@ -74,7 +74,7 @@
 #pragma mark <UICollectionViewDelegate>
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (self.sourceArray.count>0) {
+    if (self.sourceArray.count>indexPath.row) {
         
         XABChatSchoolGroupMembersModel *model = self.sourceArray[indexPath.row];
         

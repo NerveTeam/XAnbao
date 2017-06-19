@@ -18,6 +18,25 @@
 
 @end
 
+#pragma mark - 班级成员-班级教师 接口
+
+@interface XABChatClassGradeTeachersRequest : BaseDataRequest
+
+@end
+
+#pragma mark - 班级成员-班级学生 接口
+
+@interface XABChatClassGradeStudentsRequest : BaseDataRequest
+
+@end
+//通过班级学生 请求班级家长的列表
+#pragma mark - 班级成员-班级家长 接口
+
+@interface XABChatClassGradeParentsRequest : BaseDataRequest
+
+@end
+
+
 //班级群接口列表接口
 @interface XABChatClassGroupRequest : BaseDataRequest
 

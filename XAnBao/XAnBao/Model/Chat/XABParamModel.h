@@ -109,10 +109,8 @@
 
 @property (copy, nonatomic) NSString *id;         //学生id
 @property (nonatomic,copy) NSString *name;        //姓名
-
-
-
 @end
+
 #pragma mark 班级群 模型
 
 @interface XABChatClassGroupModel : NSObject

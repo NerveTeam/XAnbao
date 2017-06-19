@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		602946BF1EF76D0D0008B195 /* XABGuardianHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 602946BE1EF76D0D0008B195 /* XABGuardianHeaderView.m */; };
 		603169D41E8C123C008AA3A7 /* XABShareSDKTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 603169D31E8C123C008AA3A7 /* XABShareSDKTool.m */; };
 		605F79871EC698D70098E749 /* XABChatRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 605F79861EC698D70098E749 /* XABChatRequest.m */; };
 		605F798B1EC69AE60098E749 /* XABParamModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 605F798A1EC69AE60098E749 /* XABParamModel.m */; };
@@ -477,6 +478,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		602946BC1EF769180008B195 /* XABMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABMacro.h; sourceTree = "<group>"; };
+		602946BD1EF76D0D0008B195 /* XABGuardianHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABGuardianHeaderView.h; sourceTree = "<group>"; };
+		602946BE1EF76D0D0008B195 /* XABGuardianHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABGuardianHeaderView.m; sourceTree = "<group>"; };
 		603169D21E8C123C008AA3A7 /* XABShareSDKTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABShareSDKTool.h; sourceTree = "<group>"; };
 		603169D31E8C123C008AA3A7 /* XABShareSDKTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABShareSDKTool.m; sourceTree = "<group>"; };
 		605F79851EC698D70098E749 /* XABChatRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABChatRequest.h; sourceTree = "<group>"; };
@@ -2588,6 +2592,7 @@
 			children = (
 				8CB024801E6D497600A57EBC /* TestMacro.h */,
 				8CB024811E6D497600A57EBC /* TestMacro.m */,
+				602946BC1EF769180008B195 /* XABMacro.h */,
 			);
 			path = Macro;
 			sourceTree = "<group>";
@@ -2810,6 +2815,8 @@
 				8C383A551EB33B1700EC7ED6 /* XABImageCollectionView.m */,
 				60BCCDF21ED6A3650071E1B9 /* XABCurriculumView.h */,
 				60BCCDF31ED6A3650071E1B9 /* XABCurriculumView.m */,
+				602946BD1EF76D0D0008B195 /* XABGuardianHeaderView.h */,
+				602946BE1EF76D0D0008B195 /* XABGuardianHeaderView.m */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -3767,6 +3774,7 @@
 				751A53BC1EE0F59A00BAB566 /* QNCrc32.m in Sources */,
 				8CB029DA1E6D4A3A00A57EBC /* MASViewConstraint.m in Sources */,
 				603169D41E8C123C008AA3A7 /* XABShareSDKTool.m in Sources */,
+				602946BF1EF76D0D0008B195 /* XABGuardianHeaderView.m in Sources */,
 				8CB02B701E6D620100A57EBC /* XABNewsViewController.m in Sources */,
 				751A53BD1EE0F59A00BAB566 /* QNEtag.m in Sources */,
 				751A526C1EE01FA400BAB566 /* XABVideoViewController.m in Sources */,
