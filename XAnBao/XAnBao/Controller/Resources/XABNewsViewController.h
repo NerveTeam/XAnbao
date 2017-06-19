@@ -9,5 +9,5 @@
 #import "YBBaseViewController.h"
 
 @interface XABNewsViewController : YBBaseViewController
-
+@property(nonatomic, copy)NSString *channelId;
 @end

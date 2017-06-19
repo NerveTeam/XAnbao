@@ -302,6 +302,7 @@
 		8C636BDA1ED6C3980003E2D1 /* XABMemberListSelectorItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C636BD91ED6C3980003E2D1 /* XABMemberListSelectorItem.m */; };
 		8C636BDD1EE7B43F0003E2D1 /* XABSelectGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C636BDC1EE7B43F0003E2D1 /* XABSelectGroupCell.m */; };
 		8C636BE01EE7B5AC0003E2D1 /* RadioButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C636BDF1EE7B5AC0003E2D1 /* RadioButton.m */; };
+		8C7BB5581EF77EAF00A887A8 /* XABResourceRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C7BB5571EF77EAF00A887A8 /* XABResourceRequest.m */; };
 		8CA107AD1E8B658A00417C5A /* XABHomeworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA107AC1E8B658A00417C5A /* XABHomeworkViewController.m */; };
 		8CA107B01E8B659900417C5A /* XABCheckJobViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA107AF1E8B659900417C5A /* XABCheckJobViewController.m */; };
 		8CB023FD1E6D470600A57EBC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB023FC1E6D470600A57EBC /* main.m */; };
@@ -1069,6 +1070,8 @@
 		8C636BDC1EE7B43F0003E2D1 /* XABSelectGroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABSelectGroupCell.m; sourceTree = "<group>"; };
 		8C636BDE1EE7B5AC0003E2D1 /* RadioButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadioButton.h; sourceTree = "<group>"; };
 		8C636BDF1EE7B5AC0003E2D1 /* RadioButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadioButton.m; sourceTree = "<group>"; };
+		8C7BB5561EF77EAF00A887A8 /* XABResourceRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABResourceRequest.h; sourceTree = "<group>"; };
+		8C7BB5571EF77EAF00A887A8 /* XABResourceRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABResourceRequest.m; sourceTree = "<group>"; };
 		8CA107AB1E8B658A00417C5A /* XABHomeworkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABHomeworkViewController.h; sourceTree = "<group>"; };
 		8CA107AC1E8B658A00417C5A /* XABHomeworkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABHomeworkViewController.m; sourceTree = "<group>"; };
 		8CA107AE1E8B659900417C5A /* XABCheckJobViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABCheckJobViewController.h; sourceTree = "<group>"; };
@@ -2775,6 +2778,8 @@
 				8C383A461EADAA4F00EC7ED6 /* XABSchoolRequest.m */,
 				8C636BC41EC7FB410003E2D1 /* XABClassRequest.h */,
 				8C636BC51EC7FB410003E2D1 /* XABClassRequest.m */,
+				8C7BB5561EF77EAF00A887A8 /* XABResourceRequest.h */,
+				8C7BB5571EF77EAF00A887A8 /* XABResourceRequest.m */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -3687,6 +3692,7 @@
 				8CB02B011E6D4A3B00A57EBC /* YTKRequest.m in Sources */,
 				8CB02B731E6D69B400A57EBC /* XABResource.m in Sources */,
 				8CB026771E6D497700A57EBC /* TestMacro.m in Sources */,
+				8C7BB5581EF77EAF00A887A8 /* XABResourceRequest.m in Sources */,
 				75614B2A1ECEDC2700023DC5 /* TaskCell.m in Sources */,
 				8CB029EB1E6D4A3A00A57EBC /* MJRefreshBackFooter.m in Sources */,
 				8C0DF2D01E8501EB00A1B2B2 /* FSCalendarDelegationFactory.m in Sources */,

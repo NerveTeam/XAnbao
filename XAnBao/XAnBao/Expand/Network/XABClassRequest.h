@@ -80,3 +80,8 @@
 @interface ClassReceivedNoticeRequest : BaseDataRequest
 
 @end
+
+//家长确认
+@interface ClassFoucsMapRequest : BaseDataRequest
+
+@end

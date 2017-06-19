@@ -82,7 +82,7 @@ static int number = 3;
     }
     [items addObjectsFromArray:@[@{@"intro":@"课程表",@"img":@"myClass_schedule",@"class":@"XABClassScheduleViewController"},
                                  @{@"intro":@"班级文件",@"img":@"myClass_class_file",@"class":@"XABClassFileViewController"},
-                                 @{@"intro":@"我的好友",@"img":@"myClass_friends",@"class":@"XABClassFriendsViewController"},
+//                                 @{@"intro":@"我的好友",@"img":@"myClass_friends",@"class":@"XABClassFriendsViewController"},
                                  @{@"intro":@"班级讨论",@"img":@"myClass_discussion",@"class":@"XABClassChatViewController"}]];
     self.data = items.copy;
 }

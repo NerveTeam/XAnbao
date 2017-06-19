@@ -10,6 +10,8 @@
 #import "XABResource.h"
 #import "XABResourceListCell.h"
 #import "XABArticleViewController.h"
+#import "XABResourceRequest.h"
+#import "NSArray+Safe.h"
 
 @interface XABNewsViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic, strong)UITableView *tableView;
@@ -25,10 +27,29 @@
     [self loadData:_currentIndex];
 }
 - (void)loadData:(NSInteger)page {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self stopRefresh];
-        [self.tableView reloadData];
-    });
+    WeakSelf;
+    NSMutableDictionary *pargam = [NSMutableDictionary new];
+    [pargam setSafeObject:self.channelId forKey:@"programId"];
+    [pargam setSafeObject:@(page) forKey:@"current"];
+    [XABResourceFeedListRequest requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
+        NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
+        if (code == 200) {
+            NSDictionary *data = [request.json objectForKeySafely:@"data"];
+            NSArray *results = [data objectForKeySafely:@"results"];
+            if (page > 1) {
+                NSMutableArray *temp = [NSMutableArray arrayWithArray:self.dataList];
+                [temp addObjectsFromArray:[XABResource mj_objectArrayWithKeyValuesArray:results]];
+                self.dataList = temp.copy;
+            }else {
+                self.dataList = [XABResource mj_objectArrayWithKeyValuesArray:results];
+            }
+        }
+        
+        [weakSelf stopRefresh];
+        [weakSelf.tableView reloadData];
+    } failureBlock:^(BaseDataRequest *request) {
+        [self showMessage:[request.json objectForKeySafely:@"message"]];
+    }];
 }
 
 
@@ -37,8 +58,7 @@
     [self.tableView.mj_footer endRefreshing];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 30;
-//    return self.dataList.count;
+    return self.dataList.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     XABResourceListCell *cell = [XABResourceListCell newsSportListCellWithTableView:tableView];
@@ -54,9 +74,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     XABResource *sport = self.dataList[indexPath.row];
-    XABArticleViewController *article = [[XABArticleViewController alloc]initWithUrl:@"https://sports.sina.cn/nba/warriors/2017-03-09/detail-ifychhuq3433755.d.html?vt=4&pos=10&HTTPS=1"];
+    XABArticleViewController *article = [[XABArticleViewController alloc]initWithUrl:sport.url];
+    article.showType = ArticleTypeNone;
+    article.articleId = sport.id;
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self.navigationController pushViewController:article animated:YES];
+
 }
 
 #pragma mark - lazy

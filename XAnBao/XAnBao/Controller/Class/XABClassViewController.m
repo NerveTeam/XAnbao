@@ -38,7 +38,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self requestFoucs];
     [self loadFollowList];
 }
 
@@ -69,6 +68,7 @@
             }
             weakSelf.followData = follow.copy;
             [weakSelf initTopBar];
+            [weakSelf requestFoucs];
         }
     } failureBlock:^(BaseDataRequest *request) {
         [weakSelf initTopBar];
@@ -76,11 +76,22 @@
 }
 
 - (void)requestFoucs {
-    __weak typeof(self)weakSelf = self;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    WeakSelf;
+    NSMutableDictionary *pargam = [NSMutableDictionary new];
+    [pargam setSafeObject:[[self.followData safeObjectAtIndex:self.currentSelectIndex] objectForKeySafely:@"classId"] forKey:@"classId"];
+    [ClassFoucsMapRequest requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
+        NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
+        if (code == 200) {
+            NSArray *data = [request.json objectForKeySafely:@"data"];
+            NSMutableArray *follow = [[NSMutableArray alloc]initWithCapacity:data.count];
+            for (NSDictionary *item in data) {
+                [follow safeAddObject:[item objectForKeySafely:@"url"]];
+            }
+            weakSelf.cycleView.imageURLStringsGroup = follow.copy;
+        }
+    } failureBlock:^(BaseDataRequest *request) {
         
-        weakSelf.cycleView.imageURLStringsGroup = @[@"https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3510003795,2153467965&fm=23&gp=0.jpg",@"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1017904219,2460650030&fm=23&gp=0.jpg",@"https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=938946740,2496936570&fm=23&gp=0.jpg",@"https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3448641352,2315059109&fm=23&gp=0.jpg"];
-    });
+    }];
 }
 
 // init菜单
@@ -159,6 +170,7 @@
     [_currentSelectSchool layoutButtonWithEdgeInsetsStyle:MKButtonEdgeInsetsStyleRight imageTitleSpace:5];
     [self.schoolMenu removeFromSuperview];
     [self.schoolMenuBgView removeFromSuperview];
+    [self requestFoucs];
 }
 
 

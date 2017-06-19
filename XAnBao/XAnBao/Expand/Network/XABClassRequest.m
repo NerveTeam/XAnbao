@@ -234,3 +234,19 @@ static const NSString *domain = @"http://118.190.97.150/interface/api1/class-gra
     return YES;
 }
 @end
+
+
+@implementation ClassFoucsMapRequest
+- (NSString *)requestUrl {
+    return [domain stringByAppendingString:@"carousel"];
+}
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodGET;
+}
+- (YTKResponseSerializerType)responseSerializerType {
+    return YTKResponseSerializerTypeJSON;
+}
+- (BOOL)useCDN {
+    return YES;
+}
+@end
