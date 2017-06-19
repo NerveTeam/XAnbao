@@ -109,6 +109,9 @@
 }
 
 - (void)postClick {
+    if ([self.nameTextField.text isEqualToString:@""] || [self.contentView.text isEqualToString:@""]) {
+        return;
+    }
     WeakSelf;
     NSMutableDictionary *pargam = [NSMutableDictionary new];
     [pargam setSafeObject:self.schollId forKey:@"schoolId"];

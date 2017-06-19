@@ -16,6 +16,8 @@
 #import "XABVideoViewController.h"
 #import "XABFileViewController.h"
 #import "XABOtherViewController.h"
+#import "NSArray+Safe.h"
+#import "XABClassRequest.h"
 
 @interface XABClassFileViewController ()
 @property(nonatomic, strong)UIView *topBarView;
@@ -33,7 +35,7 @@
     [super viewDidLoad];
     [self setup];
     [self layoutView];
-    [self loadData];
+    [self requestFoucs];
 }
 - (BOOL)hidesBottomBarWhenPushed {
     return YES;
@@ -42,12 +44,24 @@
     [self.view addSubview:self.topBarView];
 }
 
-- (void)loadData{
-    __weak typeof(self)weakSelf = self;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+
+- (void)requestFoucs {
+    WeakSelf;
+    NSMutableDictionary *pargam = [NSMutableDictionary new];
+    [pargam setSafeObject:self.classId forKey:@"classId"];
+    [ClassFoucsMapRequest requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
+        NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
+        if (code == 200) {
+            NSArray *data = [request.json objectForKeySafely:@"data"];
+            NSMutableArray *follow = [[NSMutableArray alloc]initWithCapacity:data.count];
+            for (NSDictionary *item in data) {
+                [follow safeAddObject:[item objectForKeySafely:@"url"]];
+            }
+            weakSelf.cycleView.imageURLStringsGroup = follow.copy;
+        }
+    } failureBlock:^(BaseDataRequest *request) {
         
-        weakSelf.cycleView.imageURLStringsGroup = @[@"https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3510003795,2153467965&fm=23&gp=0.jpg",@"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1017904219,2460650030&fm=23&gp=0.jpg",@"https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=938946740,2496936570&fm=23&gp=0.jpg",@"https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3448641352,2315059109&fm=23&gp=0.jpg"];
-    });
+    }];
 }
 
 - (void)jumpPicture {

@@ -14,6 +14,7 @@
 #import "XABResourceListCell.h"
 #import "XABArticleViewController.h"
 #import "XABClassRequest.h"
+#import "NSArray+Safe.h"
 
 @interface XABClassNoticeViewController ()<SDCycleScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)SDCycleScrollView *cycleView;
@@ -38,8 +39,27 @@
     [self.view addSubview:self.topBarView];
     _currentIndex = 1;
     self.tableView.mj_header.state = MJRefreshStateRefreshing;
+    [self requestFoucs];
 }
 
+- (void)requestFoucs {
+    WeakSelf;
+    NSMutableDictionary *pargam = [NSMutableDictionary new];
+    [pargam setSafeObject:self.classId forKey:@"classId"];
+    [ClassFoucsMapRequest requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
+        NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
+        if (code == 200) {
+            NSArray *data = [request.json objectForKeySafely:@"data"];
+            NSMutableArray *follow = [[NSMutableArray alloc]initWithCapacity:data.count];
+            for (NSDictionary *item in data) {
+                [follow safeAddObject:[item objectForKeySafely:@"url"]];
+            }
+            weakSelf.cycleView.imageURLStringsGroup = follow.copy;
+        }
+    } failureBlock:^(BaseDataRequest *request) {
+        
+    }];
+}
 - (void)loadData:(NSInteger)page {
     WeakSelf;
     NSMutableDictionary *pargam = [NSMutableDictionary new];

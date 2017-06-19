@@ -298,7 +298,10 @@
     if (indexPath.section==0 || indexPath.section==2) {
         SchoolNewsAndArticleModel *schoolandarticlemodel= CommonSource[indexPath.section][indexPath.row]  ;
         XABArticleViewController *article = [[XABArticleViewController alloc]initWithUrl:schoolandarticlemodel.url];
-        [self.navigationController pushViewController:article animated:1];
+        article.showType = ArticleTypeNone;
+//        article.articleId = schoolandarticlemodel.id;
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        [self.navigationController pushViewController:article animated:YES];
     }
     
 }

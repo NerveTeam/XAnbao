@@ -12,6 +12,7 @@
 #import "UIButton+Extention.h"
 #import "XABSchoolRequest.h"
 #import "XABClassRequest.h"
+#import "NSArray+Safe.h"
 
 @interface XABArticleViewController ()
 @property(nonatomic,strong)UIWebView *webView;
@@ -25,7 +26,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [SchoolVisitLog requestDataWithDelegate:self parameters:@{@"itemId":self.articleId} headers:Token];
+    NSMutableDictionary *pa = [NSMutableDictionary dictionary];
+    [pa setSafeObject:self.articleId forKey:@"itemId"];
+    [SchoolVisitLog requestDataWithDelegate:self parameters:pa headers:Token];
     self.navigationController.navigationBar.hidden = NO;
     [NSURLProtocol registerClass:[RNCachingURLProtocol class]];
     [self.view addSubview:self.webView];
