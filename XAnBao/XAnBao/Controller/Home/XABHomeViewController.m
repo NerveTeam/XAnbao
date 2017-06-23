@@ -86,6 +86,7 @@
 - (UITableView *)CommonTableView{
     if (!_CommonTableView) {
         _CommonTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, StatusBarHeight + TopBarHeight, self.view.width, self.view.height - TopBarHeight - StatusBarHeight - TabBarHeight) style:UITableViewStyleGrouped];
+   
         _CommonTableView.delegate=self;
         _CommonTableView.dataSource=self;
         [self.view addSubview:_CommonTableView];
@@ -220,7 +221,7 @@
 }
 - (UILabel *)titlelbl{
     if (!_titlelbl) {
-        _titlelbl = [[UILabel alloc]initWithFrame:[FrameAutoScaleLFL CGLFLMakeX:15 Y:10 width:295 height:30] ];
+        _titlelbl = [[UILabel alloc]initWithFrame:[FrameAutoScaleLFL CGLFLMakeX:15 Y:5 width:295 height:20] ];
         _titlelbl.textAlignment=NSTextAlignmentLeft;
         _titlelbl.font=[UIFont systemFontOfSize:13];
         //        _titlelbl.text=SchoolDataArr[0][@"school"][@"name"];
@@ -241,51 +242,70 @@
         }
         return sectionView;
     }
+    return sectionView;
+
+}
+
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     
-    if (section==1) {
-        if (!sectionView) {
-            sectionView=[[UIView alloc]initWithFrame:[FrameAutoScaleLFL CGLFLMakeX:15 Y:0 width:295 height:30 ]];
-            
-            UILabel *title=   [[UILabel alloc]initWithFrame:[FrameAutoScaleLFL CGLFLMakeX:15 Y:0 width:295 height:30] ];
-            title.text=@"我的班级";
-            title.textAlignment=NSTextAlignmentLeft;
-            title.font=[UIFont systemFontOfSize:13];
-            [sectionView addSubview: title];
-            
-            UIButton *shousuoBtn=[UIButton buttonWithType:UIButtonTypeCustom];
-            shousuoBtn.frame=[FrameAutoScaleLFL CGLFLMakeX:260 Y:0 width:40 height:25];
-            shousuoBtn.titleLabel.font=[UIFont systemFontOfSize:13];
-            
-            if (isShousu==NO) {
-                [shousuoBtn setTitle:@"展开" forState:UIControlStateNormal];
-                [shousuoBtn setTitleColor:[UIColor colorWithRed:251/255.0 green:157/255.0 blue:40/255.0 alpha:1] forState:UIControlStateNormal];
-                shousuoBtn.layer.borderColor=[UIColor colorWithRed:251/255.0 green:157/255.0 blue:40/255.0 alpha:1].CGColor;
-            }else{
-                [shousuoBtn setTitleColor:[UIColor colorWithRed:35/255.0 green:1 blue:112/255.0 alpha:1] forState:UIControlStateNormal];
-                shousuoBtn.layer.borderColor=[UIColor colorWithRed:35/255.0 green:1 blue:112/255.0 alpha:1].CGColor;
-                [shousuoBtn setTitle:@"收起" forState:UIControlStateNormal];
-            }
-            shousuoBtn.layer.borderWidth=0.5;
-            shousuoBtn.layer.cornerRadius=5;
-            
-            [shousuoBtn addTarget:self action:@selector(shousu:) forControlEvents:UIControlEventTouchUpInside];
-            
-            [sectionView addSubview:shousuoBtn];
-            
+    UIView *sectionView;
+    if (section==0) {
+    if (!sectionView) {
+        sectionView=[[UIView alloc]initWithFrame:[FrameAutoScaleLFL CGLFLMakeX:15 Y:0 width:295 height:30 ]];
+        sectionView.userInteractionEnabled=YES;
+        UILabel *title=   [[UILabel alloc]initWithFrame:[FrameAutoScaleLFL CGLFLMakeX:15 Y:0 width:295 height:30] ];
+        title.text=@"我的班级";
+  
+        
+        title.textAlignment=NSTextAlignmentLeft;
+        title.font=[UIFont systemFontOfSize:13];
+        [sectionView addSubview: title];
+        
+        UIButton *shousuoBtn=[UIButton buttonWithType:UIButtonTypeCustom];
+        shousuoBtn.frame=[FrameAutoScaleLFL CGLFLMakeX:260 Y:5 width:40 height:20];
+        shousuoBtn.titleLabel.font=[UIFont systemFontOfSize:13];
+        
+        if (isShousu==NO) {
+            [shousuoBtn setTitle:@"展开" forState:UIControlStateNormal];
+            [shousuoBtn setTitleColor:[UIColor colorWithRed:251/255.0 green:157/255.0 blue:40/255.0 alpha:1] forState:UIControlStateNormal];
+            shousuoBtn.layer.borderColor=[UIColor colorWithRed:251/255.0 green:157/255.0 blue:40/255.0 alpha:1].CGColor;
+        }else{
+            [shousuoBtn setTitleColor:[UIColor colorWithRed:35/255.0 green:1 blue:112/255.0 alpha:1] forState:UIControlStateNormal];
+            shousuoBtn.layer.borderColor=[UIColor colorWithRed:35/255.0 green:1 blue:112/255.0 alpha:1].CGColor;
+            [shousuoBtn setTitle:@"收起" forState:UIControlStateNormal];
         }
-        return sectionView;
+        shousuoBtn.layer.borderWidth=0.5;
+        shousuoBtn.layer.cornerRadius=5;
+        
+        [shousuoBtn addTarget:self action:@selector(shousu:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [sectionView addSubview:shousuoBtn];
+        
+    }
+    return sectionView;
     }
     
+    if (section==1) {
+        sectionView=[[UIView alloc]initWithFrame:[FrameAutoScaleLFL CGLFLMakeX:15 Y:0 width:295 height:30 ]];
+        UILabel *title=   [[UILabel alloc]initWithFrame:[FrameAutoScaleLFL CGLFLMakeX:15 Y:0 width:295 height:30] ];
+        title.text=@"安全教育";
+        title.textAlignment=NSTextAlignmentLeft;
+        title.font=[UIFont systemFontOfSize:13];
+        [sectionView addSubview: title];
+        return  sectionView;
+    }
     
-    sectionView=[[UIView alloc]initWithFrame:[FrameAutoScaleLFL CGLFLMakeX:15 Y:0 width:295 height:30 ]];
-    UILabel *title=   [[UILabel alloc]initWithFrame:[FrameAutoScaleLFL CGLFLMakeX:15 Y:0 width:295 height:30] ];
-    title.text=@"安全教育";
-    title.textAlignment=NSTextAlignmentLeft;
-    title.font=[UIFont systemFontOfSize:13];
-    [sectionView addSubview: title];
     return  sectionView;
     
 }
+
+
+
+
+
+
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -307,15 +327,44 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+
+    if (section==0) {
+        return 30;
+    }
     
-    if (section==1 || section==2) {
-        return 40;
-    }else
-        return 50;
+    return 0.000001;
+    
 }
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 30;
+}
+
+
+
 
 -(void)VersionRequest
 {
+   
+     /*   AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+        NSDictionary *headerFieldValueDictionary =Token;
+        
+        NSLog(@">>>>>>>>>>>>>>>>>>%@",Token);
+        
+        if (headerFieldValueDictionary != nil) {
+            for (NSString *httpHeaderField in headerFieldValueDictionary.allKeys) {
+                NSString *value = headerFieldValueDictionary[httpHeaderField];
+                [manger.requestSerializer setValue:value forHTTPHeaderField:httpHeaderField];
+            }
+        }
+        [manger GET:@"http://118.190.97.150/interface/api1/my" parameters:nil progress:nil success:
+         ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+             
+             NSLog(@"%@",[NSString stringWithFormat:@"%@",responseObject]);
+          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+             
+         }];
+       */
     NSURL *url = [NSURL URLWithString:@"http://139.129.221.253:8080/campus/api/v1/index_frequently/list?uid=1967"];
     
     //生成连接
