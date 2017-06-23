@@ -10,13 +10,16 @@
 #import "UIView+TopBar.h"
 #import "SettingtavleViewCell.h"
 #import "NSString+Addtion.h"
-#import "AFNetworking.h"
+#import "FrameAutoScaleLFL.h"
+#import "AppDelegate.h"
+#import "XABLoginViewController.h"
+#import "JPUSHService.h"
 @interface SettingViewController ()<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate>
 {
     NSArray *SettinArr;
 }
 @property(nonatomic,retain)UITableView *SettingTableView;
-
+@property(nonatomic,retain)UIButton *sureBtn;
 @end
 
 @implementation SettingViewController
@@ -25,66 +28,60 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor=[UIColor whiteColor];
-    self.SettingTableView.backgroundColor=[UIColor clearColor];
+    
     SettinArr=@[@"是否静音",@"版本更新",@"清理缓存"];
-    
-    NSLog(@">>>>>>>>>>>>%@",self.alert);
-   
-    NSLog(@">>>>>>>>>>>>%@",self.jianzhangid);
-
-    [self    VersionRequest];
+    [self initNavItem];
+    self.SettingTableView.backgroundColor=[UIColor clearColor];
+      self.sureBtn.backgroundColor=[UIColor colorWithRed:16/255.0 green:159/255.0 blue:1 alpha:1];
 }
 
 
 
--(void)creataler{
-    
-    UIAlertView *alertview=[[UIAlertView alloc]initWithTitle:self.alert message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-    alertview.delegate=self;
-    [alertview show];
-}
 
-
--(void)VersionRequest
-{
-    
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
-    AFHTTPRequestSerializer *requestSerializer =  [AFJSONRequestSerializer serializer];
-    NSDictionary *headerFieldValueDictionary =Token;
-    NSLog(@">>>>>>>>>>>>>>>>>>%@",Token);
-    if (headerFieldValueDictionary != nil) {
-        for (NSString *httpHeaderField in headerFieldValueDictionary.allKeys) {
-            NSString *value = headerFieldValueDictionary[httpHeaderField];
-            [requestSerializer setValue:value forHTTPHeaderField:httpHeaderField];
-        }
-    }
-    manger.requestSerializer = requestSerializer;
-    NSDictionary *dict = @{
-                           @"id":self.jianzhangid,
-                           @"pass":@"true",
-                           };
-    [manger POST:@"http://118.190.97.150/interface/api1/class-grade/pass-attention" parameters:dict progress:^(NSProgress * _Nonnull uploadProgress) {
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSDictionary *dic=responseObject;
-        NSLog(@">>>>>=========%@",dic[@"message"]);
-        
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-    }];
-}
 
 
 //初始化导航按钮
--(void)initNavItem
+- (void)initNavItem
 {
-    UIView *topBarView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, StatusBarHeight + TopBarHeight)];
-    [self.view addSubview:topBarView];
-    topBarView = [topBarView topBarWithTintColor:ThemeColor title:@"系统设置" titleColor:[UIColor whiteColor] leftView:nil rightView:nil responseTarget:self];
+    UIImageView *BlueView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 65)];
+    BlueView.image = [UIImage imageNamed:@"blue.png"];
+    //    BlueView.backgroundColor=[UIColor redColor];
+    BlueView.userInteractionEnabled=YES;
+    [self.view addSubview:BlueView];
     
+    UIButton *backBt = [[UIButton alloc] initWithFrame:CGRectMake(15, 31, 12, 20)];
+    backBt.contentMode = UIViewContentModeScaleAspectFit;
+    
+    [backBt setImage:[UIImage imageNamed:@"leftjiantou.png"] forState:UIControlStateNormal];    backBt.titleLabel.font=[UIFont systemFontOfSize:15];
+    [BlueView addSubview:backBt];
+    
+    UIView *leftView = [[UIView alloc]initWithFrame:CGRectMake(10, 20, 40, 40)];
+    leftView.backgroundColor = [UIColor clearColor];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(backToBeforeController)];
+    [leftView addGestureRecognizer:tap];
+    [BlueView addSubview:leftView];
+    
+    UILabel *titlelab = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 100)*0.5, 30, 100, 25)];
+    titlelab.text = @"系统设置";
+    titlelab.textColor = [UIColor whiteColor];
+    titlelab.font = [UIFont systemFontOfSize:15];
+    titlelab.textAlignment = NSTextAlignmentCenter;
+    [BlueView addSubview:titlelab];
+    
+    
+}
+-(void)backToBeforeController{
+    [self.navigationController popViewControllerAnimated:1];
 }
 
 - (UITableView *)SettingTableView{
     if (!_SettingTableView) {
-        _SettingTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, StatusBarHeight , self.view.width, self.view.height - TopBarHeight - StatusBarHeight - TabBarHeight) style:UITableViewStyleGrouped];
+        _SettingTableView = [[UITableView alloc]initWithFrame:[FrameAutoScaleLFL CGLFLMakeX:0 Y:65 width:320 height:503] style:UITableViewStylePlain];
+        _SettingTableView.scrollEnabled=NO;
+        _SettingTableView.tableFooterView=[[UIView alloc]initWithFrame:CGRectZero];
+        if (!IS_IPHONE_5) {
+            _SettingTableView.frame=[FrameAutoScaleLFL CGLFLMakeX:0 Y:50 width:320 height:503];
+        }
         _SettingTableView.delegate=self;
         _SettingTableView.dataSource=self;
         [self.view addSubview:_SettingTableView];
@@ -139,18 +136,10 @@
         
         return;
     }
-    else if (buttonIndex==1  )
-
-//    else if (buttonIndex==1 && alertView.tag==2 )
+   else if (buttonIndex==1 && alertView.tag==2 )
     {
-        
-        
-        
-          [self VersionRequest];
-    }
-        
         //清楚缓存
-    /*    UIAlertView* alertViewc = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:[NSString stringWithFormat:@"清理成功，共清理(%.2fM)垃圾",[NSString getFileSizeWithPath:[NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches"]]]] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+       UIAlertView* alertViewc = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:[NSString stringWithFormat:@"清理成功，共清理(%.2fM)垃圾",[NSString getFileSizeWithPath:[NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches"]]]] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alertViewc show];
         NSString *cachPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
         
@@ -168,17 +157,38 @@
         return;
     }
     
-    [self.SettingTableView reloadData];*/
+    [self.SettingTableView reloadData];
 }
 
-//- (void)viewWillDisappear:(BOOL)animated {
-//    [super viewWillDisappear:animated];
-//    self.navigationController.navigationBar.hidden = YES;
-//}
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.navigationController.navigationBar.hidden = NO;
+- (void)viewWillappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBar.hidden = YES;
 }
+
+
+-(UIButton *)sureBtn{
+    
+    if (!_sureBtn) {
+        _sureBtn=[UIButton buttonWithType:UIButtonTypeCustom];
+        _sureBtn.frame=[FrameAutoScaleLFL CGLFLMakeX:20 Y:230 width:280 height:30];
+        [_sureBtn setTitle:@"退出" forState:UIControlStateNormal];
+        [self.view addSubview:_sureBtn];
+        [_sureBtn addTarget:self action:@selector(sueClick) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _sureBtn;
+}
+
+-(void)sueClick{
+    
+    XABLoginViewController *vc = [[XABLoginViewController alloc] init];
+    UINavigationController *navLogin = [[UINavigationController alloc] initWithRootViewController:vc];
+    AppDelegate *app =(AppDelegate *) [[UIApplication sharedApplication] delegate ];
+    app.window.rootViewController = navLogin;
+    
+    //    //退出登录
+    [JPUSHService setTags:nil alias:@"" callbackSelector:@selector(tagsAliasCallback:tags:alias:) object:self];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

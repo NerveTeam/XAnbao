@@ -10,7 +10,9 @@
 
 @interface MySelfTableCell : UITableViewCell
 @property(nonatomic,retain)UIImageView *ArrowiconView;
-@property(nonatomic,retain)UIImageView *iconView;
 @property(nonatomic,retain)UILabel *namelbl;
-@property(nonatomic,retain)UILabel *titlelabel;
+@property(nonatomic,retain)UITextField *titlelabel;
+@property(nonatomic,retain)UIImageView *headerView;
+
+
 @end

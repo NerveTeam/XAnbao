@@ -14,7 +14,7 @@
 #import "XABLoginRequest.h"
 #import "NSDictionary+Safe.h"
 #import "NSArray+Safe.h"
-
+#import "JPUSHService.h"
 #import "XABUserModel.h"
 NSString *const UserLoginSuccess = @"UserLoginSuccess";
 NSString *const UserLoginError = @"UserLoginError";
@@ -150,7 +150,18 @@ static XABUserLogin *_instance;
             //保存用户信息
             [self saveUserInfoWith:dataDict];
             [self postNotification:YES];
-
+            
+#pragma mark - 推送别名设置
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                //        [JPUSHService setTags:nil alias:userID fetchCompletionHandle:^(int iResCode, NSSet *iTags, NSString *iAlias) {
+                //            XHLog(@"%d-------------%@,-------------%@",iResCode,iTags,iAlias);
+                //        }];
+                
+                [JPUSHService setTags:nil alias:self.userInfo.mobile callbackSelector:@selector(tagsAliasCallback:tags:alias:) object:self];
+                
+                
+            });
+            
             if (block) {
                 block(YES,self.userInfo);
             }
