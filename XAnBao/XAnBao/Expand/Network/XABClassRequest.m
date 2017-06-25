@@ -250,3 +250,33 @@ static const NSString *domain = @"http://118.190.97.150/interface/api1/class-gra
     return YES;
 }
 @end
+
+@implementation ClassStatisReceivedRequest
+- (NSString *)requestUrl {
+    return @"http://118.190.97.150/interface/api1/class-message/class-grades";
+}
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodGET;
+}
+- (YTKResponseSerializerType)responseSerializerType {
+    return YTKResponseSerializerTypeJSON;
+}
+- (BOOL)useCDN {
+    return YES;
+}
+@end
+
+@implementation ClassCatStatisRequest
+- (NSString *)requestUrl {
+    return @"http://118.190.97.150/interface/api1/class-message/replied-statistics";
+}
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodGET;
+}
+- (YTKResponseSerializerType)responseSerializerType {
+    return YTKResponseSerializerTypeJSON;
+}
+- (BOOL)useCDN {
+    return YES;
+}
+@end

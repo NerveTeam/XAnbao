@@ -7,10 +7,12 @@
 //
 
 #import "YBCollectionViewBaseCell.h"
+@class XABUploadImageCell;
 @protocol XABUploadImageCellDelegate <NSObject>
 
 - (void)uploadDidFinish:(NSData *)imageData;
 
+- (void)deleteImage:(XABUploadImageCell *)cell;
 @end
 @interface XABUploadImageCell : YBCollectionViewBaseCell
 @property(nonatomic, weak)id<XABUploadImageCellDelegate> delegate;

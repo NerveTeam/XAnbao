@@ -23,12 +23,19 @@
 - (void)selectGroup {
     [self.radioBtn setSelected:!self.radioBtn.selected];
     if ([_delegate respondsToSelector:@selector(selectGroupList:)]) {
-        [_delegate selectGroupList:[NSString stringWithFormat:@"%ld",self.radioBtn.tag]];
+        NSInteger gid = self.radioBtn.tag;
+        [_delegate selectGroupList:[NSString stringWithFormat:@"%ld",gid]];
     }
 }
 - (void)setModel:(NSDictionary *)data {
     self.nameLabel.text = [data objectForKeySafely:@"name"];
-    self.radioBtn.tag = [data objectForKeySafely:@"id"];
+    self.radioBtn.tag = [[data objectForKeySafely:@"id"] integerValue];
+    
+    for (NSString *ids in self.selectedGroup) {
+        if ([[data objectForKeySafely:@"id"] isEqualToString:ids]) {
+            [self selectGroup];
+        }
+    }
 }
 
 - (void)setup {

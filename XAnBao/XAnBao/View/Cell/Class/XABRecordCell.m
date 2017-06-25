@@ -16,6 +16,7 @@
 @property (nonatomic, assign) BOOL isRecording;
 @property (nonatomic, assign) BOOL isPlaying;
 @property (nonatomic, copy) NSString *recordFilename;
+@property(nonatomic, strong)UIButton *deleteBtn;
 @end
 static int Record = 1; // 录音
 static int Play = 2;   // 播放
@@ -138,7 +139,11 @@ static int recording = 0;
     }
 }
 
-
+- (void)deleteRecord {
+    if ([_delegate respondsToSelector:@selector(deleteRecord:)]) {
+        [_delegate deleteRecord:self];
+    }
+}
 #pragma mark - Recording & Playing Delegate
 
 
@@ -146,9 +151,11 @@ static int recording = 0;
 - (void)setModel:(id)model {
     if ([model isEqualToString:@"add"]) {
         self.recordBtn.tag = Record;
+        self.deleteBtn.hidden = YES;
         [self.recordBtn setTitle:@"开始录音" forState:UIControlStateNormal];
     }else {
         self.recordBtn.tag = Play;
+        self.deleteBtn.hidden = NO;
         self.recordFilename = model;
         [self.recordBtn setTitle:@"开始播放" forState:UIControlStateNormal];
     }
@@ -158,6 +165,7 @@ static int recording = 0;
     playing = 0;
     recording = 0;
     [self.contentView addSubview:self.recordBtn];
+    [self.contentView addSubview:self.deleteBtn];
     [self addObserver:self forKeyPath:@"isRecording" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:nil];
     [self addObserver:self forKeyPath:@"isPlaying" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:nil];
 }
@@ -165,6 +173,9 @@ static int recording = 0;
 - (void)layoutSubviews {
     [self.recordBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.contentView).offset(10);
+    }];
+    [self.deleteBtn mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.right.equalTo(self.recordBtn);
     }];
 }
 
@@ -180,7 +191,13 @@ static int recording = 0;
     }
     return _recordBtn;
 }
-
+- (UIButton *)deleteBtn {
+    if (!_deleteBtn) {
+        _deleteBtn = [UIButton buttonWithImageNormal:@"content_btn_del" imageHighlighted:@"content_btn_del"];
+        [_deleteBtn addTarget:self action:@selector(deleteRecord) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _deleteBtn;
+}
 - (void)dealloc {
     [self stopRecording];
     [self stopPlaying];

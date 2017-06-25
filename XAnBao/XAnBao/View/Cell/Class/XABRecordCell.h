@@ -7,12 +7,12 @@
 //
 
 #import "YBCollectionViewBaseCell.h"
-
+@class XABRecordCell;
 typedef void(^callBack)();
 @protocol XABRecordCellDelegate <NSObject>
 
 - (void)recordingDidFinish:(NSString *)filePath;
-
+- (void)deleteRecord:(XABRecordCell *)cell;
 @end
 @interface XABRecordCell : YBCollectionViewBaseCell
 @property(nonatomic, weak)id<XABRecordCellDelegate> delegate;

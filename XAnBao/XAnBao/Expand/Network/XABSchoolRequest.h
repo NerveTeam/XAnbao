@@ -101,3 +101,8 @@
 @interface SchoolQueryReceivedNoticeRequest : BaseDataRequest
 
 @end
+
+//通知统计
+@interface SchoolNoticeStatisRequest : BaseDataRequest
+
+@end

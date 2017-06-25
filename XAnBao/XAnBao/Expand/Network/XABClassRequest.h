@@ -85,3 +85,13 @@
 @interface ClassFoucsMapRequest : BaseDataRequest
 
 @end
+
+//统计班级
+@interface ClassStatisReceivedRequest : BaseDataRequest
+
+@end
+
+//查看统计
+@interface ClassCatStatisRequest : BaseDataRequest
+
+@end

@@ -216,8 +216,8 @@
 }
 
 - (void)requestError {
-    [self cancelMessage];
-    [self showMessage:@"网络请求失败"];
+//    [self cancelMessage];
+//    [self showMessage:@"网络请求失败"];
 }
 
 - (void)schoolMenuSetDefault:(NSInteger)index {

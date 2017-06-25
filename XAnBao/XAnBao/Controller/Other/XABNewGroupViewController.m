@@ -156,7 +156,7 @@
 
 - (XABMemberListSelectorView *)selectorView {
     if (!_selectorView) {
-        _selectorView = [XABMemberListSelectorView memberListSelectorWithData:self.memberList isSchool:_isScholl];
+        _selectorView = [XABMemberListSelectorView memberListSelectorWithData:self.memberList isSchool:_isScholl selectedData:nil];
     }
     return _selectorView;
 }

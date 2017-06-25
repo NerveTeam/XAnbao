@@ -13,6 +13,8 @@
 #import "XABSchoolRequest.h"
 #import "XABClassRequest.h"
 #import "NSArray+Safe.h"
+#import "XABSchoolNoticeStatisViewController.h"
+#import "XABClassNoticeStatisViewController.h"
 
 @interface XABArticleViewController ()
 @property(nonatomic,strong)UIWebView *webView;
@@ -90,7 +92,15 @@
 
 // 统计点击
 - (void)statisClick {
-
+    if (self.showType == ArticleTypeSchool) {
+        XABSchoolNoticeStatisViewController *statis = [XABSchoolNoticeStatisViewController new];
+        statis.noticeId = self.articleId;
+        [self pushToController:statis animated:YES];
+    }else if (self.showType == ArticleTypeClass) {
+        XABClassNoticeStatisViewController *statis = [XABClassNoticeStatisViewController new];
+        statis.noticeId = self.articleId;
+        [self pushToController:statis animated:YES];
+    }
 }
 
 // 学校获取通知

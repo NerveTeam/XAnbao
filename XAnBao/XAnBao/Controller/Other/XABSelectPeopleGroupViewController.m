@@ -190,7 +190,7 @@
     }
     
     self.teacherMemberList = teacherMemberList.copy;
-    self.selectorView = [XABMemberListSelectorView memberListSelectorWithData:self.teacherMemberList isSchool:_isScholl];
+    self.selectorView = [XABMemberListSelectorView memberListSelectorWithData:self.teacherMemberList isSchool:_isScholl selectedData:[self.selectedInfo objectForKeySafely:@"teacherList"]];
     [self.view addSubview:self.selectorView];
     [self.selectorView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.existTableview.mas_bottom).offset(20);
@@ -233,6 +233,7 @@
         cell = [[XABSelectGroupCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"XABSelectGroupCell"];
     }
     cell.delegate = self;
+    cell.selectedGroup = [self.selectedInfo objectForKeySafely:@"groupList"];
     [cell setModel:[self.groupList safeObjectAtIndex:indexPath.row]];
     return cell;
 }

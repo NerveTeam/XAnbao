@@ -129,6 +129,7 @@
     XABSelectPeopleGroupViewController *group  = [XABSelectPeopleGroupViewController new];
     group.isScholl = NO;
     group.classId = self.classId;
+    group.selectedInfo = self.selectGroupData;
     [self pushToController:group animated:YES];
 }
 

@@ -150,6 +150,18 @@
         
     }
 }
+- (void)deleteImage:(XABUploadImageCell *)cell {
+    NSIndexPath *path = [self.imgCollectionView indexPathForCell:cell];
+    [self.imageFiles removeObjectAtIndex:path.item];
+    [self.imageFileName removeObjectAtIndex:path.item];
+    [self.imgCollectionView deleteItemsAtIndexPaths:@[path]];
+}
+- (void)deleteRecord:(XABRecordCell *)cell {
+    NSIndexPath *path = [self.recordCollectionView indexPathForCell:cell];
+    [self.recordFiles removeObjectAtIndex:path.item];
+    [self.recordFileName removeObjectAtIndex:path.item];
+    [self.recordCollectionView deleteItemsAtIndexPaths:@[path]];
+}
 
 
 - (UIView *)topBar {
@@ -162,7 +174,6 @@
 - (UIButton *)backBtn {
     if (!_backBtn) {
         _backBtn = [UIButton buttonWithTitle:@"返回" fontSize:15];
-        [_backBtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
     }
     return _backBtn;
 }
