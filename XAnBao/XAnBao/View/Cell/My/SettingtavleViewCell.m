@@ -20,11 +20,23 @@
     self.backgroundColor=[UIColor clearColor];
     self.contentView.backgroundColor=[UIColor clearColor];
     if (self) {
-        self.Settingtitlelbl=[[UILabel alloc]initWithFrame:[FrameAutoScaleLFL CGLFLMakeX:15 Y:0 width:80 height:45]];
+        self.Settingtitlelbl=[[UILabel alloc]initWithFrame:[FrameAutoScaleLFL CGLFLMakeX:15 Y:0 width:80 height:30]];
+        if (!IS_IPHONE_5) {
+            self.Settingtitlelbl.size=[FrameAutoScaleLFL CGSizeLFLMakeWidth:80 hight:35];
+            
+        }
+        
         self.Settingtitlelbl.font=[UIFont systemFontOfSize:13];
         [self.contentView addSubview:self.Settingtitlelbl];
         
-        self.CleanLabel=[[UILabel alloc]initWithFrame:[FrameAutoScaleLFL CGLFLMakeX:200 Y:0 width:120 height:45]];
+        self.CleanLabel=[[UILabel alloc]initWithFrame:[FrameAutoScaleLFL CGLFLMakeX:200 Y:0 width:120 height:30]];
+        if (!IS_IPHONE_5) {
+            self.CleanLabel.size=[FrameAutoScaleLFL CGSizeLFLMakeWidth:80 hight:35];
+            
+        }
+        
+        
+        
         self.CleanLabel.font=[UIFont systemFontOfSize:13];
         [self.contentView addSubview:self.CleanLabel];
         

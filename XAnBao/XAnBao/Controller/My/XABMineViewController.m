@@ -11,10 +11,12 @@
 #import "MySelfInfoViewController.h"
 #import "MyInfomationCell.h"
 #import "FrameAutoScaleLFL.h"
-#import "XABLoginViewController.h"
-#import "AppDelegate.h"
 
-#import "XABConversationListViewController.h"
+#import "AboutOurViewController.h"
+#import "SystemMessageViewController.h"
+#import "MyWordViewController.h"
+
+
 @interface XABMineViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     NSArray *titleArr;
@@ -29,10 +31,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.MyInfoTableView.backgroundColor=[UIColor clearColor];
-    titleArr=@[@"我的常用管理",@"个人信息设置",@"系统设置",];
-    imgArr=@[@"系统通知.png",@"个人信息.png",@"设置.png"];
+       titleArr=@[@"我的消息",@"我的留言",@"个人信息",@"系统消息",@"关于我们",@"设置"];
+     imgArr=@[@"我的消息.jpg",@"我的留言.jpg",@"个人信息.png",@"系统通知.png",@"关于我们.jpg",@"设置.png"];
     [self initNavItem];
+    self.MyInfoTableView.backgroundColor=[UIColor clearColor];
+
 }
 //初始化导航按钮
 
@@ -44,9 +47,11 @@
     BlueView.userInteractionEnabled=YES;
      [self.view addSubview:BlueView];
     
-    UIButton *backBt = [[UIButton alloc] initWithFrame:CGRectMake(15, 30, 40, 25)];
+    UIButton *backBt = [[UIButton alloc] initWithFrame:CGRectMake(15, 31, 12, 20)];
+
     backBt.contentMode = UIViewContentModeScaleAspectFit;
-    [backBt setTitle:@"返回" forState:UIControlStateNormal];
+    
+    [backBt setImage:[UIImage imageNamed:@"leftjiantou.png"] forState:UIControlStateNormal];
     backBt.titleLabel.font=[UIFont systemFontOfSize:15];
     [BlueView addSubview:backBt];
     
@@ -70,7 +75,7 @@
 }
 - (UITableView *)MyInfoTableView{
     if (!_MyInfoTableView) {
-        _MyInfoTableView = [[UITableView alloc]initWithFrame:[FrameAutoScaleLFL CGLFLMakeX:0 Y:-90 width:320 height:503] style:UITableViewStyleGrouped];
+        _MyInfoTableView = [[UITableView alloc]initWithFrame:[FrameAutoScaleLFL CGLFLMakeX:0 Y:-90 width:320 height:580] style:UITableViewStyleGrouped];
         _MyInfoTableView.delegate=self;
         _MyInfoTableView.dataSource=self;
         [self.view addSubview:_MyInfoTableView];
@@ -93,7 +98,7 @@
     }
    MyinfoCell.iconView.image=   [UIImage imageNamed:[NSString stringWithFormat:@"%@", imgArr[indexPath.row]]];
    MyinfoCell.ArrowiconView.image=[UIImage imageNamed:@"jiantou.png"];
-    
+   MyinfoCell.selectionStyle=UITableViewCellSelectionStyleNone;
     return MyinfoCell;
 }
 
@@ -103,30 +108,41 @@
     switch (indexPath.row) {
         case 0:
             
-        {
-            XABConversationListViewController *conversationList = [[XABConversationListViewController alloc]init];
-            conversationList.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:conversationList animated:YES];
-            
-//            [self pushToController:tabBarController animated:YES];
-
-        }
             break;
         case 1:
+        {
+            MyWordViewController *mywordvc=[[MyWordViewController alloc]init];
+            [self.navigationController pushViewController:mywordvc animated:1];
+        }
+            break;
+            //个人消息
+        case 2:
         {
             MySelfInfoViewController *myselfinfovc=[[MySelfInfoViewController alloc]init];
             [self.navigationController pushViewController:myselfinfovc animated:1];
         }
             break;
-        case 2:
-            
-            break;
+            //系统消息
         case 3:
+        { SystemMessageViewController *settingvc=[[SystemMessageViewController alloc]init];
+            [self.navigationController pushViewController:settingvc animated:1];
+        }
+            break;
+            
+            //关于我们
+        case 4:
+        {
+            AboutOurViewController *aboutvc=[[AboutOurViewController alloc]init];
+            [self.navigationController pushViewController:aboutvc animated:1];
+        }
+            break;
+            //系统设置
+        case 5:
         { SettingViewController *settingvc=[[SettingViewController alloc]init];
             [self.navigationController pushViewController:settingvc animated:1];
         }
             break;
-        default:
+               default:
             break;
     }
     
@@ -140,14 +156,14 @@
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
-    UIImageView *view=[[UIImageView alloc]initWithFrame:[FrameAutoScaleLFL CGLFLMakeX:0 Y:0 width:320 height:200]];
+    UIImageView *view=[[UIImageView alloc]initWithFrame:[FrameAutoScaleLFL CGLFLMakeX:0 Y:0 width:320 height:180]];
     view.image=[UIImage imageNamed:@"蓝背景.png"];
 //    view.backgroundColor=[UIColor redColor];
     
     
-    UIImageView *headImgView=[[UIImageView alloc]initWithFrame:[FrameAutoScaleLFL CGLFLMakeX:140 Y:140 width:60 height:60]];
+    UIImageView *headImgView=[[UIImageView alloc]initWithFrame:[FrameAutoScaleLFL CGLFLMakeX:130 Y:150 width:60 height:60]];
     
-    headImgView.layer.cornerRadius=35;
+    headImgView.layer.cornerRadius=headImgView.frame.size.width/2;
 
     headImgView.backgroundColor=[UIColor orangeColor];
     
@@ -170,13 +186,7 @@
 
 
 
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    
-    XABLoginViewController *vc = [[XABLoginViewController alloc] init];
-    UINavigationController *navLogin = [[UINavigationController alloc] initWithRootViewController:vc];
-    AppDelegate *app =(AppDelegate *) [[UIApplication sharedApplication] delegate ];
-    app.window.rootViewController = navLogin;
-}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
