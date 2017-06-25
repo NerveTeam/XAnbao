@@ -15,8 +15,8 @@
 #import "XABChatTool.h"
 #import "XABMacro.h"
 #import "XABGuardianHeaderView.h"
-
-@interface XABClassMemberViewController ()<UITableViewDelegate,UITableViewDataSource>
+#import "XABClassMembersDetailnfoVC.h"
+@interface XABClassMemberViewController ()<UITableViewDelegate,UITableViewDataSource,XABGuardianHeaderViewDelegate>
 @property(nonatomic, strong)UIView *topBarView;
 @property(nonatomic, strong)UIButton *backBtn;
 @property(nonatomic, strong)UISegmentedControl *segment;
@@ -25,6 +25,7 @@
 @property(nonatomic, assign)NSInteger currentIndexSegmentFirst;
 @property(nonatomic, assign)NSInteger currentIndexSegmentSecond;
 @property(nonatomic, strong)NSMutableArray *teacherList;
+@property(nonatomic, strong)NSMutableArray *studentList;
 @property(nonatomic, strong)NSMutableArray *parentList;
 
 // 所有标题行的字典
@@ -40,10 +41,9 @@
     
     _currentIndexSegmentFirst = 1;
     _currentIndexSegmentSecond = 1;
-    self.teacherList = [NSMutableArray array];
-    self.parentList = [NSMutableArray array];
     
-    self.classId = @"860415744834408448";
+    self.sectionDict = [NSMutableDictionary dictionary];
+
     [self loadTeachersData:_currentIndexSegmentFirst];
 
 }
@@ -74,8 +74,27 @@
             
             if (error == nil) {
                 
-                self.parentList = [sourceArray mutableCopy];
-                [self.tableView reloadData];
+                self.studentList = [sourceArray mutableCopy];
+                
+                if (_currentIndex == 1) {
+                    
+                    self.parentList = nil;
+                }
+                for (XABChatClassGradeStudentsModel *studentModel in self.studentList) {
+                    
+                        XABParamModel *model = [XABParamModel paramClassGradePatriarchWithStudentId:studentModel.id];
+                        [[XABChatTool getInstance] getClassGradePatriarchWithRequestModel:model resultBlock:^(NSArray *sourceArray, NSError *error) {
+                    
+                            if (error == nil) {
+                    
+                                
+                                [self.parentList addObject:sourceArray];
+                            }
+                            [self.tableView reloadData];
+
+                        }];
+
+                }
             }
             [self stopRefresh];
             
@@ -89,18 +108,8 @@
 
 - (void)guardianHeaderViewDidSelectedHeader:(XABGuardianHeaderView *)header{
     
-    XABChatClassGradeStudentsModel *studentModel = self.parentList[header.section];
-    XABParamModel *model = [XABParamModel paramClassGradePatriarchWithStudentId:studentModel.id];
-    [[XABChatTool getInstance] getClassGradePatriarchWithRequestModel:model resultBlock:^(NSArray *sourceArray, NSError *error) {
-        
-        if (error == nil) {
-            
-            //            self.parentList = [sourceArray mutableCopy];
-            //            [self.tableView reloadData];
-        }
-        [self stopRefresh];
-        
-    }];
+    header.isOpen = header.isOpen;
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:header.section] withRowAnimation:UITableViewRowAnimationFade];
     
 };
 
@@ -129,7 +138,15 @@
 }
 
 - (void)segmentChange {
-    [self loadData:_currentIndex++];
+    
+    if (self.segment.selectedSegmentIndex == 0) {
+        
+        [self loadTeachersData:_currentIndex];
+
+    }else{
+        [self loadTeachersData:_currentIndex];
+
+    }
 }
 
 
@@ -138,6 +155,7 @@
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
     if (self.segment.selectedSegmentIndex == 1) {
+        
         return self.parentList.count;
     }
     return 1;
@@ -145,13 +163,20 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (self.segment.selectedSegmentIndex == 1) {
+        
+        XABGuardianHeaderView *headerView = self.sectionDict[@(section)];
+        NSInteger number = 0;
+        number = ((NSArray *)self.parentList[section]).count;
+        if (headerView.isOpen) {
+            return number;
+        }
         return 0;
+    }else{
+        
+        return self.teacherList.count;
     }
-    return self.teacherList.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    //    XABClassMemberCell *cell = [XABClassMemberCell classMemberCellWithTableView:tableView];
-    //    cell.sportList = self.segment.selectedSegmentIndex ? self.parentList[indexPath.row] : self.teacherList[indexPath.row];
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     if (!cell) {
@@ -167,7 +192,7 @@
         
         if (self.parentList.count >indexPath.row) {
             
-            XABChatClassGradeStudentsModel *model = self.parentList[indexPath.row];
+            XABChatClassGradeStudentsParentsModel *model = self.parentList[indexPath.section][indexPath.row];
             cell.textLabel.text = model.name;
             cell.detailTextLabel.text = @"";
         }
@@ -202,7 +227,7 @@
             
             [headerView setGuardianHeaderDelegate:self];
         }
-        XABChatClassGradeStudentsModel *model = self.parentList[section];
+        XABChatClassGradeStudentsModel *model = self.studentList[section];
         headerView.labelStudent.text = model.name;
         
         //    headerView.labelTelephoto.text = @"(15804826789)";
@@ -220,6 +245,8 @@
         return 0.01;
         
     }else{
+        
+        
         return 44;
         
     }
@@ -232,12 +259,47 @@
     }
     return 1;
 }
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (self.segment.selectedSegmentIndex == 0) {
+        
+        return 44;
+        
+    }else{
+        
+        return 44;
+    }
+   
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    XABResource *sport = self.dataList[indexPath.row];
-//    XABArticleViewController *article = [[XABArticleViewController alloc]initWithUrl:@"https://sports.sina.cn/nba/warriors/2017-03-09/detail-ifychhuq3433755.d.html?vt=4&pos=10&HTTPS=1"];
-//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//    [self.navigationController pushViewController:article animated:YES];
+    
+    if (self.segment.selectedSegmentIndex == 0) {
+        
+       
+        if (self.teacherList.count >indexPath.row) {
+            
+            XABChatClassGradeTeachersModel *model = self.teacherList[indexPath.row];
+            XABClassMembersDetailnfoVC *vc = [[XABClassMembersDetailnfoVC alloc] init];
+            vc.id = model.id;
+            vc.isTeacherOrParent = @"1";
+            vc.type = self.type;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+
+    }else{
+        
+        if (self.parentList.count >indexPath.row) {
+            
+            XABChatClassGradeStudentsParentsModel *model = self.parentList[indexPath.section][indexPath.row];
+            XABClassMembersDetailnfoVC *vc = [[XABClassMembersDetailnfoVC alloc] init];
+            vc.id = model.id;
+            vc.isTeacherOrParent = @"0";
+            vc.type = self.type;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+    }
+    
 }
 
 - (UIView *)topBarView {
@@ -295,4 +357,26 @@
     }
     return _tableView;
 }
+
+#pragma mark -懒加载
+
+-(NSMutableArray *)teacherList{
+    if (!_teacherList) {
+        _teacherList = [[NSMutableArray alloc] init];
+    }
+    return _teacherList;
+}
+-(NSMutableArray *)parentList{
+    if (!_parentList) {
+        _parentList = [[NSMutableArray alloc] init];
+    }
+    return _parentList;
+}
+-(NSMutableArray *)studentList{
+    if (!_studentList) {
+        _studentList = [[NSMutableArray alloc] init];
+    }
+    return _studentList;
+}
+
 @end

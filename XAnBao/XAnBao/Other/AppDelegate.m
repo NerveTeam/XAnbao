@@ -25,8 +25,9 @@
 #import "XABUserLogin.h"
 #import <SMS_SDK/SMSSDK.h>
 #import "XABShareSDKTool.h"
-#import "XABUserLogin.h"
 #import "SystemMessageViewController.h"
+#import "SettingViewController.h"
+#import "XABChatTool.h"
 static NSString * const SMSAppKey = @"1b1b702554e44";
 static NSString * const SMSAppSecret = @"870942be696045d543192122ad220742";
 
@@ -168,6 +169,10 @@ static NSString * const SMSAppSecret = @"870942be696045d543192122ad220742";
         if ([XABUserLogin getInstance].userInfo == nil) {
             self.window.rootViewController = loginVC;
         }else{
+            
+            [[XABChatTool getInstance] initWithRCIM];
+            [[XABChatTool getInstance] connectRCServer];
+
             self.window.rootViewController = tabBarController;
         }
         

@@ -196,6 +196,8 @@ static XABUserLogin *_instance;
     DLog(@"修改密码的输入参数 =%@",parameter);
     [XABFindPasswordRequest requestDataWithParameters:parameter successBlock:^(YTKRequest *request) {
         
+        DLog(@"修改密码 == %@",request);
+
         DLog(@"修改密码 == %@",request.responseObject);
         NSInteger code = [[request.responseObject objectForKeyNotNull:@"code"] longValue];
         if (code == CODE_SUCCESS) {

@@ -81,6 +81,8 @@ static XABChatTool *_instance;
     } error:^(RCConnectErrorCode status) {
         NSLog(@"登陆的错误码为:%ld", status);
         //重新获取token
+        [self connectRCServer];
+
         
     } tokenIncorrect:^{
         //token过期或者不正确。
@@ -88,6 +90,8 @@ static XABChatTool *_instance;
         //如果没有设置token有效期却提示token错误，请检查您客户端和服务器的appkey是否匹配，还有检查您获取token的流程。
         NSLog(@"token错误");
         //重新获取token
+        
+//        [self connectRCServer];
 
     }];
 }
@@ -288,6 +292,38 @@ static XABChatTool *_instance;
     
 };
 
+#pragma mark - 班级 - 班级老师 - 详情
+-(void)getClassGradeTeachersDetailWithRequestModel:(XABParamModel *)model resultBlock:(void (^)(XABChatClassGradeTeachersDetailModel *model,NSError *error))resultBlock{
+    
+    NSDictionary *dict = [model toJSON];
+    NSLog(@"班级老师- 详情 接口传入参数==%@",dict);
+    
+    __block XABChatClassGradeTeachersDetailModel *detailModel = nil;
+    __block NSError *error = nil;
+    [XABChatClassGradeTeachersDetailRequest requestDataWithParameters:dict headers:Token successBlock:^(BaseDataRequest *request) {
+        
+        NSLog(@"班级老师-详情 接口==%@",request.responseObject);
+        XABResponseModel *response = [XABResponseModel responseFromKeyValues:request.responseObject];
+        
+        if (response.code == CODE_SUCCESS) {
+            
+            detailModel = [XABChatClassGradeTeachersDetailModel mj_objectWithKeyValues:response.data];
+            
+        } else {
+            if (response.message.length == 0) { response.message = @"服务器未成功返回数据!"; }
+            error = [NSError errorWithDomain:@"error" code:-100 userInfo:[NSDictionary dictionaryWithObject:response.message forKey:@"error"]];
+        }
+        
+        if (resultBlock) resultBlock(detailModel, error);
+        
+    } failureBlock:^(BaseDataRequest *request) {
+        NSLog(@"班级老师- 详情 接口-ERROR==%@",request.error);
+        if (resultBlock) resultBlock(nil, request.error);
+        
+    }];
+
+};
+
 #pragma mark - 班级 - 班级学生
 -(void)getClassGradeStudentsWithRequestModel:(XABParamModel *)model resultBlock:(void (^)(NSArray *sourceArray,NSError *error))resultBlock{
     NSDictionary *dict = [model toJSON];
@@ -334,7 +370,7 @@ static XABChatTool *_instance;
         
         if (response.code == CODE_SUCCESS) {
             
-            sourceArray = [XABChatClassGroupModel mj_objectArrayWithKeyValuesArray:response.data];
+            sourceArray = [XABChatClassGradeStudentsParentsModel mj_objectArrayWithKeyValuesArray:response.data];
             
         } else {
             if (response.message.length == 0) { response.message = @"服务器未成功返回数据!"; }
@@ -351,6 +387,37 @@ static XABChatTool *_instance;
     
 };
 
+#pragma mark - 班级 - 班级家长 - 详情
+-(void)getClassGradeParentsDetailWithRequestModel:(XABParamModel *)model resultBlock:(void (^)(XABChatClassGradeStudentsParentsDetailModel *model,NSError *error))resultBlock{
+    
+    NSDictionary *dict = [model toJSON];
+    NSLog(@"班级家长- 详情 接口传入参数==%@",dict);
+    
+    __block XABChatClassGradeStudentsParentsDetailModel *parentDetailModel = nil;
+    __block NSError *error = nil;
+    [XABChatClassGradeParentsDetailRequest requestDataWithParameters:dict headers:Token successBlock:^(BaseDataRequest *request) {
+        
+        NSLog(@"班级家长-详情 接口==%@",request.responseObject);
+        XABResponseModel *response = [XABResponseModel responseFromKeyValues:request.responseObject];
+        
+        if (response.code == CODE_SUCCESS) {
+            
+            parentDetailModel = [XABChatClassGradeStudentsParentsDetailModel mj_objectWithKeyValues:response.data];
+            
+        } else {
+            if (response.message.length == 0) { response.message = @"服务器未成功返回数据!"; }
+            error = [NSError errorWithDomain:@"error" code:-100 userInfo:[NSDictionary dictionaryWithObject:response.message forKey:@"error"]];
+        }
+        
+        if (resultBlock) resultBlock(parentDetailModel, error);
+        
+    } failureBlock:^(BaseDataRequest *request) {
+        NSLog(@"班级家长- 详情 接口-ERROR==%@",request.error);
+        if (resultBlock) resultBlock(nil, request.error);
+        
+    }];
+    
+};
 
 
 #pragma mark - 清楚 融云 的缓存信息 （用户缓存、群组缓存）

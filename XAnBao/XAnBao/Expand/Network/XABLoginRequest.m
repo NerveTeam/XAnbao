@@ -100,6 +100,9 @@ static const NSString *domain = @"http://118.190.97.150/interface/api1/";
 - (YTKResponseSerializerType)responseSerializerType {
     return YTKResponseSerializerTypeJSON;
 }
+- (YTKRequestSerializerType)requestSerializerType {
+    return YTKRequestSerializerTypeHTTP;
+}
 - (BOOL)useCDN {
     return YES;
 }

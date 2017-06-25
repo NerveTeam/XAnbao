@@ -85,6 +85,7 @@
         if (success) {
             NSLog(@"登录成功");
 //            [self showMessage:@"登录成功"];
+            [[XABChatTool getInstance] initWithRCIM];
             [[XABChatTool getInstance] connectRCServer];
 
             YBTabBarController *tabBarController = [[YBTabBarController alloc]init];
@@ -147,40 +148,40 @@
     [self passwordTF];
     
     
-    _shareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_shareBtn setTitle:@"分享" forState:UIControlStateNormal];
-    _shareBtn.titleLabel.font = [UIFont systemFontOfSize:14.5];
-    [_shareBtn setTitleColor:kColorWithRGB(47, 132, 213, 1.0f) forState:UIControlStateNormal];
-    [_shareBtn addTarget:self action:@selector(shareClick) forControlEvents:UIControlEventTouchUpInside];
+//    _shareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [_shareBtn setTitle:@"分享" forState:UIControlStateNormal];
+//    _shareBtn.titleLabel.font = [UIFont systemFontOfSize:14.5];
+//    [_shareBtn setTitleColor:kColorWithRGB(47, 132, 213, 1.0f) forState:UIControlStateNormal];
+//    [_shareBtn addTarget:self action:@selector(shareClick) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    [self.backScrollView addSubview:_shareBtn];
     
-    [self.backScrollView addSubview:_shareBtn];
-    
-    [_shareBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.top.offset(SPACEING*6/7);
-        make.left.equalTo(self.topBarView.mas_left).offset(10);
-        make.height.offset(25);
-        make.width.offset(120);
-    }];
+//    [_shareBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        
+//        make.top.offset(SPACEING*6/7);
+//        make.left.equalTo(self.topBarView.mas_left).offset(10);
+//        make.height.offset(25);
+//        make.width.offset(120);
+//    }];
     
     WS(weakSelf);
 
     //浏览进入
     
-    _goInBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_goInBtn setTitle:@"浏览进入 >>" forState:UIControlStateNormal];
-    _goInBtn.titleLabel.font = [UIFont systemFontOfSize:14.5];
-    [_goInBtn setTitleColor:kColorWithRGB(47, 132, 213, 1.0f) forState:UIControlStateNormal];
-    [_goInBtn addTarget:self action:@selector(goInClick) forControlEvents:UIControlEventTouchUpInside];
-    
-    [self.backScrollView addSubview:_goInBtn];
-    [_goInBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.top.offset(SPACEING*6/7);
-        make.right.equalTo(weakSelf.topBarView.mas_right).offset(-10);
-        make.height.offset(25);
-        make.width.offset(120);
-    }];
+//    _goInBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [_goInBtn setTitle:@"浏览进入 >>" forState:UIControlStateNormal];
+//    _goInBtn.titleLabel.font = [UIFont systemFontOfSize:14.5];
+//    [_goInBtn setTitleColor:kColorWithRGB(47, 132, 213, 1.0f) forState:UIControlStateNormal];
+//    [_goInBtn addTarget:self action:@selector(goInClick) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    [self.backScrollView addSubview:_goInBtn];
+//    [_goInBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        
+//        make.top.offset(SPACEING*6/7);
+//        make.right.equalTo(weakSelf.topBarView.mas_right).offset(-10);
+//        make.height.offset(25);
+//        make.width.offset(120);
+//    }];
     
     
     _loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -272,7 +273,7 @@
         [_passwordTF sizeToFit];
         _passwordTF.leftView = leftView;
         _passwordTF.leftViewMode = UITextFieldViewModeAlways;
-
+        [_passwordTF setSecureTextEntry:YES];
         _passwordTF.placeholder = @"请输入密码";
         
         // 线的路径

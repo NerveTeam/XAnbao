@@ -37,11 +37,16 @@
 
 #pragma mark - 班级 - 班级老师
 -(void)getClassGradeTeachersWithRequestModel:(XABParamModel *)model resultBlock:(void (^)(NSArray *sourceArray,NSError *error))resultBlock;
+#pragma mark - 班级 - 班级老师 - 详情
+-(void)getClassGradeTeachersDetailWithRequestModel:(XABParamModel *)model resultBlock:(void (^)(XABChatClassGradeTeachersDetailModel *model,NSError *error))resultBlock;
+
 
 #pragma mark - 班级 - 班级学生
 -(void)getClassGradeStudentsWithRequestModel:(XABParamModel *)model resultBlock:(void (^)(NSArray *sourceArray,NSError *error))resultBlock;
-#pragma mark - 班级 - 班级学生
+#pragma mark - 班级 - 班级学生-班级家长
 -(void)getClassGradePatriarchWithRequestModel:(XABParamModel *)model resultBlock:(void (^)(NSArray *sourceArray,NSError *error))resultBlock;
+#pragma mark - 班级 - 班级家长 - 详情
+-(void)getClassGradeParentsDetailWithRequestModel:(XABParamModel *)model resultBlock:(void (^)(XABChatClassGradeStudentsParentsDetailModel *model,NSError *error))resultBlock;
 
 #pragma mark - 班级群-列表接口
 -(void)getChatClassGroupWithRequestModel:(XABParamModel *)model resultBlock:(void (^)(NSArray *sourceArray,NSError *error))resultBlock;

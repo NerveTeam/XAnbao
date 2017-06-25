@@ -92,8 +92,6 @@
         [cell.imageView sd_setImageWithURL:[NSURL URLWithString:model.name] placeholderImage:[UIImage imageNamed:@"a_zwxtx"]];
         
         cell.textLabel.text = model.name;
-        cell.detailTextLabel.text = model.name;
-        cell.detailTextLabel.textColor = [UIColor darkGrayColor];
     }
     
     return cell;

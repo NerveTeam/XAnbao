@@ -70,6 +70,26 @@ static const NSString *domain = @"http://118.190.97.150/interface/api1/";
 
 @end
 
+#pragma mark - 班级成员-班级教师 - 详情 接口
+
+//请求参数
+@implementation XABChatClassGradeTeachersDetailRequest
+
+- (NSString *)requestUrl {
+    //    示例，我们的注册接口
+    return [domain stringByAppendingString:@"class-grade/teacher-detail"];
+}
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodGET;
+}
+- (YTKResponseSerializerType)responseSerializerType {
+    return YTKResponseSerializerTypeJSON;
+}
+- (BOOL)useCDN {
+    return YES;
+}
+
+@end
 
 #pragma mark - 班级成员-班级学生 接口
 
@@ -92,7 +112,7 @@ static const NSString *domain = @"http://118.190.97.150/interface/api1/";
 @end
 
 //通过班级学生 请求班级家长的列表
-#pragma mark - 班级成员-班级教师 接口
+#pragma mark - 班级成员-班级家长接口
 //
 @implementation XABChatClassGradeParentsRequest
 
@@ -112,6 +132,26 @@ static const NSString *domain = @"http://118.190.97.150/interface/api1/";
 
 @end
 
+
+#pragma mark - 班级成员-班级家长-详情 接口
+//
+@implementation XABChatClassGradeParentsDetailRequest
+
+- (NSString *)requestUrl {
+    //    示例，我们的注册接口
+    return [domain stringByAppendingString:@"class-grade/patriarch-detail"];
+}
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodGET;
+}
+- (YTKResponseSerializerType)responseSerializerType {
+    return YTKResponseSerializerTypeJSON;
+}
+- (BOOL)useCDN {
+    return YES;
+}
+
+@end
 #pragma mark - 班级群接口
 //请求参数 classId  班级ID
 @implementation XABChatClassGroupRequest
