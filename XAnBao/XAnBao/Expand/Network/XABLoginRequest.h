@@ -8,6 +8,11 @@
 
 #import "BaseDataRequest.h"
 
+
+@interface XABLoginGuideImageRequest : BaseDataRequest
+
+@end
+
 //获取验证码
 @interface XABCodeRequest : BaseDataRequest
 

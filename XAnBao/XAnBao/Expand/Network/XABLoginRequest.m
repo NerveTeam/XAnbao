@@ -12,6 +12,26 @@
 static const NSString *domain = @"http://118.190.97.150/interface/api1/";
 
 
+//
+
+@implementation XABLoginGuideImageRequest
+
+- (NSString *)requestUrl {
+    //    示例，我们的注册接口
+    return [domain stringByAppendingString:@"main/guide-img"];
+}
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodGET;
+}
+- (YTKResponseSerializerType)responseSerializerType {
+    return YTKResponseSerializerTypeJSON;
+}
+- (BOOL)useCDN {
+    return YES;
+}
+
+@end
+
 //获取验证码
 @implementation XABCodeRequest
 

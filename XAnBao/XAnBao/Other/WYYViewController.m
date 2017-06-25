@@ -9,10 +9,11 @@
 #import "WYYViewController.h"
 #import "WYYCollectionViewCell.h"
 #import "YBTabBarController.h"
-
+#import "XABUserLogin.h"
+#import "UIImageView+WebCache.h"
 @interface WYYViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
 
-
+@property (nonatomic,strong) UICollectionView *collectionView;
 @end
 
 @implementation WYYViewController
@@ -20,6 +21,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addCollectionView];
+    
+    [[XABUserLogin getInstance] requestGetGuideImageResultBlock:^(NSString *image_url, NSError *error) {
+        
+        [self.dataArray addObject:image_url];
+        [self.collectionView reloadData];
+    }];
 }
 
 - (void)addCollectionView
@@ -35,23 +42,23 @@
     // 设置间距
     layout.minimumLineSpacing = 0;
     
-    UICollectionView *collectionView = [[UICollectionView alloc]initWithFrame:self.view.bounds collectionViewLayout:layout];
+    _collectionView = [[UICollectionView alloc]initWithFrame:self.view.bounds collectionViewLayout:layout];
     
-    collectionView.delegate = self;
+    _collectionView.delegate = self;
     
-    collectionView.dataSource = self;
+    _collectionView.dataSource = self;
     // 隐藏滚动条
-    collectionView.showsHorizontalScrollIndicator = NO;
+    _collectionView.showsHorizontalScrollIndicator = NO;
     
     // 设置分页效果
-    collectionView.pagingEnabled = YES;
+    _collectionView.pagingEnabled = YES;
     
     // 设置弹簧效果
-    collectionView.bounces =  NO;
+    _collectionView.bounces =  NO;
     
-    [self.view addSubview:collectionView];
+    [self.view addSubview:_collectionView];
     
-    [collectionView registerClass:[WYYCollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
+    [_collectionView registerClass:[WYYCollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
 
 }
 
@@ -66,7 +73,9 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     WYYCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     
-    cell.imageviewbg.image = [UIImage imageNamed:self.dataArray[indexPath.row]];
+//    cell.imageviewbg.image = [UIImage imageNamed:self.dataArray[indexPath.row]];
+    [cell.imageviewbg sd_setImageWithURL:[NSURL URLWithString:self.dataArray[indexPath.row]] placeholderImage:[UIImage imageNamed:@""]];//.image = self.dataArray[indexPath.row];
+
     
     return cell;
 }
@@ -76,5 +85,11 @@
     if (indexPath.row == self.dataArray.count - 1) {
         [self presentViewController:self.controller animated:YES completion:nil];
     }
+}
+-(NSMutableArray *)dataArray{
+    if (!_dataArray) {
+        _dataArray = [[NSMutableArray alloc] init];
+    }
+    return _dataArray;
 }
 @end

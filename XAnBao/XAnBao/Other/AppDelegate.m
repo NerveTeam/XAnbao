@@ -160,7 +160,7 @@ static NSString * const SMSAppSecret = @"870942be696045d543192122ad220742";
         // 初始化引导页控制器
         WYYViewController *view = [[WYYViewController alloc]init];
         // 设置引导页图片
-        view.dataArray = [NSArray arrayWithObjects:@"first.jpg",@"second.jpg",@"third.jpg",@"four.jpg", nil];
+//        view.dataArray = [NSArray arrayWithObjects:@"first.jpg",@"second.jpg",@"third.jpg",@"four.jpg", nil];
         // 设置跳转界面
         view.controller = loginVC;
         self.window.rootViewController = view;

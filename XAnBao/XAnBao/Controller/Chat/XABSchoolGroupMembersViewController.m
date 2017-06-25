@@ -11,8 +11,12 @@
 #import "XABChatTool.h"
 #import "UIImageView+WebCache.h"
 #import "XABChatUserInfoViewController.h"
+#import "UIView+TopBar.h"
+#import "UIButton+Extention.h"
 @interface XABSchoolGroupMembersViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>
 
+@property (nonatomic,strong) UIView *topBarView;
+@property (nonatomic,strong) UIButton *backBtn;
 @property (nonatomic,strong) UICollectionView *collectionView;
 @property (nonatomic,strong) NSArray *sourceArray;
 @end
@@ -22,11 +26,27 @@
 -(void)viewDidLoad{
     [super viewDidLoad];
 
-    self.title = [NSString stringWithFormat:@"%@成员",self.groupName];
+    [self topBarView];
     self.view.backgroundColor = [UIColor whiteColor];
     [self loadData];
 }
-
+#pragma mark - 下面2个方法 为了 只是 当前界面 禁用 手势返回
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    // 禁用返回手势
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    }
+}
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    // 开启返回手势
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+    }
+}
 -(void)loadData{
     
     XABParamModel *param = [XABParamModel paramChatSchoolGroupMembersWithGroupId:self.groupId];
@@ -108,6 +128,22 @@
     }
     
     return _collectionView;
+}
+- (UIView *)topBarView {
+    if (!_topBarView) {
+        _topBarView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, StatusBarHeight + TopBarHeight)];
+        _topBarView = [_topBarView topBarWithTintColor:ThemeColor title:[NSString stringWithFormat:@"%@成员",self.groupName] titleColor:[UIColor whiteColor] leftView:self.backBtn rightView:nil responseTarget:self];
+        _topBarView.backgroundColor = ThemeColor;
+        
+        [self.view addSubview:_topBarView];
+    }
+    return _topBarView;
+}
+- (UIButton *)backBtn {
+    if (!_backBtn) {
+        _backBtn = [UIButton buttonWithTitle:@"返回" fontSize:15];
+    }
+    return _backBtn;
 }
 
 -(NSArray *)sourceArray{

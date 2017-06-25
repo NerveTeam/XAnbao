@@ -256,22 +256,22 @@
         }];
         
         //创建左侧视图
-        UIImage *im = [UIImage imageNamed:@"content_ic_comments"];
-        UIImageView *iv = [[UIImageView alloc] initWithImage:im];
-        UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(5, 0, 20+50, 28)];//宽度根据需求进行设置，高度必须大于 textField 的高度
-        iv.center = CGPointMake(leftView.center.x-30, leftView.center.y);
-        [leftView addSubview:iv];
+//        UIImage *im = [UIImage imageNamed:@""];
+//        UIImageView *iv = [[UIImageView alloc] initWithImage:im];
+//        UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(5, 0, 20+50, 28)];//宽度根据需求进行设置，高度必须大于 textField 的高度
+//        iv.center = CGPointMake(leftView.center.x-30, leftView.center.y);
+//        [leftView addSubview:iv];
         
         UILabel *titleLabel = [[UILabel alloc] init];
         titleLabel.textAlignment = NSTextAlignmentLeft;
         titleLabel.text = @"密码:";
         titleLabel.font = [UIFont systemFontOfSize:17];
-        titleLabel.bounds = CGRectMake(0, 0, 40, 28);
-        titleLabel.center = CGPointMake(leftView.center.x, leftView.center.y);
-        [leftView addSubview:titleLabel];
+        titleLabel.frame = CGRectMake(0, 0, 40, 28);
+//        titleLabel.center = CGPointMake(leftView.center.x, leftView.center.y);
+//        [leftView addSubview:titleLabel];
         
         [_passwordTF sizeToFit];
-        _passwordTF.leftView = leftView;
+        _passwordTF.leftView = titleLabel;
         _passwordTF.leftViewMode = UITextFieldViewModeAlways;
         [_passwordTF setSecureTextEntry:YES];
         _passwordTF.placeholder = @"请输入密码";
@@ -317,22 +317,22 @@
         }];
         
         //创建左侧视图
-        UIImage *im = [UIImage imageNamed:@"content_ic_comments"];
-        UIImageView *iv = [[UIImageView alloc] initWithImage:im];
-        UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(5, 0, 20+50, 28)];//宽度根据需求进行设置，高度必须大于 textField 的高度
-        iv.center = CGPointMake(leftView.center.x-30, leftView.center.y);
-        [leftView addSubview:iv];
+//        UIImage *im = [UIImage imageNamed:@""];
+//        UIImageView *iv = [[UIImageView alloc] initWithImage:im];
+//        UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(5, 0, 20+50, 28)];//宽度根据需求进行设置，高度必须大于 textField 的高度
+//        iv.center = CGPointMake(leftView.center.x-30, leftView.center.y);
+//        [leftView addSubview:iv];
         
         UILabel *titleLabel = [[UILabel alloc] init];
         titleLabel.textAlignment = NSTextAlignmentLeft;
         titleLabel.text = @"账号:";
         titleLabel.font = [UIFont systemFontOfSize:17];
-        titleLabel.bounds = CGRectMake(0, 0, 40, 28);
-        titleLabel.center = CGPointMake(leftView.center.x, leftView.center.y);
-        [leftView addSubview:titleLabel];
+        titleLabel.frame = CGRectMake(0, 0, 40, 28);
+//        titleLabel.center = CGPointMake(leftView.center.x, leftView.center.y);
+//        [leftView addSubview:titleLabel];
 
         [_accountTF sizeToFit];
-        _accountTF.leftView = leftView;
+        _accountTF.leftView = titleLabel;
         _accountTF.leftViewMode = UITextFieldViewModeAlways;
 
         _accountTF.placeholder = @"请输入账号";
@@ -383,9 +383,8 @@
 -(UIImageView *)imgView{
     if (!_imgView) {
         
-        _imgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@""]];;
-        _imgView.contentMode = UIViewContentModeScaleAspectFit;
-        _imgView.backgroundColor = kColorWithRGB(156, 230, 189, 1.0f);
+        _imgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"校安宝"]];;
+//        _imgView.contentMode = UIViewContentModeScaleAspectFit;
         [self.backScrollView addSubview:_imgView];
         
         WS(weakSelf);

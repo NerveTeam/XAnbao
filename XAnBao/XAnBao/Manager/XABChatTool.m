@@ -81,7 +81,7 @@ static XABChatTool *_instance;
     } error:^(RCConnectErrorCode status) {
         NSLog(@"登陆的错误码为:%ld", status);
         //重新获取token
-        [self connectRCServer];
+//        [self connectRCServer];
 
         
     } tokenIncorrect:^{

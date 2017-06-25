@@ -16,6 +16,8 @@
 #import "NSArray+Safe.h"
 #import "JPUSHService.h"
 #import "XABUserModel.h"
+#import "XABParamModel.h"
+
 NSString *const UserLoginSuccess = @"UserLoginSuccess";
 NSString *const UserLoginError = @"UserLoginError";
 
@@ -38,6 +40,41 @@ static XABUserLogin *_instance;
     return _instance;
 }
 
+//获取引导页图
+-(void)requestGetGuideImageResultBlock:(void (^)(NSString *image_url,NSError *error))resultBlock{
+    
+    __block NSString *image_url = nil;
+    __block NSError *error = nil;
+    [XABLoginGuideImageRequest requestDataWithSuccessBlock:^(BaseDataRequest *request) {
+        
+        NSLog(@"引导页接口==%@",request.responseObject);
+        XABResponseModel *response = [XABResponseModel responseFromKeyValues:request.responseObject];
+        
+        if (response.code == CODE_SUCCESS) {
+            
+            image_url = response.data;
+            
+            if ([response.data isKindOfClass:[NSString class]]) {
+                
+                UIImage *img=[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:response.data]]];
+                [UIImagePNGRepresentation(img) writeToFile:@"guide_image" atomically:YES];
+
+            }
+            
+        } else {
+            if (response.message.length == 0) { response.message = @"服务器未成功返回数据!"; }
+            error = [NSError errorWithDomain:@"error" code:-100 userInfo:[NSDictionary dictionaryWithObject:response.message forKey:@"error"]];
+        }
+        
+        if (resultBlock) resultBlock(image_url, error);
+     
+        
+    } failureBlock:^(BaseDataRequest *request) {
+       
+        NSLog(@"引导页接口-ERROR==%@",request.error);
+        if (resultBlock) resultBlock(nil, request.error);
+    }];
+};
 
 #pragma mark - 获取验证码
 

@@ -50,7 +50,13 @@
     [[XABUserLogin getInstance] modifyPassword:self.passwordTF.text callBack:^(BOOL success,NSString *message) {
         
         if (success) {
-            [self pushToController:[[XABLoginViewController alloc] init] animated:YES];
+            
+            [self showMessage:@"修改密码成功"];
+
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self pushToController:[[XABLoginViewController alloc] init] animated:YES];
+                
+            });
         }else{
             [self showMessage:@"修改密码失败"];
         }
