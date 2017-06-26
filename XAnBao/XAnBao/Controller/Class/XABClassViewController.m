@@ -200,8 +200,8 @@
     }];
     if ([viewcontroller isKindOfClass:[XABClassChatViewController class]]) {
         
-        NSString *classId = [self.followData.firstObject objectForKeySafely:@"classId"];
-        NSString *className = [self.followData.firstObject objectForKeySafely:@"className"];
+        NSString *classId = [currentInfo objectForKeySafely:@"classId"];
+        NSString *className = [currentInfo objectForKeySafely:@"className"];
 
         if (classId) {
             
