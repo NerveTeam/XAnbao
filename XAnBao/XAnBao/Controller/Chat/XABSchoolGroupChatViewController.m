@@ -26,14 +26,35 @@
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"a_qcy.png"] style:UIBarButtonItemStylePlain target:self action:@selector(memberItemAction)];
     self.navigationItem.rightBarButtonItem = rightItem;
 }
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    self.navigationController.navigationBar.hidden = YES;
-}
-- (void)viewWillAppear:(BOOL)animated {
+#pragma mark - 下面2个方法 为了 只是 当前界面 禁用 手势返回
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = NO;
+
+    // 禁用返回手势
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    }
 }
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBar.hidden = YES;
+
+    // 开启返回手势
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+    }
+}
+//- (void)viewWillDisappear:(BOOL)animated {
+//    [super viewWillDisappear:animated];
+//    self.navigationController.navigationBar.hidden = YES;
+//}
+//- (void)viewWillAppear:(BOOL)animated {
+//    [super viewWillAppear:animated];
+//    self.navigationController.navigationBar.hidden = NO;
+//}
 
 -(void)memberItemAction{
     

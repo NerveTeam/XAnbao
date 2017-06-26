@@ -11,7 +11,7 @@
 @interface WYYViewController : UIViewController
 
 /**************** 存放图片的数组  *******************/
-@property (nonatomic, strong) NSArray *dataArray;
+@property (nonatomic, strong)  NSMutableArray*dataArray;
 
 @property (nonatomic, strong) UIViewController *controller;
 

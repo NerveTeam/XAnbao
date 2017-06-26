@@ -24,6 +24,12 @@
 
 @end
 
+#pragma mark - 班级成员-班级教师 - 详情 接口
+@interface XABChatClassGradeTeachersDetailRequest : BaseDataRequest
+
+@end
+
+
 #pragma mark - 班级成员-班级学生 接口
 
 @interface XABChatClassGradeStudentsRequest : BaseDataRequest
@@ -33,6 +39,11 @@
 #pragma mark - 班级成员-班级家长 接口
 
 @interface XABChatClassGradeParentsRequest : BaseDataRequest
+
+@end
+
+#pragma mark - 班级成员-班级家长 - 详情 接口
+@interface XABChatClassGradeParentsDetailRequest : BaseDataRequest
 
 @end
 

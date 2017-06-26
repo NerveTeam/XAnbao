@@ -104,11 +104,41 @@
 
 @end
 
+@interface XABChatClassGradeTeachersDetailModel : NSObject
+
+@property (copy, nonatomic) NSString *id;         //老师id
+@property (nonatomic,copy) NSString *name;        //姓名
+@property (nonatomic,copy) NSString *mobilePhone;   //老师手机号
+@property (nonatomic,copy) NSString *subject;     //科目
+@property (nonatomic,copy) NSString *url;     //头像
+
+
+@end
 
 @interface XABChatClassGradeStudentsModel : NSObject
 
 @property (copy, nonatomic) NSString *id;         //学生id
 @property (nonatomic,copy) NSString *name;        //姓名
+@end
+
+@interface XABChatClassGradeStudentsParentsModel : NSObject
+
+@property (copy, nonatomic) NSString *id;         //学生id
+@property (nonatomic,copy) NSString *name;        //姓名
+@property (nonatomic,copy) NSString *appellation;        //
+@property (nonatomic,copy) NSString *friend;
+@end
+
+@interface XABChatClassGradeStudentsParentsDetailModel : NSObject
+
+@property (copy, nonatomic) NSString *id;         //学生id
+@property (nonatomic,copy) NSString *name;        //姓名
+@property (nonatomic,copy) NSString *appellation;        //
+@property (nonatomic,copy) NSString *friend;
+@property (nonatomic,copy) NSString *studentName;
+@property (nonatomic,copy) NSString *mobilePhone;   //老师手机号
+
+
 @end
 
 #pragma mark 班级群 模型

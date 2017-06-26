@@ -25,8 +25,9 @@
 #import "XABUserLogin.h"
 #import <SMS_SDK/SMSSDK.h>
 #import "XABShareSDKTool.h"
-#import "XABUserLogin.h"
 #import "SystemMessageViewController.h"
+#import "SettingViewController.h"
+#import "XABChatTool.h"
 static NSString * const SMSAppKey = @"1b1b702554e44";
 static NSString * const SMSAppSecret = @"870942be696045d543192122ad220742";
 
@@ -159,7 +160,7 @@ static NSString * const SMSAppSecret = @"870942be696045d543192122ad220742";
         // 初始化引导页控制器
         WYYViewController *view = [[WYYViewController alloc]init];
         // 设置引导页图片
-        view.dataArray = [NSArray arrayWithObjects:@"first.jpg",@"second.jpg",@"third.jpg",@"four.jpg", nil];
+//        view.dataArray = [NSArray arrayWithObjects:@"first.jpg",@"second.jpg",@"third.jpg",@"four.jpg", nil];
         // 设置跳转界面
         view.controller = loginVC;
         self.window.rootViewController = view;
@@ -168,6 +169,10 @@ static NSString * const SMSAppSecret = @"870942be696045d543192122ad220742";
         if ([XABUserLogin getInstance].userInfo == nil) {
             self.window.rootViewController = loginVC;
         }else{
+            
+            [[XABChatTool getInstance] initWithRCIM];
+            [[XABChatTool getInstance] connectRCServer];
+
             self.window.rootViewController = tabBarController;
         }
         

@@ -15,6 +15,7 @@
 #import "AboutOurViewController.h"
 #import "SystemMessageViewController.h"
 #import "MyWordViewController.h"
+#import "XABConversationListViewController.h"
 
 
 @interface XABMineViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -106,8 +107,10 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     switch (indexPath.row) {
-        case 0:
-            
+        case 0:{
+            XABConversationListViewController *con = [XABConversationListViewController new];
+            [self.navigationController pushViewController:con animated:1];
+        }
             break;
         case 1:
         {

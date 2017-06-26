@@ -11,73 +11,39 @@
 #import "XABLoginViewController.h"
 #import "AppDelegate.h"
 #import "XABClassGradeCurriculumsVC.h"
+#import "XABSchoolGroupChatViewController.h"
 @interface XABConversationListViewController ()<RCIMGroupInfoDataSource>
 
 @end
 
 @implementation XABConversationListViewController
 
--(id)init{
-    
-    self = [super init];
-    
-    if (self) {
-        
-        //设置需要显示哪些类型的会话
-        [self setDisplayConversationTypes:@[@(ConversationType_PRIVATE),
-                                            @(ConversationType_DISCUSSION),
-                                            @(ConversationType_GROUP),
-                                            @(ConversationType_SYSTEM)]];
-        //设置需要将哪些类型的会话在会话列表中聚合显示
-//        [self setCollectionConversationType:@[@(ConversationType_DISCUSSION),
-//                                              @(ConversationType_GROUP)]];
-    }
-    return self;
-}
 - (void)viewDidLoad {
     
     self.navigationController.navigationBar.hidden = NO;
+
     //重写显示相关的接口，必须先调用super，否则会屏蔽SDK默认的处理
     [super viewDidLoad];
-    
-    //获取班级列表的接口
-    XABParamModel *model = [XABParamModel paramClassGradeCurriculumWithClassId:@"860415707773538304"];
-    
-    [[XABChatTool getInstance] getChatClassGroupWithRequestModel:model resultBlock:^(NSArray *sourceArray, NSError *error) {
-        
-    }];
-   
-    NSLog(@"用户id== %@",[XABUserLogin getInstance].userInfo.id);
-    
-    XABParamModel *schoolGroupModel = [XABParamModel paramWithUserId:[XABUserLogin getInstance].userInfo.id];
-    
-    [[XABChatTool getInstance] getChatSchoolGroupWithRequestModel:schoolGroupModel resultBlock:^(NSArray *sourceArray, NSError *error) {
-        
-        for (XABChatSchoolGroupModel *model in sourceArray) {
-                        
-//            [self getGroupInfoWithGroupId:model.groupId completion:^(RCGroup *groupInfo) {
-//                
-//            }];
-            
-            
-            XABParamModel *param = [XABParamModel paramChatSchoolGroupMembersWithGroupId:model.groupId];
-            
-            [[XABChatTool getInstance] getChatSchoolGroupMembersWithRequestModel:param resultBlock:^(NSArray *sourceArray, NSError *error) {
-                
-            }];
-            
-//            [[XABChatTool getInstance] configGroupInfoWithGroupId:model.groupId];
-        }
-    }];
-    
-    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc] initWithTitle:@"退出登录" style:UIBarButtonItemStylePlain target:self action:@selector(goOutLogin)];
-    
-    
-     UIBarButtonItem *rightBtn2 = [[UIBarButtonItem alloc] initWithTitle:@"课程表" style:UIBarButtonItemStylePlain target:self action:@selector(goCurriculums)];
-    
-    self.navigationItem.rightBarButtonItems = @[rightBtn,rightBtn2];
+    self.title = @"会话列表";
 
+    // 导航栏标题字体颜色
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:19],NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    //设置需要显示哪些类型的会话
+    [self setDisplayConversationTypes:@[@(ConversationType_PRIVATE),
+                                        @(ConversationType_DISCUSSION),
+                                        @(ConversationType_CHATROOM),
+                                        @(ConversationType_GROUP),
+                                        @(ConversationType_APPSERVICE),
+                                        @(ConversationType_SYSTEM)]];
+//    //设置需要将哪些类型的会话在会话列表中聚合显示
+//    [self setCollectionConversationType:@[@(ConversationType_DISCUSSION),
+//                                          @(ConversationType_GROUP)]];
+}
+-(void)viewWillAppear:(BOOL)animated{
     
+    [super viewWillAppear:animated];
+    
+    self.navigationController.navigationBar.hidden = NO;
 }
 /*!
  获取群组信息
@@ -93,36 +59,46 @@
     
     
 }
-
--(void)goCurriculums{
- 
-    XABClassGradeCurriculumsVC *vc = [[XABClassGradeCurriculumsVC alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
-    
-}
--(void)goOutLogin{
- 
-    XABLoginViewController *loginVC = [[XABLoginViewController alloc] init];
-    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    app.window.rootViewController = loginVC;
-}
 //点击会话列表，进入聊天会话界面
 //重写RCConversationListViewController的onSelectedTableRow事件
 - (void)onSelectedTableRow:(RCConversationModelType)conversationModelType
          conversationModel:(RCConversationModel *)model
-               atIndexPath:(NSIndexPath *)indexPath {
+               atIndexPath:(NSIndexPath *)indexPath{
     
-    if (conversationModelType == RC_CONVERSATION_MODEL_TYPE_COLLECTION) {
-        // 聚合
+    if (model.conversationModelType == ConversationType_PRIVATE){
+    
         
-    }else if (model.conversationModelType == ConversationType_PRIVATE){
-        // 单聊
+        if (model.conversationType == ConversationType_GROUP) {
+            
+            XABSchoolGroupChatViewController *vc = [[XABSchoolGroupChatViewController alloc]initWithConversationType:ConversationType_GROUP targetId:model.targetId];
+            if (model.conversationTitle.length == 0) {
+                
+                vc.groupName = @"会话详情";
+
+            }else{
+                vc.groupName = model.conversationTitle;
+            }
+            vc.senderGroupId = model.targetId;
+            RCGroup *group = [[RCGroup alloc]initWithGroupId:model.targetId groupName:model.conversationTitle portraitUri:nil];
+            [[RCIM sharedRCIM] refreshGroupInfoCache:group withGroupId:model.targetId];
+            [self.navigationController pushViewController:vc animated:YES];
+
+        }else  if (model.conversationType == ConversationType_PRIVATE) {
         
-        RCConversationViewController *conversationVC = [[RCConversationViewController alloc]init];
-        conversationVC.conversationType = model.conversationType;
-        conversationVC.targetId = model.targetId;
-        conversationVC.title = @"王园园";
-        [self.navigationController pushViewController:conversationVC animated:YES];
+            // 单聊
+            
+            RCConversationViewController *conversationVC = [[RCConversationViewController alloc]init];
+            conversationVC.conversationType = model.conversationType;
+            conversationVC.targetId = model.targetId;
+            if (model.conversationTitle.length == 0) {
+                conversationVC.title = @"会话详情";
+                
+            }else{
+                conversationVC.title = model.conversationTitle;
+            }
+            [self.navigationController pushViewController:conversationVC animated:YES];
+        }
+       
 
     }
 }

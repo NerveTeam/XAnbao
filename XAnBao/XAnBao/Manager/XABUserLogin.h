@@ -44,6 +44,9 @@ extern NSString *const UserLoginError;
 
 + (instancetype)getInstance;
 
+//获取引导页图
+-(void)requestGetGuideImageResultBlock:(void (^)(NSString *image_url,NSError *error))resultBlock;
+
 /**
  *  获取验证码
  */

@@ -142,11 +142,24 @@ MJCodingImplementation
 
 @end
 
+
+@implementation XABChatClassGradeTeachersDetailModel
+
+
+@end
+
 @implementation XABChatClassGradeStudentsModel
 
 
 @end
 
+@implementation XABChatClassGradeStudentsParentsModel
+
+@end
+
+@implementation XABChatClassGradeStudentsParentsDetailModel
+
+@end
 
 //班级群
 @implementation XABChatClassGroupModel
