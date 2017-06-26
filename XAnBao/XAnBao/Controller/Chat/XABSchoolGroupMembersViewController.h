@@ -12,4 +12,5 @@
 
 @property (nonatomic,copy) NSString *groupId;
 @property (nonatomic,copy) NSString *groupName;
+@property (nonatomic,strong) NSString *isJumpDetailVC;// 为 0的 时候  不需要调整到详情
 @end

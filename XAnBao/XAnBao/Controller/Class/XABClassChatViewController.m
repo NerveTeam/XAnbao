@@ -89,6 +89,8 @@
         XABChatClassGroupModel *model = self.sourceArray[indexPath.row];
         
         XABSchoolGroupChatViewController *vc = [[XABSchoolGroupChatViewController alloc]initWithConversationType:ConversationType_GROUP targetId:model.groupId];
+        
+        vc.isJumpDetailVC = @"0";
         vc.groupName = model.name;
         vc.senderGroupId = model.groupId;
         RCGroup *group = [[RCGroup alloc]initWithGroupId:model.groupId groupName:model.name portraitUri:nil];

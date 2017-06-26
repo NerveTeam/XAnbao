@@ -61,7 +61,9 @@
     XABSchoolGroupMembersViewController *vc = [[XABSchoolGroupMembersViewController alloc] init];
     vc.groupId = self.senderGroupId;
     vc.groupName = self.groupName;
+    vc.isJumpDetailVC = self.isJumpDetailVC;
     [self.navigationController pushViewController:vc animated:YES];
+    
 }
 
 - (void)didReceiveMemoryWarning {

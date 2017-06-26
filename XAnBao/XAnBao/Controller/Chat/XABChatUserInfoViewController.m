@@ -8,8 +8,11 @@
 
 #import "XABChatUserInfoViewController.h"
 #import "UIImageView+WebCache.h"
+#import "UIView+TopBar.h"
+#import "UIButton+Extention.h"
 @interface XABChatUserInfoViewController ()
-
+@property (nonatomic,strong) UIView *topBarView;
+@property (nonatomic,strong) UIButton *backBtn;
 @end
 
 @implementation XABChatUserInfoViewController
@@ -18,10 +21,34 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.title = @"详细信息";
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2-100, StatusBarHeight+10, 200, 30)];
+    titleLabel.text = @"详细信息";
+    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    [self.topBarView addSubview:titleLabel];
+    
     self.nameLabel.text = self.model.name;
     self.mobliePhoneLabel.text = self.model.mobilePhone;
     [self.userImage sd_setImageWithURL:[NSURL URLWithString:self.model.portrit] placeholderImage:[UIImage imageNamed:@"a_zwxtx"]];
+}
+
+- (UIView *)topBarView {
+    if (!_topBarView) {
+        _topBarView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, StatusBarHeight + TopBarHeight)];
+        _topBarView = [_topBarView topBarWithTintColor:ThemeColor title:@"" titleColor:[UIColor whiteColor] leftView:self.backBtn rightView:nil responseTarget:self];
+        _topBarView.backgroundColor = ThemeColor;
+        
+        [self.view addSubview:_topBarView];
+    }
+    return _topBarView;
+}
+- (UIButton *)backBtn {
+    if (!_backBtn) {
+        _backBtn = [UIButton buttonWithTitle:@"返回" fontSize:15];
+    }
+    return _backBtn;
 }
 
 - (void)didReceiveMemoryWarning {

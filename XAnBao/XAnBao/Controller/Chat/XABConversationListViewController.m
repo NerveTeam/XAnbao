@@ -71,6 +71,7 @@
         if (model.conversationType == ConversationType_GROUP) {
             
             XABSchoolGroupChatViewController *vc = [[XABSchoolGroupChatViewController alloc]initWithConversationType:ConversationType_GROUP targetId:model.targetId];
+            vc.isJumpDetailVC = @"0";
             if (model.conversationTitle.length == 0) {
                 
                 vc.groupName = @"会话详情";
@@ -81,6 +82,7 @@
             vc.senderGroupId = model.targetId;
             RCGroup *group = [[RCGroup alloc]initWithGroupId:model.targetId groupName:model.conversationTitle portraitUri:nil];
             [[RCIM sharedRCIM] refreshGroupInfoCache:group withGroupId:model.targetId];
+            self.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
 
         }else  if (model.conversationType == ConversationType_PRIVATE) {
@@ -96,6 +98,7 @@
             }else{
                 conversationVC.title = model.conversationTitle;
             }
+            self.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:conversationVC animated:YES];
         }
        
