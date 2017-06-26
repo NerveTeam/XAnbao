@@ -24,25 +24,54 @@
 @implementation XABClassChatViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    [self setup];
     
-    //获取 班级讨论组
-    XABParamModel *model = [XABParamModel paramClassGroupWithClassId:self.classId];
-    [[XABChatTool getInstance] getChatClassGroupWithRequestModel:model resultBlock:^(NSArray *sourceArray, NSError *error) {
-        if (sourceArray.count > 0) {
-            
-            self.sourceArray = sourceArray;
-            [self.tableView reloadData];
-        }else{
-            [self showMessage:@"未获取到校群信息"];
-        }
-
-        NSLog(@"输出 班级讨论组的group == %@",sourceArray);
-    }];
+    [super viewDidLoad];
+    
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     
+  @{NSFontAttributeName:[UIFont systemFontOfSize:19],
+    
+    NSForegroundColorAttributeName:[UIColor whiteColor]}];
+//    [self setup];
+    
+//    //获取 班级讨论组
+//    XABParamModel *model = [XABParamModel paramClassGroupWithClassId:self.classId];
+//    [[XABChatTool getInstance] getChatClassGroupWithRequestModel:model resultBlock:^(NSArray *sourceArray, NSError *error) {
+//        if (sourceArray.count > 0) {
+//            
+//            self.sourceArray = sourceArray;
+//            [self.tableView reloadData];
+//        }else{
+//            [self showMessage:@"未获取到校群信息"];
+//        }
+//
+//        NSLog(@"输出 班级讨论组的group == %@",sourceArray);
+//    }];
     
 }
 
+#pragma mark - 下面2个方法 为了 只是 当前界面 禁用 手势返回
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.hidden = NO;
+    
+    // 禁用返回手势
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    }
+}
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    self.navigationController.navigationBar.hidden = YES;
+    
+    // 开启返回手势
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+    }
+}
 
 - (BOOL)hidesBottomBarWhenPushed {
     return YES;

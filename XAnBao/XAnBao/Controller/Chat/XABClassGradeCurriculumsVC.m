@@ -30,6 +30,9 @@
 @property (nonatomic,strong) UIScrollView *scrollView;
 @property (nonatomic,strong) UIView *contentView;
 @property (nonatomic,strong) UIImageView *imageView;
+
+@property (nonatomic,strong) UILabel *contentLabel;
+
 @end
 
 @implementation XABClassGradeCurriculumsVC
@@ -72,12 +75,12 @@
     
 //    [self addCurriculumViews:arr];
     
-    self.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, kHeight);
+    self.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, kHeight+20+40);
     
     for (int i = 0; i<5; i++) {
         
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20+i*kWidth, 0, kWidth, 25)];
-        label.text = @[@"周一",@"周二",@"周三",@"周四",@"周五"][i];
+        label.text = @[@"星期一",@"星期二",@"星期三",@"星期四",@"星期五"][i];
         label.textAlignment = NSTextAlignmentCenter;
         label.font = [UIFont systemFontOfSize:13];
         [self.contentView addSubview:label];
@@ -135,6 +138,18 @@
         [self.contentView bringSubviewToFront:view];
     }
     
+}
+
+-(UILabel *)contentLabel{
+    
+    if (!_contentLabel) {
+        
+        _contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, kHeight+20, SCREEN_WIDTH - 40, 40)];
+        _contentLabel.textAlignment = NSTextAlignmentCenter;
+        _contentLabel.textColor = [UIColor darkGrayColor];
+        _contentLabel.font = [UIFont systemFontOfSize:13];
+    }
+    return _contentLabel;
 }
 -(UIImageView *)imageView{
     
