@@ -12,11 +12,13 @@
 
 #define ColorWithRGB(r, g, b,f) [UIColor colorWithRed:(r) / 255.f green:(g) / 255.f blue:(b) / 255.f alpha:f]
 
-CGFloat cornerRadius            = 4;
-CGFloat crankToBounds           = 4;
-CGFloat crankToRect             = 4;
-CGFloat distanceOfRects         = 3;
+CGFloat cornerRadius            = 0;
+CGFloat crankToBounds           = 0;
+CGFloat crankToRect             = .5;
+CGFloat distanceOfRects         = 0.f;
 CGFloat squareWidth             = 60;
+CGFloat squareHeight             = 44;
+
 CGFloat fontSize                = 11;
 NSString *frontRectColorString  = @"69c2df";
 NSString *backRectcolorString   = @"55aac6";
@@ -29,28 +31,29 @@ NSString *fangXueColorString    = @"6CC651";
 {
     
     squareWidth = _curriculumWidth;
-    self.frame = CGRectMake(point.x, point.y, squareWidth, squareWidth * _sectionNumebr);
+    squareHeight = _curriculumHeight;
+    self.frame = CGRectMake(point.x, point.y, squareWidth, squareHeight * _sectionNumebr);
     self.backgroundColor = [UIColor clearColor];
     
     CGRect singleRectFrame = CGRectMake(crankToBounds,
                                         crankToBounds,
                                         squareWidth - 2*crankToBounds,
-                                        _sectionNumebr * squareWidth - 2*crankToBounds);
+                                        _sectionNumebr * squareHeight - 2*crankToBounds);
     
     CGRect frontRectFrame  = CGRectMake(crankToBounds,
                                         crankToBounds,
                                         squareWidth - 2*crankToBounds - distanceOfRects,
-                                        _sectionNumebr * squareWidth - 2*crankToBounds - distanceOfRects);
+                                        _sectionNumebr * squareHeight - 2*crankToBounds - distanceOfRects);
     
     CGRect backRectFrame   = CGRectMake(crankToBounds + distanceOfRects,
                                         crankToBounds + distanceOfRects,
                                         squareWidth - 2 * crankToBounds - distanceOfRects,
-                                        _sectionNumebr * squareWidth - 2*crankToBounds - distanceOfRects);
+                                        _sectionNumebr * squareHeight - 2*crankToBounds - distanceOfRects);
     
     CGRect labelFrame      = CGRectMake(crankToBounds + crankToRect + (_isSingleCUrriculum ? 0 : distanceOfRects),
                                         crankToBounds + crankToRect + (_isSingleCUrriculum ? 0 : distanceOfRects),
                                         squareWidth - 2 * (crankToBounds + crankToRect) - (_isSingleCUrriculum ? 0 : distanceOfRects),
-                                        _sectionNumebr * squareWidth - 2 * (crankToBounds + crankToRect) - (_isSingleCUrriculum ? 0 : distanceOfRects));
+                                        _sectionNumebr * squareHeight - 2 * (crankToBounds + crankToRect) - (_isSingleCUrriculum ? 0 : distanceOfRects));
     
     if (_isSingleCUrriculum) {
         UIView *singleRectView = [[UIView alloc] initWithFrame:singleRectFrame];
@@ -59,8 +62,10 @@ NSString *fangXueColorString    = @"6CC651";
             singleRectView.backgroundColor = ColorWithRGB(108, 198, 81, 1);//[UIColor colorWithHexString:fangXueColorString];
 
         }else{
-            singleRectView.backgroundColor = ColorWithRGB(105, 194, 223, .8);//[UIColor colorWithHexString:frontRectColorString];
+            singleRectView.backgroundColor = [UIColor clearColor];//ColorWithRGB(105, 194, 223, .8);//[UIColor colorWithHexString:frontRectColorString];
         }
+        singleRectView.layer.borderWidth = .19f;
+        singleRectView.layer.borderColor = [UIColor darkGrayColor].CGColor;
         singleRectView.layer.cornerRadius = cornerRadius;
         [self addSubview:singleRectView];
     } else {
@@ -76,8 +81,15 @@ NSString *fangXueColorString    = @"6CC651";
     }
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:labelFrame];
+ 
     titleLabel.text = [NSString stringWithFormat:@"%@", _title];//\n%@  _address
-    titleLabel.textColor = [UIColor whiteColor];
+    if ([_title containsString:_fangXueStr]) {
+        
+        titleLabel.textColor = [UIColor whiteColor];
+
+    }else{
+        titleLabel.textColor = [UIColor darkGrayColor];
+    }
     titleLabel.font = [UIFont systemFontOfSize:fontSize];
     titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.numberOfLines = 0;

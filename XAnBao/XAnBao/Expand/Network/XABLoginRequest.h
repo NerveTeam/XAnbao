@@ -34,6 +34,11 @@
 
 @end
 
+//注册时 获取用户协议 的html 请求
+@interface XABRegisterProtocolRequest :BaseDataRequest
+
+@end
+
 //找回密码
 @interface XABFindPasswordRequest : BaseDataRequest
 

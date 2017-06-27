@@ -14,6 +14,7 @@
 #import "XABUserLogin.h"
 #import "UIView+TopBar.h"
 #import "UIButton+Extention.h"
+#import "XABUserProtocolViewController.h"
 @interface XABLoginRegisterViewController ()<UITextViewDelegate>
 {
     UIButton *_codeBtn;     // 发送验证码按钮
@@ -21,6 +22,8 @@
     UIButton *_registerBtn; // 注册按钮
     
     UIButton *_isCheck;     // 是否打勾
+    
+    BOOL      _isCheckYesOrNo;// No 是不允许注册的
     
     NSTimer  * _timer;
     
@@ -38,6 +41,7 @@
 @property (nonatomic,strong) UITextField   *codeTF;
 
 @property (nonatomic,strong) UITextView    *prtrolTextView;              // 用户注册协议
+@property (nonatomic,copy) NSString *html_str;
 @end
 
 @implementation XABLoginRegisterViewController
@@ -47,13 +51,30 @@
     // Do any additional setup after loading the view from its nib.
     
     [self initSubViews];
+    
+    [self getUserPortocol];
 }
-
+-(void)getUserPortocol{
+    
+    [XABRegisterProtocolRequest requestDataWithParameters:@{@"itemId" : @"10004"} successBlock:^(BaseDataRequest *request) {
+        
+        if (request) {
+            
+            NSString *html = [request.responseObject objectForKey:@"data"];
+            
+            self.html_str = html;
+        }
+        
+    } failureBlock:^(BaseDataRequest *request) {
+        
+    }];
+}
 #pragma mark - 注册
 -(void)registerClick{
     
     [self.view endEditing:YES];
     
+    if(_isCheckYesOrNo == NO) return  [self showMessage:@"您同意用户协议才可以注册哟!"];
     NSString *rpassword = [self.rPasswordTF.text stringByReplacingOccurrencesOfString:@" " withString:@""];
     NSString *password = [self.passwordTF.text stringByReplacingOccurrencesOfString:@" " withString:@""];
     if (![rpassword isEqualToString:password] ) {
@@ -174,7 +195,10 @@
 #pragma mark - 点击服务协议
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange {
     if ([[URL scheme] isEqualToString:@"protocol"]) {
-        
+     
+        XABUserProtocolViewController *vc = [[XABUserProtocolViewController alloc] init];
+        vc.html_str = self.html_str;
+        [self.navigationController pushViewController:vc animated:YES];
     }
     
     return YES;
@@ -193,9 +217,9 @@
     
     if (_isCheck.selected) {
         
-        _isCheck.backgroundColor = [UIColor redColor];
+        _isCheckYesOrNo = YES;
     }else{
-        _isCheck.backgroundColor = [UIColor greenColor];
+        _isCheckYesOrNo = NO;
 
     }
 }
@@ -219,13 +243,13 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     UIImageView *imgView = [[UIImageView alloc]initWithFrame:self.view.frame];;
-    imgView.image = [UIImage imageNamed:@"bj"];
+    imgView.image = [UIImage imageNamed:@""];
     [self.view addSubview:imgView];
 
     self.navgationView.backgroundColor = kColorWithRGB(47, 132, 213, 1.0f);
     self.backScrollView.backgroundColor = [UIColor clearColor];
-    [self imgView];
-    [self signaLabel];
+//    [self imgView];
+//    [self signaLabel];
     [self nameTF];
     [self phoneTF];
     [self passwordTF];
@@ -262,7 +286,7 @@
     
     [_registerBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.equalTo(weakSelf.codeTF.mas_bottom).offset(SPACEING);
+        make.top.equalTo(weakSelf.rPasswordTF.mas_bottom).offset(SPACEING);
         make.right.equalTo(weakSelf.codeTF).offset(10);
         make.left.offset(LEFTSPACEING - 10);
         make.height.offset(TFHEIGHT/4*5);
@@ -306,21 +330,24 @@
         _prtrolTextView.linkTextAttributes = @{ NSForegroundColorAttributeName:kColorWithRGB( 251, 175, 68, 1.0f),
                                                   NSUnderlineColorAttributeName: [UIColor clearColor],
                                                   NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle)};
-        
-        
+ 
+
         _isCheck = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_isCheck setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
-        [_isCheck setImage:[UIImage imageNamed:@""] forState:UIControlStateHighlighted];
+        [_isCheck setImage:[UIImage imageNamed:@"duigou"] forState:UIControlStateSelected];
+        [_isCheck setImage:[UIImage imageNamed:@"duigou_no"] forState:UIControlStateNormal];
         [self.backScrollView addSubview:_isCheck];
         
         [_isCheck addTarget:self action:@selector(checkBtnClick) forControlEvents:UIControlEventTouchUpInside];
         
+        [_isCheck setSelected:YES];
+        //默认 为 YES
+        _isCheckYesOrNo = YES;
         [_isCheck mas_makeConstraints:^(MASConstraintMaker *make) {
            
             make.centerY.equalTo(_prtrolTextView.mas_centerY).offset(2);
             make.right.equalTo(_prtrolTextView.mas_left).offset(2);
-            make.width.offset(12);
-            make.height.offset(12);
+            make.width.offset(17);
+            make.height.offset(17);
         }];
         
         _isCheck.selected = YES;
@@ -341,7 +368,7 @@
         
         [_codeTF mas_makeConstraints:^(MASConstraintMaker *make) {
             
-            make.top.equalTo(weakSelf.rPasswordTF.mas_bottom).offset(10);
+            make.top.equalTo(weakSelf.phoneTF.mas_bottom).offset(10);
             make.width.offset(TFWIDTH);
             make.left.offset(LEFTSPACEING);
             make.height.offset(TFHEIGHT);
@@ -433,7 +460,7 @@
         
         [_passwordTF mas_makeConstraints:^(MASConstraintMaker *make) {
             
-            make.top.equalTo(weakSelf.phoneTF.mas_bottom).offset(10);
+            make.top.equalTo(weakSelf.codeTF.mas_bottom).offset(10);
             make.width.offset(TFWIDTH);
             make.left.offset(LEFTSPACEING);
             make.height.offset(TFHEIGHT);
@@ -525,7 +552,7 @@
         
         [_nameTF mas_makeConstraints:^(MASConstraintMaker *make) {
             
-            make.top.equalTo(weakSelf.signaLabel.mas_bottom).offset(10);
+            make.top.offset(SPACEING_register);
             make.width.offset(TFWIDTH);
             make.left.offset(LEFTSPACEING);
             make.height.offset(TFHEIGHT);

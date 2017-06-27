@@ -106,13 +106,13 @@
 #pragma mark - 跳转 到 注册
 -(void)registerClick{
     
-    [self pushToController:[[XABLoginRegisterViewController alloc]init] animated:YES];
+    [self.navigationController pushViewController:[[XABLoginRegisterViewController alloc]init] animated:YES];
 }
 #pragma mark - 跳转 到 忘记密码
 
 -(void)findPasswordClick{
     
-    [self pushToController:[[XABFindPasswordViewController alloc]init] animated:YES];
+    [self.navigationController pushViewController:[[XABFindPasswordViewController alloc]init] animated:YES];
 }
 
 -(void)shareClick{

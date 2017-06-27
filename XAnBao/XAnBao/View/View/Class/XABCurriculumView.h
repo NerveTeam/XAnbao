@@ -15,6 +15,8 @@
 @property (nonatomic ,strong) NSString *title;
 @property (nonatomic ,strong) NSString *address;
 @property (nonatomic,assign) CGFloat curriculumWidth;
+@property (nonatomic,assign) CGFloat curriculumHeight;
+
 
 @property (nonatomic,copy) NSString *fangXueStr;
 - (void)drawWithPoisition:(CGPoint)point;

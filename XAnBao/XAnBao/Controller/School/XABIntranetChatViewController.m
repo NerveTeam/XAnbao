@@ -89,7 +89,7 @@
     if (indexPath.row < self.sourceArray.count) {
         
         XABChatSchoolGroupModel *model = self.sourceArray[indexPath.row];
-        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:model.name] placeholderImage:[UIImage imageNamed:@"a_zwxtx"]];
+        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:model.name] placeholderImage:[UIImage imageNamed:@"群组"]];
         
         cell.textLabel.text = model.name;
     }

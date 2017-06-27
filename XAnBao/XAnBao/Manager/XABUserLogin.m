@@ -136,9 +136,9 @@ static XABUserLogin *_instance;
                 NSDictionary *dataDict = [request.responseObject objectForKeyNotNull:@"data"];
 
                 //保存用户信息
-                [self saveUserInfoWith:dataDict];
-                
-                [self postNotification:YES];
+//                [self saveUserInfoWith:dataDict];
+//                
+//                [self postNotification:YES];
 
                 if (block) {
                     block(YES,nil);
@@ -221,7 +221,7 @@ static XABUserLogin *_instance;
     
 }
 
-
+#pragma mark - 修改密码
 /**
  *  修改密码
  */
@@ -241,8 +241,8 @@ static XABUserLogin *_instance;
             
             NSDictionary *dataDict = [request.responseObject objectForKeyNotNull:@"data"];
             //保存用户信息
-            [self saveUserInfoWith:dataDict];
-            [self postNotification:YES];
+//            [self saveUserInfoWith:dataDict];
+//            [self postNotification:YES];
             
             if (block) {
                 block(YES,nil);

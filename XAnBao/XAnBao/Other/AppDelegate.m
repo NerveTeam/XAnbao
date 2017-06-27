@@ -162,12 +162,12 @@ static NSString * const SMSAppSecret = @"870942be696045d543192122ad220742";
         // 设置引导页图片
 //        view.dataArray = [NSArray arrayWithObjects:@"first.jpg",@"second.jpg",@"third.jpg",@"four.jpg", nil];
         // 设置跳转界面
-        view.controller = loginVC;
+        view.controller = [[UINavigationController alloc] initWithRootViewController:loginVC];
         self.window.rootViewController = view;
     }else {
         
         if ([XABUserLogin getInstance].userInfo == nil) {
-            self.window.rootViewController = loginVC;
+            self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:loginVC];;
         }else{
             
             [[XABChatTool getInstance] initWithRCIM];

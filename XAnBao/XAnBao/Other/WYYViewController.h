@@ -13,6 +13,6 @@
 /**************** 存放图片的数组  *******************/
 @property (nonatomic, strong)  NSMutableArray*dataArray;
 
-@property (nonatomic, strong) UIViewController *controller;
+@property (nonatomic, strong) UINavigationController *controller;
 
 @end
