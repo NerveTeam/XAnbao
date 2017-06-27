@@ -194,7 +194,7 @@
             
             XABChatClassGradeStudentsParentsModel *model = self.parentList[indexPath.section][indexPath.row];
             cell.textLabel.text = model.name;
-            cell.detailTextLabel.text = @"";
+            cell.detailTextLabel.text = model.appellation;
         }
         
     }else{

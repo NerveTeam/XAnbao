@@ -55,16 +55,16 @@
 -(void)nextClick{
     
     //验证码 校验
-//    [[XABUserLogin getInstance] verifyCodeResult:self.codeTF.text callBack:^(BOOL success,NSString *message) {
+    [[XABUserLogin getInstance] verifyCodeResult:self.codeTF.text callBack:^(BOOL success,NSString *message) {
     
-//        if (success) {
+        if (success) {
             
             XABConfirmFindPasswordVC *vc = [[XABConfirmFindPasswordVC alloc] init];
             [self pushToController:vc animated:YES];
-//        }else{
-//            [self showMessage:@"验证码输入有误"];
-//        }
-//    }];
+        }else{
+            [self showMessage:@"验证码输入有误"];
+        }
+    }];
 }
 
 #pragma mark - 立即登录

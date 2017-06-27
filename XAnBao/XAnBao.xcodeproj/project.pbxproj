@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		602946BF1EF76D0D0008B195 /* XABGuardianHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 602946BE1EF76D0D0008B195 /* XABGuardianHeaderView.m */; };
 		603169D41E8C123C008AA3A7 /* XABShareSDKTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 603169D31E8C123C008AA3A7 /* XABShareSDKTool.m */; };
+		605547691F025ED5009992B5 /* XABUserProtocolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 605547681F025ED5009992B5 /* XABUserProtocolViewController.m */; };
 		60575A551EFE06E600435B80 /* XABClassMembersDetailnfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 60575A531EFE06E600435B80 /* XABClassMembersDetailnfoVC.m */; };
 		60575A591EFF4D5700435B80 /* XABConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60575A581EFF4D5600435B80 /* XABConversationViewController.m */; };
 		605F79871EC698D70098E749 /* XABChatRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 605F79861EC698D70098E749 /* XABChatRequest.m */; };
@@ -533,6 +534,8 @@
 		602946BE1EF76D0D0008B195 /* XABGuardianHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABGuardianHeaderView.m; sourceTree = "<group>"; };
 		603169D21E8C123C008AA3A7 /* XABShareSDKTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABShareSDKTool.h; sourceTree = "<group>"; };
 		603169D31E8C123C008AA3A7 /* XABShareSDKTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABShareSDKTool.m; sourceTree = "<group>"; };
+		605547671F025ED5009992B5 /* XABUserProtocolViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABUserProtocolViewController.h; sourceTree = "<group>"; };
+		605547681F025ED5009992B5 /* XABUserProtocolViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABUserProtocolViewController.m; sourceTree = "<group>"; };
 		60575A521EFE06E600435B80 /* XABClassMembersDetailnfoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABClassMembersDetailnfoVC.h; sourceTree = "<group>"; };
 		60575A531EFE06E600435B80 /* XABClassMembersDetailnfoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABClassMembersDetailnfoVC.m; sourceTree = "<group>"; };
 		60575A571EFF4D5600435B80 /* XABConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABConversationViewController.h; sourceTree = "<group>"; };
@@ -1632,6 +1635,8 @@
 				60A5515A1E7D13BE0058DD96 /* XABLoginMacro.h */,
 				60A5515B1E7D13BE0058DD96 /* XABLoginRegisterViewController.h */,
 				60A5515C1E7D13BE0058DD96 /* XABLoginRegisterViewController.m */,
+				605547671F025ED5009992B5 /* XABUserProtocolViewController.h */,
+				605547681F025ED5009992B5 /* XABUserProtocolViewController.m */,
 				60A5515D1E7D13BE0058DD96 /* XABLoginViewController.h */,
 				60A5515E1E7D13BE0058DD96 /* XABLoginViewController.m */,
 			);
@@ -3765,6 +3770,7 @@
 				8CB02A011E6D4A3B00A57EBC /* MLCommentContentCell.m in Sources */,
 				8CB02B011E6D4A3B00A57EBC /* YTKRequest.m in Sources */,
 				8CB02B731E6D69B400A57EBC /* XABResource.m in Sources */,
+				605547691F025ED5009992B5 /* XABUserProtocolViewController.m in Sources */,
 				8CB026771E6D497700A57EBC /* TestMacro.m in Sources */,
 				759F10E41EF92F840088A5D9 /* MyWordViewController.m in Sources */,
 				8C7BB5581EF77EAF00A887A8 /* XABResourceRequest.m in Sources */,

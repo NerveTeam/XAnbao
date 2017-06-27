@@ -23,6 +23,9 @@
 
 #define SPACEING self.view.frame.size.height/19
 
+#define SPACEING_register self.view.frame.size.height/9
+
+
 #define TFWIDTH self.view.frame.size.width - 2 * LEFTSPACEING // TF 的宽度
 #define LEFTSPACEING 40                                       // TF 距左边的距离
 

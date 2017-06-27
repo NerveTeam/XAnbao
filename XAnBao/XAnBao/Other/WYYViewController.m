@@ -11,6 +11,7 @@
 #import "YBTabBarController.h"
 #import "XABUserLogin.h"
 #import "UIImageView+WebCache.h"
+#import "AppDelegate.h"
 @interface WYYViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
 
 @property (nonatomic,strong) UICollectionView *collectionView;
@@ -83,7 +84,9 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == self.dataArray.count - 1) {
-        [self presentViewController:self.controller animated:YES completion:nil];
+
+        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        app.window.rootViewController = self.controller;
     }
 }
 -(NSMutableArray *)dataArray{

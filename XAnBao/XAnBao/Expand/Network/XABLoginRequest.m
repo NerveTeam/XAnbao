@@ -107,6 +107,25 @@ static const NSString *domain = @"http://118.190.97.150/interface/api1/";
 @end
 
 
+//注册时 获取用户协议 的html 请求
+@implementation XABRegisterProtocolRequest
+
+- (NSString *)requestUrl {
+    //    示例，我们的注册接口
+    return [domain stringByAppendingString:@"school/helpitem"];
+}
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodPOST;
+}
+- (YTKResponseSerializerType)responseSerializerType {
+    return YTKResponseSerializerTypeJSON;
+}
+- (BOOL)useCDN {
+    return YES;
+}
+
+@end
+
 //找回密码
 @implementation XABFindPasswordRequest
 

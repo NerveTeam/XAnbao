@@ -15,9 +15,10 @@
 #import "NSArray+Safe.h"
 #import "XABCurriculumView.h"
 #import "UILabel+Extention.h"
-#define kWidth 60//(SCREEN_WIDTH - 30)/5
+#define kWidth (SCREEN_WIDTH)/5
 
-#define kHeight 20+(kWidth)*9
+#define kHeight 49
+#define cHeight 20+(kHeight)*9
 
 @interface XABClassScheduleViewController ()
 @property(nonatomic, strong)UIView *topBarView;
@@ -36,6 +37,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     [self setup];
 }
 - (BOOL)hidesBottomBarWhenPushed {
@@ -43,7 +45,7 @@
 }
 - (void)setup {
     [self.view addSubview:self.topBarView];
-    self.imageView.image = [UIImage imageNamed:@"backCurriclum"];
+//    self.imageView.image = [UIImage imageNamed:@"backCurriclum"];
     
     [self configSource];
 }
@@ -61,21 +63,23 @@
             
             CGSize titleSize = [self.contentLabel.text boundingRectWithSize:CGSizeMake(SCREEN_WIDTH-40, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17]} context:nil].size;
             
-            [self.contentLabel setFrame:CGRectMake(20, kHeight+20, SCREEN_WIDTH - 40, titleSize.height)];
-            self.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, kHeight+20+titleSize.height);
+            [self.contentLabel setFrame:CGRectMake(2, cHeight+20, SCREEN_WIDTH - 4, titleSize.height)];
+            self.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, cHeight+20+titleSize.height);
 
         }
     }];
     
-    self.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, kHeight+20+40);
+    self.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, cHeight+20+40);
     
     for (int i = 0; i<5; i++) {
         
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(i*kWidth, 0, kWidth, 25)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(i*kWidth, 0, kWidth, 20)];
         label.text = @[@"星期一",@"星期二",@"星期三",@"星期四",@"星期五"][i];
         label.textAlignment = NSTextAlignmentCenter;
         label.font = [UIFont systemFontOfSize:13];
         [self.contentView addSubview:label];
+        label.layer.borderWidth = .15f;
+        label.layer.borderColor = [UIColor darkGrayColor].CGColor;
     }
     
 //    for (int i = 0; i<9; i++) {
@@ -105,7 +109,8 @@
         
         NSInteger section = model.lessonNumber;
         view.curriculumWidth = kWidth;
-        [view drawWithPoisition:CGPointMake(kWidth*(week), 20 + kWidth*(section-1))];
+        view.curriculumHeight = kHeight;
+        [view drawWithPoisition:CGPointMake(kWidth*(week), 20 + kHeight*(section-1))];
         [self.contentView addSubview:view];
         [self.contentView bringSubviewToFront:view];
     }
@@ -115,9 +120,9 @@
     
     if (!_contentLabel) {
         
-        _contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, kHeight+20, SCREEN_WIDTH - 40, 40)];
-        _contentLabel.textAlignment = NSTextAlignmentCenter;
-        _contentLabel.textColor = [UIColor darkGrayColor];
+        _contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, cHeight+20, SCREEN_WIDTH, 40)];
+        _contentLabel.textAlignment = NSTextAlignmentLeft;
+        _contentLabel.textColor = RGBCOLOR(255,153,39);
         _contentLabel.font = [UIFont systemFontOfSize:13];
         [self.scrollView addSubview:_contentLabel];
         _contentLabel.numberOfLines = 0;
@@ -128,7 +133,7 @@
     
     if (!_imageView) {
         
-        _imageView = [[UIImageView alloc ]initWithFrame:CGRectMake(0, 0, self.contentView.frame.size.width,kHeight)];
+        _imageView = [[UIImageView alloc ]initWithFrame:CGRectMake(0, 0, self.contentView.frame.size.width,cHeight)];
         [self.contentView addSubview:_imageView];
     }
     return _imageView;
@@ -137,7 +142,7 @@
     
     if (!_contentView) {
         
-        _contentView = [[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - (kWidth*5))/2,0, kWidth*5,kHeight)];
+        _contentView = [[UIView alloc] initWithFrame:CGRectMake(0,0, kWidth*5,cHeight)];
         [self.scrollView addSubview:_contentView];
         
     }
