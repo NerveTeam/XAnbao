@@ -19,7 +19,7 @@
 #import "NSArray+Safe.h"
 #import <objc/runtime.h>
 #import "XABClassSearchViewController.h"
-
+#import "XABClassChatViewController.h"
 @interface XABClassViewController ()
 <XABSchoolMessageDelegate, XABSchoolMenuDelegate,XABClassContentViewDelegate>
 @property(nonatomic,strong)SDCycleScrollView *cycleView;
@@ -198,8 +198,27 @@
             [viewcontroller setValue:obj forKey:key];
         }
     }];
-    
-    [self.navigationController pushViewController:viewcontroller animated:YES];
+    if ([viewcontroller isKindOfClass:[XABClassChatViewController class]]) {
+        
+        NSString *classId = [currentInfo objectForKeySafely:@"classId"];
+        NSString *className = [currentInfo objectForKeySafely:@"className"];
+
+        if (classId) {
+            
+            if (!className) className = @"班级讨论组";
+            XABClassChatViewController *viewcontroller = [[XABClassChatViewController alloc] initWithConversationType:ConversationType_GROUP targetId:classId];
+            viewcontroller.title =className;
+            RCGroup *group = [[RCGroup alloc]initWithGroupId:classId groupName:className portraitUri:nil];
+            [[RCIM sharedRCIM] refreshGroupInfoCache:group withGroupId:classId];
+            [self.navigationController pushViewController:viewcontroller animated:YES];
+        }else{
+            [self showMessage:@"未获取到班级群组!"];
+        }
+        
+        
+    }else{
+        [self.navigationController pushViewController:viewcontroller animated:YES];
+    }
 }
 
 #pragma mark - lazy

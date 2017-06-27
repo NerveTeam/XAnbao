@@ -28,6 +28,8 @@
 @property (nonatomic,strong) UIScrollView *scrollView;
 @property (nonatomic,strong) UIView *contentView;
 @property (nonatomic,strong) UIImageView *imageView;
+
+@property (nonatomic,strong) UILabel *contentLabel;
 @end
 
 @implementation XABClassScheduleViewController
@@ -41,7 +43,7 @@
 }
 - (void)setup {
     [self.view addSubview:self.topBarView];
-    self.imageView.image = [UIImage imageNamed:@"CurriculumScheduleMainBG"];
+    self.imageView.image = [UIImage imageNamed:@"backCurriclum"];
     
     [self configSource];
 }
@@ -54,45 +56,38 @@
             
             if (model.curriculums.count>0) {
                 [self addCurriculumViews:model.curriculums];
-                
             }
+            self.contentLabel.text = model.content;
+            
+            CGSize titleSize = [self.contentLabel.text boundingRectWithSize:CGSizeMake(SCREEN_WIDTH-40, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17]} context:nil].size;
+            
+            [self.contentLabel setFrame:CGRectMake(20, kHeight+20, SCREEN_WIDTH - 40, titleSize.height)];
+            self.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, kHeight+20+titleSize.height);
+
         }
     }];
     
-    //    NSString *coursePath = [[NSBundle mainBundle] pathForResource:@"courses-1" ofType:@"json"];
-    //
-    //    NSData *data = [NSData dataWithContentsOfFile:coursePath];
-    //    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-    //
-    //    XABResponseModel *response = [XABResponseModel responseFromKeyValues:dict];
-    //    XABClassGradeCurriculumModel *model = [XABClassGradeCurriculumModel mj_objectWithKeyValues:[response.data safeObjectAtIndex:0]];
-    //
-    //    NSArray *arr = [XABCurriculumsModel mj_objectArrayWithKeyValuesArray:model.curriculums];
-    //    NSLog(@"arr == %@,  \n  model == %ld",arr,arr.count);
-    
-    //    [self addCurriculumViews:arr];
-    
-    self.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, kHeight);
+    self.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, kHeight+20+40);
     
     for (int i = 0; i<5; i++) {
         
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20+i*kWidth, 0, kWidth, 25)];
-        label.text = @[@"周一",@"周二",@"周三",@"周四",@"周五"][i];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(i*kWidth, 0, kWidth, 25)];
+        label.text = @[@"星期一",@"星期二",@"星期三",@"星期四",@"星期五"][i];
         label.textAlignment = NSTextAlignmentCenter;
         label.font = [UIFont systemFontOfSize:13];
         [self.contentView addSubview:label];
     }
     
-    for (int i = 0; i<9; i++) {
-        
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0,20+ i*kWidth, 20, kWidth)];
-        label.text = @[@"第1节",@"第2节",@"第3节",@"第4节",@"第5节",@"第6节",@"第7节",@"第8节",@"第9节"][i];
-        label.verticalText = label.text;
-        label.textAlignment = NSTextAlignmentCenter;
-        label.font = [UIFont systemFontOfSize:12];
-        
-        [self.contentView addSubview:label];
-    }
+//    for (int i = 0; i<9; i++) {
+//        
+//        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, i*kWidth, 20, kWidth)];
+//        label.text = @[@"第1节",@"第2节",@"第3节",@"第4节",@"第5节",@"第6节",@"第7节",@"第8节",@"第9节"][i];
+//        label.verticalText = label.text;
+//        label.textAlignment = NSTextAlignmentCenter;
+//        label.font = [UIFont systemFontOfSize:12];
+//        
+//        [self.contentView addSubview:label];
+//    }
 }
 
 - (void)addCurriculumViews:(NSArray *)arr
@@ -110,11 +105,24 @@
         
         NSInteger section = model.lessonNumber;
         view.curriculumWidth = kWidth;
-        [view drawWithPoisition:CGPointMake(20 + kWidth*(week), 20 + kWidth*(section-1))];
+        [view drawWithPoisition:CGPointMake(kWidth*(week), 20 + kWidth*(section-1))];
         [self.contentView addSubview:view];
         [self.contentView bringSubviewToFront:view];
     }
     
+}
+-(UILabel *)contentLabel{
+    
+    if (!_contentLabel) {
+        
+        _contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, kHeight+20, SCREEN_WIDTH - 40, 40)];
+        _contentLabel.textAlignment = NSTextAlignmentCenter;
+        _contentLabel.textColor = [UIColor darkGrayColor];
+        _contentLabel.font = [UIFont systemFontOfSize:13];
+        [self.scrollView addSubview:_contentLabel];
+        _contentLabel.numberOfLines = 0;
+    }
+    return _contentLabel;
 }
 -(UIImageView *)imageView{
     
@@ -129,7 +137,7 @@
     
     if (!_contentView) {
         
-        _contentView = [[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - (kWidth*5+20))/2,0, kWidth*5+20,kHeight)];
+        _contentView = [[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - (kWidth*5))/2,0, kWidth*5,kHeight)];
         [self.scrollView addSubview:_contentView];
         
     }

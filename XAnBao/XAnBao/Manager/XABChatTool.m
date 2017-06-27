@@ -99,7 +99,7 @@ static XABChatTool *_instance;
 #pragma mark - 配置 当前用户信息 （昵称、头像）
 -(void)configUserInfoWithUserID:(NSString *)userId{
     
-    RCUserInfo *userRC = [[RCUserInfo alloc]initWithUserId:userId name:UserInfo.name portrait:@"http://www.qqzhi.com/uploadpic/2014-09-26/064131688.jpg"];
+    RCUserInfo *userRC = [[RCUserInfo alloc]initWithUserId:userId name:UserInfo.name portrait:@""];
     [RCIM sharedRCIM].currentUserInfo = userRC;
     [RCIMClient sharedRCIMClient].currentUserInfo = userRC;
     [[RCIM sharedRCIM] setReceiveMessageDelegate:[XABChatTool getInstance]];
@@ -115,15 +115,15 @@ static XABChatTool *_instance;
 //根据 聊天的列表  对方的userID  配置 对方的姓名、头像
 -(void)getUserInfoWithUserId:(NSString *)userId completion:(void (^)(RCUserInfo *))completion{
     
-    if ([userId isEqualToString:@"123"]) {
-        
-        RCUserInfo *userInfo = [[RCUserInfo alloc] initWithUserId:userId name:@"小明" portrait:@"http://img2.woyaogexing.com/2017/04/23/5ed38c1314635aea!400x400_big.jpg"];
-        return completion(userInfo);
-    }else if ([userId isEqualToString:@"321"]){
-        RCUserInfo *userInfo = [[RCUserInfo alloc] initWithUserId:userId name:@"小微" portrait:@"http://img2.woyaogexing.com/2017/04/24/7d807ccba1f4bab0!400x400_big.jpg"];
-        return completion(userInfo);
-
-    }
+//    if ([userId isEqualToString:@"123"]) {
+//        
+//        RCUserInfo *userInfo = [[RCUserInfo alloc] initWithUserId:userId name:@"小明" portrait:@"http://img2.woyaogexing.com/2017/04/23/5ed38c1314635aea!400x400_big.jpg"];
+//        return completion(userInfo);
+//    }else if ([userId isEqualToString:@"321"]){
+//        RCUserInfo *userInfo = [[RCUserInfo alloc] initWithUserId:userId name:@"小微" portrait:@"http://img2.woyaogexing.com/2017/04/24/7d807ccba1f4bab0!400x400_big.jpg"];
+//        return completion(userInfo);
+//
+//    }
     return completion(nil);
 }
 

@@ -79,6 +79,7 @@ NSString *fangXueColorString    = @"6CC651";
     titleLabel.text = [NSString stringWithFormat:@"%@", _title];//\n%@  _address
     titleLabel.textColor = [UIColor whiteColor];
     titleLabel.font = [UIFont systemFontOfSize:fontSize];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.numberOfLines = 0;
     [self addSubview:titleLabel];
 }

@@ -94,13 +94,19 @@
 #pragma mark <UICollectionViewDelegate>
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (self.sourceArray.count>indexPath.row) {
+    if ([self.isJumpDetailVC isEqualToString:@"0"]) {
         
-        XABChatSchoolGroupMembersModel *model = self.sourceArray[indexPath.row];
         
-        XABChatUserInfoViewController *vc = [[XABChatUserInfoViewController alloc] init];
-        vc.model = model;
-        [self.navigationController pushViewController:vc animated:YES];
+    }else{
+        if (self.sourceArray.count>indexPath.row) {
+            
+            XABChatSchoolGroupMembersModel *model = self.sourceArray[indexPath.row];
+            
+            XABChatUserInfoViewController *vc = [[XABChatUserInfoViewController alloc] init];
+            vc.model = model;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+
     }
 }
 

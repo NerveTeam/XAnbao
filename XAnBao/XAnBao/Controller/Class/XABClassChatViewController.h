@@ -6,9 +6,10 @@
 //  Copyright © 2017年 Minlay. All rights reserved.
 //
 
-#import "YBBaseViewController.h"
-
-@interface XABClassChatViewController : YBBaseViewController
+#import <RongIMKit/RongIMKit.h>
+@interface XABClassChatViewController : RCConversationViewController
 @property(nonatomic, copy)NSString *classId;
+@property(nonatomic, copy)NSString *className;
 @property(nonatomic, assign)NSInteger type;
+
 @end

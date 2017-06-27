@@ -23,6 +23,12 @@
     // Do any additional setup after loading the view.
     self.title = self.groupName;
     
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     
+     @{NSFontAttributeName:[UIFont systemFontOfSize:19],
+       
+       NSForegroundColorAttributeName:[UIColor whiteColor]}];
+
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"a_qcy.png"] style:UIBarButtonItemStylePlain target:self action:@selector(memberItemAction)];
     self.navigationItem.rightBarButtonItem = rightItem;
 }
@@ -61,7 +67,9 @@
     XABSchoolGroupMembersViewController *vc = [[XABSchoolGroupMembersViewController alloc] init];
     vc.groupId = self.senderGroupId;
     vc.groupName = self.groupName;
+    vc.isJumpDetailVC = self.isJumpDetailVC;
     [self.navigationController pushViewController:vc animated:YES];
+    
 }
 
 - (void)didReceiveMemoryWarning {
