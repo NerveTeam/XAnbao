@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#define DefaultColor RGBCOLOR(245, 245, 245)
 @class SPFollowSetingTeamView;
 @protocol SPFollowSetingTeamViewDelegate <NSObject>
 

@@ -29,12 +29,11 @@
 
 
 - (void)setup {
-    self.gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    self.gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierChinese];
     [self addSubview:self.calendar];
     [self addSubview:self.previousButton];
     [self addSubview:self.nextButton];
-
-    
+    self.currenDate = self.calendar.today;
 }
 
 
@@ -65,11 +64,14 @@
 
 
 - (void)calendar:(FSCalendar *)calendar didSelectDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition {
+    self.currenDate = date;
+    NSDateFormatter *dateformatter = [[NSDateFormatter alloc]init];
+    [dateformatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *dateStr = [dateformatter stringFromDate:date];
     if ([_delegate respondsToSelector:@selector(calendarSelectDate:)]) {
-        [_delegate calendarSelectDate:date];
+        [_delegate calendarSelectDate:dateStr];
     }
 }
-
 
 
 - (FSCalendar *)calendar {

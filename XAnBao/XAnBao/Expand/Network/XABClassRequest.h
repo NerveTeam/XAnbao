@@ -95,3 +95,18 @@
 @interface ClassCatStatisRequest : BaseDataRequest
 
 @end
+
+//作业班级列表
+@interface HomeworkClassListRequest : BaseDataRequest
+
+@end
+
+//作业学生列表完成情况
+@interface HomeworkStudentListRequest : BaseDataRequest
+
+@end
+
+//作业列表
+@interface HomeworkListRequest : BaseDataRequest
+
+@end

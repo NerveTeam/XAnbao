@@ -9,9 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @protocol XABCalendarDelegate <NSObject>
-- (void)calendarSelectDate:(NSDate *)date;
+- (void)calendarSelectDate:(NSString *)date;
 
 @end
 @interface XABCalendar : UIView
 @property(nonatomic, weak)id<XABCalendarDelegate> delegate;
+@property(nonatomic, strong)NSDate *currenDate;
+@property(nonatomic, copy)NSString *subjectId;
+@property(nonatomic, copy)NSString *studentId;
 @end

@@ -8,7 +8,6 @@
 
 #import "SPFollowSetingTeamView.h"
 #import "SPFollowSetingTeamViewCell.h"
-#define DefaultColor RGBCOLOR(245, 245, 245)
 #define SelectColor [UIColor whiteColor]
 
 @interface SPFollowSetingTeamView ()<UITableViewDataSource,UITableViewDelegate>

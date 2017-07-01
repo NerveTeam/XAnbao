@@ -57,6 +57,10 @@ static const int cols = 4;
         [_delegate clickItem:teacherId];
     }
     
+    if ([_delegate respondsToSelector:@selector(clickItem:name:)]) {
+        [_delegate clickItem:teacherId name:teacher.titleLabel.text];
+    }
+    
     if (self.elementSelEnable) {
         return;
     }
@@ -93,6 +97,18 @@ static const int cols = 4;
         allBtn.hidden = YES;
     }
 }
+
+- (void)setTitleBgColor:(UIColor *)titleBgColor {
+    for (UIView *item in self.viewList) {
+        item.subviews.firstObject.backgroundColor = titleBgColor;
+
+    }
+}
+- (void)setElementBgColor:(UIColor *)elementBgColor {
+    for (UIView *item in self.viewList) {
+        item.subviews.lastObject.backgroundColor = elementBgColor;
+    }
+}
 - (void)setup {
     
     UIView *firstItem = nil;
@@ -104,7 +120,7 @@ static const int cols = 4;
         [self.viewList addObject:secView];
         [self addSubview:secView];
         UIView *headerView = [UIView new];
-        headerView.backgroundColor = [UIColor whiteColor];
+        headerView.backgroundColor = self.titleBgColor ? self.titleBgColor : [UIColor whiteColor];
         [secView addSubview:headerView];
         [headerView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.left.right.equalTo(secView);
@@ -145,7 +161,7 @@ static const int cols = 4;
         
         
         UIView *footer = [UIView new];
-        footer.backgroundColor = RGBCOLOR(242, 242, 242);
+        footer.backgroundColor = self.elementBgColor ? self.elementBgColor : RGBCOLOR(242, 242, 242);
         [secView addSubview:footer];
         [footer mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(headerView.mas_bottom);

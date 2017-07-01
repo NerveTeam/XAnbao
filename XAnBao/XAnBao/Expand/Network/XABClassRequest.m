@@ -280,3 +280,48 @@ static const NSString *domain = @"http://118.190.97.150/interface/api1/class-gra
     return YES;
 }
 @end
+
+@implementation HomeworkClassListRequest
+- (NSString *)requestUrl {
+    return @"http://118.190.97.150/interface/api1/homework/class-grades";
+}
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodGET;
+}
+- (YTKResponseSerializerType)responseSerializerType {
+    return YTKResponseSerializerTypeJSON;
+}
+- (BOOL)useCDN {
+    return YES;
+}
+@end
+
+@implementation HomeworkStudentListRequest
+- (NSString *)requestUrl {
+    return @"http://118.190.97.150/interface/api1/homework/students";
+}
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodGET;
+}
+- (YTKResponseSerializerType)responseSerializerType {
+    return YTKResponseSerializerTypeJSON;
+}
+- (BOOL)useCDN {
+    return YES;
+}
+@end
+
+@implementation HomeworkListRequest
+- (NSString *)requestUrl {
+    return @"http://118.190.97.150/interface/api1/homework/patriarchhomework";
+}
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodGET;
+}
+- (YTKResponseSerializerType)responseSerializerType {
+    return YTKResponseSerializerTypeJSON;
+}
+- (BOOL)useCDN {
+    return YES;
+}
+@end
