@@ -15,6 +15,7 @@
 #import "UIButton+Extention.h"
 #import "XABClassRequest.h"
 #import "UIView+TopBar.h"
+#import "XABEnclosureViewController.h"
 
 
 @interface CheckTaskViewController () < XABCalendarDelegate,CurriculumTableViewDelegate, StatusTaskViewDelegate>
@@ -39,7 +40,9 @@
 #pragma mark StatusTaskViewDelegate 
 - (void)statusTaskViewCheckLink:(NSArray *)fileArray
 {
-    
+    XABEnclosureViewController *enclosure = [XABEnclosureViewController new];
+    enclosure.attachments = fileArray;
+    [self pushToController:enclosure animated:YES];
 }
 - (void)statusTaskViewTaskContent:(NSString *)content
 {
@@ -52,9 +55,32 @@
     self.selectDate = [self dateFormatter:[NSDate date]];
     [self initTopView];
     [self initTableViews];
-    [self initStudentList];
+    if (self.isTeacher) {
+     [self initStudentList];
     [self initStudentTask];
+    }else {
+        WeakSelf;
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        [dic setSafeObject:self.classId forKey:@"classId"];
+        [HomeworkClassAllSubjectRequest requestDataWithParameters:dic headers:Token successBlock:^(BaseDataRequest *request) {
+            NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
+            if (code == 200) {
+                NSArray *data = [request.json objectForKeySafely:@"data"];
+                weakSelf.groupList = data;
+                weakSelf.selectStudentId = self.studentId;
+                weakSelf.courseId = [data.firstObject objectForKey:@"id"];
+                [weakSelf initStudentList];
+                [weakSelf initStudentTask];
+            }
+        } failureBlock:^(BaseDataRequest *request) {
+            
+        }];
+    }
     
+}
+
+- (BOOL)hidesBottomBarWhenPushed {
+    return YES;
 }
 
 - (void)initStudentList {
@@ -69,7 +95,8 @@
     [parm setSafeObject:self.selectDate forKey:@"date"];
     [parm setSafeObject:self.courseId forKey:@"subjectId"];
     [parm setSafeObject:self.selectStudentId forKey:@"studentId"];
-    [self.statusTView refreshStatusaskList:parm urlString:@"" isUp:NO];
+    self.statusTView.studentId = self.selectStudentId;
+    [self.statusTView refreshStatusaskList:parm urlString:@"" isTeacher:_isTeacher];
     
 }
 #pragma mark - 成员方法
@@ -94,7 +121,13 @@
     label.font = HKUISystemFontT15;
     label.textColor = kLableTextColor;
     label.textAlignment = NSTextAlignmentRight;
-    label.text = [NSString stringWithFormat:@"%@作业", self.courseName];
+    if (self.isTeacher) {
+         label.text = [NSString stringWithFormat:@"%@作业", self.courseName];
+    }else {
+        label.text = [NSString stringWithFormat:@"%@作业完成情况", self.studentName];
+        label.x = KScreenWidth - 160;
+        label.width = 150;
+    }
     [topView addSubview:label];
     
     self.taskDateBtn = [UIButton buttonWithTitle:[self dateFormatter:[NSDate date]] fontSize:14 titleColor:[UIColor blackColor]];
@@ -120,6 +153,9 @@
 #pragma mark - 监听事件
 #pragma mark 选择日期
 - (void)pullButtonAction {
+    self.calendar.studentId = self.selectStudentId;
+    self.calendar.subjectId = self.courseId;
+    [self.calendar realod];
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     [window addSubview:self.calendarBgView];
     [window addSubview:self.calendar];
@@ -133,7 +169,11 @@
 #pragma mark - 代理方法
 - (void)curriculumTableViewSelectedRowAtIndexPath:(NSIndexPath *)indexPath withIdentifier:(NSString *)senderID withName:(NSString *)senderName
 {
-    self.selectStudentId = senderID;
+    if (self.isTeacher) {
+         self.selectStudentId = senderID;
+    }else {
+        self.courseId = senderID;
+    }
     [self initStudentTask];
 }
 

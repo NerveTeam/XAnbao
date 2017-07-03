@@ -110,3 +110,23 @@
 @interface HomeworkListRequest : BaseDataRequest
 
 @end
+
+//所有科目
+@interface HomeworkClassAllSubjectRequest : BaseDataRequest
+
+@end
+
+//获取日历完成情况
+@interface HomeworkGetResultRequest : BaseDataRequest
+
+@end
+
+//家长标记完成
+@interface HomeworkFinishRequest : BaseDataRequest
+
+@end
+
+//家长添加附件
+@interface HomeworkAddEnclosureRequest : BaseDataRequest
+
+@end

@@ -68,9 +68,9 @@
 #pragma mark - lazy
 - (MLMeunView *)meunView {
     if (!_meunView) {
-        _meunView = [[MLMeunView alloc]initWithFrame:CGRectMake(0, self.topBarView.height, self.topBarView.width, TopBarHeight) titles:self.channelName viewcontrollersInfo:self.channelData isParameter:YES];
+        _meunView = [[MLMeunView alloc]initWithFrame:CGRectMake(0, 20, self.topBarView.width, TopBarHeight) titles:self.channelName viewcontrollersInfo:self.channelData isParameter:YES];
         _meunView.normalColor = [UIColor blackColor];
-        _meunView.selectlColor = ThemeColor;
+        _meunView.selectlColor = [UIColor whiteColor];
         [_meunView reloadMeunStyle];
     }
     return _meunView;
@@ -78,7 +78,7 @@
 - (UIView *)topBarView {
     if (!_topBarView) {
         _topBarView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, StatusBarHeight + TopBarHeight)];
-        _topBarView = [_topBarView topBarWithTintColor:ThemeColor title:@"学习资源" titleColor:[UIColor whiteColor] leftView:nil rightView:nil responseTarget:self];
+        _topBarView = [_topBarView topBarWithTintColor:ThemeColor title:@"" titleColor:[UIColor whiteColor] leftView:nil rightView:nil responseTarget:self];
     }
     return _topBarView;
 }

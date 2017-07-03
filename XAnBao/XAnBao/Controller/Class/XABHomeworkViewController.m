@@ -37,7 +37,7 @@
 
 // 选中数据
 @property(nonatomic, strong)NSDictionary *selectSubjectData;
-@property(nonatomic, strong)NSDate *selectDate;
+@property(nonatomic, strong)NSString *selectDate;
 @property(nonatomic, strong)NSDictionary *selectGroupData;
 @property(nonatomic, assign)NSInteger currentHandleIndex;
 // 作业数据
@@ -129,6 +129,7 @@
     XABSelectPeopleGroupViewController *group  = [XABSelectPeopleGroupViewController new];
     group.isScholl = NO;
     group.classId = self.classId;
+    group.subjectId = [self.selectSubjectData objectForKeySafely:@"id"];
     group.selectedInfo = self.selectGroupData;
     [self pushToController:group animated:YES];
 }
@@ -136,7 +137,7 @@
 - (void)addHomeworkClick {
     NSMutableDictionary *pargam = [NSMutableDictionary dictionary];
     [pargam setSafeObject:@"" forKey:@"contents"];
-    [pargam setSafeObject:@"0" forKey:@"reply"];
+    [pargam setSafeObject:@"true" forKey:@"reply"];
     NSMutableArray *attachments = [NSMutableArray array];
     [pargam setSafeObject:attachments forKey:@"attachments"];
     [self.homeworkData addObject:pargam];
@@ -145,7 +146,7 @@
 
 - (void)postHomework {
     NSMutableDictionary *parma = [NSMutableDictionary dictionary];
-//    [parma setSafeObject:self.selectDate forKey:@"assignDate"];
+    [parma setSafeObject:self.selectDate forKey:@"assignDate"];
     [parma setSafeObject:[self.selectSubjectData objectForKeySafely:@"id"] forKey:@"subjectId"];
     [parma setSafeObject:[self.selectSubjectData objectForKeySafely:@"name"]forKey:@"subjectName"];
     [parma setSafeObject:[self.selectGroupData objectForKeySafely:@"groupList"]forKey:@"groups"];
@@ -156,6 +157,7 @@
         NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
         if (code == 200) {
             [self showMessage:@"留作业成功"];
+            [self popViewControllerAnimated:YES];
         }
         else {
         [self showMessage:@"留作业失败"];
@@ -172,8 +174,8 @@
 }
 
 #pragma maek - delegate
-- (void)calendarSelectDate:(NSDate *)date {
-    [self.calendarClickView showContentText:[self dateFormatter:date]];
+- (void)calendarSelectDate:(NSString *)date {
+    [self.calendarClickView showContentText:date];
     self.selectDate = date;
     [self tapClick];
 }
@@ -209,7 +211,7 @@
 - (void)returnClick:(BOOL)isReturn cell:(XABHomeworkCell *)cell {
     NSIndexPath *path = [self.homeworkTableview indexPathForCell:cell];
     NSMutableDictionary *dic = [self.homeworkData safeObjectAtIndex:path.row];
-    [dic setSafeObject:[NSString stringWithFormat:@"%d",isReturn] forKey:@"reply"];
+    [dic setSafeObject:[NSString stringWithFormat:@"%@",isReturn == YES ? @"true" : @"false"] forKey:@"reply"];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -376,6 +378,7 @@
 }
 - (void)selectGroupFinish:(NSNotification *)noti {
     self.selectGroupData = noti.userInfo;
+    [self.studentGroupClickView showContentText:@"已选择"];
 }
 
 - (void)uploadEnclosureFinish:(NSNotification *)noti {

@@ -98,9 +98,11 @@
             weakSelf.selectClassId = [data.firstObject objectForKey:@"id"];
             [weakSelf requestStudentList];
             [weakSelf reloadClassUI];
+        }else {
+        [self showMessage:@"本课程无作业"];
         }
     } failureBlock:^(BaseDataRequest *request) {
-        
+        [self showMessage:@"本课程无作业"];
     }];
 }
 
@@ -116,9 +118,11 @@
             NSArray *data = [request.json objectForKeySafely:@"data"];
             weakSelf.studentListData = data;
             [weakSelf reloadStudentUI];
+        }else {
+        [self showMessage:@"本课程无作业"];
         }
     } failureBlock:^(BaseDataRequest *request) {
-        
+        [self showMessage:@"本课程无作业"];
     }];
 }
 
@@ -162,6 +166,7 @@
 
 
 - (void)reloadClassUI {
+    [self.contentView addSubview:self.contentClassView];
     [self.contentClassView removeAllSubviews];
     UIButton *lastItem = nil;
     for (NSInteger i = 0; i < self.classListData.count; i++) {
@@ -283,7 +288,7 @@
     task.groupList = [self.studentListGroupData objectForKeySafely:groupId];
     task.courseId = self.selectSubjectId;
     task.courseName = self.selectSubjectName;
-    
+    task.isTeacher = YES;
     [self pushToController:task animated:YES];
 }
 
@@ -295,10 +300,9 @@
     task.groupList = @[dic];
     task.courseId = self.selectSubjectId;
     task.courseName = self.selectSubjectName;
-    
+    task.isTeacher = YES;
     [self pushToController:task animated:YES];
 }
-
 
 
 - (void)setup {
@@ -308,7 +312,6 @@
     [self.view addSubview:self.groupCheck];
     [self.view addSubview:self.setingTeamView];
     [self.view addSubview:self.contentView];
-    [self.contentView addSubview:self.contentClassView];
     [self.view addSubview:self.contentGroupView];
     [self.setingTeamView addSubview:self.rollSeparatorLine];
     [self.dateSelect mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -470,6 +473,7 @@
                 }];
             weakSelf.selectSubjectId = [[self.subjectData safeObjectAtIndex:indexPath.row] objectForKey:@"id"];
             weakSelf.selectSubjectName = [[self.subjectData safeObjectAtIndex:indexPath.row] objectForKey:@"name"];
+            [weakSelf.contentView removeAllSubviews];
             [weakSelf requestClassList];
         }];
         _setingTeamView.backgroundColor = RGBCOLOR(245, 245, 245);

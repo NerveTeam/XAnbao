@@ -17,8 +17,8 @@
 @end
 @interface StatusTaskView : UITableView
 
-- (void)refreshStatusaskList:(NSDictionary *)parameters urlString:(NSString *)string isUp:(BOOL)isUp;
+- (void)refreshStatusaskList:(NSDictionary *)parameters urlString:(NSString *)string isTeacher:(BOOL)isTeacher;
 
 @property (weak, nonatomic) id <StatusTaskViewDelegate> statusDelegate;
-
+@property(nonatomic, copy)NSString *studentId;
 @end

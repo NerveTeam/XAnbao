@@ -48,8 +48,8 @@
 {
     if (_respondButton == nil) {
         _respondButton = [[UIButton alloc]initWithFrame:CGRectMake( SCREEN_WIDTH - 80 -50, 0, 44, 44)];
-        [_respondButton setImage:[UIImage imageNamed:@"未选中.png"] forState:UIControlStateNormal];
-        [_respondButton setImage:[UIImage imageNamed:@"回复.png"] forState:UIControlStateSelected];
+        [_respondButton setImage:[UIImage imageNamed:@"btn_nochecked"] forState:UIControlStateNormal];
+        [_respondButton setImage:[UIImage imageNamed:@"btn_checked"] forState:UIControlStateSelected];
         [self.contentView addSubview:_respondButton];
     }
     return _respondButton;

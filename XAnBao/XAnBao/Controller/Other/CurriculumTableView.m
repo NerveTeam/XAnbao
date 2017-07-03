@@ -35,8 +35,8 @@
         [self setDelegate:self];
         [self setDataSource:self];
         //[self setScrollEnabled:NO];
-        _lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 1, 3, 42)];
-        [_lineView setBackgroundColor:kButtonBg];
+        _lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 1, 5, 42)];
+        [_lineView setBackgroundColor:ThemeColor];
         _lineView.hidden = YES;
         [self addSubview:_lineView];
         

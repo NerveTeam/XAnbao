@@ -85,7 +85,7 @@
 #pragma mark - lazy
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - TabBarHeight -  2 * TopBarHeight - StatusBarHeight)];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - TabBarHeight -  TopBarHeight - StatusBarHeight)];
         [_tableView registerClass:[XABResourceListCell class] forCellReuseIdentifier:NSStringFromClass([XABResourceListCell class])];
         _tableView.delegate = self;
         _tableView.dataSource = self;

@@ -17,4 +17,5 @@
 @property(nonatomic, strong)NSDate *currenDate;
 @property(nonatomic, copy)NSString *subjectId;
 @property(nonatomic, copy)NSString *studentId;
+- (void)realod;
 @end

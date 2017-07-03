@@ -107,7 +107,7 @@
         }];
     }else {
         NSMutableDictionary *pargam = [NSMutableDictionary dictionary];
-        [pargam setSafeObject:UserInfo.mobile forKey:@"mobilePhone"];
+        [pargam setSafeObject:self.subjectId forKey:@"subjectId"];
         [ClassGetStudentGroup requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
             NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
             if (code == 200) {
@@ -144,7 +144,8 @@
         }];
     }else {
         NSMutableDictionary *pargam = [NSMutableDictionary dictionary];
-        [pargam setSafeObject:UserInfo.mobile forKey:@"mobilePhone"];
+//        [pargam setSafeObject:UserInfo.mobile forKey:@"mobilePhone"];
+        [pargam setSafeObject:self.subjectId forKey:@"subjectId"];
         [ClassGetStudentList requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
             NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
             if (code == 200) {

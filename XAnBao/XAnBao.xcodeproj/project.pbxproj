@@ -291,7 +291,6 @@
 		8C3F9FCC1EEE964900D09F66 /* but_select_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C3F9FBF1EEE964900D09F66 /* but_select_nor@2x.png */; };
 		8C3F9FCD1EEE964900D09F66 /* but_select_nor@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C3F9FC01EEE964900D09F66 /* but_select_nor@3x.png */; };
 		8C3F9FCE1EEE964900D09F66 /* but_select_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C3F9FC11EEE964900D09F66 /* but_select_press@2x.png */; };
-		8C3F9FCF1EEE964900D09F66 /* but_select_press@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C3F9FC21EEE964900D09F66 /* but_select_press@3x.png */; };
 		8C3F9FD01EEE964900D09F66 /* ZZCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C3F9FC41EEE964900D09F66 /* ZZCheckBox.m */; };
 		8C3F9FD11EEE964900D09F66 /* ZZCheckBoxButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C3F9FC61EEE964900D09F66 /* ZZCheckBoxButton.m */; };
 		8C3F9FD21EEE964900D09F66 /* ZZMutableCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C3F9FC91EEE964900D09F66 /* ZZMutableCheckBox.m */; };
@@ -3756,11 +3755,9 @@
 				6089A6791EAB8330009AC61B /* RongCloudKit.strings in Resources */,
 				8CFBD5151E76473C00EE691B /* first.jpg in Resources */,
 				759F10DB1EF901610088A5D9 /* 我的留言.jpg in Resources */,
-				8C3F9FCF1EEE964900D09F66 /* but_select_press@3x.png in Resources */,
 				759F10DC1EF901610088A5D9 /* 我的消息.jpg in Resources */,
 				8C7BB5411EF3DE8E00A887A8 /* XABCurriculusCollectionViewCell.xib in Resources */,
 				60ADA74F1EFC0DBD00EBA8F7 /* read_me.txt in Resources */,
-				8C3F9FCF1EEE964900D09F66 /* but_select_press@3x.png in Resources */,
 				60ADA7501EFC0DBD00EBA8F7 /* README.txt in Resources */,
 				8C7BB5411EF3DE8E00A887A8 /* XABCurriculusCollectionViewCell.xib in Resources */,
 				6089A67D1EAB8330009AC61B /* RCConfig.plist in Resources */,

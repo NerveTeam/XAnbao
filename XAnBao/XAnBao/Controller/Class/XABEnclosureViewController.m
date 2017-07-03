@@ -17,6 +17,7 @@
 #import "XABEnclosure.h"
 #import "HKNetEngine.h"
 #import "XABClassRequest.h"
+#import "FSResource.h"
 
 @interface XABEnclosureViewController ()<UICollectionViewDataSource,XABRecordCellDelegate,XABUploadImageCellDelegate>
 @property(nonatomic, strong)UIView *topBar;
@@ -46,11 +47,44 @@
     self.view.backgroundColor = RGBCOLOR(242, 242, 242);
     [self setup];
     [self getQNToken];
-    self.recordFiles = [NSMutableArray arrayWithObject:@"add"];
-    self.imageFiles = [NSMutableArray arrayWithObject:@"add"];
+    if (self.attachments) {
+        [self initFilesData];
+        self.postBtn.hidden = YES;
+    }else {
+        [self.recordFiles addObject:@"add"];
+        [self.imageFiles addObject:@"add"];
     [self.recordCollectionView reloadData];
     [self.imgCollectionView reloadData];
+    }
 }
+
+- (BOOL)hidesBottomBarWhenPushed {
+    return YES;
+}
+
+- (void)initFilesData {
+    for (NSDictionary *item in self.attachments) {
+        NSString *type = [item objectForKeySafely:@"type"];
+        NSString *url = [item objectForKeySafely:@"url"];
+        if ([type isEqualToString:@"2"]) {
+            XABEnclosure *en = [XABEnclosure new];
+            en.isLocal = NO;
+            en.url = url;
+            [self.imageFiles addObject:en];
+        }else if ([type isEqualToString:@"4"]) {
+            NSString *pathName = [FSResource getFilePathName:url];
+            [self.recordFiles addObject:pathName];
+//            [self.mArrSpxUrl addObject:urlStr];
+            if (![[NSFileManager defaultManager] fileExistsAtPath:pathName]) {
+                [self downSPXFilesPath:pathName url:url];
+            }
+        }
+    }
+    [self.recordCollectionView reloadData];
+    [self.imgCollectionView reloadData];
+    
+}
+
 
 - (void)setup {
     [self.view addSubview:self.topBar];
@@ -93,6 +127,10 @@
     
 }
 - (void)postEnclosure {
+    if (self.recordFileName.count == 0 && self.imageFileName.count == 0) {
+        [self showMessage:@"请至少添加一个附件"];
+        return;
+    }
     NSMutableDictionary *parma = [NSMutableDictionary dictionary];
     [parma setSafeObject:self.recordFileName forKey:@"recordUrl"];
     [parma setSafeObject:self.imageFileName forKey:@"imageUrl"];
@@ -244,6 +282,7 @@
     }];
 }
 - (void)uploadVioceWithFilePath:(NSString *)filePath {
+    [self showMessage:@"正在上传"];
     WeakSelf;
     NSError *errer;
     NSData *data = [NSData dataWithContentsOfFile:filePath options:NSDataReadingMappedAlways error:&errer];
@@ -258,12 +297,14 @@
             
             NSString *urlString = [NSString stringWithFormat:@"%@%@",KQNHttp, dic[@"key"]];
             [weakSelf.recordFileName addObject:urlString];
+            [self showMessage:@"上传成功"];
         }
     }];
 }
 
 
 - (void)upLoadImageFile:(NSData *)img {
+    [self showMessage:@"正在上传"];
     WeakSelf;
     NSData *data = img;
     
@@ -277,10 +318,33 @@
         if (dic[@"hash"]) {
             NSString *urlString = [NSString stringWithFormat:@"%@%@",qn_domain, dic[@"key"]];
             [weakSelf.imageFileName addObject:urlString];
-            
+            [self showMessage:@"上传成功"];
         }
         
     }];
     
+}
+
+- (void)downSPXFilesPath:(NSString *)pathName url:(NSString *)urlStr {
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    
+    dispatch_async(queue, ^{
+        
+        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlStr]];
+        [data writeToFile:pathName atomically:YES];
+        
+    });
+}
+- (NSMutableArray *)recordFiles {
+    if (!_recordFiles) {
+        _recordFiles = [NSMutableArray array];
+    }
+    return _recordFiles;
+}
+- (NSMutableArray *)imageFiles {
+    if (!_imageFiles) {
+        _imageFiles = [NSMutableArray array];
+    }
+    return _imageFiles;
 }
 @end

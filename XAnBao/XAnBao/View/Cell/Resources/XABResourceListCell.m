@@ -18,7 +18,7 @@
 @interface XABResourceListCell ()
 @property(nonatomic, strong)UILabel *titleLabel;
 @property(nonatomic, strong)UIImageView *img;
-//@property(nonatomic, strong)UILabel *commentCount;
+@property(nonatomic, strong)UILabel *commentCount;
 @property(nonatomic, strong)UILabel *postDate;
 //@property(nonatomic, strong)UIImageView *commentIcon;
 @end
@@ -42,6 +42,7 @@ static const CGFloat imgH = imgScale(imgW);
         [self.contentView addSubview:self.titleLabel];
         [self.contentView addSubview:self.img];
         [self.contentView addSubview:self.postDate];
+        [self.contentView addSubview:self.commentCount];
         [self viewLayout];
     }
     return self;
@@ -56,24 +57,38 @@ static const CGFloat imgH = imgScale(imgW);
     dateFormatter.dateFormat=@"yyyy-MM-dd HH:mm:ss";
     NSDate *date = [dateFormatter dateFromString:@"2016-7-16 09:33:22"];
     self.postDate.text = sportList.publishTime;
+    if (![sportList.visits isEqualToString:@"0"]) {
+            self.commentCount.text = sportList.visits;
+    }
+    if (self.sportList.coverUrl && [self.sportList.coverUrl isEqualToString:@""]) {
+        [self.img mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.contentView);
+            make.top.equalTo(self.contentView).offset(marginTop);
+            make.bottom.equalTo(self.contentView).offset(-marginTop);
+            make.width.offset(0);
+            make.height.offset(imgH);
+        }];
+    }
     
 }
 - (void)viewLayout {
-    [self.img mas_makeConstraints:^(MASConstraintMaker *make) {
+    
+    
+    [self.img mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView).offset(marginLeft);
         make.top.equalTo(self.contentView).offset(marginTop);
         make.bottom.equalTo(self.contentView).offset(-marginTop);
         make.width.offset(imgW);
         make.height.offset(imgH);
     }];
-    [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.titleLabel mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.img);
         make.left.equalTo(self.img.mas_right).offset(marginLeft);
         make.right.equalTo(self.contentView).offset(-marginLeft);
         //        make.width.offset(200);
     }];
     
-    [self.postDate mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.postDate mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.titleLabel);
         make.bottom.equalTo(self.img);
     }];
@@ -83,10 +98,10 @@ static const CGFloat imgH = imgScale(imgW);
 //        make.bottom.equalTo(self.postDate);
 //    }];
 //    
-//    [self.commentCount mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.right.equalTo(self.commentIcon.mas_left).offset(-marginLeft/2);
-//        make.bottom.equalTo(self.commentIcon);
-//    }];
+    [self.commentCount mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.contentView).offset(-marginLeft);
+                make.bottom.equalTo(self.postDate);
+    }];
     
 }
 - (UILabel *)titleLabel {
@@ -112,13 +127,13 @@ static const CGFloat imgH = imgScale(imgW);
     }
     return _postDate;
 }
-//- (UILabel *)commentCount {
-//    if (!_commentCount) {
-//        _commentCount = [UILabel labelWithText:nil fontSize:12];
-//        _commentCount.textColor = RGBACOLOR(194, 194, 194, 1);
-//    }
-//    return _commentCount;
-//}
+- (UILabel *)commentCount {
+    if (!_commentCount) {
+        _commentCount = [UILabel labelWithText:nil fontSize:12];
+        _commentCount.textColor = RGBACOLOR(194, 194, 194, 1);
+    }
+    return _commentCount;
+}
 //- (UIImageView *)commentIcon {
 //    if (!_commentIcon) {
 //        _commentIcon = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"comment"]];

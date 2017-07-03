@@ -78,7 +78,7 @@ static int number = 3;
         [items addObject:@{@"intro":@"留作业",@"img":@"myClass_job",@"class":@"XABHomeworkViewController"}];
         [items addObject:@{@"intro":@"检查作业",@"img":@"myClass_job",@"class":@"XABCheckJobViewController"}];
     }else {
-        [items addObject:@{@"intro":@"今日学业",@"img":@"myClass_job",@"class":@"XABClassJobViewController"}];
+        [items addObject:@{@"intro":@"今日学业",@"img":@"myClass_job",@"class":@"CheckTaskViewController"}];
     }
     [items addObjectsFromArray:@[@{@"intro":@"课程表",@"img":@"myClass_schedule",@"class":@"XABClassScheduleViewController"},
                                  @{@"intro":@"班级文件",@"img":@"myClass_class_file",@"class":@"XABClassFileViewController"},

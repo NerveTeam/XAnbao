@@ -10,13 +10,17 @@
 #import "StatusHeaderView.h"
 #import "FSResource.h"
 #import "XABClassRequest.h"
+#import "XABEnclosureViewController.h"
 
 @interface StatusTaskView () <UITableViewDelegate, UITableViewDataSource>
 {
     NSMutableArray *sectionTitleArr;
     NSMutableArray *sectionSubTitleArr;
 }
+@property (strong, nonatomic) NSArray *totalDataList;
 @property (strong, nonatomic) NSArray *datalist;
+@property(nonatomic, assign)BOOL isTeacher;
+@property(nonatomic, copy)NSString *homeworkId;
 @end
 @implementation StatusTaskView
 #pragma mark - delegate 私有
@@ -29,6 +33,7 @@
 
         [self setDelegate:self];
         [self setDataSource:self];
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(uploadEnclosureFinish:) name:AddEnclosureDidFinish object:nil];
         
     }
     return self;
@@ -57,28 +62,36 @@
     static NSString *ID = @"StatusTaskCell";
     StatusTaskCell *cell = [[StatusTaskCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
     
+    NSDictionary *dict = self.datalist[indexPath.section][indexPath.row];
     
-    if ([FSResource dictionaryValue:self.datalist[indexPath.section][indexPath.row] forKey:@"fjList"]) {
+   NSUInteger count = [(NSArray *)[dict objectForKey:@"attachments"] count];
+    cell.buttonLink.hidden = !count;
+    if (count > 0) {
         [cell.buttonLink addTarget:self action:@selector(clickLinkButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     
-    cell.textLabel.text = self.datalist[indexPath.section][indexPath.row][@"workcontent"];
+    cell.textLabel.text = [dict objectForKey:@"contents"];
     
     if ([sectionSubTitleArr[indexPath.section] isEqualToString:@"是否完成"]) {
         
-        cell.statusTaskSwitch.on = [self.datalist[indexPath.section][indexPath.row][@"replyStatus"] integerValue];
+        cell.statusTaskSwitch.on = [[dict objectForKeySafely:@"checked"] integerValue];
+        [cell.statusTaskSwitch addTarget:self action:@selector(clickSwitchButtonAction:) forControlEvents:UIControlEventValueChanged];
+        cell.statusTaskSwitch.enabled = !self.isTeacher;
 
     }else if ([sectionSubTitleArr[indexPath.section] isEqualToString:@"是否回复"]){
         
-        cell.respondButton.selected = [self.datalist[indexPath.section][indexPath.row][@"replyStatus"] integerValue];
+        cell.respondButton.selected = [[dict objectForKeySafely:@"replied"] integerValue];
+        cell.respondButton.enabled = !self.isTeacher;
+        [cell.respondButton addTarget:self action:@selector(clickRespondButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     
     return cell;
 }
+// 查看内容
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [self.statusDelegate statusTaskViewTaskContent:self.datalist[indexPath.section][indexPath.row][@"workcontent"]];
+    [self.statusDelegate statusTaskViewTaskContent:self.datalist[indexPath.section][indexPath.row][@"contents"]];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -96,35 +109,83 @@
     return sectionTitleArr[section];
 }
 
-
+// 附件查看
 - (void)clickLinkButtonAction:(UIButton *)sender {
     
     NSIndexPath *index = [self indexPathForCell:(StatusTaskCell *)sender.superview.superview];
-     [self.statusDelegate statusTaskViewCheckLink:self.datalist[index.section][index.row][@"fjList"]];
+     [self.statusDelegate statusTaskViewCheckLink:self.datalist[index.section][index.row][@"attachments"]];
 }
 
-- (void)refreshStatusaskList:(NSDictionary *)parameters urlString:(NSString *)string isUp:(BOOL)isUp
-{
+#pragma mark - action 
+
+// 家长完成作业
+- (void)clickSwitchButtonAction:(UISwitch *)sender {
     
+    NSIndexPath *index = [self indexPathForCell:(StatusTaskCell *)sender.superview.superview];
+    NSDictionary *dict = self.datalist[index.section][index.row];
+    
+    NSMutableDictionary *parma = [NSMutableDictionary dictionary];
+    [parma setSafeObject:[dict objectForKeySafely:@"homeworkId"] forKey:@"homeworkId"];
+    [parma setSafeObject:self.studentId forKey:@"studentId"];
+    [HomeworkFinishRequest requestDataWithParameters:parma headers:Token successBlock:^(BaseDataRequest *request) {
+        NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
+        if (code == 200) {
+        }
+    } failureBlock:^(BaseDataRequest *request) {
+        
+    }];
+}
+// 家长回复添加附件
+- (void)clickRespondButtonAction:(UIButton *)sender {
+    
+    sender.selected = !sender.selected;
+    NSIndexPath *index = [self indexPathForCell:(UITableViewCell *)sender.superview.superview];
+    self.homeworkId =  self.datalist[index.section][index.row][@"homeworkId"];
+    XABEnclosureViewController *enclosure = [XABEnclosureViewController new];
+    [self.navgationController pushViewController:enclosure animated:YES];
+
+}
+
+- (void)refreshStatusaskList:(NSDictionary *)parameters urlString:(NSString *)string isTeacher:(BOOL)isTeacher
+{
+    self.isTeacher = isTeacher;
     [HomeworkListRequest requestDataWithParameters:parameters headers:Token successBlock:^(BaseDataRequest *request) {
         NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
         if (code == 200) {
             NSArray *data = [request.json objectForKeySafely:@"data"];
+            self.totalDataList = data;
             [self transitDataDictionary:data];
+        }else {
+            self.totalDataList = nil;
+            self.datalist = nil;
+            [self reloadData];
         }
     } failureBlock:^(BaseDataRequest *request) {
-        
+            self.totalDataList = nil;
+            self.datalist = nil;
+            [self reloadData];
     }];
 }
 
 - (void)transitDataDictionary:(NSArray *)list {
     
     NSMutableArray *mArr = [NSMutableArray arrayWithCapacity:list.count];
+    NSMutableArray *needReply = [NSMutableArray array];
+    NSMutableArray *unNeedReply = [NSMutableArray array];
     
-    for (NSDictionary *dic in list) {
-        NSArray *needReply = [FSResource dictionaryValue:dic[@"data"] forKey:@"needReply"];
-        NSArray *unNeedReply = [FSResource dictionaryValue:dic[@"data"] forKey:@"unNeedReply"];
-        //    NSMutableArray *mArr = [NSMutableArray arrayWithCapacity:HKTwo];
+    for (NSDictionary *item in list) {
+        NSArray *element = [item objectForKey:@"contents"];
+        for (NSDictionary *dic in element) {
+            BOOL replay = [[dic objectForKey:@"reply"]boolValue];
+            if (replay) {
+                [needReply addObject:dic];
+            }else {
+                [unNeedReply addObject:dic];
+            }
+        }
+    }
+    
+    
         sectionTitleArr = [NSMutableArray arrayWithCapacity:HKTwo];
         sectionSubTitleArr = [NSMutableArray arrayWithCapacity:HKTwo];
         
@@ -152,10 +213,50 @@
                 [sectionSubTitleArr addObject:@"是否完成"];
             }
         }
-    }
     
     self.datalist = mArr;
      [self reloadData];
 }
 
+
+- (void)uploadEnclosureFinish:(NSNotification *)noti {
+    NSArray *record = [noti.userInfo objectForKeySafely:@"recordUrl"];
+    NSArray *image = [noti.userInfo objectForKeySafely:@"imageUrl"];
+    
+    NSMutableDictionary *parma = [NSMutableDictionary dictionary];
+    [parma setSafeObject:self.homeworkId forKey:@"homeworkId"];
+    [parma setSafeObject:self.studentId forKey:@"studentId"];
+    
+    NSMutableArray *attachments = [NSMutableArray array];
+    for (NSString *url in record) {
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        [dic setSafeObject:url forKey:@"url"];
+        [dic setSafeObject:@"4" forKey:@"type"];
+        [attachments addObject:dic];
+    }
+    
+    for (NSString *url in image) {
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        [dic setSafeObject:url forKey:@"url"];
+        [dic setSafeObject:@"2" forKey:@"type"];
+        [attachments addObject:dic];
+    }
+    
+    [parma setSafeObject:attachments forKey:@"attachments"];
+    
+    NSString *op = [self dictionaryToJson:parma];
+    [HomeworkAddEnclosureRequest requestDataWithParameters:@{@"json":[[self dictionaryToJson:parma] URLEncodedString]} headers:Token successBlock:^(BaseDataRequest *request) {
+        NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
+        if (code == 200) {
+        }
+    } failureBlock:^(BaseDataRequest *request) {
+        
+    }];
+}
+- (NSString *)dictionaryToJson:(NSObject *)obj
+{
+    NSError *parseError = nil;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:obj options:NSJSONWritingPrettyPrinted error:&parseError];
+    return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+}
 @end
