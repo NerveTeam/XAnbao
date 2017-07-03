@@ -4408,7 +4408,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ios.xiaoanbao;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9f9abcce-c4a0-4fb3-844a-a208a884968c";
+				PROVISIONING_PROFILE = "456bf91b-8b2f-4651-8b3c-fc8d0c30bde3";
 				PROVISIONING_PROFILE_SPECIFIER = luqiangxab;
 			};
 			name = Debug;
@@ -4449,7 +4449,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ios.xiaoanbao;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9f9abcce-c4a0-4fb3-844a-a208a884968c";
+				PROVISIONING_PROFILE = "456bf91b-8b2f-4651-8b3c-fc8d0c30bde3";
 				PROVISIONING_PROFILE_SPECIFIER = luqiangxab;
 			};
 			name = Release;
