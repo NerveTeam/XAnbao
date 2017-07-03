@@ -16,4 +16,5 @@ typedef void(^callBack)();
 @end
 @interface XABRecordCell : YBCollectionViewBaseCell
 @property(nonatomic, weak)id<XABRecordCellDelegate> delegate;
+@property(nonatomic, strong)UIButton *deleteBtn;
 @end

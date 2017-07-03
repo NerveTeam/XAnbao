@@ -80,14 +80,14 @@ static const int cols = 4;
 
 
 - (void)allClick:(UIButton *)sender {
-    
+    [sender setSelected:!sender.isSelected];
     UIView *fView = [self.viewList safeObjectAtIndex:sender.tag];
     UIView *footView = fView.subviews.lastObject;
     
     for (UIButton *item in footView.subviews) {
-        if (!item.isSelected) {
+//        if (!item.isSelected) {
             [self teacherItemClick:item];
-        }
+//        }
     }
 }
 
@@ -145,18 +145,20 @@ static const int cols = 4;
         [openBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(headerView);
             make.right.equalTo(headerView).offset(-10);
+            make.width.offset(openBtn.width+10);
         }];
         
         UIButton *allBtn = [UIButton new];
         [allBtn setTitle:@"全选" forState:UIControlStateNormal];
-        [allBtn setTitleColor:ThemeColor forState:UIControlStateNormal];
+        [allBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [allBtn setTitleColor:ThemeColor forState:UIControlStateSelected];
         allBtn.tag = i;
         allBtn.titleLabel.font = [UIFont systemFontOfSize:13];
         [allBtn addTarget:self action:@selector(allClick:) forControlEvents:UIControlEventTouchUpInside];
         [headerView addSubview:allBtn];
         [allBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(headerView);
-            make.right.equalTo(openBtn).offset(-15);
+            make.right.equalTo(openBtn).offset(-25);
         }];
         
         

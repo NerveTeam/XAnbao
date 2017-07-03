@@ -16,7 +16,6 @@
 @property (nonatomic, assign) BOOL isRecording;
 @property (nonatomic, assign) BOOL isPlaying;
 @property (nonatomic, copy) NSString *recordFilename;
-@property(nonatomic, strong)UIButton *deleteBtn;
 @end
 static int Record = 1; // 录音
 static int Play = 2;   // 播放

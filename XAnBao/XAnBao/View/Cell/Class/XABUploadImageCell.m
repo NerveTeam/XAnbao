@@ -16,7 +16,7 @@
 @property(nonatomic,strong)UIButton *imgBtn;
 @property(nonatomic,strong)UIImageView *imageView;
 @property(nonatomic, strong)XABEnclosure *enclosure;
-@property(nonatomic, strong)UIButton *deleteBtn;
+
 @end
 @implementation XABUploadImageCell
 

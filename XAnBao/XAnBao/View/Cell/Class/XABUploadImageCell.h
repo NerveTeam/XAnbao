@@ -16,4 +16,5 @@
 @end
 @interface XABUploadImageCell : YBCollectionViewBaseCell
 @property(nonatomic, weak)id<XABUploadImageCellDelegate> delegate;
+@property(nonatomic, strong)UIButton *deleteBtn;
 @end

@@ -155,11 +155,17 @@
         XABRecordCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:self.recordCollectionView.identifier forIndexPath:indexPath];
         cell.delegate = self;
         [cell setModel:self.recordFiles[indexPath.item]];
+        if (self.attachments) {
+            cell.deleteBtn.hidden = YES;
+        }
         return cell;
     }else if ([collectionView isKindOfClass:[XABImageCollectionView class]]) {
         XABUploadImageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:self.imgCollectionView.identifier forIndexPath:indexPath];
         cell.delegate = self;
         [cell setModel:self.imageFiles[indexPath.item]];
+        if (self.attachments) {
+            cell.deleteBtn.hidden = YES;
+        }
         return cell;
     }
     
