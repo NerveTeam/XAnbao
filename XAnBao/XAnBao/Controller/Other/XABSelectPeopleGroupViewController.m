@@ -107,7 +107,7 @@
         }];
     }else {
         NSMutableDictionary *pargam = [NSMutableDictionary dictionary];
-        [pargam setSafeObject:UserInfo.mobile forKey:@"mobilePhone"];
+        [pargam setSafeObject:self.subjectId forKey:@"subjectId"];
         [ClassGetStudentGroup requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
             NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
             if (code == 200) {
@@ -144,7 +144,8 @@
         }];
     }else {
         NSMutableDictionary *pargam = [NSMutableDictionary dictionary];
-        [pargam setSafeObject:UserInfo.mobile forKey:@"mobilePhone"];
+//        [pargam setSafeObject:UserInfo.mobile forKey:@"mobilePhone"];
+        [pargam setSafeObject:self.subjectId forKey:@"subjectId"];
         [ClassGetStudentList requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
             NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
             if (code == 200) {
@@ -190,7 +191,7 @@
     }
     
     self.teacherMemberList = teacherMemberList.copy;
-    self.selectorView = [XABMemberListSelectorView memberListSelectorWithData:self.teacherMemberList isSchool:_isScholl];
+    self.selectorView = [XABMemberListSelectorView memberListSelectorWithData:self.teacherMemberList isSchool:_isScholl selectedData:[self.selectedInfo objectForKeySafely:@"teacherList"]];
     [self.view addSubview:self.selectorView];
     [self.selectorView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.existTableview.mas_bottom).offset(20);
@@ -233,6 +234,7 @@
         cell = [[XABSelectGroupCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"XABSelectGroupCell"];
     }
     cell.delegate = self;
+    cell.selectedGroup = [self.selectedInfo objectForKeySafely:@"groupList"];
     [cell setModel:[self.groupList safeObjectAtIndex:indexPath.row]];
     return cell;
 }

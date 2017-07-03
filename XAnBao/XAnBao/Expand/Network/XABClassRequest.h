@@ -85,3 +85,48 @@
 @interface ClassFoucsMapRequest : BaseDataRequest
 
 @end
+
+//统计班级
+@interface ClassStatisReceivedRequest : BaseDataRequest
+
+@end
+
+//查看统计
+@interface ClassCatStatisRequest : BaseDataRequest
+
+@end
+
+//作业班级列表
+@interface HomeworkClassListRequest : BaseDataRequest
+
+@end
+
+//作业学生列表完成情况
+@interface HomeworkStudentListRequest : BaseDataRequest
+
+@end
+
+//作业列表
+@interface HomeworkListRequest : BaseDataRequest
+
+@end
+
+//所有科目
+@interface HomeworkClassAllSubjectRequest : BaseDataRequest
+
+@end
+
+//获取日历完成情况
+@interface HomeworkGetResultRequest : BaseDataRequest
+
+@end
+
+//家长标记完成
+@interface HomeworkFinishRequest : BaseDataRequest
+
+@end
+
+//家长添加附件
+@interface HomeworkAddEnclosureRequest : BaseDataRequest
+
+@end

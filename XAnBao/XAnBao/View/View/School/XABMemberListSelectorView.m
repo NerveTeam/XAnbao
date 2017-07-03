@@ -13,16 +13,18 @@
 
 @interface XABMemberListSelectorView ()
 @property(nonatomic,strong)NSArray *data;
+@property(nonatomic, strong)NSArray *selectedData;
 @property(nonatomic, assign)BOOL isSchool;
 @property(nonatomic, strong)NSMutableArray *viewList;
 @end
 @implementation XABMemberListSelectorView
 
 static const int cols = 4;
-+ (instancetype)memberListSelectorWithData:(NSArray *)data isSchool:(BOOL)isSchool {
++ (instancetype)memberListSelectorWithData:(NSArray *)data isSchool:(BOOL)isSchool selectedData:(NSArray *)selected{
     XABMemberListSelectorView *selector = [[XABMemberListSelectorView alloc]init];
     selector.isSchool = isSchool;
     selector.data = data;
+    selector.selectedData = selected;
     [selector setup];
     return selector;
 }
@@ -50,8 +52,19 @@ static const int cols = 4;
 }
 
 - (void)teacherItemClick:(UIButton *)teacher {
-    [teacher setSelected:!teacher.selected];
     NSString *teacherId = [NSString stringWithFormat:@"%ld",teacher.tag];
+    if ([_delegate respondsToSelector:@selector(clickItem:)]) {
+        [_delegate clickItem:teacherId];
+    }
+    
+    if ([_delegate respondsToSelector:@selector(clickItem:name:)]) {
+        [_delegate clickItem:teacherId name:teacher.titleLabel.text];
+    }
+    
+    if (self.elementSelEnable) {
+        return;
+    }
+    [teacher setSelected:!teacher.selected];
     if (teacher.selected) {
         teacher.backgroundColor = ThemeColor;
         if (![self.selectList containsObject:teacherId]) {
@@ -78,6 +91,24 @@ static const int cols = 4;
     }
 }
 
+- (void)hideAllBtn {
+    for (UIView *item in self.viewList) {
+        UIButton *allBtn = item.subviews.firstObject.subviews.lastObject;
+        allBtn.hidden = YES;
+    }
+}
+
+- (void)setTitleBgColor:(UIColor *)titleBgColor {
+    for (UIView *item in self.viewList) {
+        item.subviews.firstObject.backgroundColor = titleBgColor;
+
+    }
+}
+- (void)setElementBgColor:(UIColor *)elementBgColor {
+    for (UIView *item in self.viewList) {
+        item.subviews.lastObject.backgroundColor = elementBgColor;
+    }
+}
 - (void)setup {
     
     UIView *firstItem = nil;
@@ -89,7 +120,7 @@ static const int cols = 4;
         [self.viewList addObject:secView];
         [self addSubview:secView];
         UIView *headerView = [UIView new];
-        headerView.backgroundColor = [UIColor whiteColor];
+        headerView.backgroundColor = self.titleBgColor ? self.titleBgColor : [UIColor whiteColor];
         [secView addSubview:headerView];
         [headerView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.left.right.equalTo(secView);
@@ -130,7 +161,7 @@ static const int cols = 4;
         
         
         UIView *footer = [UIView new];
-        footer.backgroundColor = RGBCOLOR(242, 242, 242);
+        footer.backgroundColor = self.elementBgColor ? self.elementBgColor : RGBCOLOR(242, 242, 242);
         [secView addSubview:footer];
         [footer mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(headerView.mas_bottom);
@@ -166,6 +197,13 @@ static const int cols = 4;
             
             [footer addSubview:item];
             
+            
+            ///////
+            for (NSString *ids in self.selectedData) {
+                if ([teacherId isEqualToString:ids]) {
+                    [self teacherItemClick:item];
+                }
+            }
         }
         if (i == 0) {
             [secView mas_updateConstraints:^(MASConstraintMaker *make) {

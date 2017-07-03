@@ -14,5 +14,6 @@
 @end
 @interface XABSelectGroupCell : UITableViewCell
 @property(nonatomic, weak)id<XABSelectGroupCellDelegate> delegate;
+@property(nonatomic, strong)NSArray *selectedGroup;
 - (void)setModel:(NSDictionary *)data;
 @end

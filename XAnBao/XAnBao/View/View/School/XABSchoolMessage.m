@@ -60,11 +60,13 @@
             weakSelf.list = list.copy;
             [weakSelf setup];
         }else {
+            [weakSelf setup];
             if ([_delegate respondsToSelector:@selector(requestError)]) {
                 [_delegate requestError];
             }
         }
     } failureBlock:^(BaseDataRequest *request) {
+        [weakSelf setup];
         if ([_delegate respondsToSelector:@selector(requestError)]) {
             [_delegate requestError];
         }

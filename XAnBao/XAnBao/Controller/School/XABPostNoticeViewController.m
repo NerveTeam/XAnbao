@@ -16,8 +16,11 @@
 #import "XABClassRequest.h"
 #import "HKNetEngine.h"
 #import "ZXCameraManager.h"
+#import "XABImageCollectionView.h"
+#import "XABUploadImageCell.h"
+#import "XABEnclosure.h"
 
-@interface XABPostNoticeViewController ()<UIScrollViewDelegate,UIImagePickerControllerDelegate>
+@interface XABPostNoticeViewController ()<UIScrollViewDelegate,UIImagePickerControllerDelegate,UICollectionViewDataSource,UICollectionViewDelegate,XABUploadImageCellDelegate>
 @property(nonatomic, strong)UIView *topBarView;
 @property(nonatomic, strong)UIButton *backBtn;
 @property(nonatomic, strong)UIButton *postBtn;
@@ -37,6 +40,7 @@
 @property(nonatomic, strong)UIButton *noStatisBtn;
 @property(nonatomic, strong)UIButton *uploadImage;
 @property(nonatomic, strong)NSMutableArray *uploadImageList;
+@property(nonatomic, strong)XABImageCollectionView *imgCollectionView;
 @end
 
 @implementation XABPostNoticeViewController
@@ -70,6 +74,7 @@
 
 - (void)saveSelectObject:(NSNotification *)noti {
     self.selectGroupList =  noti.userInfo;
+    [self.selectObjectEnclosure showTip:@"已选择"];
 }
 
 
@@ -90,6 +95,7 @@
     select.isScholl = _noticeType == NoticeTypeSchool ? YES : NO;
     select.classId = _classId;
     select.schoolId = _schoolId;
+    select.selectedInfo = self.selectGroupList;
     [self pushToController:select animated:YES];
 }
 
@@ -204,7 +210,13 @@
         
         if (dic[@"hash"]) {
             NSString *urlString = [NSString stringWithFormat:@"%@%@",qn_domain, dic[@"key"]];
-            [weakSelf.uploadImageList addObject:urlString];
+            
+            XABEnclosure *enclosure = [XABEnclosure new];
+            enclosure.url = urlString;
+            [self.uploadImageList insertObject:enclosure atIndex:0];
+            [self.imgCollectionView reloadData];
+            [self.imgCollectionView setContentOffset:CGPointMake(0, 0) animated:YES];
+//            [weakSelf.uploadImageList addObject:urlString];
             
         }
         
@@ -217,6 +229,30 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     [self.view endEditing:YES];
 }
+
+
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    
+        return self.uploadImageList.count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+        XABUploadImageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:self.imgCollectionView.identifier forIndexPath:indexPath];
+        cell.delegate = self;
+        [cell setModel:self.uploadImageList[indexPath.item]];
+        return cell;
+    
+}
+
+- (void)deleteImage:(XABUploadImageCell *)cell {
+    NSIndexPath *path = [self.imgCollectionView indexPathForCell:cell];
+    [self.uploadImageList removeObjectAtIndex:path.item];
+    [self.imgCollectionView deleteItemsAtIndexPaths:@[path]];
+}
+
+#pragma mark - setup
 
 - (void)setup {
     self.view.backgroundColor = RGBCOLOR(242, 242, 242);
@@ -236,6 +272,9 @@
     [self.statisEnclosure addSubview:self.statisBtn];
     [self.statisEnclosure addSubview:self.noStatisBtn];
     [self.imageEnclosure addSubview:self.uploadImage];
+    [self.imageEnclosure addSubview:self.imgCollectionView];
+    
+    
     [self.contentScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.topBarView.mas_bottom);
         make.left.right.equalTo(self.view);
@@ -282,11 +321,18 @@
         make.top.equalTo(self.selectObjectEnclosure.mas_bottom).offset(10);
         make.left.equalTo(self.titleEnclosure);
         make.right.equalTo(self.titleEnclosure);
-        make.height.offset(40);
+        make.height.offset(160);
+    }];
+    
+    [self.imgCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.imageEnclosure.mas_bottom).offset(-10);
+        make.leading.equalTo(self.imageEnclosure);
+        make.trailing.equalTo(self.imageEnclosure);
+        make.height.offset(120);
     }];
     
     [self.uploadImage mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.imageEnclosure);
+        make.top.equalTo(self.imageEnclosure).offset(10);
         make.right.equalTo(self.imageEnclosure).offset(-10);
     }];
     
@@ -316,7 +362,7 @@
     
 }
 
-
+#pragma mark - lazy
 
 - (UIView *)topBarView {
     if (!_topBarView) {
@@ -360,6 +406,10 @@
     if (!_titleInputView) {
         _titleInputView = [UITextView new];
         _titleInputView.font = [UIFont systemFontOfSize:14];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        NSString *strDate = [dateFormatter stringFromDate:[NSDate date]];
+        _titleInputView.text = [NSString stringWithFormat:@"%@%@发布的通知",strDate,UserInfo.name];
     }
     return _titleInputView;
 }
@@ -450,5 +500,13 @@
         _uploadImageList = [NSMutableArray array];
     }
     return _uploadImageList;
+}
+
+- (XABImageCollectionView *)imgCollectionView {
+    if (!_imgCollectionView) {
+        _imgCollectionView = [[XABImageCollectionView alloc]initWithItemSize:CGRectMake(0, 0, 100, 100) identifier:@"XABUploadImageCell" itemHorizontalSpacing:20 itemVerticalSpacing:0 scrollDirection:UICollectionViewScrollDirectionHorizontal];
+        _imgCollectionView.dataSource = self;
+    }
+    return _imgCollectionView;
 }
 @end

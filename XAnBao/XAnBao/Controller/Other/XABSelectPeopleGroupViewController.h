@@ -12,4 +12,6 @@
 @property(nonatomic, copy)NSString *schoolId;
 @property(nonatomic, copy)NSString *classId;
 @property(nonatomic, assign)BOOL isScholl;
+@property(nonatomic, strong)NSDictionary *selectedInfo;
+@property(nonatomic, copy)NSString *subjectId;
 @end

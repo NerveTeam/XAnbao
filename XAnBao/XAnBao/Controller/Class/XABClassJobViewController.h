@@ -11,4 +11,6 @@
 @interface XABClassJobViewController : YBBaseViewController
 @property(nonatomic, copy)NSString *classId;
 @property(nonatomic, assign)NSInteger type;
+@property(nonatomic, copy)NSString *studentId;
+@property(nonatomic, copy)NSString *studentName;
 @end

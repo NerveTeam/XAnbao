@@ -33,7 +33,7 @@ static float margin = 20;   // item距边框距离
 static float itemMargin = 25; // item间距
 
 - (instancetype)initWithFrame:(CGRect)frame titles:(NSArray *)titles viewcontrollersInfo:(NSArray *)controllersInfo isParameter:(BOOL)isParameter {
-   self =  [super initWithFrame:CGRectMake(frame.origin.x, frame.origin.y, ScreenSize.width, ScreenSize.height - frame.origin.y)];
+   self =  [super initWithFrame:CGRectMake(frame.origin.x, frame.origin.y, ScreenSize.width, ScreenSize.height - frame.origin.y- frame.size.height)];
     self.isOnlyInit = !isParameter;
     self.meunHeight = frame.size.height;
     self.controllersInfo = controllersInfo;

@@ -10,4 +10,5 @@
 
 @interface XABEnclosureView : UIView
 + (instancetype)enclosureWithTitle:(NSString *)title;
+- (void)showTip:(NSString *)str;
 @end

@@ -9,6 +9,9 @@
 #import "XABEnclosureView.h"
 #import "UILabel+Extention.h"
 
+@interface XABEnclosureView ()
+@property(nonatomic,strong)UILabel *tip;
+@end
 @implementation XABEnclosureView
 
 + (instancetype)enclosureWithTitle:(NSString *)title {
@@ -17,6 +20,10 @@
     return enclosure;
 }
 
+
+- (void)showTip:(NSString *)str {
+    self.tip.text = str;
+}
 
 - (void)setup:(NSString *)title {
     self.backgroundColor = [UIColor whiteColor];
@@ -30,6 +37,7 @@
     [self addSubview:leftBg];
     [self addSubview:titleLabel];
     [self addSubview:line];
+    [self addSubview:self.tip];
     
     [leftBg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self);
@@ -47,5 +55,18 @@
         make.height.offset(0.5);
         make.leading.trailing.equalTo(self);
     }];
+    
+    [self.tip mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(titleLabel);
+        make.right.equalTo(self).offset(-30);
+        
+    }];
+}
+
+- (UILabel *)tip {
+    if (!_tip) {
+        _tip = [UILabel labelWithText:@"" fontSize:14 textColor:[UIColor blackColor]];
+    }
+    return _tip;
 }
 @end

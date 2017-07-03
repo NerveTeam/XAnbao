@@ -69,6 +69,9 @@
             weakSelf.followData = follow.copy;
             [weakSelf initTopBar];
             [weakSelf requestFoucs];
+            
+            NSInteger type = [[[follow safeObjectAtIndex:0]objectForKeySafely:@"type"] longValue];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"ClassChangeRole" object:nil userInfo:@{@"isTeacher":type == 2? @(YES) : @(NO)}];
         }
     } failureBlock:^(BaseDataRequest *request) {
         [weakSelf initTopBar];

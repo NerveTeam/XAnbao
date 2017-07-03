@@ -16,7 +16,7 @@
 @property(nonatomic,strong)UIButton *imgBtn;
 @property(nonatomic,strong)UIImageView *imageView;
 @property(nonatomic, strong)XABEnclosure *enclosure;
-
+@property(nonatomic, strong)UIButton *deleteBtn;
 @end
 @implementation XABUploadImageCell
 
@@ -47,8 +47,12 @@
         self.imgBtn.hidden = YES;
         self.imageView.hidden = NO;
         [self.contentView addSubview:self.imageView];
+        [self.contentView addSubview:self.deleteBtn];
         [self.imageView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.contentView).offset(10);
+        }];
+        [self.deleteBtn mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.right.equalTo(self.imageView);
         }];
     }
 }
@@ -57,6 +61,11 @@
     [self openPhotoLibrary];
 }
 
+- (void)deleteImg {
+    if ([_delegate respondsToSelector:@selector(deleteImage:)]) {
+        [_delegate deleteImage:self];
+    }
+}
 
 - (void)openCamera
 
@@ -166,5 +175,11 @@
     return _imageView;
 }
 
-
+- (UIButton *)deleteBtn {
+    if (!_deleteBtn) {
+        _deleteBtn = [UIButton buttonWithImageNormal:@"content_btn_del" imageHighlighted:@"content_btn_del"];
+        [_deleteBtn addTarget:self action:@selector(deleteImg) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _deleteBtn;
+}
 @end
