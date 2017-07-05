@@ -90,6 +90,7 @@
             [noT addObject:dic];
         }
     }
+    
     [nothing setSafeObject:noT.copy forKey:@"teacherList"];
     [yes setSafeObject:yesT.copy forKey:@"teacherList"];
     

@@ -18,8 +18,10 @@
 #import "HKNetEngine.h"
 #import "XABClassRequest.h"
 #import "FSResource.h"
+#import "PhotoEnlargeVC.h"
+#import "UIImageView+WebCache.h"
 
-@interface XABEnclosureViewController ()<UICollectionViewDataSource,XABRecordCellDelegate,XABUploadImageCellDelegate>
+@interface XABEnclosureViewController ()<UICollectionViewDataSource,XABRecordCellDelegate,XABUploadImageCellDelegate,UICollectionViewDelegate>
 @property(nonatomic, strong)UIView *topBar;
 @property(nonatomic, strong)UIButton *backBtn;
 @property(nonatomic, strong)XABEnclosureView *recordBgView;
@@ -172,7 +174,40 @@
     return nil;
   
 }
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    XABEnclosure *enclosure = self.imageFiles[indexPath.item];
+    if ([collectionView isKindOfClass:[XABImageCollectionView class]]) {
+        UIImageView *imagv = [[UIImageView alloc]init];
+        [imagv sd_setImageWithURL:[NSURL URLWithString:enclosure.url]];
+        
+        PhotoEnlargeVC *vc = [[PhotoEnlargeVC alloc] init];
+        
+        UIImage *image = imagv.image;
+        CGFloat scale = image.size.width/KScreenWidth;
+        UIImage *compressImage = [self imageWithImage:image scaledToSize:CGSizeMake(KScreenWidth, image.size.height/scale)];
+        [vc show:@[compressImage]];
+    }
+}
 
+
+- (UIImage*)imageWithImage:(UIImage*)image scaledToSize:(CGSize)newSize
+{
+    // Create a graphics image context
+    UIGraphicsBeginImageContext(newSize);
+    
+    // Tell the old image to draw in this new context, with the desired
+    // new size
+    [image drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
+    
+    // Get the new image from the context
+    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    // End the context
+    UIGraphicsEndImageContext();
+    
+    // Return the new image.
+    return newImage;
+}
 - (void)recordingDidFinish:(NSString *)filePath {
     if (filePath.length > 0) {
         [self uploadVioceWithFilePath:filePath];
@@ -249,6 +284,7 @@
     if (!_imgCollectionView) {
         _imgCollectionView = [[XABImageCollectionView alloc]initWithItemSize:CGRectMake(0, 0, 100, 100) identifier:@"XABUploadImageCell" itemHorizontalSpacing:20 itemVerticalSpacing:0 scrollDirection:UICollectionViewScrollDirectionHorizontal];
         _imgCollectionView.dataSource = self;
+        _imgCollectionView.delegate = self;
     }
     return _imgCollectionView;
 }

@@ -107,7 +107,12 @@
         NSMutableDictionary *pargam = [NSMutableDictionary new];
         [pargam setSafeObject:self.schoolId forKey:@"schoolId"];
         [pargam setSafeObject:UserInfo.id forKey:@"createId"];
-        [pargam setSafeObject:[self.uploadImageList componentsJoinedByString:@","] forKey:@"images"];
+        
+        NSMutableArray *imageArray  = [NSMutableArray array];
+        for (XABEnclosure *enclosure in self.uploadImageList) {
+            [imageArray addObject:enclosure.url];
+        }
+        [pargam setSafeObject:[imageArray componentsJoinedByString:@","] forKey:@"images"];
         [pargam setSafeObject:@(self.statisBtn.isSelected) forKey:@"confirm"];
         [pargam setSafeObject:self.titleInputView.text forKey:@"title"];
         [pargam setSafeObject:self.contentInputView.text forKey:@"content"];
@@ -119,6 +124,7 @@
             NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
             if (code == 200) {
                 [self showMessage:@"发布成功"];
+                [self popViewControllerAnimated:YES];
             }
         } failureBlock:^(BaseDataRequest *request) {
             [self showMessage:@"发布失败"];

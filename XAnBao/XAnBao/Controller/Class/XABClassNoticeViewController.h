@@ -11,4 +11,5 @@
 @interface XABClassNoticeViewController : YBBaseViewController
 @property(nonatomic, copy)NSString *classId;
 @property(nonatomic, assign)NSInteger type;
+@property(nonatomic, copy)NSString *roleId;
 @end

@@ -329,6 +329,8 @@
 		8C7BB5881F0501ED00A887A8 /* StatusTaskCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C7BB5841F0501ED00A887A8 /* StatusTaskCell.m */; };
 		8C7BB5891F0501ED00A887A8 /* StatusTaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C7BB5861F0501ED00A887A8 /* StatusTaskView.m */; };
 		8C7BB58C1F05025100A887A8 /* TaskContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C7BB58B1F05025100A887A8 /* TaskContentView.m */; };
+		8C899F751F0B734300B63575 /* StudentGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C899F741F0B734300B63575 /* StudentGroupViewController.m */; };
+		8C899F781F0B931600B63575 /* PhotoEnlargeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C899F771F0B931600B63575 /* PhotoEnlargeVC.m */; };
 		8CA107AD1E8B658A00417C5A /* XABHomeworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA107AC1E8B658A00417C5A /* XABHomeworkViewController.m */; };
 		8CA107B01E8B659900417C5A /* XABCheckJobViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA107AF1E8B659900417C5A /* XABCheckJobViewController.m */; };
 		8CB023FD1E6D470600A57EBC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB023FC1E6D470600A57EBC /* main.m */; };
@@ -1150,6 +1152,10 @@
 		8C7BB58A1F05025100A887A8 /* TaskContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskContentView.h; sourceTree = "<group>"; };
 		8C7BB58B1F05025100A887A8 /* TaskContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskContentView.m; sourceTree = "<group>"; };
 		8C7BB5901F0503C700A887A8 /* Basic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Basic.h; sourceTree = "<group>"; };
+		8C899F731F0B734300B63575 /* StudentGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StudentGroupViewController.h; sourceTree = "<group>"; };
+		8C899F741F0B734300B63575 /* StudentGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StudentGroupViewController.m; sourceTree = "<group>"; };
+		8C899F761F0B931600B63575 /* PhotoEnlargeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoEnlargeVC.h; sourceTree = "<group>"; };
+		8C899F771F0B931600B63575 /* PhotoEnlargeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoEnlargeVC.m; sourceTree = "<group>"; };
 		8CA107AB1E8B658A00417C5A /* XABHomeworkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABHomeworkViewController.h; sourceTree = "<group>"; };
 		8CA107AC1E8B658A00417C5A /* XABHomeworkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABHomeworkViewController.m; sourceTree = "<group>"; };
 		8CA107AE1E8B659900417C5A /* XABCheckJobViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABCheckJobViewController.h; sourceTree = "<group>"; };
@@ -2620,6 +2626,10 @@
 				8C7BB5661EFD1A3C00A887A8 /* SPFollowSetingTeamView.m */,
 				8C7BB5781F04FC5600A887A8 /* CheckTaskViewController.h */,
 				8C7BB5791F04FC5600A887A8 /* CheckTaskViewController.m */,
+				8C899F731F0B734300B63575 /* StudentGroupViewController.h */,
+				8C899F741F0B734300B63575 /* StudentGroupViewController.m */,
+				8C899F761F0B931600B63575 /* PhotoEnlargeVC.h */,
+				8C899F771F0B931600B63575 /* PhotoEnlargeVC.m */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -4146,6 +4156,7 @@
 				8C0DF5E01E85106E00A1B2B2 /* fftwrap.c in Sources */,
 				8CB026721E6D497700A57EBC /* UIViewController+AnimationHUD.m in Sources */,
 				8CB02A041E6D4A3B00A57EBC /* MLCommentVoteButton.m in Sources */,
+				8C899F781F0B931600B63575 /* PhotoEnlargeVC.m in Sources */,
 				8CFBD5241E764AAF00EE691B /* SchoolNewsAndArticleModel.m in Sources */,
 				751A53C31EE0F59A00BAB566 /* QNAssessment.m in Sources */,
 				60A551601E7D13BE0058DD96 /* XABFindPasswordViewController.m in Sources */,
@@ -4186,6 +4197,7 @@
 				751A53DB1EE0F59A00BAB566 /* QNFormUpload.m in Sources */,
 				751A53DE1EE0F59A00BAB566 /* QNUploadOption.m in Sources */,
 				8C0DF6031E88F86F00A1B2B2 /* XABRecordCell.m in Sources */,
+				8C899F751F0B734300B63575 /* StudentGroupViewController.m in Sources */,
 				8C7BB5421EF3DE8E00A887A8 /* XABSchoolGroupMembersCell.m in Sources */,
 				8CFBD5331E767AF600EE691B /* XABIntranetChatViewController.m in Sources */,
 				8C0DF5DC1E85106E00A1B2B2 /* exc_20_32_table.c in Sources */,

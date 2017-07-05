@@ -60,7 +60,7 @@ static const CGFloat imgH = imgScale(imgW);
     if (![sportList.visits isEqualToString:@"0"]) {
             self.commentCount.text = sportList.visits;
     }
-    if (self.sportList.coverUrl && [self.sportList.coverUrl isEqualToString:@""]) {
+    if (self.sportList.coverUrl == nil || [self.sportList.coverUrl isEqualToString:@""]) {
         [self.img mas_updateConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.contentView);
             make.top.equalTo(self.contentView).offset(marginTop);

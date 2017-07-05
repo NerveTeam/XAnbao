@@ -64,7 +64,11 @@
     WeakSelf;
     NSMutableDictionary *pargam = [NSMutableDictionary new];
     [pargam setSafeObject:@(self.type) forKey:@"userType"];
-    [pargam setSafeObject:self.classId forKey:@"patriarchid"];
+    if (self.type == 1) {
+         [pargam setSafeObject:self.roleId forKey:@"patriarchId"];
+    }else {
+        [pargam setSafeObject:self.classId forKey:@"classId"];
+    }
     [pargam setSafeObject:UserInfo.id forKey:@"userId"];
     [pargam setSafeObject:@(20) forKey:@"length"];
     [pargam setSafeObject:@(page) forKey:@"current"];

@@ -89,6 +89,7 @@
                 [follow safeAddObject:list];
                 if (defaultSchool) {
                     self.currentSchoolName = schoolName;
+                    self.currentSchoolId = schoolId;
                     [XABUserLogin getInstance].defaultSchoolId = schoolId;
                 }
             }
@@ -233,6 +234,7 @@
     [pargam setSafeObject:UserInfo.id forKey:@"userId"];
     [pargam setSafeObject:self.currentSchoolId forKey:@"schoolId"];
     [SchoolDefaultFollow requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
+        [XABUserLogin getInstance].defaultSchoolId = self.currentSchoolId;
         [weakSelf showMessage:@"设置成功"];
         
     } failureBlock:^(BaseDataRequest *request) {
@@ -241,7 +243,13 @@
 }
 
 - (void)schoolMenuCancelFoucs:(NSInteger)index{
+    
     NSString *currentSchoolId = [[self.followData safeObjectAtIndex:index] objectForKeySafely:@"schoolId"];
+    
+    if ([currentSchoolId isEqualToString:[XABUserLogin getInstance].defaultSchoolId]) {
+        [self showMessage:@"不能取消默认的学校"];
+        return;
+    }
     WeakSelf;
     NSMutableDictionary *pargam = [NSMutableDictionary new];
     [pargam setSafeObject:UserInfo.id forKey:@"userId"];

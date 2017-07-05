@@ -244,7 +244,7 @@
     
     [parma setSafeObject:attachments forKey:@"attachments"];
     
-    NSString *op = [self dictionaryToJson:parma];
+    
     [HomeworkAddEnclosureRequest requestDataWithParameters:@{@"json":[[self dictionaryToJson:parma] URLEncodedString]} headers:Token successBlock:^(BaseDataRequest *request) {
         NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
         if (code == 200) {

@@ -20,6 +20,7 @@
 #import "NSArray+Safe.h"
 #import "NSString+URLEncode.h"
 #import "XABHomework.h"
+#import "UILabel+Extention.h"
 
 @interface XABHomeworkViewController ()<XABCalendarDelegate,UIActionSheetDelegate,UITableViewDelegate,UITableViewDataSource,XABHomeworkCellDelegate>
 @property(nonatomic, strong)UIView *topBarView;
@@ -31,6 +32,7 @@
 @property(nonatomic, strong)XABSelectView *studentGroupClickView;
 @property(nonatomic, strong)XABSelectView *statisClickView;
 @property(nonatomic, strong)UITableView *homeworkTableview;
+@property(nonatomic, strong)UIView *homeworkHeaderView;
 @property(nonatomic, strong)UIView *addHomeworkView;
 // 原始数据
 @property(nonatomic, strong)NSArray *subjectData;
@@ -331,12 +333,40 @@
     }
     return _addEnclosureBtn;
 }
-
+- (UIView *)homeworkHeaderView {
+    if (!_homeworkHeaderView) {
+        _homeworkHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.homeworkTableview.width, 30)];
+        UILabel *content = [UILabel labelWithText:@"内容" fontSize:13 textColor:[UIColor blackColor]];
+        UILabel *enclosure = [UILabel labelWithText:@"附件" fontSize:13 textColor:[UIColor blackColor]];
+        UILabel *reply = [UILabel labelWithText:@"是否回复" fontSize:13 textColor:[UIColor blackColor]];
+        
+        [_homeworkHeaderView addSubview:content];
+        [_homeworkHeaderView addSubview:enclosure];
+        [_homeworkHeaderView addSubview:reply];
+        
+        [content mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(_homeworkHeaderView).offset(-20);
+            make.bottom.equalTo(_homeworkHeaderView);
+        }];
+        
+        [enclosure mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(reply.mas_left).offset(-10);
+            make.bottom.equalTo(_homeworkHeaderView);
+        }];
+        
+        [reply mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(_homeworkHeaderView);
+            make.bottom.equalTo(_homeworkHeaderView);
+        }];
+    }
+    return _homeworkHeaderView;
+}
 - (UITableView *)homeworkTableview {
     if (!_homeworkTableview) {
         _homeworkTableview = [[UITableView alloc]init];
         _homeworkTableview.delegate = self;
         _homeworkTableview.dataSource = self;
+        _homeworkTableview.tableHeaderView = self.homeworkHeaderView;
         _homeworkTableview.tableFooterView = self.addHomeworkView;
     }
     return _homeworkTableview;

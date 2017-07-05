@@ -58,6 +58,7 @@
                 NSString *studentId = [item objectForKeySafely:@"studentId"] ;
                 NSString *studentName = [item objectForKeySafely:@"studentName"];
                 NSMutableDictionary *list = [NSMutableDictionary dictionary];
+                [list setSafeObject:[item objectForKeySafely:@"id"] forKey:@"roleId"];
                 [list setSafeObject:classId forKey:@"classId"];
                 [list setSafeObject:className forKey:@"className"];
                 [list setSafeObject:studentId forKey:@"studentId"];
@@ -68,10 +69,13 @@
             }
             weakSelf.followData = follow.copy;
             [weakSelf initTopBar];
+            [weakSelf initContent];
             [weakSelf requestFoucs];
             
             NSInteger type = [[[follow safeObjectAtIndex:0]objectForKeySafely:@"type"] longValue];
             [[NSNotificationCenter defaultCenter]postNotificationName:@"ClassChangeRole" object:nil userInfo:@{@"isTeacher":type == 2? @(YES) : @(NO)}];
+        }else {
+        [weakSelf initTopBar];
         }
     } failureBlock:^(BaseDataRequest *request) {
         [weakSelf initTopBar];
@@ -101,8 +105,6 @@
 - (void)initTopBar {
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.topBarView];
-    [self.view addSubview:self.cycleView];
-    [self.view addSubview:self.contentView];
     [self.currentSelectSchool mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.topBarView).offset(-10);
         make.leading.equalTo(self.topBarView).offset(15);
@@ -111,6 +113,11 @@
         make.centerY.equalTo(self.currentSelectSchool);
         make.trailing.equalTo(self.topBarView).offset(-10);
     }];
+}
+
+- (void)initContent {
+    [self.view addSubview:self.cycleView];
+    [self.view addSubview:self.contentView];
 }
 
 - (void)clickSchoolMenu {
@@ -236,18 +243,24 @@
     if (!_currentSelectSchool) {
         _currentSelectSchool = [[UIButton alloc]init];
         [_currentSelectSchool.titleLabel setFont:[UIFont systemFontOfSize:16]];
-        NSInteger type = [[self.followData.firstObject objectForKeySafely:@"type"] longValue];
         NSString *result = @"";
-        if (type == 1) {
-            result = @"我是家长:";
-        }else if(type == 2){
-            result = @"我是老师:";
+        if (self.followData) {
+            NSInteger type = [[self.followData.firstObject objectForKeySafely:@"type"] longValue];
+            
+            if (type == 1) {
+                result = @"我是家长:";
+            }else if(type == 2){
+                result = @"我是老师:";
+            }
+            result = [result stringByAppendingString:[self.followData.firstObject objectForKeySafely:@"className"]];
+            NSString *studentName = [self.followData.firstObject objectForKeySafely:@"studentName"];
+            if (studentName) {
+                result = [result stringByAppendingString:studentName];
+            }
+        }else {
+            result = @"尚未关注";
         }
-        result = [result stringByAppendingString:[self.followData.firstObject objectForKeySafely:@"className"]];
-        NSString *studentName = [self.followData.firstObject objectForKeySafely:@"studentName"];
-        if (studentName) {
-            result = [result stringByAppendingString:studentName];
-        }
+       
         [_currentSelectSchool setTitle:result forState:UIControlStateNormal];
         [_currentSelectSchool setImage:[UIImage imageNamed:@"faculty_arrow"] forState:UIControlStateNormal];
         [_currentSelectSchool sizeToFit];

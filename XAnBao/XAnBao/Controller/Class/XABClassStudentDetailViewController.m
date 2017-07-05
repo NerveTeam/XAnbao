@@ -98,16 +98,24 @@
     [pargam setSafeObject:UserInfo.mobile forKey:@"mobilePhone"];
     [pargam setSafeObject:self.sid forKey:@"studentId"];
     [pargam setSafeObject:self.classId forKey:@"classId"];
-    [pargam setSafeObject:[self getCall:self.selectCallIndex] forKey:@"appellation"];
+    NSString *appellation = [NSString stringWithFormat:@"%ld",self.selectCallIndex+1];
+    if (self.selectCallIndex == 6) {
+        appellation = [NSString stringWithFormat:@"%d",99];
+    }
+    [pargam setSafeObject:appellation forKey:@"appellation"];
     [ClassFollowStudent requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
         NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
         if (code == 200) {
+            if (self.result.count > 0) {
+                [self showMessage:@"等待其他成员确认"];
+            }else {
             [self showMessage:@"关注成功"];
+            }
         }else {
             [self showMessage:@"等待其他成员确认"];
         }
     } failureBlock:^(BaseDataRequest *request) {
-            [self showMessage:@"等待其他成员确认"];
+            [self showMessage:@"网络异常"];
     }];
 }
 
@@ -130,7 +138,7 @@
         make.left.equalTo(cell).offset(10);
     }];
     
-    UILabel *name = [UILabel labelWithText:[dic objectForKeySafely:@"appellation"] fontSize:15 textColor:[UIColor blackColor]];
+    UILabel *name = [UILabel labelWithText:[dic objectForKeySafely:@"name"] fontSize:15 textColor:[UIColor blackColor]];
     [cell addSubview:name];
     [name mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(cell);
@@ -138,7 +146,7 @@
     }];
     
     
-    UILabel *iphone = [UILabel labelWithText:[dic objectForKeySafely:@"mobilePhone"] fontSize:15 textColor:[UIColor blackColor]];
+    UILabel *iphone = [UILabel labelWithText:[self replaceChar:[dic objectForKeySafely:@"mobilePhone"]] fontSize:15 textColor:[UIColor blackColor]];
     [cell addSubview:iphone];
     [iphone sizeToFit];
     [iphone mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -146,6 +154,11 @@
         make.right.equalTo(cell).offset(-10);
     }];
     return cell;
+}
+
+- (NSString *)replaceChar:(NSString *)str {
+   return [str stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -195,6 +208,12 @@
     return nil;
 }
 
+- (void)tapClick {
+    [self.followObjectView removeFromSuperview];
+    [self.followBgView removeFromSuperview];
+    [self.cofBtn removeFromSuperview];
+}
+
 - (UIView *)topBarView {
     if (!_topBarView) {
         _topBarView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, StatusBarHeight + TopBarHeight)];
@@ -233,6 +252,7 @@
         _followObjectView.backgroundColor = [UIColor blackColor];
         _followObjectView.alpha = 0.5;
         _followObjectView.frame = self.view.bounds;
+        [_followObjectView addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClick)]];
     }
     return _followObjectView;
 }

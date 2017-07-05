@@ -16,6 +16,7 @@
 #import "XABMemberListSelectorView.h"
 #import "XABSelectGroupCell.h"
 #import "NSArray+Safe.h"
+#import "StudentGroupViewController.h"
 
 @interface XABSelectPeopleGroupViewController ()<UITableViewDelegate,UITableViewDataSource,XABSelectGroupCellDelegate>
 @property(nonatomic,strong)NSMutableArray *selectGroupList;
@@ -30,6 +31,7 @@
 @property(nonatomic, strong)UITableView *existTableview;
 @property(nonatomic, strong)XABMemberListSelectorView *selectorView;
 @property(nonatomic, strong)UIButton *postBtn;
+@property(nonatomic, strong)NSDictionary *studentListGroupData;
 @end
 
 @implementation XABSelectPeopleGroupViewController
@@ -101,6 +103,19 @@
                 }
                 self.groupList = group.copy;
                 [self.existTableview reloadData];
+                
+                NSMutableDictionary *stuList = [NSMutableDictionary dictionary];
+                for (NSDictionary *item in group) {
+                    NSString *fid = [item objectForKeySafely:@"id"];
+                    NSMutableArray *temp = [NSMutableArray array];
+                    for (NSDictionary *iitm in data) {
+                        if ([fid isEqualToString:[iitm objectForKeySafely:@"parentId"]]) {
+                            [temp addObject:iitm];
+                        }
+                    }
+                    [stuList setSafeObject:temp forKey:fid];
+                }
+                self.studentListGroupData = stuList.copy;
             }
         } failureBlock:^(BaseDataRequest *request) {
             
@@ -122,6 +137,19 @@
                 }
                 self.groupList = group.copy;
                 [self.existTableview reloadData];
+                
+                NSMutableDictionary *stuList = [NSMutableDictionary dictionary];
+                for (NSDictionary *item in group) {
+                    NSString *fid = [item objectForKeySafely:@"id"];
+                    NSMutableArray *temp = [NSMutableArray array];
+                    for (NSDictionary *iitm in data) {
+                        if ([fid isEqualToString:[iitm objectForKeySafely:@"parentId"]]) {
+                            [temp addObject:iitm];
+                        }
+                    }
+                    [stuList setSafeObject:temp forKey:fid];
+                }
+                self.studentListGroupData = stuList.copy;
             }
         } failureBlock:^(BaseDataRequest *request) {
             
@@ -252,6 +280,13 @@
         return 40;
     }
     return 0;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSDictionary *dict = [self.groupList safeObjectAtIndex:indexPath.row];
+    NSArray *member = [self.studentListGroupData objectForKeySafely:[dict objectForKeySafely:@"id"]];
+    StudentGroupViewController *studentGrouplist = [[StudentGroupViewController alloc]init];
+    [studentGrouplist show:member];
 }
 
 
