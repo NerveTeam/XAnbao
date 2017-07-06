@@ -106,6 +106,7 @@
         if (judge) {
             XABSchoolIntranetViewController *intranet = [XABSchoolIntranetViewController new];
             intranet.schoolId = self.schollId;
+            intranet.schollName = self.schollName;
             [self.navigationController pushViewController:intranet animated:YES];
         }else {
             [weakSelf showMessage:@"无权进入"];

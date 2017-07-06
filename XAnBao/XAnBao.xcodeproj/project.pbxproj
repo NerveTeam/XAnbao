@@ -331,6 +331,7 @@
 		8C7BB58C1F05025100A887A8 /* TaskContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C7BB58B1F05025100A887A8 /* TaskContentView.m */; };
 		8C899F751F0B734300B63575 /* StudentGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C899F741F0B734300B63575 /* StudentGroupViewController.m */; };
 		8C899F781F0B931600B63575 /* PhotoEnlargeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C899F771F0B931600B63575 /* PhotoEnlargeVC.m */; };
+		8C899F7B1F0CDA3700B63575 /* SNJSBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C899F7A1F0CDA3700B63575 /* SNJSBridge.m */; };
 		8CA107AD1E8B658A00417C5A /* XABHomeworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA107AC1E8B658A00417C5A /* XABHomeworkViewController.m */; };
 		8CA107B01E8B659900417C5A /* XABCheckJobViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA107AF1E8B659900417C5A /* XABCheckJobViewController.m */; };
 		8CB023FD1E6D470600A57EBC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB023FC1E6D470600A57EBC /* main.m */; };
@@ -1156,6 +1157,8 @@
 		8C899F741F0B734300B63575 /* StudentGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StudentGroupViewController.m; sourceTree = "<group>"; };
 		8C899F761F0B931600B63575 /* PhotoEnlargeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoEnlargeVC.h; sourceTree = "<group>"; };
 		8C899F771F0B931600B63575 /* PhotoEnlargeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoEnlargeVC.m; sourceTree = "<group>"; };
+		8C899F791F0CDA3700B63575 /* SNJSBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNJSBridge.h; sourceTree = "<group>"; };
+		8C899F7A1F0CDA3700B63575 /* SNJSBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNJSBridge.m; sourceTree = "<group>"; };
 		8CA107AB1E8B658A00417C5A /* XABHomeworkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABHomeworkViewController.h; sourceTree = "<group>"; };
 		8CA107AC1E8B658A00417C5A /* XABHomeworkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XABHomeworkViewController.m; sourceTree = "<group>"; };
 		8CA107AE1E8B659900417C5A /* XABCheckJobViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XABCheckJobViewController.h; sourceTree = "<group>"; };
@@ -3623,6 +3626,8 @@
 				751A52671EE01FA400BAB566 /* XABFileViewController.m */,
 				751A52681EE01FA400BAB566 /* XABOtherViewController.h */,
 				751A52691EE01FA400BAB566 /* XABOtherViewController.m */,
+				8C899F791F0CDA3700B63575 /* SNJSBridge.h */,
+				8C899F7A1F0CDA3700B63575 /* SNJSBridge.m */,
 				752155831ECAEAE100BAD876 /* FGGDownloader */,
 				8C636BCF1ED569690003E2D1 /* XABSelectPeopleGroupViewController.h */,
 				8C636BD01ED569690003E2D1 /* XABSelectPeopleGroupViewController.m */,
@@ -3896,6 +3901,7 @@
 				8CFBD54B1E76AC0E00EE691B /* XABClassScheduleViewController.m in Sources */,
 				8C0DF5F51E85106F00A1B2B2 /* resample.c in Sources */,
 				751A53AE1EE0F59A00BAB566 /* NSFoundation+CRBoost.m in Sources */,
+				8C899F7B1F0CDA3700B63575 /* SNJSBridge.m in Sources */,
 				8CB02B6D1E6D5A1900A57EBC /* schoolmodel.m in Sources */,
 				8C7BB5401EF3DE8E00A887A8 /* XABCurriculusCollectionViewCell.m in Sources */,
 				8C7BB5871F0501ED00A887A8 /* StatusHeaderView.m in Sources */,

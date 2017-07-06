@@ -11,4 +11,5 @@
 @interface XABPictureViewController : YBBaseViewController
 @property(nonatomic, copy)NSString *schoolId;
 @property(nonatomic, copy)NSString *classId;
+
 @end

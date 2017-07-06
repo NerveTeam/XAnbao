@@ -16,6 +16,7 @@ typedef NS_ENUM(NSUInteger, ArticleType) {
 @interface XABArticleViewController : YBBaseViewController
 - (instancetype)initWithUrl:(NSString *)url;
 @property(nonatomic, copy)NSString *articleId;
+@property(nonatomic, copy)NSString *roleId;
 @property(nonatomic, assign)ArticleType showType;
 @property(nonatomic, assign)BOOL isReturn;
 @property(nonatomic, assign)BOOL isCatStatis;

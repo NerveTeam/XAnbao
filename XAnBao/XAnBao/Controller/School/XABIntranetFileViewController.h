@@ -10,4 +10,5 @@
 
 @interface XABIntranetFileViewController : YBBaseViewController
 @property(nonatomic, copy)NSString *schoolId;
+@property(nonatomic, copy)NSString *schollName;
 @end

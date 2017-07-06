@@ -68,7 +68,8 @@
                       @"schoolId":self.schoolId}},
               @{@"class":@"XABIntranetFileViewController",
                 @"info":@{
-                        @"schoolId":self.schoolId}}];
+                        @"schoolId":self.schoolId,
+                        @"schollName":self.schollName}}];
     }
     return _channelData;
 }

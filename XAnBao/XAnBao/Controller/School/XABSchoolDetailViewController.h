@@ -11,4 +11,5 @@
 @interface XABSchoolDetailViewController : YBBaseViewController
 @property(nonatomic, copy)NSString *channelId;
 @property(nonatomic, copy)NSString *schollId;
+@property(nonatomic, copy)NSString *schollName;
 @end

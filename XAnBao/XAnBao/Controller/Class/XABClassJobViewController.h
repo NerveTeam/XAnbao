@@ -13,4 +13,5 @@
 @property(nonatomic, assign)NSInteger type;
 @property(nonatomic, copy)NSString *studentId;
 @property(nonatomic, copy)NSString *studentName;
+@property(nonatomic, copy)NSString *className;
 @end

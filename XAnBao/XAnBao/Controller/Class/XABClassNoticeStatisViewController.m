@@ -18,7 +18,7 @@
 @property(nonatomic, strong)UIView *topBarView;
 @property(nonatomic, strong)UIButton *backBtn;
 @property(nonatomic,strong)NSArray *classList;
-@property(nonatomic, strong)NSArray *statisResult;
+@property(nonatomic, strong)NSMutableArray *statisResult;
 @property(nonatomic, strong)UITableView *existTableview;
 @property(nonatomic, strong)XABMemberListSelectorView *selectorView;
 @property(nonatomic, strong)UIView *bgTipView;
@@ -54,7 +54,7 @@
     [pa setSafeObject:classId forKey:@"classId"];
     [ClassCatStatisRequest requestDataWithParameters:pa headers:Token successBlock:^(BaseDataRequest *request) {
         NSArray *data = [request.json objectForKeySafely:@"data"];
-        self.statisResult = data;
+        self.statisResult = data.mutableCopy;
         [weakSelf setup];
         [weakSelf parseClassData:data];
     } failureBlock:^(BaseDataRequest *request) {
@@ -67,8 +67,57 @@
     [self.view addSubview:self.existTableview];
 }
 
-
+- (void)removeObjWithSaveElement:(NSDictionary *)item {
+    NSMutableArray *removeArray = [NSMutableArray array];
+    for (NSDictionary *element in self.statisResult) {
+        if ([[element objectForKeySafely:@"studentId"] isEqualToString:[item objectForKeySafely:@"studentId"]]) {
+            if ([[element objectForKeySafely:@"patriarchId"] isEqualToString:[item objectForKeySafely:@"patriarchId"]]) {
+                continue;
+            }else {
+                [removeArray addObject:element];
+            }
+        }
+    }
+    
+    for (NSDictionary *element in removeArray) {
+        [self.statisResult removeObject:element];
+    }
+}
 - (void)parseClassData:(NSArray *)data {
+    
+    NSMutableArray *saveArray = [NSMutableArray array];
+    for (NSMutableDictionary *item1 in data) {
+        NSString *stu1 = [item1 objectForKeySafely:@"studentId"];
+        BOOL confim1 = [[item1 objectForKeySafely:@"replied"] boolValue];
+        [saveArray addObject:item1];
+        
+        for (NSInteger i = 0; i<saveArray.count; i++) {
+            NSMutableDictionary *item2 = [saveArray safeObjectAtIndex:i];
+            if (item1 == item2) {
+                continue;
+            }
+            
+            NSString *stu2 = [item2 objectForKeySafely:@"studentId"];
+            if ([stu1 isEqualToString:stu2]) {
+                BOOL confim2 = [[item2 objectForKeySafely:@"replied"] boolValue];
+                [saveArray removeObject:item1];
+                if (confim2 && confim1) {
+                    NSString *patriarchName = [item2 objectForKeySafely:@"patriarchName"];
+                    [item2 setSafeObject:[patriarchName stringByAppendingString:[NSString stringWithFormat:@",%@",[item1 objectForKeySafely:@"patriarchName"]]]  forKey:@"patriarchName"];
+                }else if (confim2 && !confim1) {
+                    continue;
+                }else if (!confim2 && confim1) {
+                    [saveArray replaceObjectAtIndex:i withObject:item1];
+                }else if (!confim2 && !confim1) {
+                    continue;
+                }
+            }
+        }
+        
+    }
+    
+    self.statisResult = saveArray;
+    
     NSMutableArray *statis = [NSMutableArray array];
     NSMutableDictionary *nothing = [NSMutableDictionary dictionary];
     NSMutableDictionary *yes = [NSMutableDictionary dictionary];
@@ -78,7 +127,7 @@
     
     NSMutableArray *noT = [NSMutableArray array];
     NSMutableArray *yesT = [NSMutableArray array];
-    for (NSDictionary *item in data) {
+    for (NSDictionary *item in saveArray) {
         BOOL confim = [[item objectForKeySafely:@"replied"] boolValue];
         NSString *name = [item objectForKeySafely:@"studentName"];
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
@@ -147,6 +196,10 @@
             break;
         }
     }
+    BOOL confim = [[result objectForKeySafely:@"replied"] boolValue];
+    if (!confim) {
+        return;
+    }
     [self.bgTipView removeFromSuperview];
     
     UIView *bgView = [UIView new];
@@ -156,7 +209,7 @@
     [bgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.centerY.equalTo(self.view);
         make.width.offset(200);
-        make.height.offset(120);
+        make.height.offset(200);
     }];
     
     UILabel *stu = [UILabel labelWithText:[NSString stringWithFormat:@"学生：%@",[result objectForKeySafely:@"studentName"]] fontSize:14 textColor:[UIColor blackColor]];
@@ -166,9 +219,11 @@
     }];
     
     UILabel *fa = [UILabel labelWithText:[NSString stringWithFormat:@"确认者：%@",[result objectForKeySafely:@"patriarchName"]] fontSize:14 textColor:[UIColor blackColor]];
+    fa.numberOfLines = 0;
     [bgView addSubview:fa];
     [fa mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(bgView).offset(10);
+        make.right.equalTo(bgView).offset(-10);
         make.top.equalTo(stu.mas_bottom).offset(20);
     }];
     

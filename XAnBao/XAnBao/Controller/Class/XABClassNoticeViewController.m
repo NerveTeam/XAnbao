@@ -117,6 +117,7 @@
     XABResource *sport = self.dataList[indexPath.row];
     XABArticleViewController *article = [[XABArticleViewController alloc]initWithUrl:sport.url];
     article.articleId = sport.id;
+    article.roleId = self.roleId;
     article.isReturn = sport.reply;
     article.isReceived = sport.replied;
     article.showType = ArticleTypeClass;

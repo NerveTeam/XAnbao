@@ -127,7 +127,8 @@
                 [channelData safeAddObject:@{@"class":@"XABSchoolDetailViewController",
                                          @"info":@{
                                                  @"channelId":[sub objectForKeySafely:@"id"],
-                                                   @"schollId":[sub objectForKeySafely:@"schoolId"]}}];
+                                                   @"schollId":[sub objectForKeySafely:@"schoolId"],
+                                                 @"schollName":self.currentSchoolName}}];
             }
             weakSelf.channelName = channelName.copy;
             weakSelf.channelData = channelData.copy;
@@ -279,6 +280,7 @@
     [self.schoolMenuBgView removeFromSuperview];
     
     self.currentSchoolId = [[self.followData safeObjectAtIndex:index] objectForKeySafely:@"schoolId"];
+    self.currentSchoolName = str;
     
     // 重新请求频道信息
     WeakSelf;
@@ -293,7 +295,8 @@
                 [channelData safeAddObject:@{@"class":@"XABSchoolDetailViewController",
                                          @"info":@{
                                                  @"channelId":[sub objectForKeySafely:@"id"],
-                                                 @"schollId":[sub objectForKeySafely:@"schoolId"]}}];
+                                                 @"schollId":[sub objectForKeySafely:@"schoolId"],
+                                                 @"schollName":self.currentSchoolName}}];
             }
             [weakSelf.meunView removeFromSuperview];
             weakSelf.meunView = [[MLMeunView alloc]initWithFrame:CGRectMake(0, self.topBarView.height, self.topBarView.width - self.messageMailBtn.width, TopBarHeight) titles:channelName viewcontrollersInfo:channelData isParameter:YES];

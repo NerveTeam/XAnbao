@@ -12,4 +12,5 @@
 @property(nonatomic, copy)NSString *classId;
 @property(nonatomic, assign)NSInteger type;
 @property(nonatomic, strong)NSArray *attachments;
+@property(nonatomic, copy)NSString *className;
 @end

@@ -15,29 +15,69 @@
 #import "NSArray+Safe.h"
 #import "XABSchoolNoticeStatisViewController.h"
 #import "XABClassNoticeStatisViewController.h"
+#import "SNJSBridge.h"
+#import "NSDictionary+Safe.h"
 
-@interface XABArticleViewController ()
+@interface XABArticleViewController ()<SNJSBridgeDelegate>
 @property(nonatomic,strong)UIWebView *webView;
 @property(nonatomic, copy)NSString *url;
 @property(nonatomic, strong)UIButton *statisLogView;
 @property(nonatomic, strong)UIButton *receivedLogView;
-
+@property(nonatomic, strong)SNJSBridge *jsBridge;
+@property (nonatomic, strong) NSMutableDictionary *jsBridgeListeners;
 @end
 
 @implementation XABArticleViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+//    [self initJSBridge];
     NSMutableDictionary *pa = [NSMutableDictionary dictionary];
     [pa setSafeObject:self.articleId forKey:@"itemId"];
     [SchoolVisitLog requestDataWithDelegate:self parameters:pa headers:Token];
     self.navigationController.navigationBar.hidden = NO;
     [NSURLProtocol registerClass:[RNCachingURLProtocol class]];
     [self.view addSubview:self.webView];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.url]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://7y6y23.com1.z1.glb.clouddn.com/index.html"]];
+    self.webView.delegate = self;
     [self.webView loadRequest:request];
     [self notificationInit];
     
+}
+//初始化JS桥接
+- (void)initJSBridge
+{
+    self.jsBridge = [[SNJSBridge alloc] init];
+    self.jsBridge.delegate = self;
+    self.jsBridgeListeners = [[NSMutableDictionary alloc] init];
+}
+
+-(void)jsBridge_addEventListener:(NSDictionary *)userInfo
+{
+    if(userInfo)
+    {
+        NSString *jsBridgeEvent = [userInfo objectForKeySafely:@"event"];
+        
+        [self.jsBridgeListeners setSafeObject:userInfo forKey:jsBridgeEvent];
+    }
+}
+- (BOOL)jsBridgeOfHandleEvent:(SNJSBridge   *)jsBridge
+           jsNotificationName:(NSString     *)jsNotificationName
+                     userInfo:(NSDictionary *)userInfo
+                  fromWebView:(UIWebView    *)webView
+                callBackParam:(NSMutableDictionary *)paramDic
+{
+    NSString *jsBridgeMethod = [userInfo objectForKeySafely:@"method"];
+    SEL selector = NSSelectorFromString([NSString stringWithFormat:@"jsBridge_%@:", jsBridgeMethod]);
+    
+    if ([self respondsToSelector:selector]) {
+//        SN_SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING([self performSelector:selector withObject:userInfo]);
+    }
+    return NO;
+}
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    return YES;
 }
 
 - (void)notificationInit {
@@ -64,7 +104,7 @@
     WeakSelf;
     NSMutableDictionary *pargam = [NSMutableDictionary dictionary];
     if (self.showType == ArticleTypeClass) {
-        [pargam setSafeObject:UserInfo.id forKey:@"patriarchId"];
+        [pargam setSafeObject:self.roleId forKey:@"patriarchId"];
         [pargam setSafeObject:self.articleId forKey:@"messageId"];
         [ClassReceivedNoticeRequest requestDataWithParameters:pargam headers:Token successBlock:^(BaseDataRequest *request) {
             NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
