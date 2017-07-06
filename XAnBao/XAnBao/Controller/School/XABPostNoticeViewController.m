@@ -131,7 +131,12 @@
         }];
     }else if (self.noticeType == NoticeTypeClass) {
         NSMutableDictionary *pargam = [NSMutableDictionary new];
-        [pargam setSafeObject:[self.uploadImageList componentsJoinedByString:@","]forKey:@"images"];
+        
+        NSMutableArray *imageArray  = [NSMutableArray array];
+        for (XABEnclosure *enclosure in self.uploadImageList) {
+            [imageArray addObject:enclosure.url];
+        }
+        [pargam setSafeObject:[imageArray componentsJoinedByString:@","] forKey:@"images"];
         [pargam setSafeObject:@(self.statisBtn.isSelected) forKey:@"reply"];
         [pargam setSafeObject:self.titleInputView.text forKey:@"title"];
         [pargam setSafeObject:self.contentInputView.text forKey:@"content"];

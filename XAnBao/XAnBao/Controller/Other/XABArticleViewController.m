@@ -38,8 +38,8 @@
     self.navigationController.navigationBar.hidden = NO;
     [NSURLProtocol registerClass:[RNCachingURLProtocol class]];
     [self.view addSubview:self.webView];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://7y6y23.com1.z1.glb.clouddn.com/index.html"]];
-    self.webView.delegate = self;
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.url]];
+//    self.webView.delegate = self.jsBridge;
     [self.webView loadRequest:request];
     [self notificationInit];
     
@@ -74,10 +74,6 @@
 //        SN_SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING([self performSelector:selector withObject:userInfo]);
     }
     return NO;
-}
-
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    return YES;
 }
 
 - (void)notificationInit {

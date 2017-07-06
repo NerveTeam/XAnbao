@@ -54,6 +54,7 @@
                 NSMutableDictionary *element = [NSMutableDictionary dictionary];
                 [element setSafeObject:[item objectForKeySafely:@"id"] forKey:@"teacherId"];
                 [element setSafeObject:[item objectForKeySafely:@"name"] forKey:@"teacherName"];
+                [element setSafeObject:[item objectForKeySafely:@"duty"] forKey:@"duty"];
                 [list safeAddObject:element];
                 
             }
@@ -152,7 +153,7 @@
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"选择对象" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:nil, nil];
     for (NSDictionary *item in self.list) {
-        [sheet addButtonWithTitle:[item objectForKeySafely:@"teacherName"]];
+        [sheet addButtonWithTitle:[[item objectForKeySafely:@"teacherName"] stringByAppendingString:[NSString stringWithFormat:@":%@",[item objectForKeySafely:@"duty"]]]];
     }
     [sheet showInView:self];
     return NO;

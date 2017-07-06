@@ -125,7 +125,7 @@
     NSDictionary *dict = self.datalist[index.section][index.row];
     
     NSMutableDictionary *parma = [NSMutableDictionary dictionary];
-    [parma setSafeObject:[dict objectForKeySafely:@"homeworkId"] forKey:@"homeworkId"];
+    [parma setSafeObject:[dict objectForKeySafely:@"id"] forKey:@"homeworkId"];
     [parma setSafeObject:self.studentId forKey:@"studentId"];
     [HomeworkFinishRequest requestDataWithParameters:parma headers:Token successBlock:^(BaseDataRequest *request) {
         NSInteger code = [[request.json objectForKeySafely:@"code"] longValue];
@@ -140,7 +140,7 @@
     
     sender.selected = !sender.selected;
     NSIndexPath *index = [self indexPathForCell:(UITableViewCell *)sender.superview.superview];
-    self.homeworkId =  self.datalist[index.section][index.row][@"homeworkId"];
+    self.homeworkId =  self.datalist[index.section][index.row][@"id"];
     XABEnclosureViewController *enclosure = [XABEnclosureViewController new];
     [self.navgationController pushViewController:enclosure animated:YES];
 
